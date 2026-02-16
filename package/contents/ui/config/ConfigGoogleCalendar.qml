@@ -13,6 +13,7 @@ ConfigPage {
 	property bool showHelp: false
 	property bool showAdvanced: false
 	property bool oauthBusy: false
+	property bool syncingSelectionModels: false
 
 	function sortByKey(key, a, b) {
 		if (typeof a[key] === "string") {
@@ -63,7 +64,16 @@ ConfigPage {
 				ids.push(item.isPrimary ? "primary" : item.calendarId)
 			}
 		}
-		googleLoginManager.calendarIdList = unique(ids)
+		var selectedIds = unique(ids)
+		var selectedString = selectedIds.join(",")
+		var managerString = (googleLoginManager.calendarIdList || []).join(",")
+		if (managerString !== selectedString) {
+			googleLoginManager.calendarIdList = selectedIds
+		}
+		// Persist to cfg_* explicitly so KCM reliably marks the page dirty (Apply enabled).
+		if ((page.getConfigValue("calendarIdList", "") || "") !== selectedString) {
+			page.setConfigValue("calendarIdList", selectedString)
+		}
 	}
 
 	function updateTasklistIdListFromModel() {
@@ -74,10 +84,20 @@ ConfigPage {
 				ids.push(item.tasklistId)
 			}
 		}
-		googleLoginManager.tasklistIdList = unique(ids)
+		var selectedIds = unique(ids)
+		var selectedString = selectedIds.join(",")
+		var managerString = (googleLoginManager.tasklistIdList || []).join(",")
+		if (managerString !== selectedString) {
+			googleLoginManager.tasklistIdList = selectedIds
+		}
+		// Persist to cfg_* explicitly so KCM reliably marks the page dirty (Apply enabled).
+		if ((page.getConfigValue("tasklistIdList", "") || "") !== selectedString) {
+			page.setConfigValue("tasklistIdList", selectedString)
+		}
 	}
 
 	function rebuildCalendarsModel() {
+		page.syncingSelectionModels = true
 		calendarsModel.clear()
 		var sorted = sortArr(googleLoginManager.calendarList || [], "summary")
 		var selected = googleLoginManager.calendarIdList || []
@@ -95,9 +115,11 @@ ConfigPage {
 				isPrimary: isPrimary,
 			})
 		}
+		page.syncingSelectionModels = false
 	}
 
 	function rebuildTasklistsModel() {
+		page.syncingSelectionModels = true
 		tasklistsModel.clear()
 		var sorted = sortArr(googleLoginManager.tasklistList || [], "title")
 		var selected = googleLoginManager.tasklistIdList || []
@@ -113,6 +135,7 @@ ConfigPage {
 				isReadOnly: false,
 			})
 		}
+		page.syncingSelectionModels = false
 	}
 
 	function startOAuthHelper() {
@@ -287,15 +310,18 @@ ConfigPage {
 				Layout.fillWidth: true
 				spacing: Kirigami.Units.smallSpacing
 
-				Repeater {
-					model: calendarsModel
-					delegate: QQC2.CheckBox {
-						Layout.fillWidth: true
-						checked: model.show
-						onToggled: {
-							calendarsModel.setProperty(index, "show", checked)
-							updateCalendarIdListFromModel()
-						}
+					Repeater {
+						model: calendarsModel
+						delegate: QQC2.CheckBox {
+							Layout.fillWidth: true
+							checked: model.show
+							onToggled: {
+								if (page.syncingSelectionModels) {
+									return
+								}
+								calendarsModel.setProperty(index, "show", checked)
+								updateCalendarIdListFromModel()
+							}
 
 						contentItem: RowLayout {
 							spacing: Kirigami.Units.smallSpacing
@@ -354,15 +380,18 @@ ConfigPage {
 				Layout.fillWidth: true
 				spacing: Kirigami.Units.smallSpacing
 
-				Repeater {
-					model: tasklistsModel
-					delegate: QQC2.CheckBox {
-						Layout.fillWidth: true
-						checked: model.show
-						onToggled: {
-							tasklistsModel.setProperty(index, "show", checked)
-							updateTasklistIdListFromModel()
-						}
+					Repeater {
+						model: tasklistsModel
+						delegate: QQC2.CheckBox {
+							Layout.fillWidth: true
+							checked: model.show
+							onToggled: {
+								if (page.syncingSelectionModels) {
+									return
+								}
+								tasklistsModel.setProperty(index, "show", checked)
+								updateTasklistIdListFromModel()
+							}
 
 						contentItem: RowLayout {
 							spacing: Kirigami.Units.smallSpacing
