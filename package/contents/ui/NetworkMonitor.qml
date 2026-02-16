@@ -59,11 +59,13 @@ QtObject {
 
 
 	// https://invent.kde.org/plasma/plasma-nm/-/blame/master/libs/declarative/networkstatus.cpp#L115
-	readonly property var connectedMessages: [
-		i18ndc("plasmanetworkmanagement-libs", "A network device is connected, but there is only link-local connectivity", "Connected"),
-		i18ndc("plasmanetworkmanagement-libs", "A network device is connected, but there is only site-local connectivity", "Connected"),
-		i18ndc("plasmanetworkmanagement-libs", "A network device is connected, with global network connectivity", "Connected"),
-	]
+	readonly property int connectivity: {
+		if (plasmaNMStatusLoader.status == Loader.Ready) {
+			return plasmaNMStatusLoader.item.connectivity
+		} else {
+			return -1
+		}
+	}
 	// readonly property var disconnectedMessages: [
 	// 	i18ndc("plasmanetworkmanagement-libs", "Networking is inactive and all devices are disabled", "Inactive"),
 	// 	i18ndc("plasmanetworkmanagement-libs", "There is no active network connection", "Disconnected"),
@@ -72,18 +74,15 @@ QtObject {
 	// ]
 
 	readonly property string networkStatus: {
-		if (plasmaNMStatusLoader.status == Loader.Ready) {
-			return plasmaNMStatusLoader.item.networkStatus
-		} else {
-			return ''
-		}
+		return "" + connectivity
 	}
 	readonly property bool isConnected: {
 		if (plasmaNMStatusLoader.status == Loader.Error) {
 			// Failed to load PlasmaNM, so treat it as connected.
 			return true
 		} else {
-			return connectedMessages.indexOf(networkStatus) >= 0
+			// NetworkManager::Connectivity: None(1) is offline; Portal/Limited/Full are usable.
+			return connectivity > 1
 		}
 	}
 

@@ -1,18 +1,18 @@
 // Version 6
 
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.plasma5support as Plasma5Support
 
-PlasmaCore.DataSource {
-	id: executable
-	engine: "executable"
-	connectedSources: []
-	onNewData: {
-		var cmd = sourceName
-		var exitCode = data["exit code"]
-		var exitStatus = data["exit status"]
-		var stdout = data["stdout"]
-		var stderr = data["stderr"]
+	Plasma5Support.DataSource {
+		id: executable
+		engine: "executable"
+		connectedSources: []
+		onNewData: function(sourceName, data) {
+			var cmd = sourceName
+			var exitCode = data["exit code"]
+			var exitStatus = data["exit status"]
+			var stdout = data["stdout"]
+			var stderr = data["stderr"]
 		var listener = listeners[cmd]
 		if (listener) {
 			listener(cmd, exitCode, exitStatus, stdout, stderr)
@@ -49,14 +49,23 @@ PlasmaCore.DataSource {
 		return str.replace(/[\x00-\x1F\'\"\x7F]/g, '')
 	}
 
-	function stripQuotes(str) {
-		return str.replace(/[\'\"]/g, '')
-	}
+		function stripQuotes(str) {
+			return str.replace(/[\'\"]/g, '')
+		}
 
-	function exec(cmd, callback) {
-		if (Array.isArray(cmd)) {
-			cmd = cmd.map(wrapToken)
-			cmd = cmd.join(' ')
+		function urlToLocalPath(url) {
+			var s = "" + url
+			// Qt.resolvedUrl() returns a file URL for local package resources.
+			if (s.indexOf("file://") === 0) {
+				return s.substr("file://".length)
+			}
+			return s
+		}
+
+		function exec(cmd, callback) {
+			if (Array.isArray(cmd)) {
+				cmd = cmd.map(wrapToken)
+				cmd = cmd.join(' ')
 		}
 		if (typeof callback === 'function') {
 			if (listeners[cmd]) { // Our implementation only allows 1 callback per command.

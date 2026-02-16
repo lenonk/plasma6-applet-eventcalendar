@@ -6,17 +6,55 @@ import "../lib/Requests.js" as Requests
 Item {
 	id: session
 
+	readonly property var configPage: {
+		var p = session.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
+
+	function getCfg(key, fallbackValue) {
+		if (configPage) {
+			var v = configPage.getConfigValue(key, fallbackValue)
+			// Treat empty custom OAuth credentials as "use built-in defaults".
+			if ((key === "latestClientId" || key === "latestClientSecret")
+				&& (typeof v === "undefined" || v === "")
+			) {
+				return configPage.getConfigDefaultValue(key, fallbackValue)
+			}
+			return v
+		}
+		if (typeof plasmoid !== "undefined"
+			&& plasmoid
+			&& plasmoid.configuration
+			&& typeof plasmoid.configuration[key] !== "undefined"
+		) {
+			return plasmoid.configuration[key]
+		}
+		return fallbackValue
+	}
+
+	function setCfg(key, value) {
+		if (configPage) {
+			configPage.setConfigValue(key, value)
+		} else {
+			plasmoid.configuration[key] = value
+		}
+	}
+
 	Logger {
 		id: logger
-		showDebug: plasmoid.configuration.debugging
+		showDebug: !!session.getCfg("debugging", false)
 	}
 
 	// Active Session
-	readonly property bool isLoggedIn: !!plasmoid.configuration.accessToken
+	readonly property bool isLoggedIn: !!session.getCfg("accessToken", "")
 	readonly property bool needsRelog: {
-		if (plasmoid.configuration.accessToken && plasmoid.configuration.latestClientId != plasmoid.configuration.sessionClientId) {
+		if (session.getCfg("accessToken", "") && session.getCfg("latestClientId", "") != session.getCfg("sessionClientId", "")) {
 			return true
-		} else if (!plasmoid.configuration.accessToken && plasmoid.configuration.access_token) {
+		} else if (!session.getCfg("accessToken", "") && session.getCfg("access_token", "")) {
 			return true
 		} else {
 			return false
@@ -31,17 +69,26 @@ Item {
 	}
 	property alias calendarList: m_calendarList.value
 
-	property var m_calendarIdList: ConfigSerializedString {
+		property var m_calendarIdList: ConfigSerializedString {
 		id: m_calendarIdList
 		configKey: 'calendarIdList'
 		defaultValue: []
 
-		function serialize() {
-			plasmoid.configuration[configKey] = value.join(',')
-		}
-		function deserialize() {
-			value = configValue.split(',')
-		}
+			function serialize() {
+				var s = value.join(',')
+				if (configPage) {
+					configPage.setConfigValue(configKey, s)
+				} else {
+					plasmoid.configuration[configKey] = s
+				}
+			}
+			function deserialize() {
+				if (!configValue) {
+					value = []
+					return
+				}
+				value = configValue.split(',').filter(function(s) { return !!s })
+			}
 	}
 	property alias calendarIdList: m_calendarIdList.value
 
@@ -52,17 +99,26 @@ Item {
 	}
 	property alias tasklistList: m_tasklistList.value
 
-	property var m_tasklistIdList: ConfigSerializedString {
+		property var m_tasklistIdList: ConfigSerializedString {
 		id: m_tasklistIdList
 		configKey: 'tasklistIdList'
 		defaultValue: []
 
-		function serialize() {
-			plasmoid.configuration[configKey] = value.join(',')
-		}
-		function deserialize() {
-			value = configValue.split(',')
-		}
+			function serialize() {
+				var s = value.join(',')
+				if (configPage) {
+					configPage.setConfigValue(configKey, s)
+				} else {
+					plasmoid.configuration[configKey] = s
+				}
+			}
+			function deserialize() {
+				if (!configValue) {
+					value = []
+					return
+				}
+				value = configValue.split(',').filter(function(s) { return !!s })
+			}
 	}
 	property alias tasklistIdList: m_tasklistIdList.value
 
@@ -74,28 +130,36 @@ Item {
 
 
 	//---
+	readonly property string redirectUri: "http://127.0.0.1:8400/"
 	readonly property string authorizationCodeUrl: {
-		var url = 'https://accounts.google.com/o/oauth2/v2/auth'
-		url += '?scope=' + encodeURIComponent('https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/tasks')
-		url += '&response_type=code'
-		url += '&redirect_uri=' + encodeURIComponent('urn:ietf:wg:oauth:2.0:oob')
-		url += '&client_id=' + encodeURIComponent(plasmoid.configuration.latestClientId)
+		// Google has blocked the old out-of-band (OOB) redirect flow. We use a loopback
+		// redirect URI instead. The widget does not run a local HTTP server; users can
+		// copy the `code` from the redirected URL (or paste the full URL) back into the
+		// config UI.
+		var url = "https://accounts.google.com/o/oauth2/v2/auth"
+		url += "?scope=" + encodeURIComponent("https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/tasks")
+		url += "&response_type=code"
+		url += "&redirect_uri=" + encodeURIComponent(session.redirectUri)
+		url += "&access_type=offline"
+		url += "&prompt=consent"
+		url += "&include_granted_scopes=true"
+		url += "&client_id=" + encodeURIComponent(session.getCfg("latestClientId", ""))
 		return url
 	}
 
 	function fetchAccessToken(args) {
-		var url = 'https://www.googleapis.com/oauth2/v4/token'
+		var url = "https://oauth2.googleapis.com/token"
 		Requests.post({
-			url: url,
-			data: {
-				client_id: plasmoid.configuration.latestClientId,
-				client_secret: plasmoid.configuration.latestClientSecret,
-				code: args.authorizationCode,
-				grant_type: 'authorization_code',
-				redirect_uri: 'urn:ietf:wg:oauth:2.0:oob',
-			},
+				url: url,
+				data: {
+					client_id: session.getCfg("latestClientId", ""),
+					client_secret: session.getCfg("latestClientSecret", ""),
+					code: args.authorizationCode,
+					grant_type: 'authorization_code',
+					redirect_uri: session.redirectUri,
+				},
 		}, function(err, data, xhr) {
-			logger.debug('/oauth2/v4/token Response', data)
+			logger.debug('/token Response', data)
 
 			// Check for errors
 			if (err) {
@@ -105,7 +169,7 @@ Item {
 			try {
 				data = JSON.parse(data)
 			} catch (e) {
-				handleError('Error parsing /oauth2/v4/token data as JSON', null)
+				handleError('Error parsing /token data as JSON', null)
 				return
 			}
 			if (data && data.error) {
@@ -116,17 +180,21 @@ Item {
 			// Ready
 			updateAccessToken(data)
 		})
-	}
+		}
 
-	function updateAccessToken(data) {
-		plasmoid.configuration.sessionClientId = plasmoid.configuration.latestClientId
-		plasmoid.configuration.sessionClientSecret = plasmoid.configuration.latestClientSecret
-		plasmoid.configuration.accessToken = data.access_token
-		plasmoid.configuration.accessTokenType = data.token_type
-		plasmoid.configuration.accessTokenExpiresAt = Date.now() + data.expires_in * 1000
-		plasmoid.configuration.refreshToken = data.refresh_token
-		newAccessToken()
-	}
+		function updateAccessToken(data) {
+			session.setCfg("sessionClientId", session.getCfg("latestClientId", ""))
+			session.setCfg("sessionClientSecret", session.getCfg("latestClientSecret", ""))
+			session.setCfg("accessToken", data.access_token || "")
+			session.setCfg("accessTokenType", data.token_type || "")
+			session.setCfg("accessTokenExpiresAt", Date.now() + (data.expires_in || 0) * 1000)
+			// Google may omit refresh_token on subsequent logins unless prompt=consent.
+			// Don't clobber an existing valid refresh token if it's missing.
+			if (data.refresh_token) {
+				session.setCfg("refreshToken", data.refresh_token)
+			}
+			newAccessToken()
+		}
 
 	onNewAccessToken: updateData()
 
@@ -135,12 +203,12 @@ Item {
 		updateTasklistList()
 	}
 
-	function updateCalendarList() {
-		logger.debug('updateCalendarList')
-		logger.debug('accessToken', plasmoid.configuration.accessToken)
-		fetchGCalCalendars({
-			accessToken: plasmoid.configuration.accessToken,
-		}, function(err, data, xhr) {
+		function updateCalendarList() {
+			logger.debug('updateCalendarList')
+			logger.debug('accessToken', session.getCfg("accessToken", ""))
+			fetchGCalCalendars({
+				accessToken: session.getCfg("accessToken", ""),
+			}, function(err, data, xhr) {
 			// Check for errors
 			if (err || data.error) {
 				handleError(err, data)
@@ -167,12 +235,12 @@ Item {
 		})
 	}
 
-	function updateTasklistList() {
-		logger.debug('updateTasklistList')
-		logger.debug('accessToken', plasmoid.configuration.accessToken)
-		fetchGoogleTasklistList({
-			accessToken: plasmoid.configuration.accessToken,
-		}, function(err, data, xhr) {
+		function updateTasklistList() {
+			logger.debug('updateTasklistList')
+			logger.debug('accessToken', session.getCfg("accessToken", ""))
+			fetchGoogleTasklistList({
+				accessToken: session.getCfg("accessToken", ""),
+			}, function(err, data, xhr) {
 			// Check for errors
 			if (err || data.error) {
 				handleError(err, data)
@@ -199,21 +267,21 @@ Item {
 		})
 	}
 
-	function logout() {
-		plasmoid.configuration.sessionClientId = ''
-		plasmoid.configuration.sessionClientSecret = ''
-		plasmoid.configuration.accessToken = ''
-		plasmoid.configuration.accessTokenType = ''
-		plasmoid.configuration.accessTokenExpiresAt = 0
-		plasmoid.configuration.refreshToken = ''
+		function logout() {
+			session.setCfg("sessionClientId", "")
+			session.setCfg("sessionClientSecret", "")
+			session.setCfg("accessToken", "")
+			session.setCfg("accessTokenType", "")
+			session.setCfg("accessTokenExpiresAt", 0)
+			session.setCfg("refreshToken", "")
 
-		// Delete relevant data
-		// TODO: only target google calendar data
-		// TODO: Make a signal?
-		plasmoid.configuration.agendaNewEventLastCalendarId = ''
-		calendarList = []
-		calendarIdList = []
-		tasklistList = []
+			// Delete relevant data
+			// TODO: only target google calendar data
+			// TODO: Make a signal?
+			session.setCfg("agendaNewEventLastCalendarId", "")
+			calendarList = []
+			calendarIdList = []
+			tasklistList = []
 		tasklistIdList = []
 		sessionReset()
 	}

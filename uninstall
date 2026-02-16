@@ -1,7 +1,11 @@
 #!/bin/bash
 # Version 3
 
-packageServiceType=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-ServiceTypes"`
+packageServiceType="Plasma/Applet"
+kpackagetoolCmd="kpackagetool6"
+if ! command -v "${kpackagetoolCmd}" >/dev/null 2>&1; then
+	kpackagetoolCmd="kpackagetool5"
+fi
 
-# Eg: kpackagetool5 -t "Plasma/Applet" -r package
-kpackagetool5 -t "${packageServiceType}" -r package
+# Eg: kpackagetool6 -t "Plasma/Applet" -r package
+"${kpackagetoolCmd}" -t "${packageServiceType}" -r package

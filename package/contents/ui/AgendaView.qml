@@ -1,7 +1,7 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 import "Shared.js" as Shared
 import "LocaleFuncs.js" as LocaleFuncs
@@ -9,12 +9,12 @@ import "LocaleFuncs.js" as LocaleFuncs
 Item {
 	id: agendaView
 
-	readonly property int scrollbarWidth: width - agendaScrollView.contentWidth
+	readonly property int scrollbarWidth: width - agendaScrollView.viewportWidth
 
 	property color inProgressColor: appletConfig.agendaInProgressColor
 	property int inProgressFontWeight: Font.Bold
 
-	property color isOverdueColor: PlasmaCore.ColorScope.negativeTextColor
+	property color isOverdueColor: PlasmaCore.Theme.negativeTextColor
 	property int isOverdueFontWeight: Font.Bold
 
 	signal newEventFormOpened(var agendaItem, var calendarSelector)
@@ -22,7 +22,7 @@ Item {
 
 	Connections {
 		target: eventModel
-		onEventCreated: {
+		function onEventCreated(calendarId, data) {
 			notificationManager.notify({
 				appName: i18n("Event Calendar"),
 				appIcon: "resource-calendar-insert",
@@ -34,7 +34,7 @@ Item {
 				})
 			})
 		}
-		onEventDeleted: {
+		function onEventDeleted(calendarId, eventId, data) {
 			logger.logJSON('AgendaView.onEventDeleted', data)
 			notificationManager.notify({
 				appName: i18n("Event Calendar"),
@@ -49,15 +49,16 @@ Item {
 		}
 	}
 
-	ScrollView {
-		id: agendaScrollView
-		anchors.fill: parent
-		// clip: true
-		readonly property int contentWidth: contentItem ? contentItem.width : width
-		readonly property int contentHeight: contentItem ? contentItem.height : 0 // Warning: Binding loop
-		readonly property int viewportWidth: viewport ? viewport.width : width
-		readonly property int viewportHeight: viewport ? viewport.height : height
-		readonly property int scrollY: flickableItem ? flickableItem.contentY : 0
+		ScrollView {
+			id: agendaScrollView
+			anchors.fill: parent
+			// clip: true
+			// QtQuick.Controls 2 ScrollView doesn't expose `viewport` (old API).
+			// Use the internal Flickable as the viewport reference instead.
+			readonly property var __flickable: contentItem
+			readonly property int viewportWidth: __flickable ? __flickable.width : width
+			readonly property int viewportHeight: __flickable ? __flickable.height : height
+			readonly property int scrollY: (__flickable && typeof __flickable.contentY === "number") ? __flickable.contentY : 0
 
 		// onScrollYChanged: console.log('scrollY', scrollY)
 
@@ -85,13 +86,13 @@ Item {
 					// Component.onDestruction: console.log(Date.now(), 'AgendaListItem.onDestruction', index)
 				}
 
-				onItemAdded: {
+				function onItemAdded(index, item) {
 					// console.log(Date.now(), 'agendaRepeater.itemAdded', index)
 					if (index === root.agendaModel.count-1) {
 						populated = true
 					}
 				}
-				onItemRemoved: {
+				function onItemRemoved(index, item) {
 					// console.log(Date.now(), 'agendaRepeater.onItemRemoved', index)
 					populated = false
 				}
@@ -140,9 +141,12 @@ Item {
 			}
 		}
 
-		function scrollToY(offsetY) {
-			flickableItem.contentY = Math.min(offsetY, contentHeight-viewportHeight)
-		}
+			function scrollToY(offsetY) {
+				if (!__flickable || typeof __flickable.contentY !== "number") {
+					return
+				}
+				__flickable.contentY = Math.min(offsetY, contentHeight - viewportHeight)
+			}
 
 		function positionViewAtBeginning() {
 			scrollToY(0)

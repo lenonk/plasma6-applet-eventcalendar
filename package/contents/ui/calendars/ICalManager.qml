@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 import "../lib"
 
@@ -29,14 +29,15 @@ CalendarManager {
 		return null
 	}
 
-	function fetchEvents(calendarData, startTime, endTime, callback) {
-		logger.debug('ical.fetchEvents', calendarData.url)
-		var cmd = 'python3 ' + plasmoid.file("", "scripts/icsjson.py")
-		cmd += ' --url "' + calendarData.url + '"' // TODO proper argument wrapping
-		cmd += ' query'
-		cmd += ' ' + startTime.getFullYear() + '-' + (startTime.getMonth()+1) + '-' + startTime.getDate()
-		cmd += ' ' + endTime.getFullYear() + '-' + (endTime.getMonth()+1) + '-' + endTime.getDate()
-		executable.exec(cmd, function(cmd, exitCode, exitStatus, stdout, stderr) {
+		function fetchEvents(calendarData, startTime, endTime, callback) {
+			logger.debug('ical.fetchEvents', calendarData.url)
+			var scriptPath = executable.urlToLocalPath(Qt.resolvedUrl("../../scripts/icsjson.py"))
+			var cmd = 'python3 ' + executable.wrapToken(scriptPath)
+			cmd += ' --url "' + calendarData.url + '"' // TODO proper argument wrapping
+			cmd += ' query'
+			cmd += ' ' + startTime.getFullYear() + '-' + (startTime.getMonth()+1) + '-' + startTime.getDate()
+			cmd += ' ' + endTime.getFullYear() + '-' + (endTime.getMonth()+1) + '-' + endTime.getDate()
+			executable.exec(cmd, function(cmd, exitCode, exitStatus, stdout, stderr) {
 			if (exitCode) {
 				logger.log('ical.stderr', stderr)
 				return callback(stderr)
@@ -64,10 +65,10 @@ CalendarManager {
 		}
 	}
 
-	onCalendarParsing: {
-		var calendar = getCalendar(calendarId)
-		parseEventList(calendar, data.items)
-	}
+		onCalendarParsing: function(calendarId, data) {
+			var calendar = getCalendar(calendarId)
+			parseEventList(calendar, data.items)
+		}
 
 	function parseEvent(calendar, event) {
 		event.backgroundColor = calendar.backgroundColor

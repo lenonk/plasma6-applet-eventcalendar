@@ -27,6 +27,16 @@ cd eventcalendar
 sh ./install
 ```
 
+### Install with CMake (Plasma 6)
+
+```
+git clone https://github.com/Zren/plasma-applet-eventcalendar.git eventcalendar
+cd eventcalendar
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
+cmake --build build
+sudo cmake --install build
+```
+
 To update, run the `sh ./update` script. It will run a `git pull` then reinstall the applet. Please note this script will restart plasmashell (so you don't have to relog)!
 
 ## C) Install via Package Manager
@@ -63,9 +73,7 @@ sh ./uninstall
 
 ## Configure
 
-1. Right click the Calendar > Event Calendar Settings > Google Calendar
-2. Copy the Code and enter it at the given link. Keep the settings window open.
-3. After the settings window says it's synched, click apply.
-4. Go to the Weather Tab > Enter your city id for OpenWeatherMap. If their search can't find your city, try googling it with [site:openweathermap.org/city](https://www.google.ca/search?q=site%3Aopenweathermap.org%2Fcity+toronto).
-
-
+1. Right click the Calendar > Event Calendar Settings > Google Calendar.
+2. Enter your Google OAuth Client ID (and optionally Client Secret) then click "Login in Browser".
+3. After login completes, click Apply to save.
+4. Go to the Weather tab > select "Open-Meteo" > Search for a city, then click Apply.

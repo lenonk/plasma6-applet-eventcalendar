@@ -1,12 +1,14 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 GridLayout {
 	id: dateTimeSelector
+	readonly property var units: Kirigami.Units
 	property var dateTime: new Date()
 	property bool enabled: true
 	property bool showTime: true

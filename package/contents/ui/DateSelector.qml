@@ -1,12 +1,14 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
+import QtQml
 
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 import QtQuick.Templates 2.1 as T
 import QtQuick.Controls 2.1 as Controls
-import QtGraphicalEffects 1.0 // DropShadow
+import Qt5Compat.GraphicalEffects // DropShadow
 
 // Based on:
 // https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/plasmacomponents3/ComboBox.qml
@@ -17,7 +19,10 @@ PlasmaComponents3.TextField {
 	id: dateSelector
 	readonly property Item control: dateSelector
 
-	property int defaultMinimumWidth: 80 * units.devicePixelRatio
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
+
+	property int defaultMinimumWidth: 80
 	readonly property int implicitContentWidth: contentWidth + leftPadding + rightPadding
 	implicitWidth: Math.max(defaultMinimumWidth, implicitContentWidth)
 
@@ -67,15 +72,15 @@ PlasmaComponents3.TextField {
 		implicitWidth: contentItem.implicitWidth
 		implicitHeight: contentItem.implicitHeight
 
-		topMargin: 6 * units.devicePixelRatio
-		bottomMargin: 6 * units.devicePixelRatio
+		topMargin: 6
+		bottomMargin: 6
 
 		// https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/calendar/qml/MonthView.qml
 		contentItem: MonthView {
 			id: dateSelectorMonthView
 
-			implicitWidth: 280 * units.devicePixelRatio
-			implicitHeight: 280 * units.devicePixelRatio
+			implicitWidth: 280
+			implicitHeight: 280
 
 			today: new Date()
 			currentDate: dateSelector.dateTime
@@ -84,6 +89,7 @@ PlasmaComponents3.TextField {
 			showTooltips: false
 			showTodaysDate: false
 			headingFontLevel: 3
+			headingFontScale: 1.0
 
 			onDateClicked: {
 				// console.log('onDateSelected', currentDate, '(popup.visible: ', popup.visible, ')')

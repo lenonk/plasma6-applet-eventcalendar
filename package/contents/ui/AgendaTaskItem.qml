@@ -1,14 +1,17 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
+import org.kde.kirigami.primitives as KirigamiPrimitives
 
 import "LocaleFuncs.js" as LocaleFuncs
 import "Shared.js" as Shared
 
 LinkRect {
 	id: agendaTaskItem
+	readonly property var units: Kirigami.Units
 	readonly property int taskItemIndex: index
 	Layout.fillWidth: true
 	implicitHeight: contents.implicitHeight
@@ -21,11 +24,11 @@ LinkRect {
 			taskIsOverdue = false
 		}
 	}
-	Connections {
-		target: timeModel
-		onLoaded: agendaTaskItem.checkIfIsOverdue()
-		onMinuteChanged: agendaTaskItem.checkIfIsOverdue()
-	}
+		Connections {
+			target: timeModel
+			function onLoaded() { agendaTaskItem.checkIfIsOverdue() }
+			function onMinuteChanged() { agendaTaskItem.checkIfIsOverdue() }
+		}
 	Component.onCompleted: {
 		agendaTaskItem.checkIfIsOverdue()
 	}
@@ -56,7 +59,7 @@ LinkRect {
 		id: contents
 		anchors.left: parent.left
 		anchors.right: parent.right
-		spacing: 4 * units.devicePixelRatio
+		spacing: units.smallSpacing
 
 		PlasmaComponents3.CheckBox {
 			id: taskCheckBox
@@ -80,9 +83,9 @@ LinkRect {
 			spacing: 0
 
 			PlasmaComponents3.Label {
-				id: taskTitle
-				text: model.title
-				color: PlasmaCore.ColorScope.textColor
+					id: taskTitle
+					text: model.title
+					color: PlasmaCore.Theme.textColor
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				visible: !editTaskForm.visible
@@ -100,7 +103,7 @@ LinkRect {
 				visible: showProperty && !editTaskForm.visible
 				spacing: units.smallSpacing
 
-				PlasmaCore.IconItem {
+				KirigamiPrimitives.Icon {
 					source: "view-task"
 					Layout.preferredHeight: taskDueLabel.implicitHeight
 					Layout.preferredWidth: taskDueLabel.implicitHeight
@@ -108,7 +111,7 @@ LinkRect {
 				PlasmaComponents3.Label {
 					id: taskDueLabel
 					text: eventTimestamp
-					color: taskIsOverdue ? isOverdueColor : PlasmaCore.ColorScope.textColor
+					color: taskIsOverdue ? isOverdueColor : PlasmaCore.Theme.textColor
 					opacity: taskIsOverdue ? 1 : 0.75
 					font.pointSize: -1
 					font.pixelSize: appletConfig.agendaFontSize
@@ -116,25 +119,25 @@ LinkRect {
 				}
 			}
 
-			Item {
-				id: taskNoteSpacing
-				visible: taskNotes.visible
-				implicitHeight: 4 * units.devicePixelRatio
-			}
+				Item {
+					id: taskNoteSpacing
+					visible: taskNotes.visible
+					implicitHeight: units.smallSpacing
+				}
 
 			PlasmaComponents3.Label {
-				id: taskNotes
+					id: taskNotes
 				readonly property bool showProperty: plasmoid.configuration.agendaShowEventDescription && text
 				visible: showProperty && !editTaskForm.visible
 				text: Shared.renderText(model.notes)
-				color: PlasmaCore.ColorScope.textColor
+					color: PlasmaCore.Theme.textColor
 				opacity: 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				Layout.fillWidth: true
 				wrapMode: Text.Wrap // See warning at taskTitle.wrapMode
 
-				linkColor: PlasmaCore.ColorScope.highlightColor
+					linkColor: PlasmaCore.Theme.highlightColor
 				onLinkActivated: Qt.openUrlExternally(link)
 				MouseArea {
 					anchors.fill: parent
@@ -143,11 +146,11 @@ LinkRect {
 				}
 			}
 
-			Item {
-				id: taskEditorSpacing
-				visible: editTaskForm.visible
-				implicitHeight: 4 * units.devicePixelRatio
-			}
+				Item {
+					id: taskEditorSpacing
+					visible: editTaskForm.visible
+					implicitHeight: units.smallSpacing
+				}
 
 			EditTaskForm {
 				id: editTaskForm

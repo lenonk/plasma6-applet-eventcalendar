@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 import "./lib"
 
@@ -8,17 +8,18 @@ QtObject {
 
 	property var executable: ExecUtil { id: executable }
 
-	function notify(args, callback) {
-		logger.debugJSON('NotificationMananger.notify', args)
-		args.sound = args.sound || args.soundFile
+		function notify(args, callback) {
+			logger.debugJSON('NotificationMananger.notify', args)
+			args.sound = args.sound || args.soundFile
 
-		var cmd = [
-			'python3',
-			plasmoid.file("", "scripts/notification.py"),
-		]
-		if (args.appName) {
-			cmd.push('--app-name', args.appName)
-		}
+			var scriptPath = executable.urlToLocalPath(Qt.resolvedUrl("../scripts/notification.py"))
+			var cmd = [
+				'python3',
+				scriptPath,
+			]
+			if (args.appName) {
+				cmd.push('--app-name', args.appName)
+			}
 		if (args.appIcon) {
 			cmd.push('--icon', args.appIcon)
 		}

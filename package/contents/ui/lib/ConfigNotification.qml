@@ -1,11 +1,13 @@
 // Version 4
 
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
+import org.kde.kirigami as Kirigami
 
 ColumnLayout {
 	id: configNotification
+	readonly property var units: Kirigami.Units
 	property alias label: notificationEnabledCheckBox.text
 	property alias notificationEnabledKey: notificationEnabledCheckBox.configKey
 
@@ -19,7 +21,7 @@ ColumnLayout {
 	property alias sfxPathValue: configSound.sfxPathValue
 	property alias sfxPathDefaultValue: configSound.sfxPathDefaultValue
 
-	property int indentWidth: 24 * units.devicePixelRatio
+	property int indentWidth: 24
 
 	ConfigCheckBox {
 		id: notificationEnabledCheckBox

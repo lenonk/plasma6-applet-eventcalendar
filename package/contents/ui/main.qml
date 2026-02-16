@@ -1,16 +1,20 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQml
 
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.private.digitalclock 1.0 as DigitalClock
-import org.kde.kquickcontrolsaddons 2.0 // KCMShell
+import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.plasma.private.digitalclock as DigitalClock
+import org.kde.kirigami as Kirigami
 
 import "./lib"
 
-Item {
+PlasmoidItem {
 	id: root
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
 
 	Logger {
 		id: logger
@@ -50,23 +54,26 @@ Item {
 		}
 	}
 
-	Plasmoid.toolTipItem: Loader {
+	toolTipItem: Loader {
 		id: tooltipLoader
 
-		Layout.minimumWidth: item ? item.width : 0
-		Layout.maximumWidth: item ? item.width : 0
-		Layout.minimumHeight: item ? item.height : 0
-		Layout.maximumHeight: item ? item.height : 0
+		// Tooltip host may override width/height; use implicit sizes for stable sizing across hovers.
+		Layout.minimumWidth: item ? item.implicitWidth : 0
+		Layout.maximumWidth: item ? item.implicitWidth : 0
+		Layout.minimumHeight: item ? item.implicitHeight : 0
+		Layout.maximumHeight: item ? item.implicitHeight : 0
 
 		source: "TooltipView.qml"
 	}
 
 	// org.kde.plasma.mediacontrollercompact
-	PlasmaCore.DataSource {
-		id: executable
-		engine: "executable"
-		connectedSources: []
-		onNewData: disconnectSource(sourceName) // cmd finished
+		Plasma5Support.DataSource {
+			id: executable
+			engine: "executable"
+			connectedSources: []
+			function onNewData(sourceName, data) {
+				disconnectSource(sourceName) // cmd finished
+			}
 		function getUniqueId(cmd) {
 			// Note: we assume that 'cmd' is executed quickly so that a previous call
 			// with the same 'cmd' has already finished (otherwise no new cmd will be
@@ -90,21 +97,21 @@ Item {
 
 		currentTime: timeModel.currentTime
 
-		MouseArea {
-			id: mouseArea
-			anchors.fill: parent
+			MouseArea {
+				id: mouseArea
+				anchors.fill: parent
 
 			property int wheelDelta: 0
 
-			onClicked: {
-				if (mouse.button == Qt.LeftButton) {
-					plasmoid.expanded = !plasmoid.expanded
+				onClicked: function(mouse) {
+					if (mouse.button == Qt.LeftButton) {
+						root.expanded = !root.expanded
+					}
 				}
-			}
 
-			onWheel: {
-				var delta = wheel.angleDelta.y || wheel.angleDelta.x
-				wheelDelta += delta
+				onWheel: function(wheel) {
+					var delta = wheel.angleDelta.y || wheel.angleDelta.x
+					wheelDelta += delta
 
 				// Magic number 120 for common "one click"
 				// See: https://doc.qt.io/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
@@ -134,15 +141,29 @@ Item {
 	property Component popupComponent: PopupView {
 		id: popup
 
+		Component.onCompleted: {
+			logic.popup = popup
+			// The fullRepresentation can be instantiated lazily (only on first open),
+			// so the usual expanded-change handlers may never run for the initial show.
+			// Trigger a weather refresh now so the meteogram has hourly data immediately.
+			logic.updateWeather()
+		}
+		Component.onDestruction: {
+			if (logic.popup === popup) {
+				logic.popup = null
+			}
+		}
+
 		eventModel: root.eventModel
 		agendaModel: root.agendaModel
+		isDesktopContainment: root.isDesktopContainment
 
 		// If pin is enabled, we need to add some padding around the popup unless
 		// * we're a desktop widget (no need)
 		// * the timer widget is enabled since there's room in the top right
 		property bool isPinVisible: {
 			// plasmoid.location == PlasmaCore.Types.Floating when using plasmawindowed and when used as a desktop widget.
-			return plasmoid.location != PlasmaCore.Types.Floating // && plasmoid.configuration.widget_show_pin
+			return root.location != PlasmaCore.Types.Floating // && plasmoid.configuration.widget_show_pin
 		}
 		padding: {
 			if (isPinVisible && !(plasmoid.configuration.widgetShowTimer || plasmoid.configuration.widgetShowMeteogram)) {
@@ -152,7 +173,7 @@ Item {
 			}
 		}
 
-		property bool isExpanded: plasmoid.expanded
+		property bool isExpanded: root.expanded
 		onIsExpandedChanged: {
 			logger.debug('isExpanded', isExpanded)
 			if (isExpanded) {
@@ -177,14 +198,14 @@ Item {
 
 		Connections {
 			target: timeModel
-			onDateChanged: {
+			function onDateChanged() {
 				popup.updateToday()
 				logger.debug('root.onDateChanged', timeModel.currentTime, popup.today)
 			}
 		}
 
 		Binding {
-			target: plasmoid
+			target: root
 			property: "hideOnWindowDeactivate"
 			value: !plasmoid.configuration.pin
 		}
@@ -204,65 +225,17 @@ Item {
 
 	}
 
-	Plasmoid.backgroundHints: plasmoid.configuration.showBackground ? PlasmaCore.Types.DefaultBackground : PlasmaCore.Types.NoBackground
+	Plasmoid.backgroundHints: plasmoid.configuration.showBackground ? PlasmaCore.Types.StandardBackground : PlasmaCore.Types.NoBackground
 
-	property bool isDesktopContainment: plasmoid.location == PlasmaCore.Types.Floating
-	Plasmoid.preferredRepresentation: isDesktopContainment ? Plasmoid.fullRepresentation : Plasmoid.compactRepresentation
-	Plasmoid.compactRepresentation: clockComponent
-	Plasmoid.fullRepresentation: popupComponent
-
-	function action_KCMClock() {
-		// Note: https://invent.kde.org/plasma/plasma-workspace/-/commit/4e34ba26e6fc53dc47e7079d863e15408534dcf6
-		// Note: KCMShell.open uses kcmshell5 which converts "translations" => "kcm_translations".
-		// Note: https://github.com/KDE/kde-cli-tools/blob/master/kcmshell/main.cpp
-		// Note: systemsettings5 needs the exact name.
-		// TODO: Use KCMShell.openSystemSettings("kcm_clock") once we no longer need to support Plasma 5.23
-		KCMShell.open([
-			"kcm_clock", // Plasma 5.24
-			"clock" // Plasma 5.23
-		])
-	}
-
-	function action_KCMTranslations() {
-		// Note: https://invent.kde.org/plasma/plasma-workspace/-/commit/68b2a75568563223cc79d585bdae7ca7e0aeb54a
-		KCMShell.open([
-			"kcm_translations", // Plasma 5.15
-			"translations" // Plasma 5.14
-		])
-	}
-
-	function action_KCMFormats() {
-		KCMShell.open([
-			"kcm_formats", // Plasma 5.24
-			"formats" // Plasma 5.23
-		])
-	}
+	property bool isDesktopContainment: root.location == PlasmaCore.Types.Floating
+	preferredRepresentation: isDesktopContainment ? fullRepresentation : compactRepresentation
+	compactRepresentation: clockComponent
+	fullRepresentation: popupComponent
 
 	Component.onCompleted: {
-		plasmoid.setAction("clipboard", i18nd("plasma_applet_org.kde.plasma.digitalclock", "Copy to Clipboard"), "edit-copy")
-		DigitalClock.ClipboardMenu.setupMenu(plasmoid.action("clipboard"))
-
-		// An uninstalled KCM like 'user_manager.desktop' in Plasma 5.20 is returned
-		// in the output list, so we need to check if user has permission for both.
-		if (KCMShell.authorize([
-			"kcm_clock.desktop", // Plasma 5.24
-			"clock.desktop" // Plasma 5.23
-		]).length == 2) {
-			// DigitalClock uses symbolic "clock" icon in Plasma 5.24
-			plasmoid.setAction("KCMClock", i18nd("plasma_applet_org.kde.plasma.digitalclock", "Adjust Date and Time…"), "preferences-system-time")
-		}
-		if (KCMShell.authorize([
-			"kcm_translations.desktop", // Plasma 5.15
-			"translations.desktop", // Plasma 5.14
-		]).length == 2) {
-			plasmoid.setAction("KCMTranslations", i18n("Set Language…"), "preferences-desktop-locale")
-		}
-		if (KCMShell.authorize([
-			"kcm_formats.desktop", // Plasma 5.24
-			"formats.desktop" // Plasma 5.23
-		]).length == 2) {
-			// DigitalClock uses symbolic "gnumeric-format-thousand-separator" icon in Plasma 5.24
-			plasmoid.setAction("KCMFormats", i18n("Set Locale…"), "preferences-desktop-locale")
+		if (typeof plasmoid !== "undefined" && typeof plasmoid.setAction === "function" && typeof plasmoid.action === "function") {
+			plasmoid.setAction("clipboard", i18nd("plasma_applet_org.kde.plasma.digitalclock", "Copy to Clipboard"), "edit-copy")
+			DigitalClock.ClipboardMenu.setupMenu(plasmoid.action("clipboard"))
 		}
 
 		// plasmoid.action("configure").trigger()
@@ -273,8 +246,8 @@ Item {
 	// 	running: true
 	// 	onTriggered: {
 	// 		plasmoid.expanded = true
-	// 		root.Plasmoid.fullRepresentationItem.Layout.minimumWidth = 1000
-	// 		root.Plasmoid.fullRepresentationItem.Layout.minimumHeight = 600
+	// 		root.plasmoid.fullRepresentationItem.Layout.minimumWidth = 1000
+	// 		root.plasmoid.fullRepresentationItem.Layout.minimumHeight = 600
 	// 	}
 	// }
 }

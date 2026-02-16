@@ -1,13 +1,15 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 import "Shared.js" as Shared
 
 Loader {
 	id: editEventForm
+	readonly property var units: Kirigami.Units
 	active: false
 	visible: active
 	Layout.fillWidth: true
@@ -222,13 +224,13 @@ Loader {
 					Layout.fillHeight: false
 					Layout.alignment: Qt.AlignTop
 				}
-				PlasmaComponents3.TextArea {
+					PlasmaComponents3.TextArea {
 					id: editDescriptionTextField
 					placeholderText: i18n("Add description")
 					text: (event && event.description) || ""
 
 					Layout.fillWidth: true
-					Layout.preferredHeight: contentHeight + (20 * units.devicePixelRatio)
+						Layout.preferredHeight: contentHeight + 20
 
 					Keys.onEscapePressed: editEventItem.cancel()
 
@@ -246,9 +248,9 @@ Loader {
 
 				//---
 
-				RowLayout {
-					Layout.columnSpan: 2
-					spacing: 4 * units.devicePixelRatio
+					RowLayout {
+						Layout.columnSpan: 2
+						spacing: units.smallSpacing
 					Item {
 						Layout.fillWidth: true
 					}

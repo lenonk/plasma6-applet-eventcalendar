@@ -1,8 +1,8 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
 
 import "Shared.js" as Shared
 import "./weather/WeatherApi.js" as WeatherApi
@@ -22,8 +22,8 @@ GridLayout {
 	Component.onCompleted: agendaListItem.checkIfToday()
 	Connections {
 		target: timeModel
-		onLoaded: agendaListItem.checkIfToday()
-		onDateChanged: agendaListItem.checkIfToday()
+		function onLoaded() { agendaListItem.checkIfToday() }
+		function onDateChanged() { agendaListItem.checkIfToday() }
 	}
 	property bool agendaItemInProgress: agendaItemIsToday
 	property bool weatherOnRight: plasmoid.configuration.agendaWeatherOnRight
@@ -32,7 +32,7 @@ GridLayout {
 
 	Connections {
 		target: agendaModel
-		onPopulatingChanged: {
+		function onPopulatingChanged() {
 			if (!agendaModel.populating) {
 				agendaListItem.reset()
 			}
@@ -70,20 +70,21 @@ GridLayout {
 			spacing: 0
 			anchors.horizontalCenter: parent.horizontalCenter
 
-			FontIcon {
-				visible: showWeather && plasmoid.configuration.agendaWeatherShowIcon
-				color: agendaItemIsToday ? inProgressColor : PlasmaCore.ColorScope.textColor
-				source: weatherIcon
-				height: appletConfig.agendaWeatherIconSize
-				showOutline: plasmoid.configuration.showOutlines
-				Layout.fillWidth: true
-			}
+						FontIcon {
+							visible: showWeather && plasmoid.configuration.agendaWeatherShowIcon
+							color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+					source: weatherIcon
+					width: appletConfig.agendaWeatherIconSize
+					height: appletConfig.agendaWeatherIconSize
+					showOutline: plasmoid.configuration.showOutlines
+					Layout.fillWidth: true
+				}
 
-			PlasmaComponents3.Label {
-				id: itemWeatherText
+					PlasmaComponents3.Label {
+						id: itemWeatherText
 				visible: showWeather && plasmoid.configuration.agendaWeatherShowText
 				text: weatherText
-				color: agendaItemIsToday ? inProgressColor : PlasmaCore.ColorScope.textColor
+						color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -91,22 +92,22 @@ GridLayout {
 				Layout.alignment: Qt.AlignHCenter
 			}
 
-			PlasmaComponents3.Label {
-				id: itemWeatherTemps
-				visible: showWeather
-				text: {
-					var high = isNaN(model.tempHigh) ? '?' : model.tempHigh + '°'
-					var low = isNaN(model.tempLow) ? '?' : model.tempLow + '°'
-					return high + ' | ' + low
+						PlasmaComponents3.Label {
+						id: itemWeatherTemps
+					visible: showWeather
+					text: {
+						var high = isNaN(model.tempHigh) ? '?' : model.tempHigh + '°'
+						var low = isNaN(model.tempLow) ? '?' : model.tempLow + '°'
+						return high + ' | ' + low
+					}
+							color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+					opacity: agendaItemIsToday ? 1 : 0.75
+					font.pointSize: -1
+					font.pixelSize: appletConfig.agendaFontSize
+					font.weight: agendaItemIsToday ? inProgressFontWeight : Font.Normal
+					Layout.alignment: Qt.AlignHCenter
 				}
-				color: agendaItemIsToday ? inProgressColor : PlasmaCore.ColorScope.textColor
-				opacity: agendaItemIsToday ? 1 : 0.75
-				font.pointSize: -1
-				font.pixelSize: appletConfig.agendaFontSize
-				font.weight: agendaItemIsToday ? inProgressFontWeight : Font.Normal
-				Layout.alignment: Qt.AlignHCenter
 			}
-		}
 
 		tooltipMainText: weatherDescription
 		tooltipSubText: weatherNotes
@@ -136,10 +137,10 @@ GridLayout {
 			anchors.rightMargin: appletConfig.agendaColumnSpacing
 			spacing: 0
 
-			PlasmaComponents3.Label {
-				id: itemDate
-				text: Qt.formatDateTime(date, i18nc("agenda date format line 1", "MMM d"))
-				color: agendaItemIsToday ? inProgressColor : PlasmaCore.ColorScope.textColor
+				PlasmaComponents3.Label {
+					id: itemDate
+					text: Qt.formatDateTime(date, i18nc("agenda date format line 1", "MMM d"))
+					color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -148,10 +149,10 @@ GridLayout {
 				horizontalAlignment: Text.AlignRight
 			}
 
-			PlasmaComponents3.Label {
-				id: itemDay
-				text: Qt.formatDateTime(date, i18nc("agenda date format line 2", "ddd"))
-				color: agendaItemIsToday ? inProgressColor : PlasmaCore.ColorScope.textColor
+				PlasmaComponents3.Label {
+					id: itemDay
+					text: Qt.formatDateTime(date, i18nc("agenda date format line 2", "ddd"))
+					color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.5
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -160,6 +161,15 @@ GridLayout {
 				horizontalAlignment: Text.AlignRight
 			}
 		}
+
+		// Separator between date and events (matches the original look without stealing layout width).
+			Rectangle {
+				anchors.top: parent.top
+				anchors.bottom: parent.bottom
+				anchors.right: parent.right
+				width: 1
+				color: Qt.rgba(PlasmaCore.Theme.textColor.r, PlasmaCore.Theme.textColor.g, PlasmaCore.Theme.textColor.b, 0.15)
+			}
 
 		onLeftClicked: {
 			// console.log('agendaItem.date.leftClicked', date)
@@ -208,13 +218,12 @@ GridLayout {
 				}
 			}
 		}
-
 	}
 
-	function indexOfEvent(eventId) {
-		for (var i = 0; i < eventsRepeater.model.length; i++) {
-			var event = eventsRepeater.model[i]
-			if (event.id === eventId) {
+		function indexOfEvent(eventId) {
+			for (var i = 0; i < eventsRepeater.model.length; i++) {
+				var event = eventsRepeater.model[i]
+				if (event.id === eventId) {
 				return i
 			}
 		}

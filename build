@@ -2,9 +2,9 @@
 # Version 18
 
 ### User Variables
-qtMinVer="5.12"
-kfMinVer="5.68"
-plasmaMinVer="5.18"
+qtMinVer="6.0"
+kfMinVer="6.0"
+plasmaMinVer="6.0"
 filenameTag="-plasma${plasmaMinVer}"
 packageExt="plasmoid"
 
@@ -61,22 +61,26 @@ fi
 
 
 ### Variables
-packageNamespace=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Name"`
-packageName="${packageNamespace##*.}" # Strip namespace (Eg: "org.kde.plasma.")
-packageVersion=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Version"`
-packageAuthor=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Author"`
-packageAuthorEmail=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Email"`
-packageWebsite=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="X-KDE-PluginInfo-Website"`
-packageComment=`kreadconfig5 --file="$PWD/package/metadata.desktop" --group="Desktop Entry" --key="Comment"`
+metadataFile="$PWD/package/metadata.json"
+if [ ! -f "$metadataFile" ]; then
+	echoRed "[build] Error: Missing $metadataFile"
+	exit 1
+fi
 
-### metadata.desktop => metadata.json
-if command -v desktoptojson &> /dev/null ; then
-	genOutput=`desktoptojson --serviceType="plasma-applet.desktop" -i "$PWD/package/metadata.desktop" -o "$PWD/package/metadata.json"`
-	if [ "$?" != "0" ]; then
-		exit 1
-	fi
-	# Tabify metadata.json
-	sed -i '{s/ \{4\}/\t/g}' "$PWD/package/metadata.json"
+function metadataValue() {
+	local key="$1"
+	grep -oP "\"${key}\"\\s*:\\s*\"\\K[^\"]+" "$metadataFile" | head -n 1
+}
+
+packageNamespace=`metadataValue "Id"`
+packageName="${packageNamespace##*.}" # Strip namespace (Eg: "org.kde.plasma.")
+packageVersion=`metadataValue "Version"`
+packageWebsite=`metadataValue "Website"`
+packageComment=`metadataValue "Description"`
+
+if [ -z "$packageNamespace" ] || [ -z "$packageVersion" ]; then
+	echoRed "[build] Error: Could not read Id/Version from package/metadata.json"
+	exit 1
 fi
 
 
@@ -103,4 +107,3 @@ echoGray "[${packageExt}] sha256: $(sha256sum $filename | awk '{ print $1 }')"
 
 ### Done
 cd $startDir
-

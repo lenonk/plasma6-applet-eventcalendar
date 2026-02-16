@@ -1,16 +1,20 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQml
+import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 import "lib"
 import "lib/ColorUtil.js" as ColorUtil
 
 QtObject {
 	id: config
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
 
 	property bool showIconOutline: plasmoid.configuration.showOutlines
 
 	property color alternateBackgroundColor: {
-		var textColor = PlasmaCore.ColorScope.textColor
+		var textColor = theme.textColor
 		var bgColor = theme.buttonBackgroundColor
 		if (ColorUtil.hasEnoughContrast(textColor, bgColor)) {
 			return bgColor
@@ -41,21 +45,23 @@ QtObject {
 	property color agendaInProgressColorDefault: theme.highlightColor
 	property color agendaInProgressColor: plasmoid.configuration.agendaInProgressColor || agendaInProgressColorDefault
 
-	property int agendaColumnSpacing: 10 * units.devicePixelRatio
-	property int agendaDaySpacing: plasmoid.configuration.agendaDaySpacing * units.devicePixelRatio
-	property int agendaEventSpacing: plasmoid.configuration.agendaEventSpacing * units.devicePixelRatio
-	property int agendaWeatherColumnWidth: 60 * units.devicePixelRatio
-	property int agendaWeatherIconSize: plasmoid.configuration.agendaWeatherIconHeight * units.devicePixelRatio
-	property int agendaDateColumnWidth: 50 * units.devicePixelRatio + agendaColumnSpacing * 2
-	property int eventIndicatorWidth: 2 * units.devicePixelRatio
+	// QtQuick uses device-independent pixels; do not scale sizes with devicePixelRatio
+	// (Kirigami.Units.devicePixelRatio is undefined in Plasma 6).
+	property int agendaColumnSpacing: 10
+	property int agendaDaySpacing: plasmoid.configuration.agendaDaySpacing
+	property int agendaEventSpacing: plasmoid.configuration.agendaEventSpacing
+	property int agendaWeatherColumnWidth: 60
+	property int agendaWeatherIconSize: plasmoid.configuration.agendaWeatherIconHeight
+	property int agendaDateColumnWidth: 50 + agendaColumnSpacing * 2
+	property int eventIndicatorWidth: 2
 
-	property int agendaFontSize: plasmoid.configuration.agendaFontSize === 0 ? theme.defaultFont.pixelSize : plasmoid.configuration.agendaFontSize * units.devicePixelRatio
+	property int agendaFontSize: plasmoid.configuration.agendaFontSize === 0 ? theme.defaultFont.pixelSize : plasmoid.configuration.agendaFontSize
 
-	property int timerClockFontHeight: 40 * units.devicePixelRatio
-	property int timerButtonWidth: 48 * units.devicePixelRatio
+	property int timerClockFontHeight: 40
+	property int timerButtonWidth: 48
 
-	property int meteogramIconSize: 24 * units.devicePixelRatio
-	property int meteogramColumnWidth: 32 * units.devicePixelRatio // weatherIconSize = 32px (height = 24px but most icons are landscape)
+	property int meteogramIconSize: 24
+	property int meteogramColumnWidth: 32 // weatherIconSize = 32px (height = 24px but most icons are landscape)
 
 	property QtObject icalCalendarList: Base64Json {
 		configKey: 'icalCalendarList'
@@ -85,4 +91,6 @@ QtObject {
 		var is12hour = combinedFormat.toLowerCase().indexOf('ap') >= 0
 		return !is12hour
 	}
+	readonly property string timeFormatShort: clock24h ? "hh:mm" : "h:mm AP"
+	readonly property string timeFormatLong: clock24h ? "hh:mm:ss" : "h:mm:ss AP"
 }

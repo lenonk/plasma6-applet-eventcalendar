@@ -1,357 +1,352 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
-import QtQuick.Dialogs 1.0
-import QtQuick.Layouts 1.0
-import org.kde.kirigami 2.0 as Kirigami
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
 
 import ".."
 import "../lib"
-import "../lib/Requests.js" as Requests
 
 ConfigPage {
 	id: page
-	showAppletVersion: true
+	// showAppletVersion: true
 
 	readonly property string localeTimeFormat: Qt.locale().timeFormat(Locale.ShortFormat)
 	readonly property string localeDateFormat: Qt.locale().dateFormat(Locale.ShortFormat)
-	readonly property string line1TimeFormat: clockTimeFormat.value || localeTimeFormat
-	readonly property string line2TimeFormat: clockTimeFormat2.value || localeDateFormat
+	readonly property string line1TimeFormat: ("" + (page.cfg_clockTimeFormat1 || "")).trim() || localeTimeFormat
+	readonly property string line2TimeFormat: ("" + (page.cfg_clockTimeFormat2 || "")).trim() || localeDateFormat
 
-	property string timeFormat24hour: 'hh:mm'
-	property string timeFormat12hour: 'h:mm AP'
-
-	property bool showDebug: plasmoid.configuration.debugging
-	property int indentWidth: 24 * Kirigami.Units.devicePixelRatio
+	readonly property string timeFormat24hour: "hh:mm"
+	readonly property string timeFormat12hour: "h:mm AP"
 
 	function setMouseWheelCommands(up, down) {
-		plasmoid.configuration.clockMouseWheel == 'RunCommands'
-		clockMousewheelGroupRunCommands.checked = true
-		plasmoid.configuration.clockMouseWheelUp = up
-		plasmoid.configuration.clockMouseWheelDown = down
+		page.cfg_clockMouseWheel = "RunCommands"
+		page.cfg_clockMouseWheelUp = up
+		page.cfg_clockMouseWheelDown = down
 	}
 
-
-
-	//---
-
-	HeaderText {
-		text: i18n("Widgets")
-	}
-
-	Label {
-		Layout.maximumWidth: page.width
-		wrapMode: Text.Wrap
-		text: i18n("Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their respective tabs.")
-	}
-
-	ConfigSection {
-		ConfigCheckBox {
-			configKey: 'widgetShowMeteogram'
-			text: i18n("Meteogram")
-		}
-	}
-
-	ConfigSection {
-		ConfigCheckBox {
-			id: widgetShowTimer
-			configKey: 'widgetShowTimer'
-			text: i18n("Timer")
-		}
-		RowLayout {
-			Text { width: indentWidth } // indent
-			ConfigSound {
-				label: i18n("SFX:")
-				sfxEnabledKey: 'timerSfxEnabled'
-				sfxPathKey: 'timerSfxFilepath'
-				sfxPathDefaultValue: '/usr/share/sounds/freedesktop/stereo/complete.oga'
-				enabled: widgetShowTimer.checked
-			}
-		}
-	}
-
-	HeaderText {
-		text: i18n("Clock")
-	}
 	ColumnLayout {
-		HeaderText {
-			text: i18n("Time Format")
-			level: 3
-		}
-
-		LinkText {
-			text: '<a href="https://doc.qt.io/qt-5/qml-qtqml-qt.html#formatDateTime-method">' + i18n("Time Format Documentation") + '</a>'
-		}
-
-		Label {
-			Layout.maximumWidth: page.width
-			wrapMode: Text.Wrap
-			text: i18n("The default font for the Breeze theme is Noto Sans which is hard to read with small text. Try using the Sans Serif font if you find the text too small when adding a second line.")
-		}
-
-		Label {
-			Layout.maximumWidth: page.width
-			wrapMode: Text.Wrap
-			text: i18n("You can also use %1 or %2 to style a section. Note the single quotes around the tags are used to bypass the time format.", "<b>\'&lt;b&gt;\'ddd\'&lt;\/b&gt;\'</b>", "<b>\'&lt;font color=\"#77aaadd\"&gt;\'ddd\'&lt;\/font&gt;\'</b>")
-		}
+		Layout.fillWidth: true
+		spacing: Kirigami.Units.largeSpacing
 
 		ConfigSection {
-			ConfigFontFamily {
-				id: clockFontFamily
-				configKey: 'clockFontFamily'
-				before: i18n("Font:")
-			}
+			title: i18n("Widgets")
 
-			RowLayout {
-				Label {
-					text: i18n("Fixed Clock Height: ")
-				}
-				
-				ConfigSpinBox {
-					configKey: 'clockMaxHeight'
-					suffix: i18n("px")
-					minimumValue: 0
-				}
-
-				Label {
-					text: i18n(" (0px = scale to fit)")
-				}
-			}
-		}
-
-		ConfigSection {
-			RowLayout {
+			Kirigami.FormLayout {
 				Layout.fillWidth: true
-				CheckBox {
-					checked: true
-					text: i18n("Line 1:")
-					onCheckedChanged: checked = true
-				}
-				ConfigString {
-					id: clockTimeFormat
-					configKey: 'clockTimeFormat1'
-					placeholderText: localeTimeFormat
-				}
-				Label {
-					text: Qt.formatDateTime(new Date(), line1TimeFormat)
-				}
-			}
 
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				Label {
-					text: i18n("Preset:")
+				QQC2.Label {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					Layout.preferredWidth: 0
+					wrapMode: Text.Wrap
+					opacity: 0.8
+					text: i18n("Show or hide optional widgets in the popup.")
 				}
-				Button {
-					text: Qt.formatDateTime(new Date(), timeFormat12hour)
-					onClicked: clockTimeFormat.value = timeFormat12hour
-				}
-				Button {
-					text: Qt.formatDateTime(new Date(), timeFormat24hour)
-					onClicked: clockTimeFormat.value = timeFormat24hour
-				}
-				Button {
-					property string dateFormat: Qt.locale().timeFormat(Locale.ShortFormat).replace('mm', 'mm:ss')
-					text: Qt.formatDateTime(new Date(), dateFormat)
-					onClicked: clockTimeFormat.value = dateFormat
-				}
-				Button {
-					property string dateFormat: 'MMM d, ' + Qt.locale().timeFormat(Locale.ShortFormat)
-					text: Qt.formatDateTime(new Date(), dateFormat)
-					onClicked: clockTimeFormat.value = dateFormat
-				}
-			}
 
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				Label {
-					text: i18n("Preset:")
-					color: "transparent"
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Meteogram")
+					checked: page.cfg_widgetShowMeteogram === undefined ? true : !!page.cfg_widgetShowMeteogram
+					onToggled: page.cfg_widgetShowMeteogram = checked
 				}
-				ColorTextButton {
-					property string dateFormat: '\'<font color="#3daee9">\'MMM d\'</font>\' ' + Qt.locale().timeFormat(Locale.ShortFormat)
-					label: Qt.formatDateTime(new Date(), dateFormat.replace())
-					onClicked: clockTimeFormat.value = dateFormat
-				}
-				ColorTextButton {
-					property string dateFormat: '\'<font color="#888">\'ddd<>d\'</font>\' h:mm\'<font color="#888">\'AP\'</font>\''
-					label: Qt.formatDateTime(new Date(), dateFormat.replace())
-					onClicked: clockTimeFormat.value = dateFormat
-				}
-			}
 
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				ConfigCheckBox {
-					configKey: 'clockLineBold1'
-					text: i18n("Bold")
+				QQC2.CheckBox {
+					id: widgetShowTimer
+					Kirigami.FormData.label: ""
+					text: i18n("Timer")
+					checked: page.cfg_widgetShowTimer === undefined ? true : !!page.cfg_widgetShowTimer
+					onToggled: page.cfg_widgetShowTimer = checked
 				}
-			}
-		}
 
-		ConfigSection {
-			RowLayout {
-				Layout.fillWidth: true
-				ConfigCheckBox {
-					configKey: 'clockShowLine2'
-					text: i18n("Line 2:")
-				}
-				ConfigString {
-					id: clockTimeFormat2
-					configKey: 'clockTimeFormat2'
-					placeholderText: localeDateFormat
-				}
-				Label {
-					text: Qt.formatDateTime(new Date(), line2TimeFormat)
-				}
-			}
+				RowLayout {
+					Kirigami.FormData.label: i18n("Timer sound:")
 
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				Label {
-					text: i18n("Preset:")
-				}
-				Button {
-					property string dateFormat: {
-						// org.kde.plasma.digitalclock
-						// remove "dddd" from the locale format string
-						// /all/ locales in LongFormat have "dddd" either
-						// at the beginning or at the end. so we just
-						// remove it + the delimiter and space
-						var format = Qt.locale().dateFormat(Locale.LongFormat)
-						format = format.replace(/(^dddd.?\s)|(,?\sdddd$)/, "")
-						return format
+					ConfigSound {
+						Layout.fillWidth: true
+						sfxEnabledKey: "timerSfxEnabled"
+						sfxPathKey: "timerSfxFilepath"
+						sfxPathDefaultValue: "/usr/share/sounds/freedesktop/stereo/complete.oga"
+						enabled: widgetShowTimer.checked
 					}
-					text: Qt.formatDate(new Date(), dateFormat)
-					onClicked: clockTimeFormat2.value = dateFormat
-				}
-				Button {
-					property string dateFormat: Qt.locale().dateFormat(Locale.ShortFormat)
-					text: Qt.formatDate(new Date(), dateFormat)
-					onClicked: clockTimeFormat2.value = dateFormat
-				}
-				Button {
-					property string dateFormat: 'MMM d'
-					text: Qt.formatDateTime(new Date(), dateFormat)
-					onClicked: clockTimeFormat2.value = dateFormat
-				}
-				Button {
-					text: "Sans Serif"
-					onClicked: clockFontFamily.selectValue("Sans Serif")
-				}
-			}
-
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				ConfigCheckBox {
-					configKey: 'clockLineBold2'
-					text: i18n("Bold")
-				}
-			}
-
-			RowLayout {
-				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				ConfigSlider {
-					configKey: 'clockLine2HeightRatio'
-					before: i18n("Height:")
-					after: Math.floor(value * 100) + '%'
-					minimumValue: 0.3
-					maximumValue: 0.7
-					stepSize: 0.01
 				}
 			}
 		}
 
-
-
-		HeaderText {
-			text: i18n("Mouse Wheel")
-			level: 3
-		}
 		ConfigSection {
-			ExclusiveGroup { id: clockMousewheelGroup }
+			title: i18n("Clock")
 
-			RadioButton {
-				id: clockMousewheelGroupRunCommands
-				text: i18n("Run Commands")
-				exclusiveGroup: clockMousewheelGroup
-				checked: plasmoid.configuration.clockMouseWheel == 'RunCommands'
-				onClicked: plasmoid.configuration.clockMouseWheel = 'RunCommands'
-			}
-			RowLayout {
+			Kirigami.FormLayout {
 				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				Label {
-					text: i18n("Scroll Up:")
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Font:")
+
+					ConfigFontFamily {
+						id: clockFontFamily
+						Layout.fillWidth: true
+						configKey: "clockFontFamily"
+					}
+
+					QQC2.Button {
+						text: i18n("Sans Serif")
+						onClicked: clockFontFamily.selectValue("Sans Serif")
+					}
 				}
-				ConfigString {
-					id: clockMouseWheelUp
-					configKey: 'clockMouseWheelUp'
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Fixed height:")
+
+					ConfigSpinBox {
+						configKey: "clockMaxHeight"
+						minimumValue: 0
+						suffix: i18n("px")
+					}
+
+					QQC2.Label {
+						Layout.alignment: Qt.AlignVCenter
+						opacity: 0.8
+						text: i18n("(0 = scale to fit)")
+					}
+				}
+
+				QQC2.Label {
+					Kirigami.FormData.label: i18n("Formatting:")
+					Layout.fillWidth: true
+					Layout.preferredWidth: 0
+					wrapMode: Text.Wrap
+					opacity: 0.8
+					text: i18n("Time formats use Qt’s date/time format strings.")
+				}
+
+				LinkText {
+					Kirigami.FormData.label: ""
+					text: "<a href=\"https://doc.qt.io/qt-6/qml-qtqml-qt.html#formatDateTime-method\">" + i18n("Time Format Documentation") + "</a>"
+				}
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Line 1:")
+
+					QQC2.TextField {
+						id: clockTimeFormat
+						Layout.fillWidth: true
+						placeholderText: localeTimeFormat
+						text: "" + (page.cfg_clockTimeFormat1 || "")
+						onTextEdited: page.cfg_clockTimeFormat1 = text
+					}
+
+					QQC2.Label {
+						Layout.alignment: Qt.AlignVCenter
+						opacity: 0.7
+						text: Qt.formatDateTime(new Date(), page.line1TimeFormat)
+					}
+				}
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Presets:")
+
+					QQC2.Button {
+						text: Qt.formatDateTime(new Date(), page.timeFormat12hour)
+						onClicked: clockTimeFormat.text = page.timeFormat12hour
+					}
+					QQC2.Button {
+						text: Qt.formatDateTime(new Date(), page.timeFormat24hour)
+						onClicked: clockTimeFormat.text = page.timeFormat24hour
+					}
+					QQC2.Button {
+						readonly property string dateFormat: Qt.locale().timeFormat(Locale.ShortFormat).replace("mm", "mm:ss")
+						text: Qt.formatDateTime(new Date(), dateFormat)
+						onClicked: clockTimeFormat.text = dateFormat
+					}
+					QQC2.Button {
+						readonly property string dateFormat: "MMM d, " + Qt.locale().timeFormat(Locale.ShortFormat)
+						text: Qt.formatDateTime(new Date(), dateFormat)
+						onClicked: clockTimeFormat.text = dateFormat
+					}
+				}
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Bold line 1")
+					checked: !!page.cfg_clockLineBold1
+					onToggled: page.cfg_clockLineBold1 = checked
+				}
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Show line 2")
+					checked: !!page.cfg_clockShowLine2
+					onToggled: page.cfg_clockShowLine2 = checked
+				}
+
+				RowLayout {
+					enabled: !!page.cfg_clockShowLine2
+					Kirigami.FormData.label: i18n("Line 2:")
+
+					QQC2.TextField {
+						id: clockTimeFormat2
+						Layout.fillWidth: true
+						placeholderText: localeDateFormat
+						text: "" + (page.cfg_clockTimeFormat2 || "")
+						onTextEdited: page.cfg_clockTimeFormat2 = text
+					}
+
+					QQC2.Label {
+						Layout.alignment: Qt.AlignVCenter
+						opacity: 0.7
+						text: Qt.formatDateTime(new Date(), page.line2TimeFormat)
+					}
+				}
+
+				RowLayout {
+					enabled: !!page.cfg_clockShowLine2
+					Kirigami.FormData.label: i18n("Presets:")
+
+					QQC2.Button {
+						readonly property string dateFormat: {
+							// Remove "dddd" from LongFormat, matching the digital clock behavior.
+							var format = Qt.locale().dateFormat(Locale.LongFormat)
+							return format.replace(/(^dddd.?\\s)|(,?\\sdddd$)/, "")
+						}
+						text: Qt.formatDate(new Date(), dateFormat)
+						onClicked: clockTimeFormat2.text = dateFormat
+					}
+					QQC2.Button {
+						readonly property string dateFormat: Qt.locale().dateFormat(Locale.ShortFormat)
+						text: Qt.formatDate(new Date(), dateFormat)
+						onClicked: clockTimeFormat2.text = dateFormat
+					}
+					QQC2.Button {
+						readonly property string dateFormat: "MMM d"
+						text: Qt.formatDate(new Date(), dateFormat)
+						onClicked: clockTimeFormat2.text = dateFormat
+					}
+					QQC2.Button {
+						readonly property string dateFormat: "dddd MMM d"
+						text: Qt.formatDate(new Date(), dateFormat)
+						onClicked: clockTimeFormat2.text = dateFormat
+					}
+				}
+
+				QQC2.CheckBox {
+					enabled: !!page.cfg_clockShowLine2
+					Kirigami.FormData.label: ""
+					text: i18n("Bold line 2")
+					checked: !!page.cfg_clockLineBold2
+					onToggled: page.cfg_clockLineBold2 = checked
+				}
+
+				RowLayout {
+					enabled: !!page.cfg_clockShowLine2
+					Kirigami.FormData.label: i18n("Line 2 height:")
+
+					QQC2.Slider {
+						id: line2Height
+						Layout.fillWidth: true
+						from: 0.3
+						to: 0.7
+						stepSize: 0.01
+						value: typeof page.cfg_clockLine2HeightRatio === "number"
+							? page.cfg_clockLine2HeightRatio
+							: Number(page.cfg_clockLine2HeightRatio || 0.4)
+						onMoved: page.cfg_clockLine2HeightRatio = value
+					}
+
+					QQC2.Label {
+						Layout.alignment: Qt.AlignVCenter
+						opacity: 0.8
+						text: Math.floor(line2Height.value * 100) + "%"
+					}
 				}
 			}
-			RowLayout {
+		}
+
+		ConfigSection {
+			title: i18n("Mouse Wheel")
+
+			Kirigami.FormLayout {
 				Layout.fillWidth: true
-				Text { width: indentWidth } // indent
-				Label {
-					text: i18n("Scroll Down:")
+
+				QQC2.Label {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					Layout.preferredWidth: 0
+					wrapMode: Text.Wrap
+					opacity: 0.8
+					text: i18n("Scrolling the mouse wheel over the panel clock runs the commands below.")
 				}
-				ConfigString {
-					id: clockMouseWheelDown
-					configKey: 'clockMouseWheelDown'
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Scroll up:")
+					QQC2.TextField {
+						Layout.fillWidth: true
+						text: "" + (page.cfg_clockMouseWheelUp || "")
+						onTextEdited: page.cfg_clockMouseWheelUp = text
+					}
+				}
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Scroll down:")
+					QQC2.TextField {
+						Layout.fillWidth: true
+						text: "" + (page.cfg_clockMouseWheelDown || "")
+						onTextEdited: page.cfg_clockMouseWheelDown = text
+					}
+				}
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Presets:")
+
+					QQC2.Button {
+						text: i18n("Volume (amixer)")
+						onClicked: page.setMouseWheelCommands("amixer -q sset Master 10%+", "amixer -q sset Master 10%-")
+					}
+					QQC2.Button {
+						text: i18n("Volume (qdbus)")
+						onClicked: page.setMouseWheelCommands(
+							"qdbus org.kde.kglobalaccel /component/kmix invokeShortcut \"increase_volume\"",
+							"qdbus org.kde.kglobalaccel /component/kmix invokeShortcut \"decrease_volume\""
+						)
+					}
 				}
 			}
+		}
 
-			RadioButton {
-				exclusiveGroup: clockMousewheelGroup
-				checked: false
-				text: i18n("Volume (No UI) (amixer)")
-				property string upCommand:   'amixer -q sset Master 10%+'
-				property string downCommand: 'amixer -q sset Master 10%-'
-				onClicked: setMouseWheelCommands(upCommand, downCommand)
-			}
-			
-			RadioButton {
-				exclusiveGroup: clockMousewheelGroup
-				checked: false
-				text: i18n("Volume (UI) (qdbus)")
-				property string upCommand:   'qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "increase_volume"'
-				property string downCommand: 'qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"'
-				onClicked: setMouseWheelCommands(upCommand, downCommand)
+		ConfigSection {
+			title: i18n("Desktop Widget")
+
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Show background")
+					checked: page.cfg_showBackground === undefined ? true : !!page.cfg_showBackground
+					onToggled: page.cfg_showBackground = checked
+				}
 			}
 		}
 
-	}
+		ConfigSection {
+			title: i18n("Debugging")
 
-	HeaderText {
-		text: i18n("Misc")
-	}
-	ConfigSection {
-		ConfigCheckBox {
-			configKey: 'showBackground'
-			Layout.fillWidth: true
-			text: i18n("Desktop Widget: Show background")
-		}
-	}
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
 
-	HeaderText {
-		text: i18n("Debugging")
-	}
-	ConfigSection {
-		Label {
-			text: i18n("Debugging will log sensitive information to:")
-				+ '<br/><b>Kubuntu:</b> ~/.xsession-errors'
-				+ '<br/><b>Arch/Manjaro:</b> journalctl -b0 _COMM=plasmashell'
-			textFormat: Text.StyledText
-		}
-		ConfigCheckBox {
-			configKey: 'debugging'
-			text: i18n("Enable Debugging")
+				Kirigami.InlineMessage {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					type: Kirigami.MessageType.Information
+					text: i18n("Debugging logs sensitive information to the system journal (plasmashell).")
+				}
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Enable debugging")
+					checked: !!page.cfg_debugging
+					onToggled: page.cfg_debugging = checked
+				}
+			}
 		}
 	}
 }
+

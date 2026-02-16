@@ -1,22 +1,35 @@
-// Version 3
+// Version 4
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls
 import QtQuick.Layouts 1.0
 
 RowLayout {
 	id: configSpinBox
 
-	property string configKey: ''
-	readonly property var configValue: configKey ? plasmoid.configuration[configKey] : 0
-	property alias decimals: spinBox.decimals
-	property alias horizontalAlignment: spinBox.horizontalAlignment
-	property alias maximumValue: spinBox.maximumValue
-	property alias minimumValue: spinBox.minimumValue
-	property alias prefix: spinBox.prefix
-	property alias stepSize: spinBox.stepSize
-	property alias suffix: spinBox.suffix
-	property alias value: spinBox.value
+	property string configKey: ""
+	readonly property var configPage: {
+		var p = configSpinBox.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
+	readonly property real configValue: configKey
+		? Number(configPage ? configPage.getConfigValue(configKey, 0) : plasmoid.configuration[configKey])
+		: 0
+
+	property int decimals: 0
+	property int horizontalAlignment: TextInput.AlignLeft
+	property real maximumValue: 2147483647
+	property real minimumValue: 0
+	property string prefix: ""
+	property real stepSize: 1
+	property string suffix: ""
+	property real value: spinBox.value / scaleFactor
+
+	readonly property real scaleFactor: Math.pow(10, Math.max(0, decimals))
 
 	property alias before: labelBefore.text
 	property alias after: labelAfter.text
@@ -26,28 +39,50 @@ RowLayout {
 		text: ""
 		visible: text
 	}
-	
+
 	SpinBox {
 		id: spinBox
+		editable: true
+		from: Math.round(configSpinBox.minimumValue * configSpinBox.scaleFactor)
+		to: Math.round(configSpinBox.maximumValue * configSpinBox.scaleFactor)
+		stepSize: Math.max(1, Math.round(configSpinBox.stepSize * configSpinBox.scaleFactor))
+		value: Math.round(configSpinBox.configValue * configSpinBox.scaleFactor)
 
-		value: configValue
-		onValueChanged: serializeTimer.start()
-		maximumValue: 2147483647
+		textFromValue: function(v, locale) {
+			var numeric = v / configSpinBox.scaleFactor
+			var text = configSpinBox.decimals > 0 ? numeric.toFixed(configSpinBox.decimals) : String(Math.round(numeric))
+			return configSpinBox.prefix + text + configSpinBox.suffix
+		}
+
+		valueFromText: function(text, locale) {
+			var s = text
+			if (configSpinBox.prefix && s.indexOf(configSpinBox.prefix) === 0) {
+				s = s.slice(configSpinBox.prefix.length)
+			}
+			if (configSpinBox.suffix && s.endsWith(configSpinBox.suffix)) {
+				s = s.slice(0, s.length - configSpinBox.suffix.length)
+			}
+			var n = Number(s.trim())
+			if (Number.isNaN(n)) {
+				n = configSpinBox.minimumValue
+			}
+			n = Math.min(configSpinBox.maximumValue, Math.max(configSpinBox.minimumValue, n))
+			return Math.round(n * configSpinBox.scaleFactor)
+		}
+
+		onValueModified: {
+			if (!configKey) return
+			if (configPage) {
+				configPage.setConfigValue(configKey, configSpinBox.value)
+			} else {
+				plasmoid.configuration[configKey] = configSpinBox.value
+			}
+		}
 	}
 
 	Label {
 		id: labelAfter
 		text: ""
 		visible: text
-	}
-
-	Timer { // throttle
-		id: serializeTimer
-		interval: 300
-		onTriggered: {
-			if (configKey) {
-				plasmoid.configuration[configKey] = value
-			}
-		}
 	}
 }

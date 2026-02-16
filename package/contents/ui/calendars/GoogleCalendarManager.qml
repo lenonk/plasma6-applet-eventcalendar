@@ -251,12 +251,12 @@ CalendarManager {
 	}
 
 	//--- Parsing Events
-	onCalendarParsing: {
-		var calendar = getCalendar(calendarId)
-		data.items.forEach(function(event){
-			parseEvent(calendar, event)
-		})
-	}
+		onCalendarParsing: function(calendarId, data) {
+			var calendar = getCalendar(calendarId)
+			data.items.forEach(function(event){
+				parseEvent(calendar, event)
+			})
+		}
 
 	function parseEvent(calendar, event) {
 		event.description = event.description || ""

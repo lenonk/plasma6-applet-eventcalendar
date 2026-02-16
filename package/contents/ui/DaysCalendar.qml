@@ -20,17 +20,20 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0 as QQC2
+import QtQml
 
-import org.kde.kirigami 2.0 as Kirigami
-import org.kde.plasma.calendar 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.workspace.calendar
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.ksvg as KSvg
 
 import "./badges"
 
 Item {
 	id: daysCalendar
+	readonly property var units: Kirigami.Units
 
 	signal headerClicked
 
@@ -64,10 +67,33 @@ Item {
 
 	property alias title: heading.text
 
+	// Extra padding around the calendar grid area (below the header).
+	// This shrinks the grid and leaves empty space on the left/right/bottom.
+	property int gridMargin: units.smallSpacing
+
+	// Make the weekday header row shorter than day rows (closer to the classic calendar layout).
+	readonly property real headerRowScale: 0.67
+	readonly property bool hasHeaderRow: daysCalendar.headerModel !== undefined && daysCalendar.headerModel !== null
+	readonly property int headerRows: hasHeaderRow ? 1 : 0
+	readonly property int totalRows: daysCalendar.rows + headerRows
+
 	// Take the calendar width, subtract the inner and outer spacings and divide by number of columns (==days in week)
-	readonly property int cellWidth: Math.floor((stack.width - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
+	readonly property int cellWidth: Math.floor((daysCalendar.width - (daysCalendar.gridMargin * 2) - (daysCalendar.columns + 1) * root.borderWidth) / (daysCalendar.columns + (showWeekNumbers ? 1 : 0)))
 	// Take the calendar height, subtract the inner spacings and divide by number of rows (root.weeks + one row for day names)
-	readonly property int cellHeight:  Math.floor((stack.height - heading.height - calendarGrid.rows * root.borderWidth) / calendarGrid.rows)
+	readonly property int cellHeight: {
+		// Height for each day-cell row (weeks, months, etc).
+		var denom = daysCalendar.rows + (hasHeaderRow ? headerRowScale : 0)
+		if (denom <= 0) {
+			return 0
+		}
+		var gridHeight = Math.max(0, daysCalendar.height - headerRow.height - daysCalendar.gridMargin)
+		var usable = gridHeight - (totalRows + 1) * root.borderWidth
+		if (usable < 0) {
+			usable = 0
+		}
+		return Math.floor(usable / denom)
+	}
+	readonly property int headerCellHeight: hasHeaderRow ? Math.floor(cellHeight * headerRowScale) : cellHeight
 
 	property real transformScale: 1
 	property point transformOrigin: Qt.point(width / 2, height / 2)
@@ -94,6 +120,7 @@ Item {
 	}
 
 	RowLayout {
+		id: headerRow
 		anchors {
 			top: parent.top
 			left: parent.left
@@ -107,6 +134,20 @@ Item {
 			Layout.fillWidth: true
 
 			level: root.headingFontLevel
+			// The default Heading scaling is a little small for the applet popup.
+			// Re-implement the Heading sizing here so MonthView can apply an extra scale.
+			font.pointSize: {
+				var n = Kirigami.Theme.defaultFont.pointSize
+				var factor = 1.0
+				switch (root.headingFontLevel) {
+				case 1: factor = 1.35; break;
+				case 2: factor = 1.20; break;
+				case 3: factor = 1.15; break;
+				case 4: factor = 1.10; break;
+				default: factor = 1.0; break;
+				}
+				return n * factor * (typeof root.headingFontScale === "number" ? root.headingFontScale : 1.0)
+			}
 			wrapMode: Text.NoWrap
 			elide: Text.ElideRight
 			font.capitalization: Font.Capitalize
@@ -118,16 +159,16 @@ Item {
 				id: monthMouse
 				property int previousPixelDelta
 
-				anchors.fill: parent
-				onClicked: {
-					if (!stack.busy) {
-						daysCalendar.headerClicked()
+					anchors.fill: parent
+					onClicked: {
+						if (!stack.busy) {
+							daysCalendar.headerClicked()
+						}
 					}
-				}
-				onExited: previousPixelDelta = 0
-				onWheel: {
-					var delta = wheel.angleDelta.y || wheel.angleDelta.x
-					var pixelDelta = wheel.pixelDelta.y || wheel.pixelDelta.x
+					onExited: previousPixelDelta = 0
+					onWheel: function(wheel) {
+						var delta = wheel.angleDelta.y || wheel.angleDelta.x
+						var pixelDelta = wheel.pixelDelta.y || wheel.pixelDelta.x
 
 					// For high-precision touchpad scrolling, we get a wheel event for basically every slightest
 					// finger movement. To prevent the view from suddenly ending up in the next century, we
@@ -145,10 +186,10 @@ Item {
 					} else if (delta <= -15) {
 						daysCalendar.next()
 					}
-					previousPixelDelta = 0
+						previousPixelDelta = 0
+					}
 				}
 			}
-		}
 
 		PlasmaComponents3.ToolButton {
 			id: previousButton
@@ -197,9 +238,12 @@ Item {
 		anchors {
 			horizontalCenter: parent.horizontalCenter
 			bottom: parent.bottom
+			bottomMargin: daysCalendar.gridMargin
 		}
 		width: (daysCalendar.cellWidth + root.borderWidth) * gridColumns + root.borderWidth
-		height: (daysCalendar.cellHeight + root.borderWidth) * calendarGrid.rows + root.borderWidth
+		height: (hasHeaderRow ? daysCalendar.headerCellHeight : 0)
+			+ (daysCalendar.cellHeight * daysCalendar.rows)
+			+ (daysCalendar.totalRows + 1) * root.borderWidth
 
 		opacity: root.borderOpacity
 		antialiasing: false
@@ -211,7 +255,7 @@ Item {
 			ctx.reset()
 			ctx.save()
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
-			ctx.strokeStyle = PlasmaCore.ColorScope.textColor
+				ctx.strokeStyle = PlasmaCore.Theme.textColor
 			ctx.lineWidth = root.borderWidth
 			ctx.globalAlpha = 1.0
 
@@ -225,15 +269,25 @@ Item {
 			var lineBasePoint = Math.floor(root.borderWidth / 2)
 
 			// horizontal lines
-			for (var i = 0; i < calendarGrid.rows + 1; i++) {
-				var lineY = lineBasePoint + (daysCalendar.cellHeight + root.borderWidth) * (i)
+			var y = lineBasePoint
+			for (var i = 0; i < daysCalendar.totalRows + 1; i++) {
+				var lineY = y
 
-				if (i === 0 || i === calendarGrid.rows) {
+				if (i === 0 || i === daysCalendar.totalRows) {
 					ctx.moveTo(0, lineY)
 				} else {
 					ctx.moveTo(showWeekNumbers ? daysCalendar.cellWidth + root.borderWidth : root.borderWidth, lineY)
 				}
 				ctx.lineTo(width, lineY)
+
+				// Advance to the next line.
+				if (i < daysCalendar.totalRows) {
+					var rowHeight = daysCalendar.cellHeight
+					if (daysCalendar.hasHeaderRow && i === 0) {
+						rowHeight = daysCalendar.headerCellHeight
+					}
+					y += rowHeight + root.borderWidth
+				}
 			}
 
 			// vertical lines
@@ -242,10 +296,10 @@ Item {
 
 				// Draw the outer vertical lines in full height so that it closes
 				// the outer rectangle
-				if (i == 0 || i == gridColumns || !daysCalendar.headerModel) {
+				if (i == 0 || i == gridColumns || !daysCalendar.hasHeaderRow) {
 					ctx.moveTo(lineX, 0)
 				} else {
-					ctx.moveTo(lineX, root.borderWidth + daysCalendar.cellHeight)
+					ctx.moveTo(lineX, root.borderWidth + daysCalendar.headerCellHeight)
 				}
 				ctx.lineTo(lineX, height)
 			}
@@ -256,7 +310,7 @@ Item {
 		}
 	}
 
-	PlasmaCore.Svg {
+	KSvg.Svg {
 		id: calendarSvg
 		imagePath: "widgets/calendar"
 	}
@@ -265,7 +319,7 @@ Item {
 		id: themeBadgeComponent
 		Item {
 			id: themeBadge
-			PlasmaCore.SvgItem {
+			KSvg.SvgItem {
 				id: eventsMarker
 				anchors.bottom: themeBadge.bottom
 				anchors.right: themeBadge.right
@@ -298,10 +352,8 @@ Item {
 	}
 
 	Connections {
-		target: theme
-		onTextColorChanged: {
-			canvas.requestPaint()
-		}
+		target: PlasmaCore.Theme
+		function onThemeChangedProxy() { canvas.requestPaint() }
 	}
 
 	Column {
@@ -314,7 +366,7 @@ Item {
 			// The borderWidth needs to be counted twice here because it goes
 			// in fact through two lines - the topmost one (the outer edge)
 			// and then the one below weekday strings
-			topMargin: daysCalendar.cellHeight + root.borderWidth + root.borderWidth
+			topMargin: (daysCalendar.hasHeaderRow ? daysCalendar.headerCellHeight : 0) + root.borderWidth + root.borderWidth
 		}
 		spacing: root.borderWidth
 
@@ -327,10 +379,10 @@ Item {
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				font.pointSize: -1 // Ignore pixelSize warning
-				font.pixelSize: Math.max(theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3, daysCalendar.cellWidth * 5/8))
+					font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3, daysCalendar.cellWidth * 5/8))
 				readonly property bool isCurrentWeek: root.currentMonthContainsToday && modelData == calendarBackend.currentWeek()
 				readonly property bool showHighlight: isCurrentWeek && root.highlightCurrentDayWeek
-				color: showHighlight ? PlasmaCore.ColorScope.highlightColor : PlasmaCore.ColorScope.textColor
+					color: showHighlight ? PlasmaCore.Theme.highlightColor : PlasmaCore.Theme.textColor
 				opacity: showHighlight ? 0.75 : 0.4
 				text: modelData
 			}
@@ -343,7 +395,7 @@ Item {
 		anchors {
 			right: canvas.right
 			rightMargin: root.borderWidth
-			bottom: parent.bottom
+			bottom: canvas.bottom
 			bottomMargin: root.borderWidth
 		}
 
@@ -368,17 +420,20 @@ Item {
 
 			PlasmaComponents3.Label {
 				width: daysCalendar.cellWidth
-				height: daysCalendar.cellHeight
+				height: daysCalendar.headerCellHeight
 				font.pointSize: -1 // Ignore pixelSize warning
-				font.pixelSize: Math.max(theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3, daysCalendar.cellWidth * 5/8))
+				// Weekday headers should be a bit smaller than day numbers.
+				font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3.4, daysCalendar.cellWidth * 9/16))
 				horizontalAlignment: Text.AlignHCenter
-				verticalAlignment: Text.AlignVCenter
+				// Reduce the perceived gap between weekday names and the first date row.
+				verticalAlignment: Text.AlignBottom
+				bottomPadding: Math.round(units.smallSpacing / 4)
 				elide: Text.ElideRight
 				fontSizeMode: Text.HorizontalFit
 				readonly property int currentDayIndex: (calendarBackend.firstDayOfWeek + index) % 7
 				readonly property bool isCurrentDay: root.currentMonthContainsToday && root.today && root.today.getDay() === currentDayIndex
 				readonly property bool showHighlight: isCurrentDay && root.highlightCurrentDayWeek
-				color: showHighlight ? PlasmaCore.ColorScope.highlightColor : PlasmaCore.ColorScope.textColor
+					color: showHighlight ? PlasmaCore.Theme.highlightColor : PlasmaCore.Theme.textColor
 				opacity: showHighlight ? 0.75 : 0.4
 				text: Qt.locale().dayName(currentDayIndex, Locale.ShortFormat)
 			}
@@ -422,14 +477,14 @@ Item {
 					}
 				}
 
-				Connections {
-					target: daysCalendar
-					onActivateHighlightedItem: {
-						if (delegate.containsMouse) {
-							delegate.clicked(null)
+					Connections {
+						target: daysCalendar
+						function onActivateHighlightedItem() {
+							if (delegate.containsMouse) {
+								delegate.clicked(null)
+							}
 						}
 					}
-				}
 			}
 		}
 	}

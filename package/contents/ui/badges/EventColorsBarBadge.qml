@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 Item {
 	id: eventColorsBarColor
@@ -21,7 +21,7 @@ Item {
 			spacing: 0
 
 			Repeater {
-				model: dayStyle.useHightlightColor ? [theme.highlightColor] : dayStyle.eventColors
+				model: dayStyle.useHightlightColor ? [PlasmaCore.Theme.highlightColor] : dayStyle.eventColors
 
 				Rectangle {
 					Layout.fillHeight: true
@@ -32,7 +32,7 @@ Item {
 						anchors.fill: parent
 						color: "transparent"
 						border.width: 1
-						border.color: theme.backgroundColor
+						border.color: PlasmaCore.Theme.backgroundColor
 						opacity: 0.5
 					}
 				}
@@ -41,4 +41,3 @@ Item {
 		}
 	}
 }
-

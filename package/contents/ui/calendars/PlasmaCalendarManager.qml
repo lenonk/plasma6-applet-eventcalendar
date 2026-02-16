@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.calendar 2.0 as PlasmaCalendar
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
 
 import "../lib"
 import "../Shared.js" as Shared
@@ -13,6 +13,7 @@ CalendarManager {
 	calendarManagerId: "plasma"
 
 	property var executable: ExecUtil { id: executable }
+	property var eventPluginsManager: PlasmaCalendar.EventPluginsManager {}
 	property var calendarModel: Qt.createQmlObject("import org.kde.plasma.PimCalendars 1.0; PimCalendarsModel {}", plasmaCalendarManager)
 	function appendPimCalendars(calendarList) {
 		// https://github.com/KDE/kdepim-addons/blob/master/plugins/plasma/pimeventsplugin/PimEventsConfig.qml
@@ -73,7 +74,7 @@ CalendarManager {
 		// KHolidays
 		calendarList.push({
 			"calendarId": "plasma_Holidays",
-			"backgroundColor": "" + theme.highlightColor,
+			"backgroundColor": "" + PlasmaCore.Theme.highlightColor,
 			"accessRole": "reader",
 			"isTasklist": false,
 		})
@@ -102,13 +103,23 @@ CalendarManager {
 	// to get a list of events for a specific day.
 
 	Component.onCompleted: {
-		PlasmaCalendarUtils.setEnabledPluginsByFilename(PlasmaCalendar.EventPluginsManager, plasmoid.configuration.enabledCalendarPlugins)
+		applyEnabledPlugins()
 	}
 	Connections {
 		target: plasmoid.configuration
-		onEnabledCalendarPluginsChanged: {
-			PlasmaCalendarUtils.setEnabledPluginsByFilename(PlasmaCalendar.EventPluginsManager, plasmoid.configuration.enabledCalendarPlugins)
+		function onEnabledCalendarPluginsChanged() {
+			applyEnabledPlugins()
 		}
+	}
+	function applyEnabledPlugins() {
+		PlasmaCalendarUtils.setEnabledPluginsByFilename(eventPluginsManager, plasmoid.configuration.enabledCalendarPlugins)
+		// Force a refresh so newly enabled plugins (eg: astronomical events) show up immediately.
+		Qt.callLater(function() {
+			if (calendarBackend) {
+				calendarBackend.updateData()
+			}
+			plasmaCalendarManager.refresh()
+		})
 	}
 
 	// From: kdeclarative/.../MonthView.qml
@@ -128,7 +139,9 @@ CalendarManager {
 
 		Component.onCompleted: {
 			//daysModel.connect
-			daysModel.setPluginsManager(PlasmaCalendar.EventPluginsManager)
+			if (daysModel && eventPluginsManager) {
+				daysModel.setPluginsManager(eventPluginsManager)
+			}
 		}
 	}
 
@@ -186,7 +199,7 @@ CalendarManager {
 			var calendarId = parseCalendarId(dayItem)
 			var eventId = calendarId + "_" + startDateTime.getTime() + "_" + endDateTime.getTime()
 
-			var eventColor = dayItem.eventColor || theme.highlightColor
+			var eventColor = dayItem.eventColor || PlasmaCore.Theme.highlightColor
 			eventColor = "" + eventColor // Cast to string, as dayItem.eventColor is a QColor which JSON treats as an object
 
 			var event = {
@@ -210,7 +223,7 @@ CalendarManager {
 
 	function getEventsForDate(date) {
 		var dayEvents = calendarBackend.daysModel.eventsForDate(date)
-		return parseEventsForDate(dayEvents)
+		return parseEventsForDate(date, dayEvents)
 	}
 
 	function getEventsForDuration(dateMin, dateMax) {
@@ -311,7 +324,7 @@ CalendarManager {
 		}
 	}
 
-	onCalendarParsing: {
+	onCalendarParsing: function(calendarId, data) {
 		var calendar = getCalendar(calendarId)
 		parseEventList(calendar, data.items)
 	}

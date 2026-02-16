@@ -1,9 +1,9 @@
 // Version 2
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls
 import QtQuick.Layouts 1.0
-import org.kde.kirigami 2.0 as Kirigami
+import org.kde.kirigami as Kirigami
 
 GridLayout {
 	id: configDimension
@@ -12,7 +12,7 @@ GridLayout {
 
 	property int orientation: Qt.Horizontal
 	property color lineColor: "#000"
-	property int lineThickness: 2 * Kirigami.Units.devicePixelRatio
+	property int lineThickness: 2
 
 	property alias configKey: configSpinBox.configKey
 	property alias configValue: configSpinBox.configValue

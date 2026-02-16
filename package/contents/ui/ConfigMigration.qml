@@ -1,9 +1,72 @@
 import QtQuick 2.0
+import QtQml
+
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
 
 import "./calendars/PlasmaCalendarUtils.js" as PlasmaCalendarUtils
 
-QtObject {
+Item {
+	id: root
+	visible: false
+	width: 0
+	height: 0
+
 	signal migrate()
+
+	// Used to migrate legacy display-name based configs (from buggy versions) back to stable plugin ids.
+	PlasmaCalendar.EventPluginsManager {
+		id: eventPluginsManager
+	}
+	property var pluginDisplayToIdLower: ({}) // { "holidays": "holidaysevents", ... }
+	property var knownPluginIds: ({}) // { "holidaysevents": true, ... }
+
+	Instantiator {
+		id: pluginInstantiator
+		model: eventPluginsManager.model
+		delegate: QtObject {
+			Component.onCompleted: {
+				var display = ("" + model.display).trim()
+				var pluginId = ("" + model.pluginId).trim()
+				if (!display || !pluginId) return
+				root.pluginDisplayToIdLower[display.toLowerCase()] = pluginId
+				root.knownPluginIds[pluginId] = true
+			}
+		}
+	}
+
+	function resolvePluginId(value) {
+		if (typeof value === "undefined" || value === null) return ""
+		var raw = ("" + value).trim()
+		if (!raw) return ""
+
+		// Normalize paths and ".so" filenames into ids (eg: "/.../holidaysevents.so" -> "holidaysevents").
+		var norm = PlasmaCalendarUtils.getPluginFilename(raw)
+		if (root.knownPluginIds[norm]) {
+			return norm
+		}
+
+		// Legacy bug: some versions stored plugin display names (eg: "Astronomical Events").
+		var byDisplay = root.pluginDisplayToIdLower[norm.toLowerCase()] || root.pluginDisplayToIdLower[raw.toLowerCase()]
+		if (byDisplay) {
+			return byDisplay
+		}
+
+		// Unknown plugin id; keep normalized value as-is.
+		return norm
+	}
+
+	function normalizeEnabledPluginsList(value) {
+		var list = PlasmaCalendarUtils.pluginPathToFilenameList(value)
+		var out = []
+		for (var i = 0; i < list.length; i++) {
+			var id = resolvePluginId(list[i])
+			if (!id) continue
+			if (out.indexOf(id) === -1) {
+				out.push(id)
+			}
+		}
+		return out
+	}
 
 	function copy(oldKey, newKey) {
 		if (typeof plasmoid.configuration[oldKey] === 'undefined') return
@@ -13,12 +76,45 @@ QtObject {
 		console.log('[eventcalendar:migrate] copy ' + oldKey + ' => ' + newKey + ' (value: ' + plasmoid.configuration[oldKey] + ')')
 	}
 
-	Component.onCompleted: migrate()
+	Timer {
+		interval: 0
+		running: true
+		repeat: false
+		onTriggered: root.migrate()
+	}
+	Connections {
+		target: eventPluginsManager
+		// If plugin list loads after startup, rerun normalization once it is available.
+		function onPluginsChanged() { root.migrate() }
+	}
 	onMigrate: {
+		function normalizeEnabledCalendarPlugins() {
+			// Normalize values on every startup: old configs may have ".so" filenames
+			// or outdated ids, and Plasma 6 exposes different plugin ids/paths.
+			var oldValue = plasmoid.configuration.enabledCalendarPlugins
+			var newValue = normalizeEnabledPluginsList(oldValue)
+			if (JSON.stringify(oldValue) !== JSON.stringify(newValue)) {
+				plasmoid.configuration.enabledCalendarPlugins = newValue
+				console.log('[eventcalendar:migrate] normalize enabledCalendarPlugins (' + oldValue + ' => ' + newValue + ')')
+			}
+		}
+
+		normalizeEnabledCalendarPlugins()
+
+		// Normalize legacy/unsupported weather service values.
+		if (plasmoid.configuration.weatherService
+			&& plasmoid.configuration.weatherService !== "OpenMeteo"
+			&& plasmoid.configuration.weatherService !== "WeatherCanada"
+		) {
+			var oldService = plasmoid.configuration.weatherService
+			plasmoid.configuration.weatherService = "OpenMeteo"
+			console.log("[eventcalendar:migrate] weatherService " + oldService + " => OpenMeteo")
+		}
+
 		// Modified in: v72
 		if (!plasmoid.configuration.v72Migration) {
 			var oldValue = plasmoid.configuration.enabledCalendarPlugins
-			var newValue = PlasmaCalendarUtils.pluginPathToFilenameList(plasmoid.configuration.enabledCalendarPlugins)
+			var newValue = normalizeEnabledPluginsList(plasmoid.configuration.enabledCalendarPlugins)
 			plasmoid.configuration.enabledCalendarPlugins = newValue
 			console.log('[eventcalendar:migrate] convert enabledCalendarPlugins (' + oldValue + ' => ' + newValue + ')')
 
@@ -63,8 +159,6 @@ QtObject {
 
 			copy('events_pollinterval', 'eventsPollInterval')
 
-			copy('weather_app_id', 'openWeatherMapAppId')
-			copy('weather_city_id', 'openWeatherMapCityId')
 			copy('weather_canada_city_id', 'weatherCanadaCityId')
 			copy('weather_service', 'weatherService')
 			copy('weather_units', 'weatherUnits')
@@ -81,4 +175,3 @@ QtObject {
 	}
 
 }
-

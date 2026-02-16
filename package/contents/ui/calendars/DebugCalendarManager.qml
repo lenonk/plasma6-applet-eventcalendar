@@ -71,9 +71,9 @@ CalendarManager {
 		fetchDebugEvents()
 	}
 
-	onCalendarParsing: {
-		parseEventList(debugCalendar, data.items)
-	}
+		onCalendarParsing: function(calendarId, data) {
+			parseEventList(debugCalendar, data.items)
+		}
 
 	function parseEvent(calendar, event) {
 		event.description = event.description || ""

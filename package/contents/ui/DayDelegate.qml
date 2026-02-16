@@ -17,14 +17,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQml
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.core as PlasmaCore
 
-import org.kde.plasma.calendar 2.0
+import org.kde.plasma.workspace.calendar
 
 import "LocaleFuncs.js" as LocaleFuncs
 
 MouseArea {
 	id: dayStyle
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
 
 	hoverEnabled: true
 	property string eventBadgeType: "bottomBar"
@@ -183,7 +187,9 @@ MouseArea {
 			if (today && todayStyle == "bigNumber") {
 				return Math.max(theme.smallestFont.pixelSize, Math.min(Math.floor(dayStyle.height / 2), Math.floor(dayStyle.width * 7/8)))
 			} else {
-				return Math.max(theme.smallestFont.pixelSize, Math.min(Math.floor(dayStyle.height / 3), Math.floor(dayStyle.width * 5/8)))
+				// Keep day numbers slightly smaller to match the classic EventCalendar look.
+				var base = Math.min(Math.floor(dayStyle.height / 3), Math.floor(dayStyle.width * 5/8))
+				return Math.max(theme.smallestFont.pixelSize, Math.floor(base * 0.9))
 			}
 		}
 		// This is to avoid the "Both point size and

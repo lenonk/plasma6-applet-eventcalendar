@@ -1,7 +1,7 @@
 // Version 2
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls
 import QtQuick.Layouts 1.0
 
 TextField {
@@ -10,19 +10,42 @@ TextField {
 
 	property string configKey: ''
 	property alias value: configString.text
-	readonly property string configValue: configKey ? plasmoid.configuration[configKey] : ""
+	readonly property var configPage: {
+		var p = configString.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
+
+	readonly property string configValue: configKey
+		? ("" + (configPage ? configPage.getConfigValue(configKey, "") : plasmoid.configuration[configKey]))
+		: ""
+
+	property bool __updatingFromConfig: false
 	onConfigValueChanged: {
 		if (!configString.focus && value != configValue) {
+			__updatingFromConfig = true
 			value = configValue
+			__updatingFromConfig = false
 		}
 	}
 	property string defaultValue: ""
 
 	text: configString.configValue
-	onTextChanged: serializeTimer.restart()
+	onTextChanged: {
+		if (__updatingFromConfig) return
+		if (!configKey) return
+		if (configPage) {
+			configPage.setConfigValue(configKey, value)
+		} else {
+			plasmoid.configuration[configKey] = value
+		}
+	}
 
 	ToolButton {
-		iconName: "edit-clear"
+		icon.name: "edit-clear"
 		onClicked: configString.value = defaultValue
 
 		anchors.top: parent.top
@@ -30,15 +53,5 @@ TextField {
 		anchors.bottom: parent.bottom
 
 		width: height
-	}
-
-	Timer { // throttle
-		id: serializeTimer
-		interval: 300
-		onTriggered: {
-			if (configKey) {
-				plasmoid.configuration[configKey] = value
-			}
-		}
 	}
 }

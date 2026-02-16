@@ -1,12 +1,14 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 Item {
 	id: dotsBadge
+	readonly property var units: Kirigami.Units
 	property int dotSize: (height / 8) + dotBorderWidth*2
-	property color dotColor: theme.highlightColor
+	property color dotColor: PlasmaCore.Theme.highlightColor
 	property int dotBorderWidth: plasmoid.configuration.showOutlines ? 1 : 0
-	property color dotBorderColor: theme.backgroundColor
+	property color dotBorderColor: PlasmaCore.Theme.backgroundColor
 
 	Row {
 		anchors.horizontalCenter: dotsBadge.horizontalCenter
@@ -43,4 +45,3 @@ Item {
 		}
 	}
 }
-

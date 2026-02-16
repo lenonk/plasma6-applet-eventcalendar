@@ -1,25 +1,27 @@
 .pragma library
 
-.import "OpenWeatherMap.js" as OpenWeatherMap
+.import "OpenMeteo.js" as OpenMeteo
 .import "WeatherCanada.js" as WeatherCanada
 
-/* How many hours each data point represents */
-function getDataPointDuration(config) {
-	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		return 3
-	} else if (weatherService == 'WeatherCanada') {
-		return 1
-	} else {
-		return 1
+	/* How many hours each data point represents */
+	function getDataPointDuration(config) {
+		var weatherService = config.weatherService
+		if (weatherService == 'OpenMeteo') {
+			// Open-Meteo provides hourly data. MeteogramView already reduces icon density,
+			// so keep full hourly points for accurate "next N hours" windows.
+			return 1
+		} else if (weatherService == 'WeatherCanada') {
+			return 1
+		} else {
+			return 1
+		}
 	}
-}
 
 /* Precipitation units ('mm' or '%') */
 function getRainUnits(config) {
 	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		return 'mm'
+	if (weatherService == 'OpenMeteo') {
+		return config.weatherUnits === "imperial" ? 'in' : 'mm'
 	} else if (weatherService == 'WeatherCanada') {
 		return '%'
 	} else {
@@ -30,8 +32,8 @@ function getRainUnits(config) {
 /* Open the city's webpage using Qt.openUrlExternally(url) */
 function openCityUrl(config) {
 	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		OpenWeatherMap.openOpenWeatherMapCityUrl(config.openWeatherMapCityId)
+	if (weatherService == 'OpenMeteo') {
+		OpenMeteo.openCityUrl(config)
 	} else if (weatherService == 'WeatherCanada') {
 		Qt.openUrlExternally(WeatherCanada.getCityUrl(config.weatherCanadaCityId))
 	}
@@ -64,8 +66,8 @@ function updateDailyWeather(config, callback) {
 		return callback('Weather configuration not setup')
 	}
 	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		OpenWeatherMap.updateDailyWeather(config, callback)
+	if (weatherService == 'OpenMeteo') {
+		OpenMeteo.updateDailyWeather(config, callback)
 	} else if (weatherService == 'WeatherCanada') {
 		WeatherCanada.updateDailyWeather(config, callback)
 	}
@@ -90,8 +92,8 @@ function updateHourlyWeather(config, callback) {
 		return callback('Weather configuration not setup')
 	}
 	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		OpenWeatherMap.updateHourlyWeather(config, callback)
+	if (weatherService == 'OpenMeteo') {
+		OpenMeteo.updateHourlyWeather(config, callback)
 	} else if (weatherService == 'WeatherCanada') {
 		WeatherCanada.updateHourlyWeather(config, callback)
 	}
@@ -100,8 +102,8 @@ function updateHourlyWeather(config, callback) {
 /* Return true if all configuration has been setup. */
 function weatherIsSetup(config) {
 	var weatherService = config.weatherService
-	if (weatherService == 'OpenWeatherMap') {
-		return OpenWeatherMap.weatherIsSetup(config)
+	if (weatherService == 'OpenMeteo') {
+		return OpenMeteo.weatherIsSetup(config)
 	} else if (weatherService == 'WeatherCanada') {
 		return WeatherCanada.weatherIsSetup(config)
 	} else {

@@ -1,14 +1,15 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
 
-import org.kde.plasma.private.digitalclock 1.0 as DigitalClock
+import org.kde.plasma.private.digitalclock as DigitalClock
 
 import ".."
 import "../lib"
 
 // Mostly copied from digitalclock
-ColumnLayout { // ConfigPage creates a binding loop when a child uses fillHeight
+ConfigPage {
 	id: page
 
 	function digitalclock_i18n(message) {
@@ -18,102 +19,114 @@ ColumnLayout { // ConfigPage creates a binding loop when a child uses fillHeight
 	DigitalClock.TimeZoneModel {
 		id: timeZoneModel
 
-		selectedTimeZones: plasmoid.configuration.selectedTimeZones
-		onSelectedTimeZonesChanged: plasmoid.configuration.selectedTimeZones = selectedTimeZones
+		selectedTimeZones: page.cfg_selectedTimeZones
+		onSelectedTimeZonesChanged: page.cfg_selectedTimeZones = selectedTimeZones
 	}
 
-	MessageWidget {
-		id: messageWidget
-	}
-
-	TextField {
-		id: filter
+	ColumnLayout {
 		Layout.fillWidth: true
-		placeholderText: digitalclock_i18n("Search Time Zones")
-	}
+		spacing: Kirigami.Units.largeSpacing
 
-	TableView {
-		id: timeZoneView
-		Layout.fillWidth: true
-		Layout.fillHeight: true
+		ConfigSection {
+			title: digitalclock_i18n("Time Zones")
 
-		signal toggleCurrent
+			Kirigami.InlineMessage {
+				id: messageWidget
+				Layout.fillWidth: true
+				visible: false
+				type: Kirigami.MessageType.Warning
+				text: ""
+			}
 
-		Keys.onSpacePressed: toggleCurrent()
+			Kirigami.SearchField {
+				id: filter
+				Layout.fillWidth: true
+				placeholderText: digitalclock_i18n("Search Time Zones")
+			}
 
-		model: DigitalClock.TimeZoneFilterProxy {
-			sourceModel: timeZoneModel
-			filterString: filter.text
-		}
+			ListView {
+				id: timeZoneView
+				Layout.fillWidth: true
+				// Config pages are scrollable; without an explicit height the ListView collapses to 0.
+				Layout.preferredHeight: Kirigami.Units.gridUnit * 18
+				Layout.minimumHeight: Kirigami.Units.gridUnit * 12
+				clip: true
+				boundsBehavior: Flickable.StopAtBounds
+				spacing: Kirigami.Units.smallSpacing
 
-		TableViewColumn {
-			role: "city"
-			title: digitalclock_i18n("City")
-		}
-		TableViewColumn {
-			role: "region"
-			title: digitalclock_i18n("Region")
-		}
-		TableViewColumn {
-			role: "comment"
-			title: digitalclock_i18n("Comment")
-		}
-		TableViewColumn {
-			role: "checked"
-			title: i18n("Tooltip")
-			delegate: CheckBox {
-				id: checkBox
-				anchors.centerIn: parent
-				checked: styleData.value
-				activeFocusOnTab: false // only let the TableView as a whole get focus
-
-				function setValue(checked) {
-					if (!checked && model.region == "Local") {
-						messageWidget.warn(i18n("Cannot deselect Local time from the tooltip"))
-					} else {
-						model.checked = checked // needed for model's setData to be called
-					}
-					checkBox.checked = Qt.binding(function(){ return styleData.value })
+				model: DigitalClock.TimeZoneFilterProxy {
+					sourceModel: timeZoneModel
+					filterString: filter.text
 				}
 
-				onClicked: checkBox.setValue(checked)
+				delegate: RowLayout {
+					width: timeZoneView.width
+					spacing: Kirigami.Units.smallSpacing
 
-				Connections {
-					target: timeZoneView
-					onToggleCurrent: {
-						if (styleData.row === timeZoneView.currentRow) {
-							checkBox.setValue(!checkBox.checked)
+					QQC2.Label {
+						Layout.preferredWidth: Kirigami.Units.gridUnit * 7
+						Layout.minimumWidth: Layout.preferredWidth
+						text: model.city
+						elide: Text.ElideRight
+					}
+
+					QQC2.Label {
+						Layout.preferredWidth: Kirigami.Units.gridUnit * 12
+						Layout.minimumWidth: Layout.preferredWidth
+						opacity: 0.8
+						text: model.region
+						elide: Text.ElideRight
+					}
+
+					QQC2.Label {
+						Layout.fillWidth: true
+						opacity: 0.6
+						text: model.comment
+						elide: Text.ElideRight
+					}
+
+					QQC2.CheckBox {
+						checked: model.checked
+						onClicked: {
+							if (!checked && model.region === "Local") {
+								messageWidget.text = i18n("Cannot deselect Local time from the tooltip")
+								messageWidget.type = Kirigami.MessageType.Warning
+								messageWidget.visible = true
+								checked = true
+							} else {
+								messageWidget.visible = false
+								model.checked = checked // setData() on proxy model
+							}
 						}
 					}
 				}
 			}
-
-			resizable: false
-			movable: false
-		}
-	}
-
-
-	ExclusiveGroup { id: timezoneDisplayType }
-	RowLayout {
-		Label {
-			text: digitalclock_i18n("Display time zone as:")
 		}
 
-		RadioButton {
-			id: timezoneCityRadio
-			text: digitalclock_i18n("Time zone city")
-			exclusiveGroup: timezoneDisplayType
-			checked: !plasmoid.configuration.displayTimezoneAsCode
-			onClicked: plasmoid.configuration.displayTimezoneAsCode = false
-		}
+		ConfigSection {
+			title: digitalclock_i18n("Display")
 
-		RadioButton {
-			id: timezoneCodeRadio
-			text: digitalclock_i18n("Time zone code")
-			exclusiveGroup: timezoneDisplayType
-			checked: plasmoid.configuration.displayTimezoneAsCode
-			onClicked: plasmoid.configuration.displayTimezoneAsCode = true
+				Kirigami.FormLayout {
+					Layout.fillWidth: true
+
+					QQC2.ButtonGroup { id: timezoneDisplayType }
+
+					QQC2.RadioButton {
+						Kirigami.FormData.label: digitalclock_i18n("Display time zone as:")
+						text: digitalclock_i18n("Time zone city")
+						QQC2.ButtonGroup.group: timezoneDisplayType
+						checked: !page.cfg_displayTimezoneAsCode
+						onClicked: page.cfg_displayTimezoneAsCode = false
+					}
+
+					QQC2.RadioButton {
+						Kirigami.FormData.label: ""
+						text: digitalclock_i18n("Time zone code")
+						QQC2.ButtonGroup.group: timezoneDisplayType
+						checked: !!page.cfg_displayTimezoneAsCode
+						onClicked: page.cfg_displayTimezoneAsCode = true
+					}
+				}
 		}
 	}
 }

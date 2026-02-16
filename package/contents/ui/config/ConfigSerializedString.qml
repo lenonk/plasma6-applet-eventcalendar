@@ -3,12 +3,28 @@ import QtQuick 2.0
 QtObject {
 	id: obj
 	property string configKey: ''
-	readonly property string configValue: configKey ? plasmoid.configuration[configKey] : ''
+	readonly property var configPage: {
+		var p = obj.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
+
+	readonly property string configValue: configKey
+		? ("" + (configPage ? configPage.getConfigValue(configKey, '') : plasmoid.configuration[configKey]))
+		: ''
 	property var value: null
 	property var defaultValue: ({}) // Empty Map
 
 	function serialize() {
-		plasmoid.configuration[configKey] = Qt.btoa(JSON.stringify(value))
+		var s = Qt.btoa(JSON.stringify(value))
+		if (configPage) {
+			configPage.setConfigValue(configKey, s)
+		} else {
+			plasmoid.configuration[configKey] = s
+		}
 	}
 
 	function deserialize() {

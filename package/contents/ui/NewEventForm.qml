@@ -1,17 +1,20 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 Loader {
 	id: newEventForm
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
 	active: false
 	visible: active
 
-	sourceComponent: Component {
-		RowLayout {
-			spacing: 4 * units.devicePixelRatio
+		sourceComponent: Component {
+			RowLayout {
+				spacing: units.smallSpacing
 
 			PlasmaComponents3.CheckBox {
 				Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
@@ -26,8 +29,8 @@ Loader {
 				color: calendarSelector.selectedCalendar && calendarSelector.selectedCalendar.backgroundColor || theme.textColor
 			}
 
-			ColumnLayout {
-				spacing: 10 * units.devicePixelRatio
+				ColumnLayout {
+					spacing: units.largeSpacing
 
 				Component.onCompleted: {
 					newEventText.forceActiveFocus()

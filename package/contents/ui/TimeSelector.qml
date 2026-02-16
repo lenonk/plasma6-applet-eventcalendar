@@ -1,12 +1,14 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
+import QtQml
 
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 import QtQuick.Templates 2.1 as T
 import QtQuick.Controls 2.1 as Controls
-import QtGraphicalEffects 1.0 // DropShadow
+import Qt5Compat.GraphicalEffects // DropShadow
 
 // Based on:
 // https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/plasmacomponents3/ComboBox.qml
@@ -17,7 +19,10 @@ PlasmaComponents3.TextField {
 	id: timeSelector
 	readonly property Item control: timeSelector
 
-	property int defaultMinimumWidth: 80 * units.devicePixelRatio
+	readonly property var units: Kirigami.Units
+	readonly property var theme: PlasmaCore.Theme
+
+	property int defaultMinimumWidth: 80
 	readonly property int implicitContentWidth: contentWidth + leftPadding + rightPadding
 	implicitWidth: Math.max(defaultMinimumWidth, implicitContentWidth)
 
@@ -112,12 +117,12 @@ PlasmaComponents3.TextField {
 	property T.Popup popup: T.Popup {
 		x: control.mirrored ? control.width - width : 0
 		y: control.height
-		property int minWidth: 120 * units.devicePixelRatio
-		property int maxHeight: 150 * units.devicePixelRatio
+		property int minWidth: 120
+		property int maxHeight: 150
 		width: Math.max(control.width, minWidth)
 		implicitHeight: Math.min(contentItem.implicitHeight, maxHeight)
-		topMargin: 6 * units.devicePixelRatio
-		bottomMargin: 6 * units.devicePixelRatio
+		topMargin: 6
+		bottomMargin: 6
 
 		contentItem: ListView {
 			id: listView

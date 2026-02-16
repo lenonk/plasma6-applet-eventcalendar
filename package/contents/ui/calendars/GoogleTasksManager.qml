@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 import "../Shared.js" as Shared
 import "../lib/Async.js" as Async
@@ -20,6 +20,7 @@ CalendarManager {
 
 	calendarManagerId: "GoogleTasks"
 
+	readonly property var theme: PlasmaCore.Theme
 	property var session
 	readonly property var tasklistIdList: plasmoid.configuration.tasklistIdList ? plasmoid.configuration.tasklistIdList.split(',') : []
 

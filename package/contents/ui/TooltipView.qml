@@ -1,40 +1,56 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.private.digitalclock 1.0 as DigitalClock
+import QtQml
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.private.digitalclock as DigitalClock
+import org.kde.kirigami as Kirigami
+import org.kde.kirigami.primitives as KirigamiPrimitives
 
 Item {
 	id: tooltipContentItem
+	readonly property var units: Kirigami.Units
 
 	property int preferredTextWidth: units.gridUnit * 20
 
-	width: childrenRect.width + units.gridUnit
-	height: childrenRect.height + units.gridUnit
+	implicitWidth: childrenRect.width + units.gridUnit
+	implicitHeight: childrenRect.height + units.gridUnit
 
 	LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 	LayoutMirroring.childrenInherit: true
 
 	property var dataSource: timeModel.dataSource
-	readonly property string timezoneTimeFormat: Qt.locale().timeFormat(Locale.ShortFormat)
+	readonly property string timezoneTimeFormat: appletConfig.timeFormatShort
+
+	function dataForZone(zone) {
+		if (!timeModel || !timeModel.zoneData) {
+			return null
+		}
+		return timeModel.zoneData[zone] || null
+	}
 
 	function timeForZone(zone) {
-		var compactRepresentationItem = plasmoid.compactRepresentationItem
-		if (!compactRepresentationItem) {
+		var d = dataForZone(zone)
+		if (!d) {
 			return ""
 		}
 
 		// get the time for the given timezone from the dataengine
-		var now = dataSource.data[zone]["DateTime"]
+		var now = d["DateTime"]
+		if (!now) {
+			return ""
+		}
 		// get current UTC time
 		var msUTC = now.getTime() + (now.getTimezoneOffset() * 60000)
 		// add the dataengine TZ offset to it
-		var dateTime = new Date(msUTC + (dataSource.data[zone]["Offset"] * 1000))
+		var offset = d["Offset"]
+		var dateTime = new Date(msUTC + ((offset || 0) * 1000))
 
 		var formattedTime = Qt.formatTime(dateTime, timezoneTimeFormat)
 
-		if (dateTime.getDay() != dataSource.data["Local"]["DateTime"].getDay()) {
+		var local = dataForZone("Local")
+		if (local && local["DateTime"] && dateTime.getDay() != local["DateTime"].getDay()) {
 			formattedTime += " (" + Qt.formatDate(dateTime, Locale.ShortFormat) + ")"
 		}
 
@@ -42,10 +58,19 @@ Item {
 	}
 
 	function nameForZone(zone) {
+		var d = dataForZone(zone)
+		if (!d) return zone
+
 		if (plasmoid.configuration.displayTimezoneAsCode) {
-			return dataSource.data[zone]["Timezone Abbreviation"]
+			return d["Timezone Abbreviation"] || zone
 		} else {
-			return DigitalClock.TimezonesI18n.i18nCity(dataSource.data[zone]["Timezone City"])
+			var city = d["Timezone City"]
+			if (city) return city
+
+			// Fallback: turn "Europe/London" into "London".
+			var parts = ("" + zone).split("/")
+			var last = parts.length ? parts[parts.length - 1] : ("" + zone)
+			return last.replace(/_/g, " ")
 		}
 	}
 
@@ -61,7 +86,7 @@ Item {
 		RowLayout {
 			spacing: units.largeSpacing
 
-			PlasmaCore.IconItem {
+			KirigamiPrimitives.Icon {
 				id: tooltipIcon
 				source: "preferences-system-time"
 				Layout.alignment: Qt.AlignTop
@@ -80,7 +105,7 @@ Item {
 					Layout.minimumWidth: Math.min(implicitWidth, preferredTextWidth)
 					Layout.maximumWidth: preferredTextWidth
 					elide: Text.ElideRight
-					text: Qt.formatTime(timeModel.currentTime, Qt.locale().timeFormat(Locale.LongFormat))
+					text: Qt.formatTime(timeModel.currentTime, appletConfig.timeFormatLong)
 				}
 
 				PlasmaComponents3.Label {
@@ -111,12 +136,12 @@ Item {
 					// be one Item with two Labels because that wouldn't work
 					// in a grid then
 					var timezones = []
-					for (var i = 0; i < plasmoid.configuration.selectedTimeZones.length; i++) {
-						var timezone = plasmoid.configuration.selectedTimeZones[i]
-						if (timezone != 'Local') {
-							timezones.push(timezone)
-							timezones.push(timezone)
-						}
+					var selected = timeModel.allTimezones || []
+					for (var i = 0; i < selected.length; i++) {
+						var timezone = selected[i]
+						if (!timezone || timezone === "Local") continue
+						timezones.push(timezone)
+						timezones.push(timezone)
 					}
 
 					return timezones
@@ -124,13 +149,17 @@ Item {
 
 				PlasmaComponents3.Label {
 					id: timezone
-					Layout.alignment: index % 2 === 0 ? Qt.AlignRight : Qt.AlignLeft
+					// Name column (even indices) should be left-justified and prominent.
+					// Time column (odd indices) keeps a lighter style.
+					Layout.alignment: index % 2 === 0 ? Qt.AlignLeft : Qt.AlignRight
+					Layout.fillWidth: true
 
 					wrapMode: Text.NoWrap
+					horizontalAlignment: index % 2 === 0 ? Text.AlignLeft : Text.AlignRight
 					text: index % 2 == 0 ? nameForZone(modelData) : timeForZone(modelData)
 					font.weight: index % 2 == 0 ? Font.Bold : Font.Normal
 					elide: Text.ElideNone
-					opacity: 0.6
+					opacity: index % 2 == 0 ? 1.0 : 0.75
 				}
 			}
 		}

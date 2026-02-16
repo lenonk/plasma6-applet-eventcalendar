@@ -1,7 +1,7 @@
 // Version 5
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls
 import QtQuick.Layouts 1.0
 
 /*
@@ -31,9 +31,19 @@ RowLayout {
 	id: configComboBox
 
 	property string configKey: ''
+	readonly property var configPage: {
+		var p = configComboBox.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
 	readonly property var currentItem: comboBox.model[comboBox.currentIndex]
 	readonly property string value: currentItem ? currentItem[valueRole] : ""
-	readonly property string configValue: configKey ? plasmoid.configuration[configKey] : ""
+	readonly property string configValue: configKey
+		? ("" + (configPage ? configPage.getConfigValue(configKey, "") : plasmoid.configuration[configKey]))
+		: ""
 	onConfigValueChanged: {
 		if (!comboBox.focus && value != configValue) {
 			selectValue(configValue)
@@ -64,7 +74,8 @@ RowLayout {
 	ComboBox {
 		id: comboBox
 		textRole: "text" // Doesn't autodeduce from model if we manually populate it
-		property string valueRole: "value"
+		// Qt 6 ComboBox already has a `valueRole` property (FINAL). Just set it.
+		valueRole: "value"
 
 		model: []
 
@@ -73,8 +84,12 @@ RowLayout {
 				var item = model[currentIndex]
 				if (typeof item !== "undefined") {
 					var val = item[valueRole]
-					if (configKey && (typeof val !== "undefined") && populated) {
-						plasmoid.configuration[configKey] = val
+					if (configKey && (typeof val !== "undefined") && populated && ("" + val) !== configValue) {
+						if (configPage) {
+							configPage.setConfigValue(configKey, val)
+						} else {
+							plasmoid.configuration[configKey] = val
+						}
 					}
 				}
 			}

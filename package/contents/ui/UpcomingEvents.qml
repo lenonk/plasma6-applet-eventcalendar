@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 
 import "LocaleFuncs.js" as LocaleFuncs
 import "./calendars"
@@ -211,7 +211,7 @@ CalendarManager {
 
 	Connections {
 		target: eventModel
-		onAllDataFetched: {
+		function onAllDataFetched() {
 			logger.debug('upcomingEvents eventModel.onAllDataFetched', eventModel.dateMin, timeModel.currentTime, eventModel.dateMax)
 			// if data is from current month
 			if (eventModel.dateMin <= timeModel.currentTime && timeModel.currentTime <= eventModel.dateMax) {
@@ -227,6 +227,6 @@ CalendarManager {
 
 	Connections {
 		target: timeModel
-		onMinuteChanged: upcomingEvents.tick()
+		function onMinuteChanged() { upcomingEvents.tick() }
 	}
 }

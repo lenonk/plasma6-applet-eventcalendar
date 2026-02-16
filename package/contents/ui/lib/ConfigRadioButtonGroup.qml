@@ -1,7 +1,7 @@
 // Version 4
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls
 import QtQuick.Layouts 1.0
 
 /*
@@ -23,10 +23,21 @@ RowLayout {
 	default property alias _contentChildren: content.data
 	property alias label: label.text
 
-	property var exclusiveGroup: ExclusiveGroup { id: radioButtonGroup }
+	property alias exclusiveGroup: radioButtonGroup
+	ButtonGroup { id: radioButtonGroup }
 
 	property string configKey: ''
-	readonly property var configValue: configKey ? plasmoid.configuration[configKey] : ""
+	readonly property var configPage: {
+		var p = configRadioButtonGroup.parent
+		while (p) {
+			if (p.__eventCalendarConfigPage) return p
+			p = p.parent
+		}
+		return null
+	}
+	readonly property var configValue: configKey
+		? (configPage ? configPage.getConfigValue(configKey, "") : plasmoid.configuration[configKey])
+		: ""
 
 	property alias model: buttonRepeater.model
 
@@ -46,11 +57,15 @@ RowLayout {
 				enabled: typeof modelData.enabled !== "undefined" ? modelData.enabled : true
 				text: modelData.text
 				checked: modelData.value === configValue
-				exclusiveGroup: radioButtonGroup
+				ButtonGroup.group: radioButtonGroup
 				onClicked: {
 					focus = true
 					if (configKey) {
-						plasmoid.configuration[configKey] = modelData.value
+						if (configPage) {
+							configPage.setConfigValue(configKey, modelData.value)
+						} else {
+							plasmoid.configuration[configKey] = modelData.value
+						}
 					}
 				}
 			}

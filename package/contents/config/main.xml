@@ -340,7 +340,8 @@
 			<!-- Fedora: /usr/lib64/qt5/plugins/plasmacalendarplugins/ -->
 			<!-- Previously stored entire filepath before v72 migration -->
 			<label>A list of plugins where additional calendar event data can be sourced.</label>
-			<default>holidaysevents.so</default>
+			<!-- Plasma 6 uses plugin ids (eg: "holidaysevents", "astronomicalevents"). -->
+			<default>holidaysevents</default>
 		</entry>
 	</group>
 
@@ -435,24 +436,31 @@
 	</group>
 
 	<group name="Weather">
-		<!-- OpenWeatherMap -->
-		<entry name="openWeatherMapAppId" type="string">
-			<default>99e575d9aa8a8407bcee7693d5912c6a</default>
+		<!-- Open-Meteo (no API key required) -->
+		<entry name="openMeteoLocationName" type="string">
+			<default></default>
 		</entry>
-		<entry name="openWeatherMapCityId" type="uint">
+		<entry name="openMeteoLatitude" type="double">
 			<default>0</default>
 		</entry>
+		<entry name="openMeteoLongitude" type="double">
+			<default>0</default>
+		</entry>
+
 		<!-- WeatherCanada -->
 		<entry name="weatherCanadaCityId" type="string">
 			<default></default>
 		</entry>
 		<!-- Settings -->
 		<entry name="weatherService" type="string">
-			<!-- enum: OpenWeatherMap, WeatherCanada -->
-			<default>OpenWeatherMap</default>
+			<!-- enum: OpenMeteo, WeatherCanada -->
+			<default>OpenMeteo</default>
 		</entry>
 		<entry name="weatherUnits" type="string">
 			<default>metric</default>
+		</entry>
+		<entry name="weatherMockPrecipitation" type="bool">
+			<default>false</default>
 		</entry>
 		<entry name="meteogramHours" type="uint">
 			<default>30</default>
@@ -476,17 +484,11 @@
 			<default></default>
 		</entry>
 		<!-- Deprecated in: v71 -->
-		<entry name="weather_app_id" type="string">
-			<default>99e575d9aa8a8407bcee7693d5912c6a</default>
-		</entry>
-		<entry name="weather_city_id" type="uint">
-			<default>0</default>
-		</entry>
 		<entry name="weather_canada_city_id" type="string">
 			<default></default>
 		</entry>
 		<entry name="weather_service" type="string">
-			<default>OpenWeatherMap</default>
+			<default>OpenMeteo</default>
 		</entry>
 		<entry name="weather_units" type="string">
 			<default>metric</default>

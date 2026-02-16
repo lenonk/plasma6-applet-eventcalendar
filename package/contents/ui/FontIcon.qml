@@ -1,12 +1,16 @@
 import QtQuick 2.2
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
 
 // Technique based on plasma-applet-weather-widget
 // https://github.com/kotelnik/plasma-applet-weather-widget/blob/320ed5661475f176116e1785476dc51710494b86/package/contents/code/icons.js
 Item {
+	// In QtQuick.Layouts, layouting uses implicit sizes. If implicitHeight is 0,
+	// items can overlap (eg: in the agenda weather column).
 	width: 16
 	height: 16
+	implicitWidth: width
+	implicitHeight: height
 	property string source: ""
 	property alias color: iconText.color
 	property bool showOutline: true
@@ -18,9 +22,9 @@ Item {
 	PlasmaComponents3.Label {
 		id: iconText
 		text: ''
-		color: PlasmaCore.ColorScope.textColor
+		color: PlasmaCore.Theme.textColor
 		style: showOutline ? Text.Outline : Text.Normal
-		styleColor: PlasmaCore.ColorScope.backgroundColor
+		styleColor: PlasmaCore.Theme.backgroundColor
 
 		font.family: "weathericons"
 		font.pointSize: -1

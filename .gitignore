@@ -3,4 +3,6 @@
 *.jsc
 *.mo
 /dist
-/package/metadata.json
+/cmake-build/
+/cmake-build-*/
+/package/contents/bin/eventcalendar-google-oauth

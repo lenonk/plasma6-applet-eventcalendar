@@ -20,14 +20,16 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
-Item {
-	id: clock
-
-	property int horizontalFixedLineWidth: 300 * units.devicePixelRatio
-	property int verticalFixedLineHeight: 24 * units.devicePixelRatio
+	Item {
+		id: clock
+		readonly property var units: Kirigami.Units
+	
+		property int horizontalFixedLineWidth: 300
+		property int verticalFixedLineHeight: 24
 
 	property int targetHeight: verticalFixedLineHeight
 

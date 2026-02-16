@@ -1,33 +1,39 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 import "LocaleFuncs.js" as LocaleFuncs
 import "Shared.js" as Shared
 
 LinkRect {
 	id: agendaEventItem
+	readonly property var units: Kirigami.Units
 	readonly property int eventItemIndex: index
 	Layout.fillWidth: true
 	implicitHeight: contents.implicitHeight
 
 	property bool eventItemInProgress: false
 	function checkIfInProgress() {
-		if (model.startDateTime && timeModel.currentTime && model.endDateTime) {
+		// Don't treat all-day events (like holidays) as "in progress" for styling.
+		// Otherwise today's holiday list turns into the highlight color, which is noisy.
+		if (model && model.start && model.start.date) {
+			eventItemInProgress = false
+		} else if (model.startDateTime && timeModel.currentTime && model.endDateTime) {
 			eventItemInProgress = model.startDateTime <= timeModel.currentTime && timeModel.currentTime <= model.endDateTime
 		} else {
 			eventItemInProgress = false
 		}
 		// console.log('checkIfInProgress()', model.start, timeModel.currentTime, model.end)
 	}
-	Connections {
-		target: timeModel
-		onLoaded: agendaEventItem.checkIfInProgress()
-		onMinuteChanged: agendaEventItem.checkIfInProgress()
-	}
+		Connections {
+			target: timeModel
+			function onLoaded() { agendaEventItem.checkIfInProgress() }
+			function onMinuteChanged() { agendaEventItem.checkIfInProgress() }
+		}
 	Component.onCompleted: {
 		agendaEventItem.checkIfInProgress()
 
@@ -52,7 +58,7 @@ LinkRect {
 	QQC2.ToolTip {
 		id: eventToolTip
 		x: 0
-		y: agendaEventItem.height + PlasmaCore.Units.smallSpacing
+		y: agendaEventItem.height + units.smallSpacing
 		width: agendaEventItem.width
 		delay: 1000
 
@@ -102,13 +108,13 @@ LinkRect {
 		id: contents
 		anchors.left: parent.left
 		anchors.right: parent.right
-		spacing: 4 * units.devicePixelRatio
+		spacing: units.smallSpacing
 
-		Rectangle {
-			implicitWidth: appletConfig.eventIndicatorWidth
-			Layout.fillHeight: true
-			color: model.backgroundColor || theme.textColor
-		}
+			Rectangle {
+				implicitWidth: appletConfig.eventIndicatorWidth
+				Layout.fillHeight: true
+				color: model.backgroundColor || PlasmaCore.Theme.textColor
+			}
 
 		ColumnLayout {
 			id: eventColumn
@@ -124,7 +130,7 @@ LinkRect {
 						return model.summary
 					}
 				}
-				color: eventItemInProgress ? inProgressColor : PlasmaCore.ColorScope.textColor
+					color: eventItemInProgress ? inProgressColor : PlasmaCore.Theme.textColor
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				font.weight: eventItemInProgress ? inProgressFontWeight : Font.Normal
@@ -146,7 +152,7 @@ LinkRect {
 						return eventTimestamp
 					}
 				}
-				color: eventItemInProgress ? inProgressColor : PlasmaCore.ColorScope.textColor
+					color: eventItemInProgress ? inProgressColor : PlasmaCore.Theme.textColor
 				opacity: eventItemInProgress ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -154,18 +160,18 @@ LinkRect {
 				visible: !editEventForm.visible && !isCondensed
 			}
 
-			Item {
-				id: eventDescriptionSpacing
-				visible: eventDescription.visible
-				implicitHeight: 4 * units.devicePixelRatio
-			}
+				Item {
+					id: eventDescriptionSpacing
+					visible: eventDescription.visible
+					implicitHeight: units.smallSpacing
+				}
 
 			PlasmaComponents3.Label {
 				id: eventDescription
 				readonly property bool showProperty: plasmoid.configuration.agendaShowEventDescription && text
 				visible: showProperty && !editEventForm.visible
 				text: Shared.renderText(model.description)
-				color: PlasmaCore.ColorScope.textColor
+					color: PlasmaCore.Theme.textColor
 				opacity: 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -176,7 +182,7 @@ LinkRect {
 				maximumLineCount: plasmoid.configuration.agendaMaxDescriptionLines
 				elide: Text.ElideRight
 
-				linkColor: PlasmaCore.ColorScope.highlightColor
+					linkColor: PlasmaCore.Theme.highlightColor
 				onLinkActivated: Qt.openUrlExternally(link)
 				MouseArea {
 					anchors.fill: parent
@@ -185,22 +191,22 @@ LinkRect {
 				}
 			}
 
-			Item {
-				id: eventEditorSpacing
-				visible: editEventForm.visible
-				implicitHeight: 4 * units.devicePixelRatio
-			}
+				Item {
+					id: eventEditorSpacing
+					visible: editEventForm.visible
+					implicitHeight: units.smallSpacing
+				}
 
 			EditEventForm {
 				id: editEventForm
 				// active: true
 			}
 
-			Item {
-				id: eventEditorSpacingBelow
-				visible: editEventForm.visible
-				implicitHeight: 4 * units.devicePixelRatio
-			}
+				Item {
+					id: eventEditorSpacingBelow
+					visible: editEventForm.visible
+					implicitHeight: units.smallSpacing
+				}
 
 			Loader {
 				id: eventHangoutLinkLoader
@@ -220,11 +226,11 @@ LinkRect {
 						} else {
 							return i18n("Hangout")
 						}
+						}
+						icon.source: Qt.resolvedUrl("../icons/hangouts.svg")
+						onClicked: Qt.openUrlExternally(externalLink)
 					}
-					icon.source: plasmoid.file("", "icons/hangouts.svg")
-					onClicked: Qt.openUrlExternally(externalLink)
 				}
-			}
 
 		} // eventColumn
 	}

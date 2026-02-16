@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-
-import org.kde.plasma.calendar 2.0 as PlasmaCalendar
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
 
 import "../lib"
 import "../calendars/PlasmaCalendarUtils.js" as PlasmaCalendarUtils
@@ -10,99 +10,150 @@ import "../calendars/PlasmaCalendarUtils.js" as PlasmaCalendarUtils
 ConfigPage {
 	id: page
 
-	HeaderText {
-		text: i18n("Event Calendar Plugins")
-	}
-
-	ConfigSection {
-		CheckBox {
-			text: i18n("ICalendar (.ics)")
-			checked: true
-			enabled: false
-			visible: plasmoid.configuration.debugging
-		}
-		CheckBox {
-			text: i18n("Google Calendar")
-			checked: true
-			enabled: false
-		}
-	}
-
-
-	HeaderText {
-		text: i18n("Plasma Calendar Plugins")
+	PlasmaCalendar.EventPluginsManager {
+		id: eventPluginsManager
 	}
 
 	// From digitalclock's configCalendar.qml
 	signal configurationChanged()
-	ConfigSection {
-		Repeater {
-			id: calendarPluginsRepeater
-			model: PlasmaCalendar.EventPluginsManager.model
-			delegate: CheckBox {
-				text: model.display
-				checked: model.checked
-				onClicked: {
-					model.checked = checked // needed for model's setData to be called
-					// page.configurationChanged()
-					page.saveConfig()
-				}
-			}
-		}
-	}
-	function saveConfig() {
-		plasmoid.configuration.enabledCalendarPlugins = PlasmaCalendarUtils.pluginPathToFilenameList(PlasmaCalendar.EventPluginsManager.enabledPlugins)
-	}
-	Component.onCompleted: {
-		PlasmaCalendarUtils.populateEnabledPluginsByFilename(PlasmaCalendar.EventPluginsManager, plasmoid.configuration.enabledCalendarPlugins)
-	}
 
-	HeaderText {
-		text: i18n("Misc")
-	}
 	ColumnLayout {
+		Layout.fillWidth: true
+		spacing: Kirigami.Units.largeSpacing
 
-		ConfigSpinBox {
-			configKey: 'eventsPollInterval'
-			before: i18n("Refresh events every: ")
-			suffix: i18nc("Polling interval in minutes", "min")
-			minimumValue: 5
-			maximumValue: 90
+		ConfigSection {
+			title: i18n("Event Sources")
+
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("Google Calendar (configured on the Google Calendar tab)")
+					checked: true
+					enabled: false
+				}
+
+				QQC2.CheckBox {
+					Kirigami.FormData.label: ""
+					text: i18n("ICalendar (.ics) (configured on the ICalendar tab)")
+					checked: true
+					enabled: false
+					visible: plasmoid.configuration.debugging
+				}
+			}
 		}
-	}
 
-	HeaderText {
-		text: i18n("Notifications")
-	}
+		ConfigSection {
+			title: i18n("Plasma Calendar Plugins")
 
-	ConfigSection {
-		ConfigNotification {
-			label: i18n("Event Reminder")
-			notificationEnabledKey: 'eventReminderNotificationEnabled'
-			sfxEnabledKey: 'eventReminderSfxEnabled'
-			sfxPathKey: 'eventReminderSfxPath'
-			sfxPathDefaultValue: '/usr/share/sounds/Oxygen-Im-Nudge.ogg'
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
 
-			RowLayout {
-				spacing: 0
-				Item { implicitWidth: parent.parent.indentWidth } // indent
-				ConfigSpinBox {
-					configKey: 'eventReminderMinutesBefore'
-					suffix: i18nc("Polling interval in minutes", "min")
-					minimumValue: 1
+				Kirigami.InlineMessage {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					type: Kirigami.MessageType.Information
+					text: i18n("Tip: If you enable a Holidays calendar in Google, disable Plasma’s “Holidays” plugin to avoid duplicates.")
+				}
+
+				ColumnLayout {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					spacing: Kirigami.Units.smallSpacing
+
+					Repeater {
+						id: calendarPluginsRepeater
+						model: eventPluginsManager.model
+
+						delegate: QQC2.CheckBox {
+							text: model.display
+							checked: model.checked
+							onClicked: {
+								model.checked = checked // needed for model's setData to be called
+								// The model/enabledPlugins update asynchronously; defer so we read final state.
+								Qt.callLater(function() {
+									page.saveConfig()
+									page.configurationChanged()
+								})
+							}
+						}
+					}
+				}
+			}
+		}
+
+		ConfigSection {
+			title: i18n("Refresh")
+
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
+
+				RowLayout {
+					Kirigami.FormData.label: i18n("Refresh events every:")
+
+					QQC2.SpinBox {
+						from: 5
+						to: 90
+						value: typeof page.cfg_eventsPollInterval === "number" ? page.cfg_eventsPollInterval : Number(page.cfg_eventsPollInterval || 15)
+						onValueModified: page.cfg_eventsPollInterval = value
+					}
+
+						QQC2.Label {
+							Layout.alignment: Qt.AlignVCenter
+							opacity: 0.8
+							text: i18nc("Polling interval in minutes", "min")
+						}
+				}
+			}
+		}
+
+		ConfigSection {
+			title: i18n("Notifications")
+
+			Kirigami.FormLayout {
+				Layout.fillWidth: true
+
+				ConfigNotification {
+					Kirigami.FormData.label: ""
+					label: i18n("Event reminder")
+					notificationEnabledKey: "eventReminderNotificationEnabled"
+					sfxEnabledKey: "eventReminderSfxEnabled"
+					sfxPathKey: "eventReminderSfxPath"
+					sfxPathDefaultValue: "/usr/share/sounds/Oxygen-Im-Nudge.ogg"
+
+					RowLayout {
+						spacing: Kirigami.Units.smallSpacing
+							QQC2.Label { text: i18n("Minutes before:") }
+						ConfigSpinBox {
+							configKey: "eventReminderMinutesBefore"
+							suffix: i18nc("Polling interval in minutes", "min")
+							minimumValue: 1
+						}
+					}
+				}
+
+				ConfigNotification {
+					Kirigami.FormData.label: ""
+					label: i18n("Event starting")
+					notificationEnabledKey: "eventStartingNotificationEnabled"
+					sfxEnabledKey: "eventStartingSfxEnabled"
+					sfxPathKey: "eventStartingSfxPath"
+					sfxPathDefaultValue: "/usr/share/sounds/Oxygen-Im-Nudge.ogg"
 				}
 			}
 		}
 	}
 
-	ConfigSection {
-		ConfigNotification {
-			label: i18n("Event Starting")
-			notificationEnabledKey: 'eventStartingNotificationEnabled'
-			sfxEnabledKey: 'eventStartingSfxEnabled'
-			sfxPathKey: 'eventStartingSfxPath'
-			sfxPathDefaultValue: '/usr/share/sounds/Oxygen-Im-Nudge.ogg'
-		}
+	function saveConfig() {
+		// Store normalized plugin ids (eg: "astronomicalevents", "holidaysevents").
+		page.cfg_enabledCalendarPlugins = PlasmaCalendarUtils.pluginPathToFilenameList(eventPluginsManager.enabledPlugins)
 	}
-
+	function loadConfig() {
+		// cfg_* values may be injected after Component.onCompleted in some setups, so
+		// also react to cfg_enabledCalendarPlugins changes.
+		PlasmaCalendarUtils.populateEnabledPluginsByFilename(eventPluginsManager, page.cfg_enabledCalendarPlugins || [])
+	}
+	Component.onCompleted: loadConfig()
+	onCfg_enabledCalendarPluginsChanged: loadConfig()
 }

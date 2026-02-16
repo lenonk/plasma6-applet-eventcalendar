@@ -119,6 +119,23 @@ function getFile(url, callback) {
 }
 
 function parseMetadata(data) {
+	var trimmed = (data || '').trim()
+	if (trimmed.indexOf('{') === 0) {
+		try {
+			var metadataJson = JSON.parse(trimmed)
+			var plugin = metadataJson.KPlugin || {}
+			return {
+				'Name': plugin.Name || '',
+				'Comment': plugin.Description || '',
+				'X-KDE-PluginInfo-Name': plugin.Id || '',
+				'X-KDE-PluginInfo-Version': plugin.Version || '',
+				'X-KDE-PluginInfo-Website': plugin.Website || '',
+			}
+		} catch (e) {
+			// Fall back to desktop metadata parser below.
+		}
+	}
+
 	var lines = data.split('\n')
 	var d = {}
 	for (var i = 0; i < lines.length; i++) {
@@ -133,19 +150,31 @@ function parseMetadata(data) {
 	return d
 }
 
-function getAppletMetadata(callback) {
-	var url = Qt.resolvedUrl('.')
+	function getAppletMetadata(callback) {
+		// Qt.resolvedUrl returns a QUrl in Qt6 (no String prototype methods).
+		// Normalize to string so we can safely call string helpers like indexOf().
+		var url = Qt.resolvedUrl('.')
+		url = (url && url.toString) ? url.toString() : ("" + url)
 
-	var s = '/share/plasma/plasmoids/'
-	var index = url.indexOf(s)
-	if (index >= 0) {
+		var s = '/share/plasma/plasmoids/'
+		var index = url.indexOf(s)
+		if (index >= 0) {
 		var a = index + s.length
 		var b = url.indexOf('/', a)
 		// var packageName = url.substr(a, b-a)
-		var metadataUrl = url.substr(0, b) + '/metadata.desktop'
-		Requests.getFile(metadataUrl, function(err, data) {
+		var metadataBaseUrl = url.substr(0, b)
+		var metadataUrl = metadataBaseUrl + '/metadata.json'
+		getFile(metadataUrl, function(err, data) {
 			if (err) {
-				return callback(err)
+				metadataUrl = metadataBaseUrl + '/metadata.desktop'
+				return getFile(metadataUrl, function(err2, data2) {
+					if (err2) {
+						return callback(err2)
+					}
+
+					var metadata2 = parseMetadata(data2)
+					callback(null, metadata2)
+				})
 			}
 
 			var metadata = parseMetadata(data)

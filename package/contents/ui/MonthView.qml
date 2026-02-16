@@ -19,12 +19,15 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
+import QtQml
 
-import org.kde.plasma.calendar 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.workspace.calendar
+import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 PinchArea {
 	id: root
+	readonly property var units: Kirigami.Units
 
 	property alias selectedMonth: calendarBackend.monthName
 	property alias selectedYear: calendarBackend.year
@@ -39,7 +42,13 @@ PinchArea {
 
 	property int borderWidth: 1
 	property real borderOpacity: 0.4
+	// Used by DaysCalendar.qml to size the month title heading.
+	// Level: 1 (big) .. 5 (small), matching PlasmaExtras.Heading.
 	property int headingFontLevel: 1
+	// Extra scale on top of the PlasmaExtras.Heading sizing logic.
+	property real headingFontScale: 1.0
+	// Extra padding around the calendar grid area (below the header).
+	property int calendarGridMargin: 0
 
 	property int columns: calendarBackend.days
 	property int rows: calendarBackend.weeks
@@ -363,6 +372,7 @@ PinchArea {
 
 		initialItem: DaysCalendar {
 			id: mainDaysCalendar
+			gridMargin: root.calendarGridMargin
 			title: {
 				var dateFormat, text
 				if (calendarBackend.displayedDate.getFullYear() === today.getFullYear()) {
@@ -406,17 +416,17 @@ PinchArea {
 			onHeaderClicked: {
 				stack.push(yearOverview)
 			}
-			onActivated: {
-				var rowNumber = Math.floor(index / columns)
-				week = 1 + calendarBackend.weeksModel[rowNumber]
-				root.date = date
-				var dt = new Date(date.yearNumber, date.monthNumber - 1, date.dayNumber)
-				root.setSelectedDate(dt)
-				root.dateClicked(dt)
-			}
-			onDoubleClicked: {
-				root.dayDoubleClicked(date)
-			}
+				onActivated: function(index, date, item) {
+					var rowNumber = Math.floor(index / columns)
+					week = 1 + calendarBackend.weeksModel[rowNumber]
+					root.date = date
+					var dt = new Date(date.yearNumber, date.monthNumber - 1, date.dayNumber)
+					root.setSelectedDate(dt)
+					root.dateClicked(dt)
+				}
+				onDoubleClicked: function(index, date, item) {
+					root.dayDoubleClicked(date)
+				}
 		}
 	}
 
@@ -424,6 +434,7 @@ PinchArea {
 		id: yearOverview
 
 		DaysCalendar {
+			gridMargin: root.calendarGridMargin
 			title: calendarBackend.displayedDate.getFullYear()
 			columns: 3
 			rows: 4
@@ -441,10 +452,10 @@ PinchArea {
 				updateDecadeOverview()
 				stack.push(decadeOverview)
 			}
-			onActivated: {
-				calendarBackend.goToMonth(date.monthNumber)
-				stack.pop()
-			}
+				onActivated: function(index, date, item) {
+					calendarBackend.goToMonth(date.monthNumber)
+					stack.pop()
+				}
 		}
 	}
 
@@ -452,6 +463,7 @@ PinchArea {
 		id: decadeOverview
 
 		DaysCalendar {
+			gridMargin: root.calendarGridMargin
 			readonly property int decade: {
 				var year = calendarBackend.displayedDate.getFullYear()
 				return year - year % 10
@@ -470,12 +482,12 @@ PinchArea {
 
 			onPrevious: calendarBackend.previousDecade()
 			onNext: calendarBackend.nextDecade()
-			onActivated: {
-				calendarBackend.goToYear(date.yearNumber)
-				stack.pop()
+				onActivated: function(index, date, item) {
+					calendarBackend.goToYear(date.yearNumber)
+					stack.pop()
+				}
 			}
 		}
-	}
 
 	Component.onCompleted: {
 		setSelectedDate(calendarBackend.today)
