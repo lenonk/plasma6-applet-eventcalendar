@@ -1,79 +1,86 @@
-# Event Calendar
+# Plasma 6 Event Calendar
 
-https://store.kde.org/p/998901/
+A modern **Plasma 6** port and substantial rewrite of the classic Event Calendar plasmoid.
 
-Plasmoid for a calendar+agenda with weather that syncs to Google Calendar.
+This widget combines:
+
+- Calendar + month grid
+- Agenda / upcoming events
+- Tasks integration
+- Weather integration
+- Optional Google Calendar sync
+
+## Credits
+
+This project is based on the original **Event Calendar** by **Chris Holland (Zren)**.
+
+- Original repository: <https://github.com/Zren/plasma-applet-eventcalendar>
+- Original KDE Store page: <https://store.kde.org/p/998901/>
+
+Huge credit to Zren/Chris Holland for creating and maintaining the original applet that this port builds upon.
 
 ## Screenshots
 
-![](https://i.imgur.com/qdJ71sb.jpg)
-![](https://i.imgur.com/Ow8UlFj.jpg)
+> Replace these with your latest screenshots when ready.
 
+![Calendar + Agenda](https://i.imgur.com/qdJ71sb.jpg)
+![Configuration](https://i.imgur.com/Ow8UlFj.jpg)
 
-## A) Install via KDE
+## Installation
 
-1. Right Click Panel > Panel Options > Add Widgets
-2. Get New Widgets > Download New Widgets
-3. Search: Event Calendar
-4. Install
-5. Right Click your current calendar widget > Alternatives
-6. Select Event Calendar
+### Option A: Build & install (recommended for Plasma 6)
 
-## B) Install via GitHub
-
-```
-git clone https://github.com/Zren/plasma-applet-eventcalendar.git eventcalendar
-cd eventcalendar
-sh ./install
-```
-
-### Install with CMake (Plasma 6)
-
-```
-git clone https://github.com/Zren/plasma-applet-eventcalendar.git eventcalendar
-cd eventcalendar
+```bash
+git clone https://github.com/lenonk/plasma6-applet-eventcalendar.git
+cd plasma6-applet-eventcalendar
 cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
 cmake --build build
 sudo cmake --install build
 ```
 
-To update, run the `sh ./update` script. It will run a `git pull` then reinstall the applet. Please note this script will restart plasmashell (so you don't have to relog)!
+### Option B: Install using included script
 
-## C) Install via Package Manager
-
-Some awesome users seemed to have packaged this applet under `plasma5-applets-eventcalendar`.
-
-* Arch: https://aur.archlinux.org/packages/plasma5-applets-eventcalendar/
-* Chakra: https://chakralinux.org/ccr/packages.php?ID=7656
-
-(Old) There's also a russian who's patched the widget with russian translations. It's out of date though, and we now bundle russian translations with the rest.
-
-* ABF: https://abf.rosalinux.ru/victorr2007/plasma5-applet-eventcalendar
-
-## Update to GitHub master
-
-If you're asked to test something, you can do so by installing the latest unreleased code.
-
-Beforehand, uninstall the AUR version if you are running Arch (you can reinstall after testing).
-
-Then install pen the Terminal and run the following commands. Please note the install script will restart plasmashell so that you don't have to relog.
-
-```
-sudo apt install git
-git clone https://github.com/Zren/plasma-applet-eventcalendar.git eventcalendar
-cd eventcalendar
-sh ./install --restart
+```bash
+git clone https://github.com/lenonk/plasma6-applet-eventcalendar.git
+cd plasma6-applet-eventcalendar
+sh ./install
 ```
 
-When you've finished testing, you may wish to reinstall the KDE Store or AUR version. First uninstall the widget with the following command, then reinstall your desired version of the widget.
+## Updating
 
+```bash
+sh ./update
 ```
+
+This pulls the latest changes and reinstalls the applet.
+
+## Uninstall
+
+```bash
 sh ./uninstall
 ```
 
-## Configure
+## Configuration
 
-1. Right click the Calendar > Event Calendar Settings > Google Calendar.
-2. Enter your Google OAuth Client ID (and optionally Client Secret) then click "Login in Browser".
-3. After login completes, click Apply to save.
-4. Go to the Weather tab > select "Open-Meteo" > Search for a city, then click Apply.
+After installing:
+
+1. Open the widget settings for Event Calendar.
+2. Configure calendar providers (local / Google) as needed.
+3. Configure weather provider (Open-Meteo) and location.
+4. Apply changes.
+
+### Google Calendar setup
+
+1. Open **Event Calendar Settings → Google Calendar**.
+2. Enter your Google OAuth Client ID (and optional Client Secret).
+3. Click **Login in Browser** and complete authentication.
+4. Click **Apply**.
+
+## Notes
+
+- This is a community-maintained Plasma 6 continuation/port.
+- If you are migrating from older Plasma 5 builds, review settings after upgrade.
+
+## License
+
+See project license files and upstream licensing notes from the original project.
