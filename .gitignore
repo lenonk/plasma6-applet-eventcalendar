@@ -6,3 +6,6 @@
 /cmake-build/
 /cmake-build-*/
 /package/contents/bin/eventcalendar-google-oauth
+
+# Build/staging output
+stage/
