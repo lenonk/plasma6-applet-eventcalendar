@@ -23,7 +23,7 @@ Huge credit to Zren/Chris Holland for creating and maintaining the original appl
 
 ![Screenshot 1](screenshots/Screenshot_20260216_164842.png)
 ![Screenshot 2](screenshots/Screenshot_20260216_164942.png)
-![Screenshot 3](screenshots/Screenshot_20260216_164959_redacted.png)
+![Screenshot 3](screenshots/Screenshot_20260216_164959.png)
 ![Screenshot 4](screenshots/Screenshot_20260216_165021.png)
 
 ## Installation
