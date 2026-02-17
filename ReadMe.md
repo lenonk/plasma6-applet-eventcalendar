@@ -100,3 +100,7 @@ After installing:
 ## License
 
 See project license files and upstream licensing notes from the original project.
+
+## Support
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K51TO6S1)
