@@ -5,14 +5,17 @@
 		"Name": "Event Calendar",
 		"Description": "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar.",
 		"Icon": "view-calendar",
-		"Version": "76",
+		"Version": "1.0.0",
 		"License": "GPL",
 		"Website": "https://github.com/Zren/plasma-applet-eventcalendar",
 		"Category": "Date and Time",
 		"Authors": [
 			{
-				"Name": "Chris Holland",
-				"Email": "zrenfire@gmail.com"
+				"Name": "Lenon Kitchens",
+				"Email": "lenon.kitchens@gmail.com"
+			},
+			{
+				"Name": "Chris Holland"
 			}
 		]
 	},
