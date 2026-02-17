@@ -50,6 +50,18 @@ cd plasma6-applet-eventcalendar
 sh ./install
 ```
 
+### Option C: Arch Linux (AUR)
+
+Also available in the AUR as:
+
+- `plasma6-applets-eventcalendar`
+
+You can install it with your preferred AUR helper, for example:
+
+```bash
+yay -S plasma6-applets-eventcalendar
+```
+
 ## Updating
 
 ```bash
