@@ -28,7 +28,9 @@ Huge credit to Zren/Chris Holland for creating and maintaining the original appl
 
 ## Installation
 
-### Option A: Build & install (recommended for Plasma 6)
+### Option A: Build & install (system-wide)
+
+This installs system-wide (typically under `/usr`) and requires `sudo` for installation.
 
 ```bash
 git clone https://github.com/lenonk/plasma6-applet-eventcalendar.git
@@ -38,7 +40,9 @@ cmake --build build
 sudo cmake --install build
 ```
 
-### Option B: Install using included script
+### Option B: Install using included script (user-level)
+
+This installs for the current user (no system-wide files), which is convenient for local testing and development.
 
 ```bash
 git clone https://github.com/lenonk/plasma6-applet-eventcalendar.git
