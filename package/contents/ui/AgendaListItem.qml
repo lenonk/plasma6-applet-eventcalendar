@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents3
 
 import "Shared.js" as Shared
@@ -72,7 +73,7 @@ GridLayout {
 
 						FontIcon {
 							visible: showWeather && plasmoid.configuration.agendaWeatherShowIcon
-							color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+							color: agendaItemIsToday ? inProgressColor : Kirigami.Theme.textColor
 					source: weatherIcon
 					width: appletConfig.agendaWeatherIconSize
 					height: appletConfig.agendaWeatherIconSize
@@ -84,7 +85,7 @@ GridLayout {
 						id: itemWeatherText
 				visible: showWeather && plasmoid.configuration.agendaWeatherShowText
 				text: weatherText
-						color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+						color: agendaItemIsToday ? inProgressColor : Kirigami.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -100,7 +101,7 @@ GridLayout {
 						var low = isNaN(model.tempLow) ? '?' : model.tempLow + '°'
 						return high + ' | ' + low
 					}
-							color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+							color: agendaItemIsToday ? inProgressColor : Kirigami.Theme.textColor
 					opacity: agendaItemIsToday ? 1 : 0.75
 					font.pointSize: -1
 					font.pixelSize: appletConfig.agendaFontSize
@@ -140,7 +141,7 @@ GridLayout {
 				PlasmaComponents3.Label {
 					id: itemDate
 					text: Qt.formatDateTime(date, i18nc("agenda date format line 1", "MMM d"))
-					color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+					color: agendaItemIsToday ? inProgressColor : Kirigami.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -152,7 +153,7 @@ GridLayout {
 				PlasmaComponents3.Label {
 					id: itemDay
 					text: Qt.formatDateTime(date, i18nc("agenda date format line 2", "ddd"))
-					color: agendaItemIsToday ? inProgressColor : PlasmaCore.Theme.textColor
+					color: agendaItemIsToday ? inProgressColor : Kirigami.Theme.textColor
 				opacity: agendaItemIsToday ? 1 : 0.5
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -168,7 +169,7 @@ GridLayout {
 				anchors.bottom: parent.bottom
 				anchors.right: parent.right
 				width: 1
-				color: Qt.rgba(PlasmaCore.Theme.textColor.r, PlasmaCore.Theme.textColor.g, PlasmaCore.Theme.textColor.b, 0.15)
+				color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.15)
 			}
 
 		onLeftClicked: {

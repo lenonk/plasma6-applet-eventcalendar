@@ -7,7 +7,6 @@ import org.kde.kirigami as Kirigami
 
 ColumnLayout {
 	id: configNotification
-	readonly property var units: Kirigami.Units
 	property alias label: notificationEnabledCheckBox.text
 	property alias notificationEnabledKey: notificationEnabledCheckBox.configKey
 

@@ -13,8 +13,6 @@ import "./lib"
 
 PlasmoidItem {
 	id: root
-	readonly property var units: Kirigami.Units
-	readonly property var theme: PlasmaCore.Theme
 
 	Logger {
 		id: logger
@@ -215,7 +213,7 @@ PlasmoidItem {
 			id: pinButton
 			visible: isPinVisible
 			anchors.right: parent.right
-			width: Math.round(units.gridUnit * 1.25)
+			width: Math.round(Kirigami.Units.gridUnit * 1.25)
 			height: width
 			checkable: true
 			icon.name: "window-pin"

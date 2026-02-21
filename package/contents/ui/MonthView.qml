@@ -27,7 +27,6 @@ import org.kde.kirigami as Kirigami
 
 PinchArea {
 	id: root
-	readonly property var units: Kirigami.Units
 
 	property alias selectedMonth: calendarBackend.monthName
 	property alias selectedYear: calendarBackend.year
@@ -325,13 +324,13 @@ PinchArea {
 
 		pushEnter: Transition {
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "opacity"
 				from: 0
 				to: 1
 			}
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "transformScale"
 				from: 1.5
 				to: 1
@@ -339,7 +338,7 @@ PinchArea {
 		}
 		pushExit: Transition {
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "opacity"
 				from: 1
 				to: 0
@@ -348,7 +347,7 @@ PinchArea {
 
 		popEnter: Transition {
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "opacity"
 				from: 0
 				to: 1
@@ -357,13 +356,13 @@ PinchArea {
 		popExit: Transition {
 			id: popExit
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "opacity"
 				from: 1
 				to: 0
 			}
 			NumberAnimation {
-				duration: units.longDuration
+				duration: Kirigami.Units.longDuration
 				property: "transformScale"
 				// so no matter how much you scaled, it would still fly towards you
 				to: popExit.ViewTransition.item.transformScale * 1.5

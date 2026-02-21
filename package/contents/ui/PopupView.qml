@@ -11,8 +11,6 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 	MouseArea {
 		id: popup
-		readonly property var units: Kirigami.Units
-		readonly property var theme: PlasmaCore.Theme
 
 	onClicked: focus = true
 
@@ -41,7 +39,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 	property int padding: 0 // Assigned in main.qml
 	// QtQuick uses device-independent pixels; don't double-scale with devicePixelRatio.
-	property int spacing: units.smallSpacing * 2
+	property int spacing: Kirigami.Units.smallSpacing * 2
 	property bool isDesktopContainment: false
 	readonly property int topWidgetsCount: (showMeteogram ? 1 : 0) + (showTimer ? 1 : 0)
 
@@ -49,8 +47,8 @@ import "./weather/WeatherApi.js" as WeatherApi
 	property int bottomRowHeight: plasmoid.configuration.bottomRowHeight
 	property int singleColumnMonthViewHeight: plasmoid.configuration.monthHeightSingleColumn
 
-	// DigitalClock LeftColumn minWidth: units.gridUnit * 22
-	// DigitalClock RightColumn minWidth: units.gridUnit * 14
+	// DigitalClock LeftColumn minWidth: Kirigami.Units.gridUnit * 22
+	// DigitalClock RightColumn minWidth: Kirigami.Units.gridUnit * 14
 	// 14/(22+14) * 400 = 156
 	// rightColumnWidth=156 looks nice but is very thin for listing events + date + weather.
 	property int leftColumnWidth: plasmoid.configuration.leftColumnWidth // Meteogram + AgendaView
@@ -62,9 +60,9 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 	Layout.minimumWidth: {
 		if (twoColumns) {
-			return units.gridUnit * 28
+			return Kirigami.Units.gridUnit * 28
 		} else {
-			return units.gridUnit * 14
+			return Kirigami.Units.gridUnit * 14
 		}
 	}
 	Layout.preferredWidth: {
@@ -75,7 +73,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 		}
 	}
 
-	Layout.minimumHeight: units.gridUnit * 14
+	Layout.minimumHeight: Kirigami.Units.gridUnit * 14
 	Layout.preferredHeight: {
 		if (singleColumnFullHeight) {
 			return plasmoid.screenGeometry.height
@@ -287,9 +285,9 @@ import "./weather/WeatherApi.js" as WeatherApi
 			Rectangle {
 				id: meteogramMessageBox
 				anchors.fill: parent
-				anchors.margins: units.smallSpacing
+				anchors.margins: Kirigami.Units.smallSpacing
 				color: "transparent"
-				border.color: theme.buttonBackgroundColor
+				border.color: Kirigami.Theme.disabledTextColor
 				border.width: 1
 
 						readonly property string message: {
@@ -336,7 +334,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 				// Increase the gap between the timer preset buttons and the calendar header.
 				Layout.topMargin: timerView.visible ? popup.spacing : 0
 				headingFontScale: 1.5
-				calendarGridMargin: units.smallSpacing * 2
+				calendarGridMargin: Kirigami.Units.smallSpacing * 2
 				borderOpacity: plasmoid.configuration.monthShowBorder ? 0.25 : 0
 				showWeekNumbers: plasmoid.configuration.monthShowWeekNumbers
 				highlightCurrentDayWeek: plasmoid.configuration.monthHighlightCurrentDayWeek
@@ -436,7 +434,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 				anchors.left: parent.left
 				anchors.bottom: parent.bottom
 				anchors.right: refreshButton.left
-				anchors.margins: units.smallSpacing
+				anchors.margins: Kirigami.Units.smallSpacing
 				text: logic.currentErrorMessage
 			}
 

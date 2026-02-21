@@ -10,12 +10,11 @@ import org.kde.kirigami.primitives as KirigamiPrimitives
 
 Item {
 	id: tooltipContentItem
-	readonly property var units: Kirigami.Units
 
-	property int preferredTextWidth: units.gridUnit * 20
+	property int preferredTextWidth: Kirigami.Units.gridUnit * 20
 
-	implicitWidth: childrenRect.width + units.gridUnit
-	implicitHeight: childrenRect.height + units.gridUnit
+	implicitWidth: childrenRect.width + Kirigami.Units.gridUnit
+	implicitHeight: childrenRect.height + Kirigami.Units.gridUnit
 
 	LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 	LayoutMirroring.childrenInherit: true
@@ -79,19 +78,19 @@ Item {
 		anchors {
 			left: parent.left
 			top: parent.top
-			margins: units.gridUnit / 2
+			margins: Kirigami.Units.gridUnit / 2
 		}
-		spacing: units.largeSpacing
+		spacing: Kirigami.Units.largeSpacing
 
 		RowLayout {
-			spacing: units.largeSpacing
+			spacing: Kirigami.Units.largeSpacing
 
 			KirigamiPrimitives.Icon {
 				id: tooltipIcon
 				source: "preferences-system-time"
 				Layout.alignment: Qt.AlignTop
 				visible: true
-				implicitWidth: units.iconSizes.medium
+				implicitWidth: Kirigami.Units.iconSizes.medium
 				Layout.preferredWidth: implicitWidth
 				Layout.preferredHeight: implicitWidth
 			}

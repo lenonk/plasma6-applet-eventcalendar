@@ -26,7 +26,6 @@ import org.kde.kirigami as Kirigami
 
 	Item {
 		id: clock
-		readonly property var units: Kirigami.Units
 	
 		property int horizontalFixedLineWidth: 300
 		property int verticalFixedLineHeight: 24

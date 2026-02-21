@@ -1,5 +1,6 @@
 import QtQuick 2.2
 import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents3
 
 // Technique based on plasma-applet-weather-widget
@@ -22,9 +23,9 @@ Item {
 	PlasmaComponents3.Label {
 		id: iconText
 		text: ''
-		color: PlasmaCore.Theme.textColor
+		color: Kirigami.Theme.textColor
 		style: showOutline ? Text.Outline : Text.Normal
-		styleColor: PlasmaCore.Theme.backgroundColor
+		styleColor: Kirigami.Theme.backgroundColor
 
 		font.family: "weathericons"
 		font.pointSize: -1

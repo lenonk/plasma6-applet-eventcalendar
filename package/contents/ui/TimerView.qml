@@ -9,7 +9,6 @@ import "LocaleFuncs.js" as LocaleFuncs
 
 Item {
 	id: timerView
-	readonly property var units: Kirigami.Units
 
 	property bool isSetTimerViewVisible: false
 
@@ -29,7 +28,7 @@ Item {
 
 			RowLayout {
 				id: topRow
-				spacing: units.largeSpacing
+				spacing: Kirigami.Units.largeSpacing
 				property int contentsWidth: timerLabel.width + topRow.spacing + toggleButtonColumn.Layout.preferredWidth
 				property bool contentsFit: timerButtonView.width >= contentsWidth
 
@@ -45,8 +44,8 @@ Item {
 						return 'chronometer-start'
 					}
 				}
-				icon.width: units.iconSizes.large
-				icon.height: units.iconSizes.large
+				icon.width: Kirigami.Units.iconSizes.large
+				icon.height: Kirigami.Units.iconSizes.large
 				font.pointSize: -1
 				font.pixelSize: appletConfig.timerClockFontHeight
 				Layout.alignment: Qt.AlignVCenter
@@ -153,7 +152,7 @@ Item {
 
 				RowLayout {
 					id: bottomRow
-					spacing: Math.max(1, Math.round(units.smallSpacing / 2))
+					spacing: Math.max(1, Math.round(Kirigami.Units.smallSpacing / 2))
 
 			// onWidthChanged: console.log('row.width', width)
 

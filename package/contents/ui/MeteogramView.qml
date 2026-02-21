@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQml
 import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 import "Shared.js" as Shared
 import "./weather/WeatherApi.js" as WeatherApi
@@ -40,7 +41,7 @@ Item {
 
 	Rectangle {
 		visible: typeof root === 'undefined'
-		color: PlasmaCore.Theme.backgroundColor
+		color: Kirigami.Theme.backgroundColor
 		anchors.fill: parent
 	}
 

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents3
 
 Item {
@@ -18,7 +19,7 @@ Item {
 		width: eventBadgeCountText.width
 		color: {
 			if (plasmoid.configuration.showOutlines) {
-				var c = Qt.darker(PlasmaCore.Theme.backgroundColor, 1) // Cast to color
+				var c = Qt.darker(Kirigami.Theme.backgroundColor, 1) // Cast to color
 				c.a = 0.6 // 60%
 				return c
 			} else {
@@ -32,7 +33,7 @@ Item {
 			width: Math.max(paintedWidth, height)
 			anchors.centerIn: parent
 
-			color: PlasmaCore.Theme.highlightColor
+			color: Kirigami.Theme.highlightColor
 			text: modelEventsCount
 			font.weight: Font.Bold
 			font.pointSize: 1024

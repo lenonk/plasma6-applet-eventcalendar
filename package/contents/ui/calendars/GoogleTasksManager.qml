@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import org.kde.plasma.core as PlasmaCore
+import org.kde.kirigami as Kirigami
 
 import "../Shared.js" as Shared
 import "../lib/Async.js" as Async
@@ -20,7 +21,6 @@ CalendarManager {
 
 	calendarManagerId: "GoogleTasks"
 
-	readonly property var theme: PlasmaCore.Theme
 	property var session
 	readonly property var tasklistIdList: plasmoid.configuration.tasklistIdList ? plasmoid.configuration.tasklistIdList.split(',') : []
 
@@ -75,7 +75,7 @@ CalendarManager {
 				calendarList.push({
 					id: tasklist.id,
 					summary: tasklist.title,
-					backgroundColor: theme.highlightColor.toString(),
+					backgroundColor: Kirigami.Theme.highlightColor.toString(),
 					accessRole: 'owner',
 					isTasklist: true,
 				})

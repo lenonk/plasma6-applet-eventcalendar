@@ -12,7 +12,6 @@ import org.kde.kirigami.primitives as KirigamiPrimitives
 // Recoloured with Bootstrap color scheme
 Rectangle {
 	id: messageWidget
-	readonly property var units: Kirigami.Units
 
 	Layout.fillWidth: true
 
@@ -20,7 +19,7 @@ Rectangle {
 	property alias wrapMode: label.wrapMode
 	property alias closeButtonVisible: closeButton.visible
 	property alias animate: visibleAnimation.enabled
-	property int iconSize: units.iconSizes.large
+	property int iconSize: Kirigami.Units.iconSizes.large
 
 	enum MessageType {
 		Positive,
@@ -48,7 +47,7 @@ Rectangle {
 
 	property color gradBaseColor: {
 		if (messageType == MessageWidget.MessageType.Information) {
-			// return theme.highlightColor
+			// return Kirigami.Theme.highlightColor
 			return "#d9edf7" // Bootstrap
 		} else if (messageType == MessageWidget.MessageType.Warning) {
 			// return Qt.rgba(176/255, 128/255, 0, 1) // KMessageWidget
@@ -65,7 +64,7 @@ Rectangle {
 
 	border.color: {
 		if (messageType == MessageWidget.MessageType.Information) {
-			// return theme.highlightColor
+			// return Kirigami.Theme.highlightColor
 			return "#bcdff1" // Bootstrap
 		} else if (messageType == MessageWidget.MessageType.Warning) {
 			// return "#79735B" // DigitalClock
@@ -163,8 +162,8 @@ Rectangle {
 	RowLayout {
 		id: layout
 		anchors.fill: parent
-		anchors.margins: units.smallSpacing
-		spacing: units.smallSpacing
+		anchors.margins: Kirigami.Units.smallSpacing
+		spacing: Kirigami.Units.smallSpacing
 
 		KirigamiPrimitives.Icon {
 			id: iconItem

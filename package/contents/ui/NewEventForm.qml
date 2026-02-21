@@ -7,14 +7,12 @@ import org.kde.kirigami as Kirigami
 
 Loader {
 	id: newEventForm
-	readonly property var units: Kirigami.Units
-	readonly property var theme: PlasmaCore.Theme
 	active: false
 	visible: active
 
 		sourceComponent: Component {
 			RowLayout {
-				spacing: units.smallSpacing
+				spacing: Kirigami.Units.smallSpacing
 
 			PlasmaComponents3.CheckBox {
 				Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
@@ -26,11 +24,11 @@ Loader {
 			Rectangle {
 				Layout.preferredWidth: appletConfig.eventIndicatorWidth
 				Layout.fillHeight: true
-				color: calendarSelector.selectedCalendar && calendarSelector.selectedCalendar.backgroundColor || theme.textColor
+				color: calendarSelector.selectedCalendar && calendarSelector.selectedCalendar.backgroundColor || Kirigami.Theme.textColor
 			}
 
 				ColumnLayout {
-					spacing: units.largeSpacing
+					spacing: Kirigami.Units.largeSpacing
 
 				Component.onCompleted: {
 					newEventText.forceActiveFocus()

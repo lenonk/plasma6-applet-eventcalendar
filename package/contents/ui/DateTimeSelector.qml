@@ -8,7 +8,6 @@ import org.kde.kirigami as Kirigami
 
 GridLayout {
 	id: dateTimeSelector
-	readonly property var units: Kirigami.Units
 	property var dateTime: new Date()
 	property bool enabled: true
 	property bool showTime: true
@@ -16,7 +15,7 @@ GridLayout {
 	property alias timeFormat: timeSelector.timeFormat
 	property bool dateFirst: true
 	columns: 2
-	columnSpacing: units.smallSpacing
+	columnSpacing: Kirigami.Units.smallSpacing
 	readonly property int minimumWidth: dateSelector.implicitWidth + columnSpacing + timeSelector.implicitWidth
 
 	signal dateTimeShifted(date oldDateTime, int deltaDateTime, date newDateTime)

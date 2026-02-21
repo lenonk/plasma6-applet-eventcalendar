@@ -11,7 +11,6 @@ import "Shared.js" as Shared
 
 LinkRect {
 	id: agendaEventItem
-	readonly property var units: Kirigami.Units
 	readonly property int eventItemIndex: index
 	Layout.fillWidth: true
 	implicitHeight: contents.implicitHeight
@@ -58,7 +57,7 @@ LinkRect {
 	QQC2.ToolTip {
 		id: eventToolTip
 		x: 0
-		y: agendaEventItem.height + units.smallSpacing
+		y: agendaEventItem.height + Kirigami.Units.smallSpacing
 		width: agendaEventItem.width
 		delay: 1000
 
@@ -108,12 +107,12 @@ LinkRect {
 		id: contents
 		anchors.left: parent.left
 		anchors.right: parent.right
-		spacing: units.smallSpacing
+		spacing: Kirigami.Units.smallSpacing
 
 			Rectangle {
 				implicitWidth: appletConfig.eventIndicatorWidth
 				Layout.fillHeight: true
-				color: model.backgroundColor || PlasmaCore.Theme.textColor
+				color: model.backgroundColor || Kirigami.Theme.textColor
 			}
 
 		ColumnLayout {
@@ -130,7 +129,7 @@ LinkRect {
 						return model.summary
 					}
 				}
-					color: eventItemInProgress ? inProgressColor : PlasmaCore.Theme.textColor
+					color: eventItemInProgress ? inProgressColor : Kirigami.Theme.textColor
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				font.weight: eventItemInProgress ? inProgressFontWeight : Font.Normal
@@ -152,7 +151,7 @@ LinkRect {
 						return eventTimestamp
 					}
 				}
-					color: eventItemInProgress ? inProgressColor : PlasmaCore.Theme.textColor
+					color: eventItemInProgress ? inProgressColor : Kirigami.Theme.textColor
 				opacity: eventItemInProgress ? 1 : 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -163,7 +162,7 @@ LinkRect {
 				Item {
 					id: eventDescriptionSpacing
 					visible: eventDescription.visible
-					implicitHeight: units.smallSpacing
+					implicitHeight: Kirigami.Units.smallSpacing
 				}
 
 			PlasmaComponents3.Label {
@@ -171,7 +170,7 @@ LinkRect {
 				readonly property bool showProperty: plasmoid.configuration.agendaShowEventDescription && text
 				visible: showProperty && !editEventForm.visible
 				text: Shared.renderText(model.description)
-					color: PlasmaCore.Theme.textColor
+					color: Kirigami.Theme.textColor
 				opacity: 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
@@ -182,7 +181,7 @@ LinkRect {
 				maximumLineCount: plasmoid.configuration.agendaMaxDescriptionLines
 				elide: Text.ElideRight
 
-					linkColor: PlasmaCore.Theme.highlightColor
+					linkColor: Kirigami.Theme.highlightColor
 				onLinkActivated: Qt.openUrlExternally(link)
 				MouseArea {
 					anchors.fill: parent
@@ -194,7 +193,7 @@ LinkRect {
 				Item {
 					id: eventEditorSpacing
 					visible: editEventForm.visible
-					implicitHeight: units.smallSpacing
+					implicitHeight: Kirigami.Units.smallSpacing
 				}
 
 			EditEventForm {
@@ -205,7 +204,7 @@ LinkRect {
 				Item {
 					id: eventEditorSpacingBelow
 					visible: editEventForm.visible
-					implicitHeight: units.smallSpacing
+					implicitHeight: Kirigami.Units.smallSpacing
 				}
 
 			Loader {

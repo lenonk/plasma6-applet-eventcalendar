@@ -8,14 +8,12 @@ import "lib/ColorUtil.js" as ColorUtil
 
 QtObject {
 	id: config
-	readonly property var units: Kirigami.Units
-	readonly property var theme: PlasmaCore.Theme
 
 	property bool showIconOutline: plasmoid.configuration.showOutlines
 
 	property color alternateBackgroundColor: {
-		var textColor = theme.textColor
-		var bgColor = theme.buttonBackgroundColor
+		var textColor = Kirigami.Theme.textColor
+		var bgColor = Kirigami.Theme.backgroundColor
 		if (ColorUtil.hasEnoughContrast(textColor, bgColor)) {
 			return bgColor
 		} else {
@@ -24,25 +22,25 @@ QtObject {
 		}
 	}
 
-	property color meteogramTextColorDefault: theme.textColor
-	property color meteogramScaleColorDefault: ColorUtil.lerp(theme.backgroundColor, theme.textColor, 0.9)
+	property color meteogramTextColorDefault: Kirigami.Theme.textColor
+	property color meteogramScaleColorDefault: ColorUtil.lerp(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.9)
 	property color meteogramPrecipitationRawColorDefault: "#acd"
 	property color meteogramPositiveTempColorDefault: "#900"
 	property color meteogramNegativeTempColorDefault: "#369"
-	property color meteogramIconColorDefault: theme.textColor
+	property color meteogramIconColorDefault: Kirigami.Theme.textColor
 
 	property color meteogramTextColor: plasmoid.configuration.meteogramTextColor || meteogramTextColorDefault
 	property color meteogramScaleColor: plasmoid.configuration.meteogramGridColor || meteogramScaleColorDefault
 	property color meteogramPrecipitationRawColor: plasmoid.configuration.meteogramRainColor || meteogramPrecipitationRawColorDefault
 	property color meteogramPrecipitationColor: ColorUtil.setAlpha(meteogramPrecipitationRawColor, 0.6)
 	property color meteogramPrecipitationTextColor: Qt.tint(meteogramTextColor, ColorUtil.setAlpha(meteogramPrecipitationRawColor, 0.3))
-	property color meteogramPrecipitationTextOutlineColor: showIconOutline ? theme.backgroundColor : "transparent"
+	property color meteogramPrecipitationTextOutlineColor: showIconOutline ? Kirigami.Theme.backgroundColor : "transparent"
 	property color meteogramPositiveTempColor: plasmoid.configuration.meteogramPositiveTempColor || meteogramPositiveTempColorDefault
 	property color meteogramNegativeTempColor: plasmoid.configuration.meteogramNegativeTempColor || meteogramNegativeTempColorDefault
 	property color meteogramIconColor: plasmoid.configuration.meteogramIconColor || meteogramIconColorDefault
 
 	property color agendaHoverBackground: alternateBackgroundColor
-	property color agendaInProgressColorDefault: theme.highlightColor
+	property color agendaInProgressColorDefault: Kirigami.Theme.highlightColor
 	property color agendaInProgressColor: plasmoid.configuration.agendaInProgressColor || agendaInProgressColorDefault
 
 	// QtQuick uses device-independent pixels; do not scale sizes with devicePixelRatio
@@ -55,7 +53,7 @@ QtObject {
 	property int agendaDateColumnWidth: 50 + agendaColumnSpacing * 2
 	property int eventIndicatorWidth: 2
 
-	property int agendaFontSize: plasmoid.configuration.agendaFontSize === 0 ? theme.defaultFont.pixelSize : plasmoid.configuration.agendaFontSize
+	property int agendaFontSize: plasmoid.configuration.agendaFontSize === 0 ? Kirigami.Theme.defaultFont.pixelSize : plasmoid.configuration.agendaFontSize
 
 	property int timerClockFontHeight: 40
 	property int timerButtonWidth: 48
@@ -71,7 +69,7 @@ QtObject {
 		configKey: 'icalCalendarList'
 	}
 
-	readonly property string clockFontFamily: plasmoid.configuration.clockFontFamily || theme.defaultFont.family
+	readonly property string clockFontFamily: plasmoid.configuration.clockFontFamily || Kirigami.Theme.defaultFont.family
 
 	readonly property int lineWeight1: plasmoid.configuration.clockLineBold1 ? Font.Bold : Font.Normal
 	readonly property int lineWeight2: plasmoid.configuration.clockLineBold2 ? Font.Bold : Font.Normal

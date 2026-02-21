@@ -9,7 +9,6 @@ import "Shared.js" as Shared
 
 Loader {
 	id: editTaskForm
-	readonly property var units: Kirigami.Units
 	active: false
 	visible: active
 	Layout.fillWidth: true
@@ -182,7 +181,7 @@ Loader {
 				//---
 					RowLayout {
 						Layout.columnSpan: 2
-						spacing: units.smallSpacing
+						spacing: Kirigami.Units.smallSpacing
 					Item {
 						Layout.fillWidth: true
 					}

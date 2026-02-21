@@ -16,8 +16,6 @@ import org.kde.kcmutils as KCM
 KCM.SimpleKCM {
 	id: page
 
-	readonly property var units: Kirigami.Units
-	readonly property var theme: PlasmaCore.Theme
 	readonly property bool __eventCalendarConfigPage: true
 	readonly property int pagePadding: Kirigami.Units.largeSpacing
 

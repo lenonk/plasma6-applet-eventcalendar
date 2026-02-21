@@ -7,10 +7,9 @@ import org.kde.kirigami.primitives as KirigamiPrimitives
 ColumnLayout {
 	id: eventDialogIcon
 	Layout.fillHeight: true
-	readonly property var units: Kirigami.Units
 
 	property alias source: iconItem.source
-	property int size: units.iconSizes.smallMedium
+	property int size: Kirigami.Units.iconSizes.smallMedium
 
 	KirigamiPrimitives.Icon {
 		id: iconItem

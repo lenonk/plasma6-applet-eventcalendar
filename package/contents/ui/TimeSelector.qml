@@ -19,8 +19,6 @@ PlasmaComponents3.TextField {
 	id: timeSelector
 	readonly property Item control: timeSelector
 
-	readonly property var units: Kirigami.Units
-	readonly property var theme: PlasmaCore.Theme
 
 	property int defaultMinimumWidth: 80
 	readonly property int implicitContentWidth: contentWidth + leftPadding + rightPadding
@@ -147,8 +145,8 @@ PlasmaComponents3.TextField {
 				margins: -1
 			}
 			radius: 2
-			color: theme.viewBackgroundColor
-			border.color: Qt.rgba(theme.textColor.r, theme.textColor.g, theme.textColor.b, 0.3)
+			color: Kirigami.Theme.backgroundColor
+			border.color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.3)
 			layer.enabled: true
 
 			layer.effect: DropShadow {

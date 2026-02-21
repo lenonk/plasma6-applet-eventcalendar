@@ -4,17 +4,16 @@ import org.kde.kirigami as Kirigami
 
 Item {
 	id: dotsBadge
-	readonly property var units: Kirigami.Units
 	property int dotSize: (height / 8) + dotBorderWidth*2
-	property color dotColor: PlasmaCore.Theme.highlightColor
+	property color dotColor: Kirigami.Theme.highlightColor
 	property int dotBorderWidth: plasmoid.configuration.showOutlines ? 1 : 0
-	property color dotBorderColor: PlasmaCore.Theme.backgroundColor
+	property color dotBorderColor: Kirigami.Theme.backgroundColor
 
 	Row {
 		anchors.horizontalCenter: dotsBadge.horizontalCenter
 		anchors.bottom: dotsBadge.bottom
 		anchors.margins: dotsBadge.height / 8
-		spacing: units.smallSpacing
+		spacing: Kirigami.Units.smallSpacing
 
 		Rectangle {
 			visible: modelEventsCount >= 1

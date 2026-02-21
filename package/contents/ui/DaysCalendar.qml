@@ -33,7 +33,6 @@ import "./badges"
 
 Item {
 	id: daysCalendar
-	readonly property var units: Kirigami.Units
 
 	signal headerClicked
 
@@ -69,7 +68,7 @@ Item {
 
 	// Extra padding around the calendar grid area (below the header).
 	// This shrinks the grid and leaves empty space on the left/right/bottom.
-	property int gridMargin: units.smallSpacing
+	property int gridMargin: Kirigami.Units.smallSpacing
 
 	// Make the weekday header row shorter than day rows (closer to the classic calendar layout).
 	readonly property real headerRowScale: 0.67
@@ -108,7 +107,7 @@ Item {
 	Behavior on scale {
 		id: scaleBehavior
 		ScaleAnimator {
-			duration: units.longDuration
+			duration: Kirigami.Units.longDuration
 		}
 	}
 
@@ -126,7 +125,7 @@ Item {
 			left: parent.left
 			right: parent.right
 		}
-		spacing: units.smallSpacing
+		spacing: Kirigami.Units.smallSpacing
 
 		PlasmaExtras.Heading {
 			id: heading
@@ -255,7 +254,7 @@ Item {
 			ctx.reset()
 			ctx.save()
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
-				ctx.strokeStyle = PlasmaCore.Theme.textColor
+				ctx.strokeStyle = Kirigami.Theme.textColor
 			ctx.lineWidth = root.borderWidth
 			ctx.globalAlpha = 1.0
 
@@ -351,10 +350,12 @@ Item {
 		EventCountBadge {}
 	}
 
-	Connections {
-		target: PlasmaCore.Theme
-		function onThemeChangedProxy() { canvas.requestPaint() }
-	}
+	readonly property color themeTextColorProxy: Kirigami.Theme.textColor
+	readonly property color themeHighlightColorProxy: Kirigami.Theme.highlightColor
+	readonly property color themeBackgroundColorProxy: Kirigami.Theme.backgroundColor
+	onThemeTextColorProxyChanged: canvas.requestPaint()
+	onThemeHighlightColorProxyChanged: canvas.requestPaint()
+	onThemeBackgroundColorProxyChanged: canvas.requestPaint()
 
 	Column {
 		id: weeksColumn
@@ -379,10 +380,10 @@ Item {
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				font.pointSize: -1 // Ignore pixelSize warning
-					font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3, daysCalendar.cellWidth * 5/8))
+					font.pixelSize: Math.max(Kirigami.Theme.smallFont.pixelSize, Math.min(daysCalendar.cellHeight / 3, daysCalendar.cellWidth * 5/8))
 				readonly property bool isCurrentWeek: root.currentMonthContainsToday && modelData == calendarBackend.currentWeek()
 				readonly property bool showHighlight: isCurrentWeek && root.highlightCurrentDayWeek
-					color: showHighlight ? PlasmaCore.Theme.highlightColor : PlasmaCore.Theme.textColor
+					color: showHighlight ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
 				opacity: showHighlight ? 0.75 : 0.4
 				text: modelData
 			}
@@ -423,17 +424,17 @@ Item {
 				height: daysCalendar.headerCellHeight
 				font.pointSize: -1 // Ignore pixelSize warning
 				// Weekday headers should be a bit smaller than day numbers.
-				font.pixelSize: Math.max(PlasmaCore.Theme.smallestFont.pixelSize, Math.min(daysCalendar.cellHeight / 3.4, daysCalendar.cellWidth * 9/16))
+				font.pixelSize: Math.max(Kirigami.Theme.smallFont.pixelSize, Math.min(daysCalendar.cellHeight / 3.4, daysCalendar.cellWidth * 9/16))
 				horizontalAlignment: Text.AlignHCenter
 				// Reduce the perceived gap between weekday names and the first date row.
 				verticalAlignment: Text.AlignBottom
-				bottomPadding: Math.round(units.smallSpacing / 4)
+				bottomPadding: Math.round(Kirigami.Units.smallSpacing / 4)
 				elide: Text.ElideRight
 				fontSizeMode: Text.HorizontalFit
 				readonly property int currentDayIndex: (calendarBackend.firstDayOfWeek + index) % 7
 				readonly property bool isCurrentDay: root.currentMonthContainsToday && root.today && root.today.getDay() === currentDayIndex
 				readonly property bool showHighlight: isCurrentDay && root.highlightCurrentDayWeek
-					color: showHighlight ? PlasmaCore.Theme.highlightColor : PlasmaCore.Theme.textColor
+					color: showHighlight ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
 				opacity: showHighlight ? 0.75 : 0.4
 				text: Qt.locale().dayName(currentDayIndex, Locale.ShortFormat)
 			}

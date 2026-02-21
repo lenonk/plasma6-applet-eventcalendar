@@ -11,7 +11,6 @@ import "Shared.js" as Shared
 
 LinkRect {
 	id: agendaTaskItem
-	readonly property var units: Kirigami.Units
 	readonly property int taskItemIndex: index
 	Layout.fillWidth: true
 	implicitHeight: contents.implicitHeight
@@ -59,7 +58,7 @@ LinkRect {
 		id: contents
 		anchors.left: parent.left
 		anchors.right: parent.right
-		spacing: units.smallSpacing
+		spacing: Kirigami.Units.smallSpacing
 
 		PlasmaComponents3.CheckBox {
 			id: taskCheckBox
@@ -85,7 +84,7 @@ LinkRect {
 			PlasmaComponents3.Label {
 					id: taskTitle
 					text: model.title
-					color: PlasmaCore.Theme.textColor
+					color: Kirigami.Theme.textColor
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				visible: !editTaskForm.visible
@@ -101,7 +100,7 @@ LinkRect {
 				id: taskDue
 				readonly property bool showProperty: !!model.due
 				visible: showProperty && !editTaskForm.visible
-				spacing: units.smallSpacing
+				spacing: Kirigami.Units.smallSpacing
 
 				KirigamiPrimitives.Icon {
 					source: "view-task"
@@ -111,7 +110,7 @@ LinkRect {
 				PlasmaComponents3.Label {
 					id: taskDueLabel
 					text: eventTimestamp
-					color: taskIsOverdue ? isOverdueColor : PlasmaCore.Theme.textColor
+					color: taskIsOverdue ? isOverdueColor : Kirigami.Theme.textColor
 					opacity: taskIsOverdue ? 1 : 0.75
 					font.pointSize: -1
 					font.pixelSize: appletConfig.agendaFontSize
@@ -122,7 +121,7 @@ LinkRect {
 				Item {
 					id: taskNoteSpacing
 					visible: taskNotes.visible
-					implicitHeight: units.smallSpacing
+					implicitHeight: Kirigami.Units.smallSpacing
 				}
 
 			PlasmaComponents3.Label {
@@ -130,14 +129,14 @@ LinkRect {
 				readonly property bool showProperty: plasmoid.configuration.agendaShowEventDescription && text
 				visible: showProperty && !editTaskForm.visible
 				text: Shared.renderText(model.notes)
-					color: PlasmaCore.Theme.textColor
+					color: Kirigami.Theme.textColor
 				opacity: 0.75
 				font.pointSize: -1
 				font.pixelSize: appletConfig.agendaFontSize
 				Layout.fillWidth: true
 				wrapMode: Text.Wrap // See warning at taskTitle.wrapMode
 
-					linkColor: PlasmaCore.Theme.highlightColor
+					linkColor: Kirigami.Theme.highlightColor
 				onLinkActivated: Qt.openUrlExternally(link)
 				MouseArea {
 					anchors.fill: parent
@@ -149,7 +148,7 @@ LinkRect {
 				Item {
 					id: taskEditorSpacing
 					visible: editTaskForm.visible
-					implicitHeight: units.smallSpacing
+					implicitHeight: Kirigami.Units.smallSpacing
 				}
 
 			EditTaskForm {
