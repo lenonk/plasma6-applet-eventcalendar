@@ -38,3 +38,10 @@ target_link_libraries(eventcalendar-google-oauth PRIVATE
 set_target_properties(eventcalendar-google-oauth PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY "${EVENTCALENDAR_BIN_DIR}"
 )
+
+# plasma_install_package() installs package contents as data files, which can strip
+# the executable bit from contents/bin/* in system installs (e.g. distro packages).
+# Install the helper target explicitly so the packaged binary remains executable.
+install(TARGETS eventcalendar-google-oauth
+	RUNTIME DESTINATION "${KDE_INSTALL_DATADIR}/plasma/plasmoids/${EVENTCALENDAR_PLASMOID_ID}/contents/bin"
+)
