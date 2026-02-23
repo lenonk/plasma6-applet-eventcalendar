@@ -47,7 +47,7 @@ This installs for the current user (no system-wide files), which is convenient f
 ```bash
 git clone https://github.com/lenonk/plasma6-applet-eventcalendar.git
 cd plasma6-applet-eventcalendar
-sh ./install
+sh ./install.sh
 ```
 
 ### Option C: Arch Linux (AUR)
@@ -65,7 +65,7 @@ yay -S plasma6-applets-eventcalendar
 ## Updating
 
 ```bash
-sh ./update
+sh ./update.sh
 ```
 
 This pulls the latest changes and reinstalls the applet.
@@ -73,7 +73,7 @@ This pulls the latest changes and reinstalls the applet.
 ## Uninstall
 
 ```bash
-sh ./uninstall
+sh ./uninstall.sh
 ```
 
 ## Configuration
