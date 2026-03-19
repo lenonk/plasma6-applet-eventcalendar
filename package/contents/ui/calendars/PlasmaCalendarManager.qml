@@ -146,10 +146,10 @@ CalendarManager {
 		}
 	}
 
-	readonly property string translatedHolidaysType: i18ndc("libplasma5", "Agenda listview section title", "Holidays")
-	readonly property string translatedEventsType: i18ndc("libplasma5", "Agenda listview section title", "Events")
-	readonly property string translatedTodoType: i18ndc("libplasma5", "Agenda listview section title", "Todo")
-	readonly property string translatedOtherType: i18ndc("libplasma5", "Means 'Other calendar items'", "Other")
+	readonly property string translatedHolidaysType: i18nc("Agenda listview section title", "Holidays")
+	readonly property string translatedEventsType: i18nc("Agenda listview section title", "Events")
+	readonly property string translatedTodoType: i18nc("Agenda listview section title", "Todo")
+	readonly property string translatedOtherType: i18nc("Means 'Other calendar items'", "Other")
 	function parseCalendarId(dayItem) {
 		// dayItem.eventType is translated, but is the only way to tell which plugin it belongs to without
 		// creating a seperate PlasmaCalendar.EventPluginsManager for each plugin (assuming it's not a singleton).

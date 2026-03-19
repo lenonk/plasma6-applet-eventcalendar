@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 22:33-0500\n"
+"POT-Creation-Date: 2026-03-18 23:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,15 @@ msgstr ""
 #: ../contents/ui/DateTimeSelector.qml
 msgctxt "event editor date format"
 msgid "d MMM, yyyy"
+msgstr ""
+
+#: ../contents/ui/DaysCalendar.qml
+msgctxt "Reset calendar to today"
+msgid "Today"
+msgstr ""
+
+#: ../contents/ui/DaysCalendar.qml
+msgid "Reset calendar to today"
 msgstr ""
 
 #: ../contents/ui/DurationSelector.qml
@@ -538,6 +547,30 @@ msgctxt "calendar title format for months not from current year"
 msgid "MMMM, yyyy"
 msgstr ""
 
+#: ../contents/ui/MonthView.qml
+msgid "Previous Month"
+msgstr ""
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Month"
+msgstr ""
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Year"
+msgstr ""
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Year"
+msgstr ""
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Decade"
+msgstr ""
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Decade"
+msgstr ""
+
 #: ../contents/ui/NewEventForm.qml
 msgid "Eg: 9am-5pm Work"
 msgstr ""
@@ -621,6 +654,26 @@ msgstr ""
 
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
+msgstr ""
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Holidays"
+msgstr ""
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Events"
+msgstr ""
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Todo"
+msgstr ""
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Means 'Other calendar items'"
+msgid "Other"
 msgstr ""
 
 #: ../contents/ui/config/ConfigAgenda.qml ../contents/ui/config/ConfigCalendar.qml

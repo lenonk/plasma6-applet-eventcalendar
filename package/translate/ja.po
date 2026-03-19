@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 22:33-0500\n"
+"POT-Creation-Date: 2026-03-18 23:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: yamato kobayashi <Kb_yamato@protonmail.com>\n"
 "Language-Team: \n"
@@ -25,7 +25,7 @@ msgstr "イベントカレンダー"
 #: ../metadata.desktop
 msgid ""
 "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
-msgstr ""
+msgstr "Google カレンダーと同期する、天気を含むカレンダー + 予定表の Plasmoid。"
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -54,11 +54,11 @@ msgstr "イベント"
 
 #: ../contents/config/config.qml
 msgid "ICalendar (.ics)"
-msgstr "ICalendar (.ics)"
+msgstr "ICカレンダー(.ics)"
 
 #: ../contents/config/config.qml
 msgid "Google Calendar"
-msgstr "Google Calendar"
+msgstr "Googleカレンダー"
 
 #: ../contents/config/config.qml ../contents/ui/config/ConfigAgenda.qml
 msgid "Weather"
@@ -76,7 +76,7 @@ msgstr "1日"
 
 #: ../contents/ui/AgendaEventItem.qml
 msgid "Hangout"
-msgstr "Hangout"
+msgstr "遊ぶ"
 
 #: ../contents/ui/AgendaEventItem.qml ../contents/ui/AgendaTaskItem.qml
 msgid "Edit"
@@ -118,6 +118,15 @@ msgctxt "event editor date format"
 msgid "d MMM, yyyy"
 msgstr "M月 d日, yyyy"
 
+#: ../contents/ui/DaysCalendar.qml
+msgctxt "Reset calendar to today"
+msgid "Today"
+msgstr "今日"
+
+#: ../contents/ui/DaysCalendar.qml
+msgid "Reset calendar to today"
+msgstr "カレンダーを今日にリセット"
+
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
 msgstr "から"
@@ -145,82 +154,82 @@ msgstr "＆キャンセル"
 
 #: ../contents/ui/EditTaskForm.qml
 msgid "Add due date"
-msgstr ""
+msgstr "期限を追加"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (24 hour clock)"
 msgid "h"
-msgstr ""
+msgstr "h"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time (24 hour clock)"
 msgid "h:mm"
-msgstr ""
+msgstr "h:mm"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (12 hour clock)"
 msgid "h AP"
-msgstr ""
+msgstr "h AP"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time (12 hour clock)"
 msgid "h:mm AP"
-msgstr ""
+msgstr "h:mm AP"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "date (%1) with time (%2)"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "from date/time %1 until date/time %2"
 msgid "%1 - %2"
-msgstr ""
+msgstr "%1 - %2"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "short form for %1 hours"
 msgid "%1h"
-msgstr ""
+msgstr "%1h"
 
 #: ../contents/ui/LocaleFuncs.js
 #, c-format
 msgctxt "short form for %1 minutes"
 msgid "%1m"
-msgstr ""
+msgstr "%1m"
 
 #: ../contents/ui/LocaleFuncs.js
 #, c-format
 msgctxt "short form for %1 seconds"
 msgid "%1s"
-msgstr ""
+msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr ""
+msgstr "ほとんどクリア"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr ""
+msgstr "所により曇り"
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr ""
+msgstr "曇り"
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr ""
+msgstr "霧"
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr ""
+msgstr "霧雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr ""
+msgstr "氷点下の霧雨"
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -228,11 +237,11 @@ msgstr "雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr ""
+msgstr "凍てつく雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr ""
+msgstr "雪"
 
 #: ../contents/ui/Logic.qml
 #, fuzzy
@@ -246,290 +255,290 @@ msgstr "境界を表示"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr ""
+msgstr "雷雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr ""
+msgstr "晴れた空"
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr ""
+msgstr "主にクリア"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr ""
+msgstr "所により曇り"
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "霧氷の堆積"
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "中程度の霧雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr ""
+msgstr "濃霧雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "軽い氷点下の霧雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "濃い霧雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr ""
+msgstr "中程度の雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr ""
+msgstr "大雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr ""
+msgstr "冷たい雨が降る"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "激しい氷雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr ""
+msgstr "わずかに雪が降る"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "適度な降雪量"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "大雪が降る"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr ""
+msgstr "雪の粒"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr ""
+msgstr "にわか雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "中程度のにわか雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr ""
+msgstr "激しい雨が降る"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr ""
+msgstr "にわか雪"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "大雪のにわか雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "わずかな雹を伴う雷雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "激しいひょうを伴う雷雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr ""
+msgstr "Open-Meteo の緯度/経度が設定されていません"
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr ""
+msgstr "天気設定がセットアップされていません"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
-msgstr ""
+msgstr "接続できませんでした"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "HTTP Error %1: %2"
-msgstr ""
+msgstr "HTTP エラー %1: %2"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Will try again soon."
-msgstr ""
+msgstr "すぐにもう一度試します。"
 
 #: ../contents/ui/Logic.qml
 msgid "Weather API limit reached"
-msgstr ""
+msgstr "天気 API の制限に達しました"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid ""
 "Widget has been updated. Please logout and login to Google Calendar again."
-msgstr ""
+msgstr "ウィジェットが更新されました。ログアウトして、再度 Google カレンダーにログインしてください。"
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
-msgstr ""
+msgstr "Google からログアウトしました。再度ログインしてください。"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Clear sky"
-msgstr ""
+msgstr "晴れた空"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Mainly clear"
-msgstr ""
+msgstr "主にクリア"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Partly cloudy"
-msgstr ""
+msgstr "所により曇り"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Overcast"
-msgstr ""
+msgstr "曇り"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Fog"
-msgstr ""
+msgstr "霧"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "霧氷の堆積"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light drizzle"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "中程度の霧雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense drizzle"
-msgstr ""
+msgstr "濃霧雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "軽い氷点下の霧雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "濃い霧雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain"
-msgstr ""
+msgstr "中程度の雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy rain"
-msgstr ""
+msgstr "大雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing rain"
-msgstr ""
+msgstr "冷たい雨が降る"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "激しい氷雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow fall"
-msgstr ""
+msgstr "わずかに雪が降る"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "適度な降雪量"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "大雪が降る"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Snow grains"
-msgstr ""
+msgstr "雪の粒"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain showers"
-msgstr ""
+msgstr "にわか雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "中程度のにわか雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Violent rain showers"
-msgstr ""
+msgstr "激しい雨が降る"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow showers"
-msgstr ""
+msgstr "にわか雪"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "大雪のにわか雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm"
-msgstr ""
+msgstr "雷雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "わずかな雹を伴う雷雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "激しいひょうを伴う雷雨"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1mm"
-msgstr ""
+msgstr "%1mm"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr ""
+msgstr "%1in"
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -539,12 +548,36 @@ msgstr "M月 d日 yyyy"
 #: ../contents/ui/MonthView.qml
 msgctxt "calendar title format for other months of current year"
 msgid "MMMM"
-msgstr ""
+msgstr "MMMM"
 
 #: ../contents/ui/MonthView.qml
 msgctxt "calendar title format for months not from current year"
 msgid "MMMM, yyyy"
-msgstr ""
+msgstr "MMMM, yyyy"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Month"
+msgstr "前月"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Month"
+msgstr "来月"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Year"
+msgstr "前年"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Year"
+msgstr "来年"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Decade"
+msgstr "過去 10 年間"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Decade"
+msgstr "次の10年"
 
 #: ../contents/ui/NewEventForm.qml
 msgid "Eg: 9am-5pm Work"
@@ -579,7 +612,7 @@ msgstr "タイマーが終了"
 
 #: ../contents/ui/TimerModel.qml
 msgid "%1 has passed"
-msgstr ""
+msgstr "%1 が経過しました"
 
 #: ../contents/ui/TimerModel.qml ../contents/ui/TimerView.qml
 msgid "Repeat"
@@ -599,7 +632,7 @@ msgstr "スクロール期間を追加"
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr ""
+msgstr "テスト"
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -624,7 +657,7 @@ msgstr "今後のイベント"
 #: ../contents/ui/UpcomingEvents.qml
 msgctxt "%1 = 15 minutes"
 msgid "Starting in %1"
-msgstr ""
+msgstr "%1 から開始"
 
 #: ../contents/ui/calendars/CalendarManager.qml
 msgctxt "event with no summary"
@@ -633,7 +666,27 @@ msgstr "(無題)"
 
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
-msgstr ""
+msgstr "Web リクエストが多すぎます。すぐにもう一度試します。"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Holidays"
+msgstr "休日"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Events"
+msgstr "イベント"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Todo"
+msgstr "藤堂"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Means 'Other calendar items'"
+msgid "Other"
+msgstr "他の"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml

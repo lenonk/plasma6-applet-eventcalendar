@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 22:33-0500\n"
+"POT-Creation-Date: 2026-03-18 23:27-0500\n"
 "PO-Revision-Date: 2019-04-17 16:43+0800\n"
 "Last-Translator: Core小睿 <i@coreja.com>\n"
 "Language-Team: \n"
@@ -21,12 +21,12 @@ msgstr ""
 #: ../metadata.desktop ../contents/ui/AgendaView.qml
 #: ../contents/ui/UpcomingEvents.qml
 msgid "Event Calendar"
-msgstr ""
+msgstr "活动日历"
 
 #: ../metadata.desktop
 msgid ""
 "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
-msgstr ""
+msgstr "Plasmoid 用于日历+议程，其中天气与 Google 日历同步。"
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -55,7 +55,7 @@ msgstr "事件"
 
 #: ../contents/config/config.qml
 msgid "ICalendar (.ics)"
-msgstr ""
+msgstr "IC日历 (.ics)"
 
 #: ../contents/config/config.qml
 msgid "Google Calendar"
@@ -77,7 +77,7 @@ msgstr "全天"
 
 #: ../contents/ui/AgendaEventItem.qml
 msgid "Hangout"
-msgstr ""
+msgstr "挂出"
 
 #: ../contents/ui/AgendaEventItem.qml ../contents/ui/AgendaTaskItem.qml
 msgid "Edit"
@@ -98,17 +98,17 @@ msgstr "在浏览器中编辑"
 #: ../contents/ui/AgendaListItem.qml
 msgctxt "agenda date format line 1"
 msgid "MMM d"
-msgstr ""
+msgstr "MMM d"
 
 #: ../contents/ui/AgendaListItem.qml
 msgctxt "agenda date format line 2"
 msgid "ddd"
-msgstr ""
+msgstr "ddd"
 
 #: ../contents/ui/AgendaTaskItem.qml ../contents/ui/LocaleFuncs.js
 msgctxt "short month+date format"
 msgid "MMM d"
-msgstr ""
+msgstr "MMM d"
 
 #: ../contents/ui/CalendarSelector.qml
 msgid "[No Calendars]"
@@ -117,7 +117,16 @@ msgstr "[没有日历]"
 #: ../contents/ui/DateTimeSelector.qml
 msgctxt "event editor date format"
 msgid "d MMM, yyyy"
-msgstr ""
+msgstr "d MMM, yyyy"
+
+#: ../contents/ui/DaysCalendar.qml
+msgctxt "Reset calendar to today"
+msgid "Today"
+msgstr "今天"
+
+#: ../contents/ui/DaysCalendar.qml
+msgid "Reset calendar to today"
+msgstr "将日历重置为今天"
 
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
@@ -129,11 +138,11 @@ msgstr "事件标题"
 
 #: ../contents/ui/EditEventForm.qml
 msgid "Add location"
-msgstr ""
+msgstr "添加位置"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Add description"
-msgstr ""
+msgstr "添加描述"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "&Save"
@@ -146,7 +155,7 @@ msgstr "取消"
 
 #: ../contents/ui/EditTaskForm.qml
 msgid "Add due date"
-msgstr ""
+msgstr "添加截止日期"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (24 hour clock)"
@@ -161,67 +170,67 @@ msgstr "hh:mm"
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (12 hour clock)"
 msgid "h AP"
-msgstr ""
+msgstr "h AP"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time (12 hour clock)"
 msgid "h:mm AP"
-msgstr ""
+msgstr "h:mm AP"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "date (%1) with time (%2)"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "from date/time %1 until date/time %2"
 msgid "%1 - %2"
-msgstr ""
+msgstr "%1 - %2"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "short form for %1 hours"
 msgid "%1h"
-msgstr ""
+msgstr "%1h"
 
 #: ../contents/ui/LocaleFuncs.js
 #, c-format
 msgctxt "short form for %1 minutes"
 msgid "%1m"
-msgstr ""
+msgstr "%1m"
 
 #: ../contents/ui/LocaleFuncs.js
 #, c-format
 msgctxt "short form for %1 seconds"
 msgid "%1s"
-msgstr ""
+msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr ""
+msgstr "基本晴朗"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr ""
+msgstr "多云"
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr ""
+msgstr "灰蒙蒙"
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr ""
+msgstr "多雾路段"
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr ""
+msgstr "细雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr ""
+msgstr "冻毛毛雨"
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -229,11 +238,11 @@ msgstr "降水"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr ""
+msgstr "冻雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr ""
+msgstr "雪"
 
 #: ../contents/ui/Logic.qml
 #, fuzzy
@@ -247,290 +256,290 @@ msgstr "显示边框"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr ""
+msgstr "雷雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr ""
+msgstr "晴朗的天空"
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr ""
+msgstr "主要是明确"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr ""
+msgstr "多云"
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "沉积雾凇"
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "中毛毛雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr ""
+msgstr "细雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "小冰雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "浓密的冻毛毛雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr ""
+msgstr "中雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr ""
+msgstr "大雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr ""
+msgstr "小冻雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "大冻雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr ""
+msgstr "小雪飘落"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "中雪"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "大雪纷飞"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr ""
+msgstr "雪粒"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr ""
+msgstr "小阵雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "中度阵雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr ""
+msgstr "猛烈阵雨"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr ""
+msgstr "小阵雪"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "大阵雪"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "雷阵雨伴有小冰雹"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "雷暴伴有大冰雹"
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr ""
+msgstr "未设置 Open-Meteo 纬度/经度"
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr ""
+msgstr "天气配置未设置"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
-msgstr ""
+msgstr "无法连接"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "HTTP Error %1: %2"
-msgstr ""
+msgstr "HTTP 错误 %1: %2"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Will try again soon."
-msgstr ""
+msgstr "很快会再试一次。"
 
 #: ../contents/ui/Logic.qml
 msgid "Weather API limit reached"
-msgstr ""
+msgstr "已达到天气 API 限制"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid ""
 "Widget has been updated. Please logout and login to Google Calendar again."
-msgstr ""
+msgstr "小部件已更新。请注销并重新登录 Google 日历。"
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
-msgstr ""
+msgstr "已退出 Google。请重新登录。"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Clear sky"
-msgstr ""
+msgstr "晴朗的天空"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Mainly clear"
-msgstr ""
+msgstr "主要是明确"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Partly cloudy"
-msgstr ""
+msgstr "多云"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Overcast"
-msgstr ""
+msgstr "灰蒙蒙"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Fog"
-msgstr ""
+msgstr "多雾路段"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "沉积雾凇"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light drizzle"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "中毛毛雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense drizzle"
-msgstr ""
+msgstr "细雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "小冰雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "浓密的冻毛毛雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain"
-msgstr ""
+msgstr "小雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain"
-msgstr ""
+msgstr "中雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy rain"
-msgstr ""
+msgstr "大雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing rain"
-msgstr ""
+msgstr "小冻雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "大冻雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow fall"
-msgstr ""
+msgstr "小雪飘落"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "中雪"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "大雪纷飞"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Snow grains"
-msgstr ""
+msgstr "雪粒"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain showers"
-msgstr ""
+msgstr "小阵雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "中度阵雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Violent rain showers"
-msgstr ""
+msgstr "猛烈阵雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow showers"
-msgstr ""
+msgstr "小阵雪"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "大阵雪"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm"
-msgstr ""
+msgstr "雷雨"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "雷阵雨伴有小冰雹"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "雷暴伴有大冰雹"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1mm"
-msgstr ""
+msgstr "%1mm"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr ""
+msgstr "%1in"
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -540,12 +549,36 @@ msgstr "MMMM 日，年"
 #: ../contents/ui/MonthView.qml
 msgctxt "calendar title format for other months of current year"
 msgid "MMMM"
-msgstr ""
+msgstr "MMMM"
 
 #: ../contents/ui/MonthView.qml
 msgctxt "calendar title format for months not from current year"
 msgid "MMMM, yyyy"
-msgstr ""
+msgstr "MMMM, yyyy"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Month"
+msgstr "上个月"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Month"
+msgstr "下个月"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Year"
+msgstr "上一年"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Year"
+msgstr "明年"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Decade"
+msgstr "过去十年"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Decade"
+msgstr "下一个十年"
 
 #: ../contents/ui/NewEventForm.qml
 msgid "Eg: 9am-5pm Work"
@@ -564,11 +597,11 @@ msgstr ""
 
 #: ../contents/ui/PopupView.qml
 msgid "Error fetching weather."
-msgstr ""
+msgstr "获取天气时出错。"
 
 #: ../contents/ui/TimerInputView.qml
 msgid "&Start"
-msgstr ""
+msgstr "＆开始"
 
 #: ../contents/ui/TimerModel.qml ../contents/ui/config/ConfigGeneral.qml
 msgid "Timer"
@@ -600,7 +633,7 @@ msgstr "滑动滚轮调整时间"
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr ""
+msgstr "测试"
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -625,7 +658,7 @@ msgstr "即将到来的事件"
 #: ../contents/ui/UpcomingEvents.qml
 msgctxt "%1 = 15 minutes"
 msgid "Starting in %1"
-msgstr ""
+msgstr "从 %1 开始"
 
 #: ../contents/ui/calendars/CalendarManager.qml
 msgctxt "event with no summary"
@@ -634,7 +667,27 @@ msgstr "（没有标题）"
 
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
-msgstr ""
+msgstr "网络请求太多。很快会再试一次。"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Holidays"
+msgstr "假期"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Events"
+msgstr "活动"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Todo"
+msgstr "托多"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Means 'Other calendar items'"
+msgid "Other"
+msgstr "其他"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 22:33-0500\n"
+"POT-Creation-Date: 2026-03-18 23:27-0500\n"
 "PO-Revision-Date: 2020-01-05 22:01+0300\n"
 "Last-Translator: aliger14 <aliger14@mail.ru>\n"
 "Language-Team: ru\n"
@@ -79,7 +79,7 @@ msgstr "Весь день"
 
 #: ../contents/ui/AgendaEventItem.qml
 msgid "Hangout"
-msgstr "Hangout"
+msgstr "Тусоваться"
 
 #: ../contents/ui/AgendaEventItem.qml ../contents/ui/AgendaTaskItem.qml
 msgid "Edit"
@@ -120,6 +120,15 @@ msgstr "[Без календарей]"
 msgctxt "event editor date format"
 msgid "d MMM, yyyy"
 msgstr "d MMM, yyyy"
+
+#: ../contents/ui/DaysCalendar.qml
+msgctxt "Reset calendar to today"
+msgid "Today"
+msgstr "Сегодня"
+
+#: ../contents/ui/DaysCalendar.qml
+msgid "Reset calendar to today"
+msgstr "Сбросить календарь на сегодня"
 
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
@@ -199,31 +208,31 @@ msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr ""
+msgstr "Прозрачный"
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr ""
+msgstr "Преимущественно ясно"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr ""
+msgstr "Переменная облачность"
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr ""
+msgstr "Пасмурно"
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr ""
+msgstr "Туман"
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr ""
+msgstr "Морось"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr ""
+msgstr "Ледяной дождь"
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -231,11 +240,11 @@ msgstr "Осадки"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr ""
+msgstr "Ледяной дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr ""
+msgstr "Снег"
 
 #: ../contents/ui/Logic.qml
 #, fuzzy
@@ -249,115 +258,115 @@ msgstr "Показать сетку"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr ""
+msgstr "Гроза"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr ""
+msgstr "Ясное небо"
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr ""
+msgstr "В основном ясно"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr ""
+msgstr "Переменная облачность"
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "Нанесение инейного тумана"
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr ""
+msgstr "Легкий дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "Умеренный дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr ""
+msgstr "Густой дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "Легкий ледяной дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "Плотный ледяной дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr ""
+msgstr "Небольшой дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr ""
+msgstr "Умеренный дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr ""
+msgstr "Сильный дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr ""
+msgstr "Легкий ледяной дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "Сильный ледяной дождь"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr ""
+msgstr "Небольшой снегопад"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "Умеренный снегопад"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "Сильный снегопад"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr ""
+msgstr "Снежные зерна"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr ""
+msgstr "Небольшой ливень"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "Умеренный ливень"
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr ""
+msgstr "Сильный ливень"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr ""
+msgstr "Небольшой снегопад"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "Сильный снегопад"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "Гроза с небольшим градом"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "Гроза с сильным градом"
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr ""
+msgstr "Широта/долгота Open-Meteo не установлена."
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr ""
+msgstr "Конфигурация погоды не настроена"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
@@ -389,142 +398,142 @@ msgstr "Произведен выход из Google. Войдите снова."
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Clear sky"
-msgstr ""
+msgstr "Ясное небо"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Mainly clear"
-msgstr ""
+msgstr "В основном ясно"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Partly cloudy"
-msgstr ""
+msgstr "Переменная облачность"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Overcast"
-msgstr ""
+msgstr "Пасмурно"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Fog"
-msgstr ""
+msgstr "Туман"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "Нанесение инейного тумана"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light drizzle"
-msgstr ""
+msgstr "Легкий дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "Умеренный дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense drizzle"
-msgstr ""
+msgstr "Густой дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "Легкий ледяной дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "Плотный ледяной дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain"
-msgstr ""
+msgstr "Небольшой дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain"
-msgstr ""
+msgstr "Умеренный дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy rain"
-msgstr ""
+msgstr "Сильный дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing rain"
-msgstr ""
+msgstr "Легкий ледяной дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "Сильный ледяной дождь"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow fall"
-msgstr ""
+msgstr "Небольшой снегопад"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "Умеренный снегопад"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "Сильный снегопад"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Snow grains"
-msgstr ""
+msgstr "Снежные зерна"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain showers"
-msgstr ""
+msgstr "Небольшой ливень"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "Умеренный ливень"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Violent rain showers"
-msgstr ""
+msgstr "Сильный ливень"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow showers"
-msgstr ""
+msgstr "Небольшой снегопад"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "Сильный снегопад"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm"
-msgstr ""
+msgstr "Гроза"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "Гроза с небольшим градом"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "Гроза с сильным градом"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
@@ -534,7 +543,7 @@ msgstr "%1mm"
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr ""
+msgstr "%1in"
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -550,6 +559,30 @@ msgstr "MMMM"
 msgctxt "calendar title format for months not from current year"
 msgid "MMMM, yyyy"
 msgstr "MMMM, yyyy"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Month"
+msgstr "Предыдущий месяц"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Month"
+msgstr "В следующем месяце"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Year"
+msgstr "Предыдущий год"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Year"
+msgstr "В следующем году"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Decade"
+msgstr "Предыдущее десятилетие"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Decade"
+msgstr "Следующее десятилетие"
 
 #: ../contents/ui/NewEventForm.qml
 msgid "Eg: 9am-5pm Work"
@@ -604,7 +637,7 @@ msgstr "Прокрутите, чтобы добавить время"
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr ""
+msgstr "Тест"
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -629,7 +662,7 @@ msgstr "Ближайшие события"
 #: ../contents/ui/UpcomingEvents.qml
 msgctxt "%1 = 15 minutes"
 msgid "Starting in %1"
-msgstr ""
+msgstr "Начиная с %1"
 
 #: ../contents/ui/calendars/CalendarManager.qml
 msgctxt "event with no summary"
@@ -639,6 +672,26 @@ msgstr "(Без названия)"
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
 msgstr "Слишком много запросов. Чуть позже повторим."
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Holidays"
+msgstr "Праздники"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Events"
+msgstr "События"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Todo"
+msgstr "Тодо"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Means 'Other calendar items'"
+msgid "Other"
+msgstr "Другой"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
@@ -672,7 +725,7 @@ msgstr "Интервал между днями:"
 #: ../contents/ui/config/ConfigGeneral.qml
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "px"
-msgstr "px"
+msgstr "пикселей"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #, fuzzy
@@ -959,7 +1012,7 @@ msgstr "Обновлять события каждые: "
 #: ../contents/ui/config/ConfigWeather.qml
 msgctxt "Polling interval in minutes"
 msgid "min"
-msgstr "min"
+msgstr "мин"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Notifications"

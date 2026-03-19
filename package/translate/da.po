@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 22:33-0500\n"
+"POT-Creation-Date: 2026-03-18 23:27-0500\n"
 "PO-Revision-Date: 2019-05-04 00:48-0400\n"
 "Last-Translator: Chris Darnell <chris@cedeel.com>\n"
 "Language-Team: Chris Darnell <chris@cedeel.com>\n"
@@ -27,6 +27,8 @@ msgstr "Begivenhedskalender"
 msgid ""
 "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
 msgstr ""
+"Plasmoid til en kalender+dagsorden med vejr, der synkroniseres med Google "
+"Kalender."
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -34,7 +36,7 @@ msgstr "Generelt"
 
 #: ../contents/config/config.qml
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: ../contents/config/config.qml
 msgid "Timezones"
@@ -47,7 +49,7 @@ msgstr "Kalender"
 
 #: ../contents/config/config.qml
 msgid "Agenda"
-msgstr "Agenda"
+msgstr "Dagsorden"
 
 #: ../contents/config/config.qml ../contents/ui/config/ConfigAgenda.qml
 msgid "Events"
@@ -117,7 +119,16 @@ msgstr "[Ingen kalendere]"
 #: ../contents/ui/DateTimeSelector.qml
 msgctxt "event editor date format"
 msgid "d MMM, yyyy"
-msgstr ""
+msgstr "d MMM, yyyy"
+
+#: ../contents/ui/DaysCalendar.qml
+msgctxt "Reset calendar to today"
+msgid "Today"
+msgstr "I dag"
+
+#: ../contents/ui/DaysCalendar.qml
+msgid "Reset calendar to today"
+msgstr "Nulstil kalenderen til i dag"
 
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
@@ -125,15 +136,15 @@ msgstr "til"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Event Title"
-msgstr ""
+msgstr "Begivenhedens titel"
 
 #: ../contents/ui/EditEventForm.qml
 msgid "Add location"
-msgstr ""
+msgstr "Tilføj placering"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Add description"
-msgstr ""
+msgstr "Tilføj beskrivelse"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "&Save"
@@ -146,7 +157,7 @@ msgstr "Annuler"
 
 #: ../contents/ui/EditTaskForm.qml
 msgid "Add due date"
-msgstr ""
+msgstr "Tilføj forfaldsdato"
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (24 hour clock)"
@@ -197,31 +208,31 @@ msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr ""
+msgstr "Klar"
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr ""
+msgstr "For det meste klart"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr ""
+msgstr "Delvis skyet"
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr ""
+msgstr "Overskyet"
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr ""
+msgstr "Tåge"
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr ""
+msgstr "Støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr ""
+msgstr "Frysende støvregn"
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -229,11 +240,11 @@ msgstr "Regn"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr ""
+msgstr "Frostregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr ""
+msgstr "Sne"
 
 #: ../contents/ui/Logic.qml
 #, fuzzy
@@ -247,280 +258,282 @@ msgstr "Vis kanter"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr ""
+msgstr "Tordenvejr"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr ""
+msgstr "Klar himmel"
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr ""
+msgstr "Hovedsageligt klart"
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr ""
+msgstr "Delvist skyet"
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "Aflejrer rimtåge"
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr ""
+msgstr "Let støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "Moderat støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr ""
+msgstr "Tæt støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "Let frysende støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "Tæt frysende støvregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr ""
+msgstr "Let regn"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr ""
+msgstr "Moderat regn"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr ""
+msgstr "Kraftig regn"
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr ""
+msgstr "Let frysende regn"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "Kraftig frostregn"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr ""
+msgstr "Let snefald"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "Moderat snefald"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "Tung sne falder"
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr ""
+msgstr "Snekorn"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr ""
+msgstr "Små regnbyger"
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "Moderate regnbyger"
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr ""
+msgstr "Voldsomme regnbyger"
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr ""
+msgstr "Små snebyger"
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "Kraftige snebyger"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "Tordenvejr med let hagl"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "Tordenvejr med kraftig hagl"
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr ""
+msgstr "Åben-Meteo bredde/længdegrad ikke indstillet"
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr ""
+msgstr "Vejrkonfigurationen er ikke opsat"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
-msgstr ""
+msgstr "Kunne ikke oprette forbindelse"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "HTTP Error %1: %2"
-msgstr ""
+msgstr "HTTP-fejl %1: %2"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Will try again soon."
-msgstr ""
+msgstr "Vil prøve igen snart."
 
 #: ../contents/ui/Logic.qml
 msgid "Weather API limit reached"
-msgstr ""
+msgstr "Vejr-API-grænsen nået"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid ""
 "Widget has been updated. Please logout and login to Google Calendar again."
 msgstr ""
+"Widget er blevet opdateret. Log venligst ud og log ind på Google Kalender "
+"igen."
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
-msgstr ""
+msgstr "Logget ud af Google. Log venligst på igen."
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Clear sky"
-msgstr ""
+msgstr "Klar himmel"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Mainly clear"
-msgstr ""
+msgstr "Hovedsageligt klart"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Partly cloudy"
-msgstr ""
+msgstr "Delvist skyet"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Overcast"
-msgstr ""
+msgstr "Overskyet"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Fog"
-msgstr ""
+msgstr "Tåge"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Depositing rime fog"
-msgstr ""
+msgstr "Aflejrer rimtåge"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light drizzle"
-msgstr ""
+msgstr "Let støvregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate drizzle"
-msgstr ""
+msgstr "Moderat støvregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense drizzle"
-msgstr ""
+msgstr "Tæt støvregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing drizzle"
-msgstr ""
+msgstr "Let frysende støvregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Dense freezing drizzle"
-msgstr ""
+msgstr "Tæt frysende støvregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain"
-msgstr ""
+msgstr "Let regn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain"
-msgstr ""
+msgstr "Moderat regn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy rain"
-msgstr ""
+msgstr "Kraftig regn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Light freezing rain"
-msgstr ""
+msgstr "Let frysende regn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy freezing rain"
-msgstr ""
+msgstr "Kraftig frostregn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow fall"
-msgstr ""
+msgstr "Let snefald"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate snow fall"
-msgstr ""
+msgstr "Moderat snefald"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow fall"
-msgstr ""
+msgstr "Tung sne falder"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Snow grains"
-msgstr ""
+msgstr "Snekorn"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight rain showers"
-msgstr ""
+msgstr "Små regnbyger"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Moderate rain showers"
-msgstr ""
+msgstr "Moderate regnbyger"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Violent rain showers"
-msgstr ""
+msgstr "Voldsomme regnbyger"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Slight snow showers"
-msgstr ""
+msgstr "Små snebyger"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Heavy snow showers"
-msgstr ""
+msgstr "Kraftige snebyger"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm"
-msgstr ""
+msgstr "Tordenvejr"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with slight hail"
-msgstr ""
+msgstr "Tordenvejr med let hagl"
 
 #: ../contents/ui/MeteogramView.qml
 msgctxt "weather condition"
 msgid "Thunderstorm with heavy hail"
-msgstr ""
+msgstr "Tordenvejr med kraftig hagl"
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
@@ -530,7 +543,7 @@ msgstr "%1mm"
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr ""
+msgstr "%1in"
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -546,6 +559,30 @@ msgstr "MMMM"
 msgctxt "calendar title format for months not from current year"
 msgid "MMMM, yyyy"
 msgstr "MMMM yyyy"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Month"
+msgstr "Forrige måned"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Month"
+msgstr "Næste måned"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Year"
+msgstr "Forrige år"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Year"
+msgstr "Næste år"
+
+#: ../contents/ui/MonthView.qml
+msgid "Previous Decade"
+msgstr "Forrige årti"
+
+#: ../contents/ui/MonthView.qml
+msgid "Next Decade"
+msgstr "Næste årti"
 
 #: ../contents/ui/NewEventForm.qml
 msgid "Eg: 9am-5pm Work"
@@ -564,11 +601,11 @@ msgstr ""
 
 #: ../contents/ui/PopupView.qml
 msgid "Error fetching weather."
-msgstr ""
+msgstr "Fejl ved hentning af vejret."
 
 #: ../contents/ui/TimerInputView.qml
 msgid "&Start"
-msgstr "&Start"
+msgstr "&Starte"
 
 #: ../contents/ui/TimerModel.qml ../contents/ui/config/ConfigGeneral.qml
 msgid "Timer"
@@ -600,7 +637,7 @@ msgstr "Rul for at forøge varigheden"
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr ""
+msgstr "Prøve"
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -625,7 +662,7 @@ msgstr "Kommende begivenheder"
 #: ../contents/ui/UpcomingEvents.qml
 msgctxt "%1 = 15 minutes"
 msgid "Starting in %1"
-msgstr ""
+msgstr "Starter om %1"
 
 #: ../contents/ui/calendars/CalendarManager.qml
 msgctxt "event with no summary"
@@ -634,7 +671,27 @@ msgstr "(Ikke navngivet)"
 
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
-msgstr ""
+msgstr "For mange webanmodninger. Vil prøve igen snart."
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Holidays"
+msgstr "Helligdage"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Events"
+msgstr "Begivenheder"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Agenda listview section title"
+msgid "Todo"
+msgstr "Todo"
+
+#: ../contents/ui/calendars/PlasmaCalendarManager.qml
+msgctxt "Means 'Other calendar items'"
+msgid "Other"
+msgstr "Andre"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml

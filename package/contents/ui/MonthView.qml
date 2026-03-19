@@ -407,8 +407,8 @@ PinchArea {
 
 			dateMatchingPrecision: Calendar.MatchYearMonthAndDay
 
-			previousLabel: i18nd("libplasma5", "Previous Month")
-			nextLabel: i18nd("libplasma5", "Next Month")
+			previousLabel: i18n("Previous Month")
+			nextLabel: i18n("Next Month")
 
 			onPrevious: calendarBackend.previousMonth()
 			onNext: calendarBackend.nextMonth()
@@ -442,8 +442,8 @@ PinchArea {
 
 			gridModel: monthModel
 
-			previousLabel: i18nd("libplasma5", "Previous Year")
-			nextLabel: i18nd("libplasma5", "Next Year")
+			previousLabel: i18n("Previous Year")
+			nextLabel: i18n("Next Year")
 
 			onPrevious: calendarBackend.previousYear()
 			onNext: calendarBackend.nextYear()
@@ -476,8 +476,8 @@ PinchArea {
 
 			gridModel: yearModel
 
-			previousLabel: i18nd("libplasma5", "Previous Decade")
-			nextLabel: i18nd("libplasma5", "Next Decade")
+			previousLabel: i18n("Previous Decade")
+			nextLabel: i18n("Next Decade")
 
 			onPrevious: calendarBackend.previousDecade()
 			onNext: calendarBackend.nextDecade()
