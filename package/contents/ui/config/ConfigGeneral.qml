@@ -24,6 +24,14 @@ ConfigPage {
 		page.cfg_clockMouseWheelDown = down
 	}
 
+	function setLine1FormatPreset(format) {
+		page.cfg_clockTimeFormat1 = format
+	}
+
+	function setLine2FormatPreset(format) {
+		page.cfg_clockTimeFormat2 = format
+	}
+
 	ColumnLayout {
 		Layout.fillWidth: true
 		spacing: Kirigami.Units.largeSpacing
@@ -144,24 +152,24 @@ ConfigPage {
 				RowLayout {
 					Kirigami.FormData.label: i18n("Presets:")
 
-					QQC2.Button {
-						text: Qt.formatDateTime(new Date(), page.timeFormat12hour)
-						onClicked: clockTimeFormat.text = page.timeFormat12hour
-					}
-					QQC2.Button {
-						text: Qt.formatDateTime(new Date(), page.timeFormat24hour)
-						onClicked: clockTimeFormat.text = page.timeFormat24hour
-					}
-					QQC2.Button {
-						readonly property string dateFormat: Qt.locale().timeFormat(Locale.ShortFormat).replace("mm", "mm:ss")
-						text: Qt.formatDateTime(new Date(), dateFormat)
-						onClicked: clockTimeFormat.text = dateFormat
-					}
-					QQC2.Button {
-						readonly property string dateFormat: "MMM d, " + Qt.locale().timeFormat(Locale.ShortFormat)
-						text: Qt.formatDateTime(new Date(), dateFormat)
-						onClicked: clockTimeFormat.text = dateFormat
-					}
+						QQC2.Button {
+							text: Qt.formatDateTime(new Date(), page.timeFormat12hour)
+							onClicked: page.setLine1FormatPreset(page.timeFormat12hour)
+						}
+						QQC2.Button {
+							text: Qt.formatDateTime(new Date(), page.timeFormat24hour)
+							onClicked: page.setLine1FormatPreset(page.timeFormat24hour)
+						}
+						QQC2.Button {
+							readonly property string dateFormat: Qt.locale().timeFormat(Locale.ShortFormat).replace("mm", "mm:ss")
+							text: Qt.formatDateTime(new Date(), dateFormat)
+							onClicked: page.setLine1FormatPreset(dateFormat)
+						}
+						QQC2.Button {
+							readonly property string dateFormat: "MMM d, " + Qt.locale().timeFormat(Locale.ShortFormat)
+							text: Qt.formatDateTime(new Date(), dateFormat)
+							onClicked: page.setLine1FormatPreset(dateFormat)
+						}
 				}
 
 				QQC2.CheckBox {
@@ -201,30 +209,30 @@ ConfigPage {
 					enabled: !!page.cfg_clockShowLine2
 					Kirigami.FormData.label: i18n("Presets:")
 
-					QQC2.Button {
-						readonly property string dateFormat: {
-							// Remove "dddd" from LongFormat, matching the digital clock behavior.
-							var format = Qt.locale().dateFormat(Locale.LongFormat)
-							return format.replace(/(^dddd.?\\s)|(,?\\sdddd$)/, "")
+						QQC2.Button {
+							readonly property string dateFormat: {
+								// Remove "dddd" from LongFormat, matching the digital clock behavior.
+								var format = Qt.locale().dateFormat(Locale.LongFormat)
+								return format.replace(/(^dddd.?\\s)|(,?\\sdddd$)/, "")
+							}
+							text: Qt.formatDate(new Date(), dateFormat)
+							onClicked: page.setLine2FormatPreset(dateFormat)
 						}
-						text: Qt.formatDate(new Date(), dateFormat)
-						onClicked: clockTimeFormat2.text = dateFormat
-					}
-					QQC2.Button {
-						readonly property string dateFormat: Qt.locale().dateFormat(Locale.ShortFormat)
-						text: Qt.formatDate(new Date(), dateFormat)
-						onClicked: clockTimeFormat2.text = dateFormat
-					}
-					QQC2.Button {
-						readonly property string dateFormat: "MMM d"
-						text: Qt.formatDate(new Date(), dateFormat)
-						onClicked: clockTimeFormat2.text = dateFormat
-					}
-					QQC2.Button {
-						readonly property string dateFormat: "dddd MMM d"
-						text: Qt.formatDate(new Date(), dateFormat)
-						onClicked: clockTimeFormat2.text = dateFormat
-					}
+						QQC2.Button {
+							readonly property string dateFormat: Qt.locale().dateFormat(Locale.ShortFormat)
+							text: Qt.formatDate(new Date(), dateFormat)
+							onClicked: page.setLine2FormatPreset(dateFormat)
+						}
+						QQC2.Button {
+							readonly property string dateFormat: "MMM d"
+							text: Qt.formatDate(new Date(), dateFormat)
+							onClicked: page.setLine2FormatPreset(dateFormat)
+						}
+						QQC2.Button {
+							readonly property string dateFormat: "dddd MMM d"
+							text: Qt.formatDate(new Date(), dateFormat)
+							onClicked: page.setLine2FormatPreset(dateFormat)
+						}
 				}
 
 				QQC2.CheckBox {
@@ -349,4 +357,3 @@ ConfigPage {
 		}
 	}
 }
-
