@@ -27,7 +27,6 @@ msgstr "Ημερολόγιο Συμβάντων"
 msgid ""
 "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
 msgstr ""
-"Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -35,7 +34,7 @@ msgstr "Γενικά"
 
 #: ../contents/config/config.qml
 msgid "Layout"
-msgstr "Layout"
+msgstr ""
 
 #: ../contents/config/config.qml
 msgid "Timezones"
@@ -66,7 +65,8 @@ msgstr "Ημερολόγιο Google"
 msgid "Weather"
 msgstr "Καιρός"
 
-#: ../contents/config/config.qml ../contents/ui/config/ConfigGoogleCalendar.qml
+#: ../contents/config/config.qml
+#: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Advanced"
 msgstr "Προχωρημένα"
 
@@ -77,7 +77,7 @@ msgstr "Όλη την Ημέρα"
 
 #: ../contents/ui/AgendaEventItem.qml
 msgid "Hangout"
-msgstr "Hangout"
+msgstr ""
 
 #: ../contents/ui/AgendaEventItem.qml ../contents/ui/AgendaTaskItem.qml
 msgid "Edit"
@@ -108,7 +108,7 @@ msgstr "ddd"
 #: ../contents/ui/AgendaTaskItem.qml ../contents/ui/LocaleFuncs.js
 msgctxt "short month+date format"
 msgid "MMM d"
-msgstr "MMM d"
+msgstr ""
 
 #: ../contents/ui/CalendarSelector.qml
 msgid "[No Calendars]"
@@ -117,7 +117,7 @@ msgstr "[Χωρίς Ημερολόγια]"
 #: ../contents/ui/DateTimeSelector.qml
 msgctxt "event editor date format"
 msgid "d MMM, yyyy"
-msgstr "d MMM, yyyy"
+msgstr ""
 
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
@@ -125,15 +125,15 @@ msgstr "προς"
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Event Title"
-msgstr "Event Title"
+msgstr ""
 
 #: ../contents/ui/EditEventForm.qml
 msgid "Add location"
-msgstr "Add location"
+msgstr ""
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Add description"
-msgstr "Add description"
+msgstr ""
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "&Save"
@@ -146,37 +146,37 @@ msgstr "&Ακύρωση"
 
 #: ../contents/ui/EditTaskForm.qml
 msgid "Add due date"
-msgstr "Add due date"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (24 hour clock)"
 msgid "h"
-msgstr "h"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time (24 hour clock)"
 msgid "h:mm"
-msgstr "h:mm"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time on the hour (12 hour clock)"
 msgid "h AP"
-msgstr "h AP"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "event time (12 hour clock)"
 msgid "h:mm AP"
-msgstr "h:mm AP"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "date (%1) with time (%2)"
 msgid "%1, %2"
-msgstr "%1, %2"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "from date/time %1 until date/time %2"
 msgid "%1 - %2"
-msgstr "%1 - %2"
+msgstr ""
 
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "short form for %1 hours"
@@ -197,31 +197,31 @@ msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr "Mostly Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr "Partly Cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr "Overcast"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr "Fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr "Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr "Freezing Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -229,157 +229,298 @@ msgstr "Βροχή"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr "Freezing Rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr "Snow"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Showers"
-msgstr "Showers"
+msgstr "Εμφάνιση Περιθωρίων"
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Snow Showers"
-msgstr "Snow Showers"
+msgstr "Εμφάνιση Περιθωρίων"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr "Thunderstorm"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr "Clear sky"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr "Mainly clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr "Partly cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr "Light drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr "Dense drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr "Slight rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr "Moderate rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr "Heavy rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr "Light freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr "Slight snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr "Snow grains"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr "Slight rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr "Violent rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr "Slight snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr "Open-Meteo latitude/longitude not set"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr "Weather configuration not setup"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
-msgstr "Could not connect"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "HTTP Error %1: %2"
-msgstr "HTTP Error %1: %2"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Will try again soon."
-msgstr "Will try again soon."
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Weather API limit reached"
-msgstr "Weather API limit reached"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid ""
 "Widget has been updated. Please logout and login to Google Calendar again."
 msgstr ""
-"Widget has been updated. Please logout and login to Google Calendar again."
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
-msgstr "Logged out of Google. Please login again."
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr ""
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
@@ -389,7 +530,7 @@ msgstr "%1mm"
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr "%1in"
+msgstr ""
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -411,22 +552,23 @@ msgid "Eg: 9am-5pm Work"
 msgstr "Πχ: 9πμ-5μμ Εργασία"
 
 #: ../contents/ui/PopupView.qml
+#, fuzzy
 msgid ""
 "Weather not configured.\n"
 "Go to Weather in the config and set your location,\n"
 "and/or disable the meteogram to hide this area."
 msgstr ""
-"Weather not configured.\n"
-"Go to Weather in the config and set your location,\n"
-"and/or disable the meteogram to hide this area."
+"Ο καιρός δεν έχει ρυθμιστεί.\n"
+"Πηγαίνετε στο Καιρός στις ρυθμίσεις του Event Calendar και ορίστε την πόλη σας,\n"
+"και / ή απενεργοποιήστε το μετεωρογράφημα για να αποκρύψετε αυτήν την περιοχή."
 
 #: ../contents/ui/PopupView.qml
 msgid "Error fetching weather."
-msgstr "Error fetching weather."
+msgstr ""
 
 #: ../contents/ui/TimerInputView.qml
 msgid "&Start"
-msgstr "&Start"
+msgstr ""
 
 #: ../contents/ui/TimerModel.qml ../contents/ui/config/ConfigGeneral.qml
 msgid "Timer"
@@ -458,7 +600,7 @@ msgstr "Κύλιση ροδέλας για προσθήκη/αφαίρεση σ�
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr "Test"
+msgstr ""
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -466,7 +608,7 @@ msgstr "Ήχος"
 
 #: ../contents/ui/TimerView.qml
 msgid "Set Timer"
-msgstr "Set Timer"
+msgstr ""
 
 #: ../contents/ui/UpcomingEvents.qml
 msgid "Events Starting"
@@ -483,7 +625,7 @@ msgstr "Επόμενα Συμβάντα"
 #: ../contents/ui/UpcomingEvents.qml
 msgctxt "%1 = 15 minutes"
 msgid "Starting in %1"
-msgstr "Starting in %1"
+msgstr ""
 
 #: ../contents/ui/calendars/CalendarManager.qml
 msgctxt "event with no summary"
@@ -492,12 +634,12 @@ msgstr "(Χωρίς Τίτλο)"
 
 #: ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Too many web requests. Will try again soon."
-msgstr "Too many web requests. Will try again soon."
+msgstr ""
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Visibility"
-msgstr "Visibility"
+msgstr "Ορατότητα"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show agenda"
@@ -506,19 +648,20 @@ msgstr "Εμφάνιση Ατζέντας"
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Appearance"
-msgstr "Appearance"
+msgstr "Εμφάνιση"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Font size:"
-msgstr "Font size:"
+msgstr "Μέγεθος γραμματοσειράς:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "px (0 = system font)"
-msgstr "px (0 = system font)"
+msgstr "px (0 = γραμματοσειρά συστήματος)"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Day spacing:"
-msgstr "Day spacing:"
+msgstr "Διάστημα ημέρας:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigGeneral.qml
@@ -527,28 +670,34 @@ msgid "px"
 msgstr "πίξελ"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Event spacing:"
-msgstr "Event spacing:"
+msgstr "Έναρξη Συμβάντος"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather icon"
-msgstr "Show weather icon"
+msgstr "Εικονίδιο Καιρού"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Icon size:"
-msgstr "Icon size:"
+msgstr "Μέγεθος γραμματοσειράς:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Outline weather icons"
-msgstr "Outline weather icons"
+msgstr "Εικονίδιο Καιρού"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather text"
-msgstr "Show weather text"
+msgstr "Κείμενο Καιρού"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Weather column:"
-msgstr "Weather column:"
+msgstr "Εικονίδιο Καιρού"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Left"
@@ -559,60 +708,72 @@ msgid "Right"
 msgstr "Δεξιά"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click weather:"
-msgstr "Click weather:"
+msgstr "Κλικ στον Καιρό:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open forecast in browser"
-msgstr "Open forecast in browser"
+msgstr "Άνοιγμα Πρόγνωσης Καιρού στον Φυλλομετρητή"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show event description"
-msgstr "Show event description"
+msgstr "Επεξεργασία περιγραφής"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Hide “All Day” text"
-msgstr "Hide “All Day” text"
+msgstr "Απόκρυψη κειμένου \"Όλη την ημέρα\"."
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show Google Hangouts link"
-msgstr "Show Google Hangouts link"
+msgstr "Εμφάνιση συνδέσμου Google Hangouts"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Multi-day events:"
-msgstr "Multi-day events:"
+msgstr "Εμφάνιση συμβάντων πολλαπλών ημερών:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show on all days"
-msgstr "Show on all days"
+msgstr "Σε όλες τις ημέρες"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show only on first and current day"
-msgstr "Show only on first and current day"
+msgstr "Μόνο την πρώτη ημέρα και σήμερα"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click date:"
-msgstr "Click date:"
+msgstr "Κλικ στην Ημέρα:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open the new event form"
-msgstr "Open the new event form"
+msgstr "Άνοιγμα Νέας Μορφής Συμβάντος"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click event:"
-msgstr "Click event:"
+msgstr "Κλικ στο Συμβάν:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open event in browser"
-msgstr "Open event in browser"
+msgstr "Άνοιξε το Συμβάν στον Φυλλομετρητή"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "New Event Form"
-msgstr "New Event Form"
+msgstr "Άνοιγμα Νέας Μορφής Συμβάντος"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Remember selected calendar"
-msgstr "Remember selected calendar"
+msgstr "Θυμήσου το επιλεγμένο ημερολόγιο στην Νέα Μορφή Συμβάντος"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -620,12 +781,13 @@ msgid "Colors"
 msgstr "Χρώματα"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "In progress day"
-msgstr "In progress day"
+msgstr "Σε Εξέλιξη"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Current Month (Not Implemented Yet)"
-msgstr "Current Month (Not Implemented Yet)"
+msgstr "Τρέχων μήνας (Δεν έχει εφαρμοστεί ακόμα)"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Always show next 14 days"
@@ -638,7 +800,8 @@ msgstr "Απόκρυψη ολοκληρωμένων συμβάντων"
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show all events of the current day (including completed events)"
 msgstr ""
-"Εμφάνιση όλων των σημερινών συμβάντων (συμπεριλαμβανομένων των ολοκληρωμένων)"
+"Εμφάνιση όλων των σημερινών συμβάντων (συμπεριλαμβανομένων των "
+"ολοκληρωμένων)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Show calendar"
@@ -646,47 +809,52 @@ msgstr "Εμφάνιση ημερολογίου"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Interaction"
-msgstr "Interaction"
+msgstr "Αλληλεπίδραση"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Click a date:"
-msgstr "Click a date:"
+msgstr "Κλικ στην Ημέρα:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Scroll to that day in the agenda"
-msgstr "Scroll to that day in the agenda"
+msgstr "Μετάβαση σε συμβάν στην Ατζέντα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Double-click a date:"
-msgstr "Double-click a date:"
+msgstr "Διπλό κλικ στην Ημερομηνία:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "New Google Calendar event (web browser)"
-msgstr "New Google Calendar event (web browser)"
+msgstr "Νέο συμβάν του Ημερολογίου Google (πρόγραμμα περιήγησης ιστού)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Do nothing"
-msgstr "Do nothing"
+msgstr "Μην κάνετε τίποτα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Month title format:"
-msgstr "Month title format:"
+msgstr "Μορφή τίτλου μήνα:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show borders"
-msgstr "Show borders"
+msgstr "Εμφάνιση Περιθωρίων"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show week numbers"
-msgstr "Show week numbers"
+msgstr "Εμφάνιση Αριθμών Εβδομάδων στο Ημερολόγιο"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight current day and week"
-msgstr "Highlight current day and week"
+msgstr "Επισημάνετε την τρέχουσα ημέρα και εβδομάδα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "First day of week:"
-msgstr "First day of week:"
+msgstr "Πρώτη μέρα της εβδομάδας:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Default"
@@ -694,27 +862,31 @@ msgstr "Προεπιλογή"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlights & Badges"
-msgstr "Highlights & Badges"
+msgstr "Χαρακτηριστικά & Σήματα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Event indicators:"
-msgstr "Event indicators:"
+msgstr "Ημερολόγιο Συμβάντων"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Theme"
 msgstr "Θέμα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Dots (max 3)"
-msgstr "Dots (max 3)"
+msgstr "Κουκίδες (Μέγιστο 3)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (event color)"
-msgstr "Bottom bar (event color)"
+msgstr "Κάτω Μπάρα (Χρώμα Συμβάντος)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (highlight)"
-msgstr "Bottom bar (highlight)"
+msgstr "Κάτω Μπάρα (Τονισμένο)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Count"
@@ -722,31 +894,35 @@ msgstr "Μέτρημα"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight corner radius:"
-msgstr "Highlight corner radius:"
+msgstr "Επισήμανση γωνιακής ακτίνας:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Today style:"
-msgstr "Today style:"
+msgstr "Σήμερα:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Solid color (inverted)"
-msgstr "Solid color (inverted)"
+msgstr "Συμπαγές Χρώμα (Ανεστραμένο)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Big number"
-msgstr "Big number"
+msgstr "Μεγάλος Αριθμός"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event Sources"
-msgstr "Event Sources"
+msgstr "Σύνοψη Συμβάντων"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Google Calendar (configured on the Google Calendar tab)"
-msgstr "Google Calendar (configured on the Google Calendar tab)"
+msgstr "Ημερολόγιο Google (ρυθμισμένο στην καρτέλα Ημερολόγιο Google)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "ICalendar (.ics) (configured on the ICalendar tab)"
-msgstr "ICalendar (.ics) (configured on the ICalendar tab)"
+msgstr "ICalendar (.ics) (ρυθμισμένο στην καρτέλα ICalendar)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Plasma Calendar Plugins"
@@ -757,8 +933,9 @@ msgid ""
 "Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
 "“Holidays” plugin to avoid duplicates."
 msgstr ""
-"Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
-"“Holidays” plugin to avoid duplicates."
+"Συμβουλή: Εάν ενεργοποιήσετε ένα ημερολόγιο διακοπών στο Google, "
+"απενεργοποιήστε την προσθήκη \"Διακοπές\" του Plasma για να αποφύγετε τα "
+"διπλότυπα."
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
@@ -766,8 +943,9 @@ msgid "Refresh"
 msgstr "Ανανέωση"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Refresh events every:"
-msgstr "Refresh events every:"
+msgstr "Ανανέωση συμβάντων κάθε: "
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -780,16 +958,18 @@ msgid "Notifications"
 msgstr "Ειδοποιήσεις"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event reminder"
-msgstr "Event reminder"
+msgstr "Ημερολόγιο Συμβάντων"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Minutes before:"
-msgstr "Minutes before:"
+msgstr "Λίγα λεπτά πριν:"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event starting"
-msgstr "Event starting"
+msgstr "Έναρξη Συμβάντος"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Widgets"
@@ -797,7 +977,8 @@ msgstr "Μικροεφαρμογές"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show or hide optional widgets in the popup."
-msgstr "Show or hide optional widgets in the popup."
+msgstr ""
+"Εμφάνιση ή απόκρυψη προαιρετικών γραφικών στοιχείων στο αναδυόμενο παράθυρο."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -805,8 +986,9 @@ msgid "Meteogram"
 msgstr "Μετεωρογράφημα"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Timer sound:"
-msgstr "Timer sound:"
+msgstr "Ο χρονομετρητής τελείωσε"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Clock"
@@ -821,40 +1003,46 @@ msgid "Sans Serif"
 msgstr "Sans Serif"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Fixed height:"
-msgstr "Fixed height:"
+msgstr "Σταθερό Ύψος Ρολογιού: "
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "(0 = scale to fit)"
-msgstr "(0 = scale to fit)"
+msgstr " (0 πίξελ = κλιμάκωση για να ταιριάξει)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Formatting:"
-msgstr "Formatting:"
+msgstr "Μορφοποίηση:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time formats use Qt’s date/time format strings."
-msgstr "Time formats use Qt’s date/time format strings."
+msgstr ""
+"Οι μορφές ώρας χρησιμοποιούν τις συμβολοσειρές μορφής ημερομηνίας/ώρας του "
+"Qt."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time Format Documentation"
-msgstr "Time Format Documentation"
+msgstr "Τεκμηρίωση μορφής χρόνου"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Line 1:"
 msgstr "Γραμμή 1:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Presets:"
-msgstr "Presets:"
+msgstr "Προκαθορισμένο:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 1"
-msgstr "Bold line 1"
+msgstr "Έντονη γραμμή 1"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show line 2"
-msgstr "Show line 2"
+msgstr "Εμφάνιση των επόμενων "
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Line 2:"
@@ -862,106 +1050,118 @@ msgstr "Γραμμή 2:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 2"
-msgstr "Bold line 2"
+msgstr "Έντονη γραμμή 2"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Line 2 height:"
-msgstr "Line 2 height:"
+msgstr "Γραμμή 2:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Mouse Wheel"
 msgstr "Ροδέλα Ποντικιού"
 
 #: ../contents/ui/config/ConfigGeneral.qml
-msgid "Scrolling the mouse wheel over the panel clock runs the commands below."
-msgstr ""
+msgid ""
 "Scrolling the mouse wheel over the panel clock runs the commands below."
+msgstr ""
+"Η κύλιση του τροχού του ποντικιού πάνω από το ρολόι του πίνακα εκτελεί τις "
+"παρακάτω εντολές."
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll up:"
-msgstr "Scroll up:"
+msgstr "Κύλιση προς τα πάνω:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll down:"
-msgstr "Scroll down:"
+msgstr "Κύλιση προς τα κάτω:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (amixer)"
-msgstr "Volume (amixer)"
+msgstr "Ένταση Ήχου (Χωρίς Γραφική Διεπαφή) (amixer)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (qdbus)"
-msgstr "Volume (qdbus)"
+msgstr "Ένταση Ήχου (Με Γραφική Διεπαφή) (qdbus)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Desktop Widget"
-msgstr "Desktop Widget"
+msgstr "Μικροεφαρμογές Επιφάνειας Εργασίας: Εμφάνιση Φόντου"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show background"
-msgstr "Show background"
+msgstr "Εμφάνιση Ατζέντας"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Debugging"
 msgstr "Αποσφαλμάτωση"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid ""
 "Debugging logs sensitive information to the system journal (plasmashell)."
-msgstr ""
-"Debugging logs sensitive information to the system journal (plasmashell)."
+msgstr "Αυτό θα καταγράψει ευαίσθητες πληροφορίες στο:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Enable debugging"
-msgstr "Enable debugging"
+msgstr "Ενεργοποίηση Αποσφαλμάτωσης"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (invalid response)."
-msgstr "Google login failed (invalid response)."
+msgstr "Η σύνδεση στο Google απέτυχε (μη έγκυρη απάντηση)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google API request failed."
-msgstr "Google API request failed."
+msgstr "Το αίτημα Google API απέτυχε."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Missing required argument: --client-id"
-msgstr "Missing required argument: --client-id"
+msgstr "Λείπει το απαιτούμενο όρισμα: --client-id"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to open web browser via xdg-open."
-msgstr "Failed to open web browser via xdg-open."
+msgstr "Απέτυχε το άνοιγμα του προγράμματος περιήγησης ιστού μέσω xdg-open."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth failed (requestFailed=%1)."
-msgstr "OAuth failed (requestFailed=%1)."
+msgstr "Το OAuth απέτυχε (requestFailed=%1)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth timed out after %1 seconds."
-msgstr "OAuth timed out after %1 seconds."
+msgstr "Ο χρόνος OAuth έληξε μετά από %1 δευτερόλεπτα."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
-msgstr "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
+msgstr "Αποτυχία ακρόασης στο http://127.0.0.1:%1/ (θύρα χρησιμοποιείται;)"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "HTTP Error %1"
-msgstr "HTTP Error %1"
+msgstr "Σφάλμα HTTP %1"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Opening the browser for Google login…"
-msgstr "Opening the browser for Google login…"
+msgstr "Άνοιγμα του προγράμματος περιήγησης για σύνδεση στο Google…"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Google login failed."
-msgstr "Google login failed."
+msgstr "Ημερολόγιο Google"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (missing access token)."
-msgstr "Google login failed (missing access token)."
+msgstr "Η σύνδεση στο Google απέτυχε (λείπει το διακριτικό πρόσβασης)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login complete. Click Apply to save."
-msgstr "Google login complete. Click Apply to save."
+msgstr ""
+"Η σύνδεση στο Google ολοκληρώθηκε. Κάντε κλικ στο Apply για αποθήκευση."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Login"
@@ -971,39 +1171,44 @@ msgstr "Σύνδεση"
 msgid ""
 "Connect your Google account to show Google Calendar events in the agenda."
 msgstr ""
-"Connect your Google account to show Google Calendar events in the agenda."
+"Συνδέστε τον Λογαριασμό σας Google για να εμφανίζονται τα συμβάντα του "
+"Ημερολογίου Google στην ατζέντα."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Login in Browser"
-msgstr "Login in Browser"
+msgstr "Επεξεργασία στον φυλλομετρητή"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logged out. Click Apply to save."
-msgstr "Logged out. Click Apply to save."
+msgstr "Αποσυνδεθείτε. Κάντε κλικ στο Apply για αποθήκευση."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide help"
-msgstr "Hide help"
+msgstr "Απόκρυψη βοήθειας"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Show help"
-msgstr "Show help"
+msgstr "Εμφάνιση των επόμενων "
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Widget has been updated. Please logout and login again."
-msgstr "Widget has been updated. Please logout and login again."
+msgstr ""
+"Το γραφικό στοιχείο έχει ενημερωθεί. Αποσυνδεθείτε και συνδεθείτε ξανά."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "You are connected. Use Refresh below if calendars/tasks changed, then click "
 "Apply to save selection updates."
 msgstr ""
-"You are connected. Use Refresh below if calendars/tasks changed, then click "
-"Apply to save selection updates."
+"Είστε συνδεδεμένοι. Χρησιμοποιήστε την Ανανέωση παρακάτω εάν άλλαξαν "
+"ημερολόγια/εργασίες και, στη συνέχεια, κάντε κλικ στην επιλογή Εφαρμογή για "
+"να αποθηκεύσετε τις ενημερώσεις επιλογής."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1011,9 +1216,10 @@ msgid ""
 "(missing binary, port in use), enable Advanced and use the manual code "
 "method."
 msgstr ""
-"A web browser will open for Google login. If the helper cannot start "
-"(missing binary, port in use), enable Advanced and use the manual code "
-"method."
+"Θα ανοίξει ένα πρόγραμμα περιήγησης ιστού για σύνδεση στο Google. Εάν το "
+"βοηθητικό πρόγραμμα δεν μπορεί να ξεκινήσει (λείπει το δυαδικό, η θύρα "
+"χρησιμοποιείται), ενεργοποιήστε το Advanced και χρησιμοποιήστε τη μέθοδο μη "
+"αυτόματης κωδικοποίησης."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 #: ../contents/ui/config/ConfigICal.qml
@@ -1022,15 +1228,15 @@ msgstr "Ημερολόγια"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which calendars to show."
-msgstr "Choose which calendars to show."
+msgstr "Επιλέξτε ποια ημερολόγια θα εμφανίζονται."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Tasks"
-msgstr "Tasks"
+msgstr "Καθήκοντα"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which task lists to show."
-msgstr "Choose which task lists to show."
+msgstr "Επιλέξτε ποιες λίστες εργασιών θα εμφανίζονται."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Options"
@@ -1038,97 +1244,105 @@ msgstr "Επιλογές"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Event click:"
-msgstr "Event click:"
+msgstr "Κλικ εκδήλωσης:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Open web event view"
-msgstr "Open web event view"
+msgstr "Άνοιγμα Νέας Μορφής Συμβάντος"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open web month view"
-msgstr "Open web month view"
+msgstr "Άνοιγμα μηνιαίας προβολής ιστού"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide the “Goals in Google Calendar” description"
-msgstr "Hide the “Goals in Google Calendar” description"
+msgstr "Απόκρυψη της περιγραφής \"Στόχοι στο Ημερολόγιο Google\"."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "By default, the widget uses built-in OAuth credentials. Custom credentials "
 "are for developers only."
 msgstr ""
-"By default, the widget uses built-in OAuth credentials. Custom credentials "
-"are for developers only."
+"Από προεπιλογή, το γραφικό στοιχείο χρησιμοποιεί ενσωματωμένα διαπιστευτήρια"
+" OAuth. Τα προσαρμοσμένα διαπιστευτήρια είναι μόνο για προγραμματιστές."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client ID:"
-msgstr "Client ID:"
+msgstr "Αναγνωριστικό πελάτη:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Προκαθορισμένο:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client secret:"
-msgstr "Client secret:"
+msgstr "Μυστικό πελάτη:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Use manual code flow"
-msgstr "Use manual code flow"
+msgstr "Χρησιμοποιήστε τη μη αυτόματη ροή κώδικα"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "If the browser shows a connection error after you approve access, copy the "
 "full URL (or just the “code” parameter) and paste it below."
 msgstr ""
-"If the browser shows a connection error after you approve access, copy the "
-"full URL (or just the “code” parameter) and paste it below."
+"Εάν το πρόγραμμα περιήγησης εμφανίσει σφάλμα σύνδεσης αφού εγκρίνετε την "
+"πρόσβαση, αντιγράψτε την πλήρη διεύθυνση URL (ή απλώς την παράμετρο "
+"\"κώδικας\") και επικολλήστε την παρακάτω."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open <a href=\"%1\">Google login</a> in your browser."
-msgstr "Open <a href=\"%1\">Google login</a> in your browser."
+msgstr "Ανοίξτε <a href=\"%1\">Google login</a> στο πρόγραμμα περιήγησής σας."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Paste redirected URL or code here"
-msgstr "Paste redirected URL or code here"
+msgstr "Επικολλήστε εδώ το ανακατευθυνόμενο URL ή τον κώδικα"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Submit"
-msgstr "Submit"
+msgstr "Υποτάσσομαι"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Please paste a URL or authorization code."
-msgstr "Please paste a URL or authorization code."
+msgstr "Επικολλήστε μια διεύθυνση URL ή έναν κωδικό εξουσιοδότησης."
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
+"Add local or remote .ics calendars. Changes are applied when you click "
+"Apply."
 msgstr ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
+"Προσθέστε τοπικά ή απομακρυσμένα ημερολόγια .ics. Οι αλλαγές εφαρμόζονται "
+"όταν κάνετε κλικ στο Apply."
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Add"
-msgstr "Add"
+msgstr "ddd"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "New"
-msgstr "New"
+msgstr "Νέος"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Calendar name"
-msgstr "Calendar name"
+msgstr "Ετικέτα Ημερολογίου"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Remove"
-msgstr "Remove"
+msgstr "Αφαιρώ"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Path or URL to .ics file"
-msgstr "Path or URL to .ics file"
+msgstr "Διαδρομή ή διεύθυνση URL προς το αρχείο .ics"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Browse…"
-msgstr "Browse…"
+msgstr "Πλοήγηση"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "iCalendar (*.ics)"
@@ -1136,27 +1350,30 @@ msgstr "iCalendar (*.ics)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Choose how the agenda and calendar are arranged in the popup."
-msgstr "Choose how the agenda and calendar are arranged in the popup."
+msgstr ""
+"Επιλέξτε πώς είναι τακτοποιημένα η ατζέντα και το ημερολόγιο στο αναδυόμενο "
+"παράθυρο."
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Show advanced sizing"
-msgstr "Show advanced sizing"
+msgstr "Εμφάνιση σύνθετου μεγέθους"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Two Columns"
-msgstr "Two Columns"
+msgstr "Δύο Στήλες"
 
 #: ../contents/ui/config/ConfigLayout.qml
+#, fuzzy
 msgid "Agenda to the left of the calendar"
-msgstr "Agenda to the left of the calendar"
+msgstr "Ατζέντα στα αριστερά (Δύο Στήλες)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Single Column"
-msgstr "Single Column"
+msgstr "Μονόστηλη"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Agenda below the calendar"
-msgstr "Agenda below the calendar"
+msgstr "Η ατζέντα κάτω από το ημερολόγιο"
 
 #: ../contents/ui/config/ConfigTimezones.qml
 msgid "Cannot deselect Local time from the tooltip"
@@ -1166,47 +1383,52 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Provider"
-msgstr "Provider"
+msgstr "Προμηθευτής"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Service:"
-msgstr "Service:"
+msgstr "Υπηρεσία:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Weather Canada"
-msgstr "Weather Canada"
+msgstr "Εικονίδιο Καιρού"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Location"
-msgstr "Location"
+msgstr "Ειδοποιήσεις"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Place:"
-msgstr "Place:"
+msgstr "Θέση:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Search for a city"
-msgstr "Search for a city"
+msgstr "Αναζήτηση πόλης"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Search…"
-msgstr "Search…"
+msgstr "Αναζήτηση"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show coordinates"
-msgstr "Show coordinates"
+msgstr "Εμφάνιση Περιθωρίων"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Latitude:"
-msgstr "Latitude:"
+msgstr "Γεωγραφικό πλάτος:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Longitude:"
-msgstr "Longitude:"
+msgstr "Γεωγραφικό μήκος:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "City ID:"
-msgstr "City ID:"
+msgstr "Αναγνωριστικό Πόλης:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Eg: on-14"
@@ -1214,15 +1436,16 @@ msgstr "Πχ: στις-14"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Find…"
-msgstr "Find…"
+msgstr "Εύρημα…"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Units"
-msgstr "Units"
+msgstr "Μονάδες:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Temperature:"
-msgstr "Temperature:"
+msgstr "Θερμοκρασία:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Celsius"
@@ -1237,22 +1460,25 @@ msgid "Kelvin"
 msgstr "Κέλβιν"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show next:"
-msgstr "Show next:"
+msgstr "Εμφάνιση των επόμενων "
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] "hour"
-msgstr[1] "hours"
+msgstr[0] " ωρών"
+msgstr[1] " ωρών"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Update"
-msgstr "Update"
+msgstr "Εκσυγχρονίζω"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Update forecast every:"
-msgstr "Update forecast every:"
+msgstr "Ενημέρωση πρόγνωσης κάθε: "
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Text"
@@ -1263,12 +1489,14 @@ msgid "Grid"
 msgstr "Πλέγμα"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Positive temp"
-msgstr "Positive temp"
+msgstr "Θετική Θερμοκρασία"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Negative temp"
-msgstr "Negative temp"
+msgstr "Αρνητική Θερμοκρασία"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Icons"
@@ -1276,23 +1504,25 @@ msgstr "Εικονίδια"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Error parsing /token data as JSON"
-msgstr "Error parsing /token data as JSON"
+msgstr "Σφάλμα ανάλυσης /token δεδομένων ως JSON"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
+#, fuzzy
 msgid "Failed to fetch Google calendars"
-msgstr "Failed to fetch Google calendars"
+msgstr "Για συγχρονισμό με το Ημερολόγιο Google"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Failed to fetch Google task lists"
-msgstr "Failed to fetch Google task lists"
+msgstr "Αποτυχία λήψης λιστών εργασιών Google"
 
 #: ../contents/ui/config/HeaderText.qml
 msgid "Heading"
-msgstr "Heading"
+msgstr "Επικεφαλίδα"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
+#, fuzzy
 msgid "Select location"
-msgstr "Select location"
+msgstr "Επιλέξτε Πόλη"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
 #: ../contents/ui/config/WeatherCanadaCityDialog.qml
@@ -1318,47 +1548,50 @@ msgstr "<b>Έκδοση:</b> %1"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "true"
-msgstr "true"
+msgstr "αληθής"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "false"
-msgstr "false"
+msgstr "ψευδής"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid ""
 "Developer page: inspect raw configuration keys and values. Changes are "
 "applied when you click Apply."
 msgstr ""
-"Developer page: inspect raw configuration keys and values. Changes are "
-"applied when you click Apply."
+"Σελίδα προγραμματιστή: επιθεωρήστε ακατέργαστα κλειδιά και τιμές "
+"διαμόρφωσης. Οι αλλαγές εφαρμόζονται όταν κάνετε κλικ στο Apply."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Disable Mock Precipitation"
-msgstr "Disable Mock Precipitation"
+msgstr "Απενεργοποιήστε το Mock Precipitation"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Mock Precipitation"
-msgstr "Enable Mock Precipitation"
+msgstr "Ενεργοποίηση Mock Precipitation"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Debug mode in General to use mock precipitation controls."
-msgstr "Enable Debug mode in General to use mock precipitation controls."
+msgstr ""
+"Ενεργοποιήστε τη λειτουργία εντοπισμού σφαλμάτων γενικά για να "
+"χρησιμοποιήσετε εικονικά στοιχεία ελέγχου κατακρήμνισης."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is ON (meteogram only)."
-msgstr "Mock precipitation is ON (meteogram only)."
+msgstr "Η ψευδής βροχόπτωση είναι ενεργοποιημένη (μόνο μετεώγραμμα)."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is OFF."
-msgstr "Mock precipitation is OFF."
+msgstr "Η ψευδής βροχόπτωση είναι OFF."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
+#, fuzzy
 msgid "Refresh Keys"
-msgstr "Refresh Keys"
+msgstr "Ανανέωση"
 
 #: ../contents/ui/lib/ConfigColor.qml
 msgid "Label"
-msgstr "Label"
+msgstr "Επιγραφή"
 
 #: ../contents/ui/lib/ConfigFontFamily.qml
 msgctxt "Use default font"
@@ -1375,148 +1608,148 @@ msgstr "Επιλογή ηχητικού εφέ"
 
 #: ../contents/ui/lib/ConfigSound.qml
 msgid "Sound files (%1)"
-msgstr "Sound files (%1)"
+msgstr "Αρχεία ήχου (%1)"
 
 #: ../contents/ui/lib/ConfigSound.qml
 msgid "All files (%1)"
-msgstr "All files (%1)"
+msgstr "Όλα τα αρχεία (%1)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Clear sky"
-msgstr "Clear sky"
+#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
+#~ msgstr " (0 πίξελ = <b>Ρυθμίσεις Συστήματος > Γραμματοσειρά > Γενικά</b>)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Mainly clear"
-msgstr "Mainly clear"
+#~ msgid "Icon Outline"
+#~ msgstr "Εικονίδιο Περιγράμματος"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Partly cloudy"
-msgstr "Partly cloudy"
+#~ msgid "Position:"
+#~ msgstr "Θέση:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Overcast"
-msgstr "Overcast"
+#~ msgid "Open New Event In Browser"
+#~ msgstr "Άνοιγμα Νέου Συμβάντος στον Φυλλομετρητή"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Fog"
-msgstr "Fog"
+#~ msgid "Current Month"
+#~ msgstr "Παρών Μήνας"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+#~ msgid "Style"
+#~ msgstr "Στιλ"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light drizzle"
-msgstr "Light drizzle"
+#~ msgid "Event Badge:"
+#~ msgstr "Σήμα Συμβάντος:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+#~ msgid "Radius:"
+#~ msgstr "Ακτίνα:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense drizzle"
-msgstr "Dense drizzle"
+#~ msgid "Selected:"
+#~ msgstr "Επιλεγμένα:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+#~ msgid "Solid Color (Highlight)"
+#~ msgstr "Συμπαγές Χρώμα (Τονισμένο)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+#~ msgid "Event Calendar Plugins"
+#~ msgstr "Πρόσθετα Event Calendar"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain"
-msgstr "Slight rain"
+#~ msgid "Misc"
+#~ msgstr "Διάφορα"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain"
-msgstr "Moderate rain"
+#~ msgid ""
+#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
+#~ "respective tabs."
+#~ msgstr ""
+#~ "Εμφάνιση/Απόκρυψη μικροεφαρμογών πάνω από το ημερολόγιο. Εναλλαγή "
+#~ "Ατζέντας/Ημερολογίου στις αντίστοιχες καρτέλες."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy rain"
-msgstr "Heavy rain"
+#~ msgid "Time Format"
+#~ msgstr "Μορφή Ώρας"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing rain"
-msgstr "Light freezing rain"
+#~ msgid ""
+#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
+#~ "with small text. Try using the Sans Serif font if you find the text too "
+#~ "small when adding a second line."
+#~ msgstr ""
+#~ "Η προεπιλεγμένη γραμματοσειρά για το θέμα Breeze είναι το Noto Sans το οποίο"
+#~ " είναι δύσκολο να διαβαστεί με μικρό κείμενο. Δοκιμάστε να χρησιμοποιήσετε "
+#~ "τη γραμματοσειρά Sans Serif αν βρείτε το κείμενο πολύ μικρό όταν προσθέτετε "
+#~ "μια δεύτερη γραμμή."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+#~ msgid ""
+#~ "You can also use %1 or %2 to style a section. Note the single quotes around "
+#~ "the tags are used to bypass the time format."
+#~ msgstr ""
+#~ "Μπορείτε επίσης να χρησιμοποιήσετε %1 ή %2 για να διαμορφώσετε ένα τμήμα. "
+#~ "Σημειώστε ότι τα μονά εισαγωγικά γύρω από τις ετικέτες χρησιμοποιούνται για "
+#~ "να παρακάμψουν την μορφή ώρας."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow fall"
-msgstr "Slight snow fall"
+#~ msgid "Bold"
+#~ msgstr "Έντονο κείμενο"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+#~ msgid "Height:"
+#~ msgstr "Ύψος:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+#~ msgid "Run Commands"
+#~ msgstr "Εκτέλεση Εντολών"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Snow grains"
-msgstr "Snow grains"
+#~ msgid "Currently Synched."
+#~ msgstr "Αυτή τη στιγμή είναι συγχρονισμένο."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain showers"
-msgstr "Slight rain showers"
+#~ msgid "Add Calendar"
+#~ msgstr "Προσθήκη Ημερολογίου"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+#~ msgid "New Calendar"
+#~ msgstr "Νέο Ημερολόγιο"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Violent rain showers"
-msgstr "Violent rain showers"
+#~ msgid "Tooltip"
+#~ msgstr "Συμβουλή Εργαλείου"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow showers"
-msgstr "Slight snow showers"
+#~ msgid "Data"
+#~ msgstr "Δεδομένα"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+#~ msgid "API App Id:"
+#~ msgstr "Αναγνωριστικό API Εφαρμογής:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm"
-msgstr "Thunderstorm"
+#~ msgid "Eg: 5983720"
+#~ msgstr "Πχ: 5983720"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+#~ msgid "Find City"
+#~ msgstr "Εύρεση Πόλης"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+#~ msgid "Settings"
+#~ msgstr "Ρυθμίσεις"
+
+#~ msgid " in the meteogram."
+#~ msgstr " στο μετεωρογράφημα."
+
+#~ msgid "Name"
+#~ msgstr "Όνομα"
+
+#~ msgid "Id"
+#~ msgstr "Αναγνωριστικό"
+
+#~ msgid "City Webpage"
+#~ msgstr "Ιστοσελίδα Πόλης"
+
+#~ msgid "Set Language…"
+#~ msgstr "Ορισμός Γλώσσας…"
+
+#~ msgid "Set Locale…"
+#~ msgstr "Ρύθμιση Τοπικότητας…"
+
+#~ msgid "Choose"
+#~ msgstr "Επιλογή"
+
+#~ msgid "Agenda above the month (Single Column)"
+#~ msgstr "Ατζέντα πάνω από τον μήνα (Μία Στήλη)"
+
+#~ msgid "Discard"
+#~ msgstr "Απόρριψη"
+
+#~ msgid "Edit date/time"
+#~ msgstr "Ρύθμιση ημερομηνίας και ώρας"
+
+#~ msgid ""
+#~ "Enter the following code at <a "
+#~ "href=\"https://www.google.com/device\">https://www.google.com/device</a>."
+#~ msgstr ""
+#~ "Καταχωρίστε τον ακόλουθο κωδικό στο <a "
+#~ "href=\"https://www.google.com/device\">https://www.google.com/device</a>."
+
+#~ msgid "Generating Code…"
+#~ msgstr "Δημιουργία κωδικού …"

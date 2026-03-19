@@ -855,200 +855,200 @@ msgstr "Test"
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Visibility"
-msgstr "Visibility"
+msgstr "Sichtbarkeit"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Appearance"
-msgstr "Appearance"
+msgstr "Erscheinungsbild"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Font size:"
-msgstr "Font size:"
+msgstr "Schriftgröße:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "px (0 = system font)"
-msgstr "px (0 = system font)"
+msgstr "px (0 = Systemschrift)"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Day spacing:"
-msgstr "Day spacing:"
+msgstr "Tagesabstand:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Event spacing:"
-msgstr "Event spacing:"
+msgstr "Ereignisabstand:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show weather icon"
-msgstr "Show weather icon"
+msgstr "Wetter-Symbol anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Icon size:"
-msgstr "Icon size:"
+msgstr "Symbolgröße:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Outline weather icons"
-msgstr "Outline weather icons"
+msgstr "Wetter-Symbole umranden"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show weather text"
-msgstr "Show weather text"
+msgstr "Wettertext anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Weather column:"
-msgstr "Weather column:"
+msgstr "Wetterspalte:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Click weather:"
-msgstr "Click weather:"
+msgstr "Beim Wetter-Klick:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Open forecast in browser"
-msgstr "Open forecast in browser"
+msgstr "Wettervorhersage im Browser öffnen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show event description"
-msgstr "Show event description"
+msgstr "Ereignisbeschreibung anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Hide “All Day” text"
-msgstr "Hide “All Day” text"
+msgstr "„Ganztägig“-Text ausblenden"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show Google Hangouts link"
-msgstr "Show Google Hangouts link"
+msgstr "Google-Hangouts-Link anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Multi-day events:"
-msgstr "Multi-day events:"
+msgstr "Mehrtägige Ereignisse:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show on all days"
-msgstr "Show on all days"
+msgstr "An allen Tagen anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show only on first and current day"
-msgstr "Show only on first and current day"
+msgstr "Nur am ersten und aktuellen Tag anzeigen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Click date:"
-msgstr "Click date:"
+msgstr "Beim Datum-Klick:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Open the new event form"
-msgstr "Open the new event form"
+msgstr "Neues Ereignisformular öffnen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Click event:"
-msgstr "Click event:"
+msgstr "Beim Ereignis-Klick:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Open event in browser"
-msgstr "Open event in browser"
+msgstr "Ereignis im Browser öffnen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "New Event Form"
-msgstr "New Event Form"
+msgstr "Neues Ereignisformular"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Remember selected calendar"
-msgstr "Remember selected calendar"
+msgstr "Ausgewählten Kalender merken"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "In progress day"
-msgstr "In progress day"
+msgstr "Tag mit laufenden Ereignissen"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Current Month (Not Implemented Yet)"
-msgstr "Current Month (Not Implemented Yet)"
+msgstr "Aktueller Monat (noch nicht implementiert)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Interaction"
-msgstr "Interaction"
+msgstr "Interaktion"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Click a date:"
-msgstr "Click a date:"
+msgstr "Auf ein Datum klicken:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Scroll to that day in the agenda"
-msgstr "Scroll to that day in the agenda"
+msgstr "Zu diesem Tag in der Agenda scrollen"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Double-click a date:"
-msgstr "Double-click a date:"
+msgstr "Doppelklick auf ein Datum:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "New Google Calendar event (web browser)"
-msgstr "New Google Calendar event (web browser)"
+msgstr "Neues Google-Kalender-Ereignis (Webbrowser)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Do nothing"
-msgstr "Do nothing"
+msgstr "Nichts tun"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Month title format:"
-msgstr "Month title format:"
+msgstr "Format des Monats-Titels:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Show borders"
-msgstr "Show borders"
+msgstr "Rahmen anzeigen"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Show week numbers"
-msgstr "Show week numbers"
+msgstr "Wochennummern anzeigen"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight current day and week"
-msgstr "Highlight current day and week"
+msgstr "Aktuellen Tag und Woche hervorheben"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlights & Badges"
-msgstr "Highlights & Badges"
+msgstr "Hervorhebungen und Markierungen"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Event indicators:"
-msgstr "Event indicators:"
+msgstr "Ereignisindikatoren:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Dots (max 3)"
-msgstr "Dots (max 3)"
+msgstr "Punkte (max. 3)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Bottom bar (event color)"
-msgstr "Bottom bar (event color)"
+msgstr "Untere Leiste (Ereignisfarbe)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Bottom bar (highlight)"
-msgstr "Bottom bar (highlight)"
+msgstr "Untere Leiste (Hervorhebung)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight corner radius:"
-msgstr "Highlight corner radius:"
+msgstr "Eckenradius der Hervorhebung:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Today style:"
-msgstr "Today style:"
+msgstr "Stil für Heute:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Solid color (inverted)"
-msgstr "Solid color (inverted)"
+msgstr "Volltonfarbe (invertiert)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Big number"
-msgstr "Big number"
+msgstr "Große Zahl"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Event Sources"
-msgstr "Event Sources"
+msgstr "Ereignisquellen"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Google Calendar (configured on the Google Calendar tab)"
-msgstr "Google Calendar (configured on the Google Calendar tab)"
+msgstr "Google Kalender (im Tab „Google Kalender“ konfiguriert)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "ICalendar (.ics) (configured on the ICalendar tab)"
-msgstr "ICalendar (.ics) (configured on the ICalendar tab)"
+msgstr "iCalendar (.ics) (im Tab „iCalendar“ konfiguriert)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid ""
@@ -1060,27 +1060,27 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Refresh events every:"
-msgstr "Refresh events every:"
+msgstr "Ereignisse aktualisieren alle:"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Event reminder"
-msgstr "Event reminder"
+msgstr "Ereigniserinnerung"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Minutes before:"
-msgstr "Minutes before:"
+msgstr "Minuten vorher:"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Event starting"
-msgstr "Event starting"
+msgstr "Ereignis beginnt"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show or hide optional widgets in the popup."
-msgstr "Show or hide optional widgets in the popup."
+msgstr "Optionale Widgets im Popup ein- oder ausblenden."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Timer sound:"
-msgstr "Timer sound:"
+msgstr "Timer-Klang:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Sans Serif"
@@ -1088,39 +1088,39 @@ msgstr "Sans Serif"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Fixed height:"
-msgstr "Fixed height:"
+msgstr "Feste Höhe:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "(0 = scale to fit)"
-msgstr "(0 = scale to fit)"
+msgstr "(0 = anpassen)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Formatting:"
-msgstr "Formatting:"
+msgstr "Formatierung:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time formats use Qt’s date/time format strings."
-msgstr "Time formats use Qt’s date/time format strings."
+msgstr "Zeitformate verwenden Qt-Datums-/Zeitformatzeichenfolgen."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Presets:"
-msgstr "Presets:"
+msgstr "Voreinstellungen:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 1"
-msgstr "Bold line 1"
+msgstr "Zeile 1 fett"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show line 2"
-msgstr "Show line 2"
+msgstr "Zeile 2 anzeigen"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 2"
-msgstr "Bold line 2"
+msgstr "Zeile 2 fett"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Line 2 height:"
-msgstr "Line 2 height:"
+msgstr "Höhe von Zeile 2:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Scrolling the mouse wheel over the panel clock runs the commands below."
@@ -1129,11 +1129,11 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Scroll up:"
-msgstr "Scroll up:"
+msgstr "Nach oben scrollen:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Scroll down:"
-msgstr "Scroll down:"
+msgstr "Nach unten scrollen:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Volume (amixer)"
@@ -1145,11 +1145,11 @@ msgstr "Volume (qdbus)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Desktop Widget"
-msgstr "Desktop Widget"
+msgstr "Desktop-Widget"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show background"
-msgstr "Show background"
+msgstr "Hintergrund anzeigen"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid ""
@@ -1159,55 +1159,55 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Enable debugging"
-msgstr "Enable debugging"
+msgstr "Debugging aktivieren"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (invalid response)."
-msgstr "Google login failed (invalid response)."
+msgstr "Google-Anmeldung fehlgeschlagen (ungültige Antwort)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google API request failed."
-msgstr "Google API request failed."
+msgstr "Google-API-Anfrage fehlgeschlagen."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Missing required argument: --client-id"
-msgstr "Missing required argument: --client-id"
+msgstr "Erforderliches Argument fehlt: --client-id"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to open web browser via xdg-open."
-msgstr "Failed to open web browser via xdg-open."
+msgstr "Webbrowser konnte nicht über xdg-open geöffnet werden."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth failed (requestFailed=%1)."
-msgstr "OAuth failed (requestFailed=%1)."
+msgstr "OAuth fehlgeschlagen (requestFailed=%1)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth timed out after %1 seconds."
-msgstr "OAuth timed out after %1 seconds."
+msgstr "OAuth-Zeitüberschreitung nach %1 Sekunden."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
-msgstr "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
+msgstr "Konnte nicht auf http://127.0.0.1:%1/ lauschen (Port belegt?)"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "HTTP Error %1"
-msgstr "HTTP Error %1"
+msgstr "HTTP-Fehler %1"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Opening the browser for Google login…"
-msgstr "Opening the browser for Google login…"
+msgstr "Browser für Google-Anmeldung wird geöffnet…"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed."
-msgstr "Google login failed."
+msgstr "Google-Anmeldung fehlgeschlagen."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (missing access token)."
-msgstr "Google login failed (missing access token)."
+msgstr "Google-Anmeldung fehlgeschlagen (fehlendes Zugriffstoken)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login complete. Click Apply to save."
-msgstr "Google login complete. Click Apply to save."
+msgstr "Google-Anmeldung abgeschlossen. Klicke auf Anwenden, um zu speichern."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1217,23 +1217,23 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Login in Browser"
-msgstr "Login in Browser"
+msgstr "Im Browser anmelden"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logged out. Click Apply to save."
-msgstr "Logged out. Click Apply to save."
+msgstr "Abgemeldet. Klicke auf Anwenden, um zu speichern."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide help"
-msgstr "Hide help"
+msgstr "Hilfe ausblenden"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Show help"
-msgstr "Show help"
+msgstr "Hilfe anzeigen"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Widget has been updated. Please logout and login again."
-msgstr "Widget has been updated. Please logout and login again."
+msgstr "Widget wurde aktualisiert. Bitte abmelden und erneut anmelden."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1255,27 +1255,27 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which calendars to show."
-msgstr "Choose which calendars to show."
+msgstr "Wähle, welche Kalender angezeigt werden."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which task lists to show."
-msgstr "Choose which task lists to show."
+msgstr "Wähle, welche Aufgabenlisten angezeigt werden."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Event click:"
-msgstr "Event click:"
+msgstr "Ereignis-Klick:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open web event view"
-msgstr "Open web event view"
+msgstr "Web-Ereignisansicht öffnen"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open web month view"
-msgstr "Open web month view"
+msgstr "Web-Monatsansicht öffnen"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide the “Goals in Google Calendar” description"
-msgstr "Hide the “Goals in Google Calendar” description"
+msgstr "Beschreibung „Ziele in Google Kalender“ ausblenden"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1299,7 +1299,7 @@ msgstr "Client secret:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Use manual code flow"
-msgstr "Use manual code flow"
+msgstr "Manuelle Code-Anmeldung verwenden"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1311,15 +1311,15 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open <a href=\"%1\">Google login</a> in your browser."
-msgstr "Open <a href=\"%1\">Google login</a> in your browser."
+msgstr "Öffne <a href=\"%1\">Google-Anmeldung</a> im Browser."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Paste redirected URL or code here"
-msgstr "Paste redirected URL or code here"
+msgstr "Weitergeleitete URL oder Code hier einfügen"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Please paste a URL or authorization code."
-msgstr "Please paste a URL or authorization code."
+msgstr "Bitte eine URL oder einen Autorisierungscode einfügen."
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid ""
@@ -1329,91 +1329,91 @@ msgstr ""
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Add"
-msgstr "Add"
+msgstr "Hinzufügen"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "New"
-msgstr "New"
+msgstr "Neu"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Calendar name"
-msgstr "Calendar name"
+msgstr "Kalendername"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Remove"
-msgstr "Remove"
+msgstr "Entfernen"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Path or URL to .ics file"
-msgstr "Path or URL to .ics file"
+msgstr "Pfad oder URL zur .ics-Datei"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Browse…"
-msgstr "Browse…"
+msgstr "Durchsuchen…"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Choose how the agenda and calendar are arranged in the popup."
-msgstr "Choose how the agenda and calendar are arranged in the popup."
+msgstr "Wähle, wie Agenda und Kalender im Popup angeordnet sind."
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Show advanced sizing"
-msgstr "Show advanced sizing"
+msgstr "Erweiterte Größenoptionen anzeigen"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Two Columns"
-msgstr "Two Columns"
+msgstr "Zwei Spalten"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Agenda to the left of the calendar"
-msgstr "Agenda to the left of the calendar"
+msgstr "Agenda links vom Kalender"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Single Column"
-msgstr "Single Column"
+msgstr "Eine Spalte"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Agenda below the calendar"
-msgstr "Agenda below the calendar"
+msgstr "Agenda unter dem Kalender"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Provider"
-msgstr "Provider"
+msgstr "Anbieter"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Service:"
-msgstr "Service:"
+msgstr "Dienst:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Weather Canada"
-msgstr "Weather Canada"
+msgstr "Wetter Kanada"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Location"
-msgstr "Location"
+msgstr "Standort"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Place:"
-msgstr "Place:"
+msgstr "Ort:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Search for a city"
-msgstr "Search for a city"
+msgstr "Nach einer Stadt suchen"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Search…"
-msgstr "Search…"
+msgstr "Suchen…"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Show coordinates"
-msgstr "Show coordinates"
+msgstr "Koordinaten anzeigen"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Latitude:"
-msgstr "Latitude:"
+msgstr "Breitengrad:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Longitude:"
-msgstr "Longitude:"
+msgstr "Längengrad:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "City ID:"
@@ -1421,61 +1421,61 @@ msgstr "City ID:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Find…"
-msgstr "Find…"
+msgstr "Finden…"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Units"
-msgstr "Units"
+msgstr "Einheiten"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Temperature:"
-msgstr "Temperature:"
+msgstr "Temperatur:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Show next:"
-msgstr "Show next:"
+msgstr "Nächste:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] "hour"
-msgstr[1] "hours"
+msgstr[0] "Stunde"
+msgstr[1] "Stunden"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Update"
-msgstr "Update"
+msgstr "Aktualisierung"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Update forecast every:"
-msgstr "Update forecast every:"
+msgstr "Vorhersage aktualisieren alle:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Positive temp"
-msgstr "Positive temp"
+msgstr "Positive Temperatur"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Negative temp"
-msgstr "Negative temp"
+msgstr "Negative Temperatur"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Error parsing /token data as JSON"
-msgstr "Error parsing /token data as JSON"
+msgstr "Fehler beim Parsen der /token-Daten als JSON"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Failed to fetch Google calendars"
-msgstr "Failed to fetch Google calendars"
+msgstr "Google-Kalender konnten nicht abgerufen werden"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Failed to fetch Google task lists"
-msgstr "Failed to fetch Google task lists"
+msgstr "Google-Aufgabenlisten konnten nicht abgerufen werden"
 
 #: ../contents/ui/config/HeaderText.qml
 msgid "Heading"
-msgstr "Heading"
+msgstr "Überschrift"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
 msgid "Select location"
-msgstr "Select location"
+msgstr "Standort auswählen"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "true"

@@ -69,7 +69,8 @@ msgstr "Google-kalenteri"
 msgid "Weather"
 msgstr "Sää"
 
-#: ../contents/config/config.qml ../contents/ui/config/ConfigGoogleCalendar.qml
+#: ../contents/config/config.qml
+#: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Advanced"
 msgstr "Lisäasetukset"
 
@@ -184,7 +185,7 @@ msgstr "%1 - %2"
 #: ../contents/ui/LocaleFuncs.js
 msgctxt "short form for %1 hours"
 msgid "%1h"
-msgstr "%1h"
+msgstr "%1 h"
 
 #: ../contents/ui/LocaleFuncs.js
 #, c-format
@@ -200,31 +201,31 @@ msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr "Mostly Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr "Partly Cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr "Overcast"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr "Fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr "Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr "Freezing Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -232,131 +233,133 @@ msgstr "Sade"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr "Freezing Rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr "Snow"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Showers"
-msgstr "Showers"
+msgstr "Näytä kehykset"
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Snow Showers"
-msgstr "Snow Showers"
+msgstr "Näytä kehykset"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr "Thunderstorm"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr "Clear sky"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr "Mainly clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr "Partly cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr "Light drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr "Dense drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr "Slight rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr "Moderate rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr "Heavy rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr "Light freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr "Slight snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr "Snow grains"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr "Slight rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr "Violent rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr "Slight snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr "Open-Meteo latitude/longitude not set"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr "Weather configuration not setup"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
@@ -385,6 +388,146 @@ msgid "Logged out of Google. Please login again."
 msgstr "Kirjauduttu ulos Googlesta. Ole hyvä ja kirjaudu uudelleen."
 
 #: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1mm"
 msgstr "%1mm"
@@ -392,7 +535,7 @@ msgstr "%1mm"
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr "%1in"
+msgstr ""
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -414,14 +557,15 @@ msgid "Eg: 9am-5pm Work"
 msgstr "Esim: 9 AP - 5 IP Työ"
 
 #: ../contents/ui/PopupView.qml
+#, fuzzy
 msgid ""
 "Weather not configured.\n"
 "Go to Weather in the config and set your location,\n"
 "and/or disable the meteogram to hide this area."
 msgstr ""
-"Weather not configured.\n"
-"Go to Weather in the config and set your location,\n"
-"and/or disable the meteogram to hide this area."
+"Sääasetuksia ei ole tehty.\n"
+"Mene asetuksissa Sää-kohtaan ja aseta kaupunkisi\n"
+"ja/tai estä sääkartan piilottaa tämä alue."
 
 #: ../contents/ui/PopupView.qml
 msgid "Error fetching weather."
@@ -461,7 +605,7 @@ msgstr "Valitse lisätäksesi keston"
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr "Test"
+msgstr ""
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -500,7 +644,7 @@ msgstr "Liian monta web-pyyntöä. Yrittää uudelleen hetken kuluttua."
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Visibility"
-msgstr "Visibility"
+msgstr "Näkyvyys"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show agenda"
@@ -509,19 +653,21 @@ msgstr "Näytä Agenda"
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Appearance"
-msgstr "Appearance"
+msgstr "Ulkonäkö"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Font size:"
-msgstr "Font size:"
+msgstr "Kirjasimen koko:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "px (0 = system font)"
-msgstr "px (0 = system font)"
+msgstr "px (0 = järjestelmäfontti)"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Day spacing:"
-msgstr "Day spacing:"
+msgstr "Päivän asemointi:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigGeneral.qml
@@ -530,28 +676,34 @@ msgid "px"
 msgstr "px"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Event spacing:"
-msgstr "Event spacing:"
+msgstr "Tapahtuman asemointi:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather icon"
-msgstr "Show weather icon"
+msgstr "Sääkuvake"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Icon size:"
-msgstr "Icon size:"
+msgstr "Kirjasimen koko:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Outline weather icons"
-msgstr "Outline weather icons"
+msgstr "Sääkuvake"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather text"
-msgstr "Show weather text"
+msgstr "Sääteksti"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Weather column:"
-msgstr "Weather column:"
+msgstr "Sääkuvake"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Left"
@@ -562,60 +714,74 @@ msgid "Right"
 msgstr "Oikea"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click weather:"
-msgstr "Click weather:"
+msgstr "Napsauta Sää:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open forecast in browser"
-msgstr "Open forecast in browser"
+msgstr "Avaa kaupungin sää selaimessa"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show event description"
-msgstr "Show event description"
+msgstr "Tapahtuman kuvaus"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Hide “All Day” text"
-msgstr "Hide “All Day” text"
+msgstr "Piilota 'koko päivä -teksti"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show Google Hangouts link"
-msgstr "Show Google Hangouts link"
+msgstr "Google-Hangouts -linkki"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Multi-day events:"
-msgstr "Multi-day events:"
+msgstr "Näytä useampipäiväiset tapahtumat:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show on all days"
-msgstr "Show on all days"
+msgstr "Koko päivän"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show only on first and current day"
-msgstr "Show only on first and current day"
+msgstr "Vain ensimmäinen ja nykyinen päivä"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click date:"
-msgstr "Click date:"
+msgstr "Napsauta päivä:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open the new event form"
-msgstr "Open the new event form"
+msgstr "Avaa uusi tapahtumalomake"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click event:"
-msgstr "Click event:"
+msgstr "Napsauta tapahtumaa:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open event in browser"
-msgstr "Open event in browser"
+msgstr "Avaa tapahtuma selaimessa"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "New Event Form"
-msgstr "New Event Form"
+msgstr "Avaa uusi tapahtumalomake"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Remember selected calendar"
-msgstr "Remember selected calendar"
+msgstr "Muista valittu kalenteri uudessa tapahtumalomakkeessa"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -623,12 +789,14 @@ msgid "Colors"
 msgstr "Värit"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "In progress day"
-msgstr "In progress day"
+msgstr "Käynnissä"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Current Month (Not Implemented Yet)"
-msgstr "Current Month (Not Implemented Yet)"
+msgstr "Nykyinen kuukausi otsikko:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Always show next 14 days"
@@ -648,43 +816,51 @@ msgstr "Näytä kalenteri"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Interaction"
-msgstr "Interaction"
+msgstr "Vuorovaikutus"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Click a date:"
-msgstr "Click a date:"
+msgstr "Napsauta päivä:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Scroll to that day in the agenda"
-msgstr "Scroll to that day in the agenda"
+msgstr "Vieritä tapahtumaan Agendassa"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Double-click a date:"
-msgstr "Double-click a date:"
+msgstr "Kaksoisnapauta päivää:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "New Google Calendar event (web browser)"
-msgstr "New Google Calendar event (web browser)"
+msgstr "Uusi Google-kalenterin tapahtuma (www-selain)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Do nothing"
-msgstr "Do nothing"
+msgstr "Älä tee mitään"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Month title format:"
-msgstr "Month title format:"
+msgstr "Kuukauden otsikon muoto:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show borders"
-msgstr "Show borders"
+msgstr "Näytä kehykset"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show week numbers"
-msgstr "Show week numbers"
+msgstr "Näytä viikon numero"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Highlight current day and week"
-msgstr "Highlight current day and week"
+msgstr "Korosta nykyinen päivä / viikko"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "First day of week:"
@@ -696,27 +872,31 @@ msgstr "Oletus"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlights & Badges"
-msgstr "Highlights & Badges"
+msgstr "Kohokohdat ja merkit"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Event indicators:"
-msgstr "Event indicators:"
+msgstr "Tapahtumakalenteri"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Theme"
 msgstr "Teema"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Dots (max 3)"
-msgstr "Dots (max 3)"
+msgstr "Pisteet (max 3)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (event color)"
-msgstr "Bottom bar (event color)"
+msgstr "Alapalkki (tapahtuman väri)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (highlight)"
-msgstr "Bottom bar (highlight)"
+msgstr "Alapalkki (korostettu)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Count"
@@ -724,31 +904,35 @@ msgstr "Määrä"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight corner radius:"
-msgstr "Highlight corner radius:"
+msgstr "Korosta kulman säde:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Today style:"
-msgstr "Today style:"
+msgstr "Tänään:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Solid color (inverted)"
-msgstr "Solid color (inverted)"
+msgstr "Kiinteä väri (käänteinen)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Big number"
-msgstr "Big number"
+msgstr "Iso numero"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event Sources"
-msgstr "Event Sources"
+msgstr "Tpaahtumat käynnissä"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Google Calendar (configured on the Google Calendar tab)"
-msgstr "Google Calendar (configured on the Google Calendar tab)"
+msgstr "Google-kalenteri (määritetty Google-kalenteri-välilehdellä)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "ICalendar (.ics) (configured on the ICalendar tab)"
-msgstr "ICalendar (.ics) (configured on the ICalendar tab)"
+msgstr "ICalendar (.ics) (määritetty Icalendar-välilehdellä)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Plasma Calendar Plugins"
@@ -759,8 +943,8 @@ msgid ""
 "Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
 "“Holidays” plugin to avoid duplicates."
 msgstr ""
-"Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
-"“Holidays” plugin to avoid duplicates."
+"Vinkki: Jos otat juhlapyhäkalenterin käyttöön Googlessa, poista Plasman "
+"Holidays-laajennus käytöstä päällekkäisyyksien välttämiseksi."
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
@@ -768,8 +952,9 @@ msgid "Refresh"
 msgstr "Päivitä"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Refresh events every:"
-msgstr "Refresh events every:"
+msgstr "Päivitä tapahtumat joka: "
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -782,16 +967,18 @@ msgid "Notifications"
 msgstr "Ilmoitukset"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event reminder"
-msgstr "Event reminder"
+msgstr "Tapahtuman muistutin"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Minutes before:"
-msgstr "Minutes before:"
+msgstr "Minuuttia ennen:"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event starting"
-msgstr "Event starting"
+msgstr "Tapahtuma alkaa"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Widgets"
@@ -799,7 +986,7 @@ msgstr "Sovellukset"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show or hide optional widgets in the popup."
-msgstr "Show or hide optional widgets in the popup."
+msgstr "Näytä tai piilota valinnaiset widgetit ponnahdusikkunassa."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -807,8 +994,9 @@ msgid "Meteogram"
 msgstr "Säätila"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Timer sound:"
-msgstr "Timer sound:"
+msgstr "Ajastin lopetti."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Clock"
@@ -823,20 +1011,22 @@ msgid "Sans Serif"
 msgstr "Sans Serif"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Fixed height:"
-msgstr "Fixed height:"
+msgstr "Kiinteä kellon korkeus: "
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "(0 = scale to fit)"
-msgstr "(0 = scale to fit)"
+msgstr " (0px = sovita)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Formatting:"
-msgstr "Formatting:"
+msgstr "Muotoilu:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time formats use Qt’s date/time format strings."
-msgstr "Time formats use Qt’s date/time format strings."
+msgstr "Aikamuodot käyttävät Qt:n päivämäärä-/aikamuotomerkkijonoja."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time Format Documentation"
@@ -847,16 +1037,18 @@ msgid "Line 1:"
 msgstr "Rivi 1:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Presets:"
-msgstr "Presets:"
+msgstr "Esiasetettu"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 1"
-msgstr "Bold line 1"
+msgstr "Lihavoitu viiva 1"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show line 2"
-msgstr "Show line 2"
+msgstr "Näytä seuraava "
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Line 2:"
@@ -864,106 +1056,119 @@ msgstr "Rivi 2:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 2"
-msgstr "Bold line 2"
+msgstr "Lihavoitu viiva 2"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Line 2 height:"
-msgstr "Line 2 height:"
+msgstr "Rivi 2:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Mouse Wheel"
 msgstr "Hiiren rulla"
 
 #: ../contents/ui/config/ConfigGeneral.qml
-msgid "Scrolling the mouse wheel over the panel clock runs the commands below."
-msgstr ""
+msgid ""
 "Scrolling the mouse wheel over the panel clock runs the commands below."
+msgstr ""
+"Hiiren rullaa vierittämällä paneelin kellon päällä suoritetaan alla olevat "
+"komennot."
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll up:"
-msgstr "Scroll up:"
+msgstr "Vieritä ylös:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll down:"
-msgstr "Scroll down:"
+msgstr "Vieritä alas:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (amixer)"
-msgstr "Volume (amixer)"
+msgstr "Äänenvoimakkuus (ei UI) (amixer)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (qdbus)"
-msgstr "Volume (qdbus)"
+msgstr "Äänenvoimakkuus (UI) (qdbus)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Desktop Widget"
-msgstr "Desktop Widget"
+msgstr "Työpöytäsovellus: Näytä tausta"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show background"
-msgstr "Show background"
+msgstr "Näytä Agenda"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Debugging"
 msgstr "Debuggaus"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid ""
 "Debugging logs sensitive information to the system journal (plasmashell)."
-msgstr ""
-"Debugging logs sensitive information to the system journal (plasmashell)."
+msgstr "Debuggaus kirjoittaa lokiin herkkää tietoa kohteeseen:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Enable debugging"
-msgstr "Enable debugging"
+msgstr "Salli debuggaus"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (invalid response)."
-msgstr "Google login failed (invalid response)."
+msgstr "Google-kirjautuminen epäonnistui (virheellinen vastaus)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google API request failed."
-msgstr "Google API request failed."
+msgstr "Google API -pyyntö epäonnistui."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Missing required argument: --client-id"
-msgstr "Missing required argument: --client-id"
+msgstr "Pakollinen argumentti puuttuu: --client-id"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to open web browser via xdg-open."
-msgstr "Failed to open web browser via xdg-open."
+msgstr "Verkkoselaimen avaaminen xdg-openilla epäonnistui."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth failed (requestFailed=%1)."
-msgstr "OAuth failed (requestFailed=%1)."
+msgstr "OAuth epäonnistui (requestFailed=%1)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth timed out after %1 seconds."
-msgstr "OAuth timed out after %1 seconds."
+msgstr "OAuth aikakatkaistiin %1 sekunnin kuluttua."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
-msgstr "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
+msgstr ""
+"Epäonnistui kuuntelu osoitteessa http://127.0.0.1:%1/ (portti käytössä?)"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "HTTP Error %1"
-msgstr "HTTP Error %1"
+msgstr "HTTP-virhe %1: %2"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Opening the browser for Google login…"
-msgstr "Opening the browser for Google login…"
+msgstr "Avataan selain Google-kirjautumista varten…"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Google login failed."
-msgstr "Google login failed."
+msgstr "Google-kalenteri"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (missing access token)."
-msgstr "Google login failed (missing access token)."
+msgstr "Google-kirjautuminen epäonnistui (pääsytunnus puuttuu)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login complete. Click Apply to save."
-msgstr "Google login complete. Click Apply to save."
+msgstr "Google-kirjautuminen valmis. Tallenna napsauttamalla Käytä."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Login"
@@ -973,39 +1178,45 @@ msgstr "Kirjautuminen"
 msgid ""
 "Connect your Google account to show Google Calendar events in the agenda."
 msgstr ""
-"Connect your Google account to show Google Calendar events in the agenda."
+"Yhdistä Google-tilisi näyttääksesi Google-kalenterin tapahtumat "
+"esityslistalla."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logout"
 msgstr "Uloskirjautuminen"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Login in Browser"
-msgstr "Login in Browser"
+msgstr "Muokkaa selaimessa"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logged out. Click Apply to save."
-msgstr "Logged out. Click Apply to save."
+msgstr "Kirjautunut ulos. Tallenna napsauttamalla Käytä."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide help"
-msgstr "Hide help"
+msgstr "Piilota apu"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Show help"
-msgstr "Show help"
+msgstr "Näytä seuraava "
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Widget has been updated. Please logout and login again."
-msgstr "Widget has been updated. Please logout and login again."
+msgstr ""
+"Kalenteri on päivitetty. Ole hyvä ja kirjaudu Google-kalenteriin uudelleen."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "You are connected. Use Refresh below if calendars/tasks changed, then click "
 "Apply to save selection updates."
 msgstr ""
-"You are connected. Use Refresh below if calendars/tasks changed, then click "
-"Apply to save selection updates."
+"Olet yhteydessä. Käytä alla olevaa Päivitä-painiketta, jos "
+"kalenterit/tehtävät muuttuvat, ja tallenna valintapäivitykset napsauttamalla"
+" Käytä."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1013,9 +1224,9 @@ msgid ""
 "(missing binary, port in use), enable Advanced and use the manual code "
 "method."
 msgstr ""
-"A web browser will open for Google login. If the helper cannot start "
-"(missing binary, port in use), enable Advanced and use the manual code "
-"method."
+"Verkkoselain avautuu Google-kirjautumista varten. Jos apuohjelma ei "
+"käynnisty (binaari puuttuu, portti käytössä), ota Advanced käyttöön ja käytä"
+" manuaalista koodimenetelmää."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 #: ../contents/ui/config/ConfigICal.qml
@@ -1024,7 +1235,7 @@ msgstr "Kalenterit"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which calendars to show."
-msgstr "Choose which calendars to show."
+msgstr "Valitse näytettävät kalenterit."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Tasks"
@@ -1032,67 +1243,70 @@ msgstr "Tehtävät"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which task lists to show."
-msgstr "Choose which task lists to show."
+msgstr "Valitse näytettävät tehtäväluettelot."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Options"
 msgstr "Valinnat"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Event click:"
-msgstr "Event click:"
+msgstr "Tapahtuman asemointi:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Open web event view"
-msgstr "Open web event view"
+msgstr "Avaa uusi tapahtumalomake"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open web month view"
-msgstr "Open web month view"
+msgstr "Avaa verkkokuukausinäkymä"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide the “Goals in Google Calendar” description"
-msgstr "Hide the “Goals in Google Calendar” description"
+msgstr "Piilota \"Tavoitteet Google-kalenterissa\" -kuvaus"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "By default, the widget uses built-in OAuth credentials. Custom credentials "
 "are for developers only."
 msgstr ""
-"By default, the widget uses built-in OAuth credentials. Custom credentials "
-"are for developers only."
+"Widget käyttää oletusarvoisesti sisäänrakennettuja OAuth-tunnistetietoja. "
+"Mukautetut kirjautumistiedot ovat vain kehittäjille."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client ID:"
-msgstr "Client ID:"
+msgstr "Asiakastunnus:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Esiasetettu"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client secret:"
-msgstr "Client secret:"
+msgstr "Asiakkaan salaisuus:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Use manual code flow"
-msgstr "Use manual code flow"
+msgstr "Käytä manuaalista koodinkulkua"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "If the browser shows a connection error after you approve access, copy the "
 "full URL (or just the “code” parameter) and paste it below."
 msgstr ""
-"If the browser shows a connection error after you approve access, copy the "
-"full URL (or just the “code” parameter) and paste it below."
+"Jos selain näyttää yhteysvirheen, kun olet hyväksynyt pääsyn, kopioi koko "
+"URL-osoite (tai vain \"koodi\"-parametri) ja liitä se alle."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open <a href=\"%1\">Google login</a> in your browser."
-msgstr "Open <a href=\"%1\">Google login</a> in your browser."
+msgstr "Avaa <a href=\"%1\">Google login</a> selaimessasi."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Paste redirected URL or code here"
-msgstr "Paste redirected URL or code here"
+msgstr "Liitä uudelleenohjattu URL-osoite tai koodi tähän"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Submit"
@@ -1100,37 +1314,42 @@ msgstr "Lähetä"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Please paste a URL or authorization code."
-msgstr "Please paste a URL or authorization code."
+msgstr "Liitä URL-osoite tai valtuutuskoodi."
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
+"Add local or remote .ics calendars. Changes are applied when you click "
+"Apply."
 msgstr ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
+"Lisää paikallisia tai etäkäyttöisiä .ics-kalentereita. Muutokset otetaan "
+"käyttöön, kun napsautat Käytä."
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Add"
-msgstr "Add"
+msgstr "ddd"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "New"
-msgstr "New"
+msgstr "Uusi"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Calendar name"
-msgstr "Calendar name"
+msgstr "Kalenterin otsikko"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Remove"
-msgstr "Remove"
+msgstr "Poistaa"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Path or URL to .ics file"
-msgstr "Path or URL to .ics file"
+msgstr ".ics-tiedoston polku tai URL-osoite"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Browse…"
-msgstr "Browse…"
+msgstr "Selaa"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "iCalendar (*.ics)"
@@ -1138,27 +1357,30 @@ msgstr "iCalendar (*.ics)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Choose how the agenda and calendar are arranged in the popup."
-msgstr "Choose how the agenda and calendar are arranged in the popup."
+msgstr ""
+"Valitse ponnahdusikkunassa, miten esityslista ja kalenteri järjestetään."
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Show advanced sizing"
-msgstr "Show advanced sizing"
+msgstr "Näytä tarkennettu koko"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Two Columns"
-msgstr "Two Columns"
+msgstr "Kaksi saraketta"
 
 #: ../contents/ui/config/ConfigLayout.qml
+#, fuzzy
 msgid "Agenda to the left of the calendar"
-msgstr "Agenda to the left of the calendar"
+msgstr "Kalenteri Agendan vasemmalle puolelle (kaksi saraketta)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Single Column"
-msgstr "Single Column"
+msgstr "Yksi sarake"
 
 #: ../contents/ui/config/ConfigLayout.qml
+#, fuzzy
 msgid "Agenda below the calendar"
-msgstr "Agenda below the calendar"
+msgstr "Agenda kalenterin alle (yksi sarake)"
 
 #: ../contents/ui/config/ConfigTimezones.qml
 msgid "Cannot deselect Local time from the tooltip"
@@ -1166,47 +1388,52 @@ msgstr "Paikallista aikaa ei voi poistaa työkaluvihjeestä"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Provider"
-msgstr "Provider"
+msgstr "Palveluntarjoaja"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Service:"
-msgstr "Service:"
+msgstr "Palvelu:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Weather Canada"
-msgstr "Weather Canada"
+msgstr "Sääkuvake"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Location"
-msgstr "Location"
+msgstr "Lisää paikka"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Place:"
-msgstr "Place:"
+msgstr "Paikka:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Search for a city"
-msgstr "Search for a city"
+msgstr "Etsi kaupunki"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Search…"
-msgstr "Search…"
+msgstr "Etsi"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show coordinates"
-msgstr "Show coordinates"
+msgstr "Näytä kehykset"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Latitude:"
-msgstr "Latitude:"
+msgstr "Leveysaste:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Longitude:"
-msgstr "Longitude:"
+msgstr "Pituusaste:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "City ID:"
-msgstr "City ID:"
+msgstr "Kaupungin id"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Eg: on-14"
@@ -1214,15 +1441,16 @@ msgstr "Esim: on-14"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Find…"
-msgstr "Find…"
+msgstr "Löytää…"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Units"
-msgstr "Units"
+msgstr "Yksiköt:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Temperature:"
-msgstr "Temperature:"
+msgstr "Lämpötila:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Celsius"
@@ -1237,22 +1465,25 @@ msgid "Kelvin"
 msgstr "Kelvin"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show next:"
-msgstr "Show next:"
+msgstr "Näytä seuraava "
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] "hour"
-msgstr[1] "hours"
+msgstr[0] " tunti "
+msgstr[1] " tuntia "
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Update"
-msgstr "Update"
+msgstr "Päivittää"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Update forecast every:"
-msgstr "Update forecast every:"
+msgstr "Päivitä muoto joka: "
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Text"
@@ -1263,12 +1494,14 @@ msgid "Grid"
 msgstr "Ruudukko"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Positive temp"
-msgstr "Positive temp"
+msgstr "Lämpöasteet"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Negative temp"
-msgstr "Negative temp"
+msgstr "Pakkasasteet"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Icons"
@@ -1276,23 +1509,25 @@ msgstr "Kuvakkeet"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Error parsing /token data as JSON"
-msgstr "Error parsing /token data as JSON"
+msgstr "Virhe jäsennettäessä /token-tietoja JSON-muodossa"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
+#, fuzzy
 msgid "Failed to fetch Google calendars"
-msgstr "Failed to fetch Google calendars"
+msgstr "Google-kalenteriin yhdistäminen"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Failed to fetch Google task lists"
-msgstr "Failed to fetch Google task lists"
+msgstr "Googlen tehtäväluetteloiden nouto epäonnistui"
 
 #: ../contents/ui/config/HeaderText.qml
 msgid "Heading"
-msgstr "Heading"
+msgstr "Otsikko"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
+#, fuzzy
 msgid "Select location"
-msgstr "Select location"
+msgstr "Valitse kaupunki"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
 #: ../contents/ui/config/WeatherCanadaCityDialog.qml
@@ -1318,43 +1553,46 @@ msgstr "<b>Versio:</b> %1"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "true"
-msgstr "true"
+msgstr "totta"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "false"
-msgstr "false"
+msgstr "väärä"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid ""
 "Developer page: inspect raw configuration keys and values. Changes are "
 "applied when you click Apply."
 msgstr ""
-"Developer page: inspect raw configuration keys and values. Changes are "
-"applied when you click Apply."
+"Kehittäjäsivu: tarkista raaka-määritysavaimet ja -arvot. Muutokset otetaan "
+"käyttöön, kun napsautat Käytä."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Disable Mock Precipitation"
-msgstr "Disable Mock Precipitation"
+msgstr "Poista valesade käytöstä"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Mock Precipitation"
-msgstr "Enable Mock Precipitation"
+msgstr "Ota pilkasade käyttöön"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Debug mode in General to use mock precipitation controls."
-msgstr "Enable Debug mode in General to use mock precipitation controls."
+msgstr ""
+"Ota virheenkorjaustila käyttöön Yleisesti, jos haluat käyttää sademäärän "
+"säätöjä."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is ON (meteogram only)."
-msgstr "Mock precipitation is ON (meteogram only)."
+msgstr "Pilkasateet on PÄÄLLÄ (vain meteorogrammi)."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is OFF."
-msgstr "Mock precipitation is OFF."
+msgstr "Pilkasateet on POIS PÄÄLTÄ."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
+#, fuzzy
 msgid "Refresh Keys"
-msgstr "Refresh Keys"
+msgstr "Päivitä"
 
 #: ../contents/ui/lib/ConfigColor.qml
 msgid "Label"
@@ -1381,142 +1619,137 @@ msgstr "Äänitiedostot (%1)"
 msgid "All files (%1)"
 msgstr "Kaikki tiedostot (%1)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Clear sky"
-msgstr "Clear sky"
+#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
+#~ msgstr " (0px = <b>Järjestelmän asetukset > Kirjasimet > Yleiset</b>)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Mainly clear"
-msgstr "Mainly clear"
+#~ msgid "Icon Outline"
+#~ msgstr "Kuvan siirtymä"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Partly cloudy"
-msgstr "Partly cloudy"
+#~ msgid "Position:"
+#~ msgstr "Paikka:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Overcast"
-msgstr "Overcast"
+#~ msgid "Open New Event In Browser"
+#~ msgstr "Avaa uusi tapahtuma selaimessa"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Fog"
-msgstr "Fog"
+#~ msgid "Current Month"
+#~ msgstr "Nykyinen kuukausi"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+#~ msgid "Style"
+#~ msgstr "Tyyli"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light drizzle"
-msgstr "Light drizzle"
+#~ msgid "Event Badge:"
+#~ msgstr "Tapahtuman kuvake:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+#~ msgid "Radius:"
+#~ msgstr "Säde:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense drizzle"
-msgstr "Dense drizzle"
+#~ msgid "Selected:"
+#~ msgstr "Valittu:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+#~ msgid "Solid Color (Highlight)"
+#~ msgstr "Kiinteä väri (korostus)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+#~ msgid "Event Calendar Plugins"
+#~ msgstr "Tapahumakalenterin liitännäinen"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain"
-msgstr "Slight rain"
+#~ msgid "Misc"
+#~ msgstr "Sekalaiset"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain"
-msgstr "Moderate rain"
+#~ msgid ""
+#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
+#~ "respective tabs."
+#~ msgstr ""
+#~ "Näytä/Piilota tietoja kalenterin edellä. Vaihda Agenda/Kalenteri niiden "
+#~ "vastaavilla välilehdillä."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy rain"
-msgstr "Heavy rain"
+#~ msgid "Time Format"
+#~ msgstr "Ajan muoto"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing rain"
-msgstr "Light freezing rain"
+#~ msgid ""
+#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
+#~ "with small text. Try using the Sans Serif font if you find the text too "
+#~ "small when adding a second line."
+#~ msgstr ""
+#~ "Oletuskirjasin Breeze-teemalle on Noto Sans, joka on vaikea lukea pienellä "
+#~ "tekstillä. Kokeile käyttää Sans Serif -kirjasinta, jos teksti on liian "
+#~ "pientä kun lisäät sekunnit riville."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+#~ msgid ""
+#~ "You can also use %1 or %2 to style a section. Note the single quotes around "
+#~ "the tags are used to bypass the time format."
+#~ msgstr ""
+#~ "Voit käyttää myös %1 tai %2 muotoilla osiota. Huomaa, että yksinkertaisen "
+#~ "lainausmerkit tunnisteen ympärillä käytetään ajan muodon ohitukseen."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow fall"
-msgstr "Slight snow fall"
+#~ msgid "Bold"
+#~ msgstr "Vahvennus"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+#~ msgid "Height:"
+#~ msgstr "Korkeus:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+#~ msgid "Run Commands"
+#~ msgstr "Suorita komennot"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Snow grains"
-msgstr "Snow grains"
+#~ msgid "Currently Synched."
+#~ msgstr "Synkronissa tällä hetkellä."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain showers"
-msgstr "Slight rain showers"
+#~ msgid ""
+#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login and"
+#~ " give permission to access your calendar, it will give you a code to paste "
+#~ "below."
+#~ msgstr ""
+#~ "Mene osoitteeseen <a href=\"%1\">%2</a> (avaa www-selaimeen). Kun olet "
+#~ "kirjautunut ja antanut luvat kalenteriisi, sinulle annetaan koodi. Kopioi "
+#~ "koodi alle."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+#~ msgid "Copy Link"
+#~ msgstr "Kopioi linkki"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Violent rain showers"
-msgstr "Violent rain showers"
+#~ msgid "Enter code here (Eg: %1)"
+#~ msgstr "Anna koodi tähän (Esim: %1)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow showers"
-msgstr "Slight snow showers"
+#~ msgid "Invalid Google Authorization Code"
+#~ msgstr "Väärä Googlen valtuutuskoodi"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+#~ msgid "Add Calendar"
+#~ msgstr "Lisää kalenteri"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm"
-msgstr "Thunderstorm"
+#~ msgid "New Calendar"
+#~ msgstr "Uusi kalenteri"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+#~ msgid "Tooltip"
+#~ msgstr "Vihje"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+#~ msgid "Data"
+#~ msgstr "Tiedot"
+
+#~ msgid "API App Id:"
+#~ msgstr "API sovelluksen id:"
+
+#~ msgid "Eg: 5983720"
+#~ msgstr "Esim: 5983720"
+
+#~ msgid "Find City"
+#~ msgstr "Etsi kaupunki"
+
+#~ msgid "Settings"
+#~ msgstr "Asetukset"
+
+#  säätilassa.
+#~ msgid " in the meteogram."
+#~ msgstr " säätilassa."
+
+#~ msgid "Name"
+#~ msgstr "Nimi"
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid "City Webpage"
+#~ msgstr "Kaupungin www-sivu"
+
+#~ msgid "Set Language…"
+#~ msgstr "Aseta kieli…"
+
+#~ msgid "Set Locale…"
+#~ msgstr "Aseta paikka…"

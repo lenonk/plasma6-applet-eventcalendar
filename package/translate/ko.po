@@ -26,8 +26,7 @@ msgstr "이벤트 달력"
 #: ../metadata.desktop
 msgid ""
 "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
-msgstr ""
-"Google 캘린더랑 동기화할 수 있는 달력, 일정 및 날씨 Plasmoid 위젯입니다."
+msgstr "Google 캘린더랑 동기화할 수 있는 달력, 일정 및 날씨 Plasmoid 위젯입니다."
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -66,7 +65,8 @@ msgstr "Google 캘린더"
 msgid "Weather"
 msgstr "날씨"
 
-#: ../contents/config/config.qml ../contents/ui/config/ConfigGoogleCalendar.qml
+#: ../contents/config/config.qml
+#: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Advanced"
 msgstr "고급"
 
@@ -121,7 +121,7 @@ msgstr "yyyy년 MMM d일"
 
 #: ../contents/ui/DurationSelector.qml
 msgid "to"
-msgstr "to"
+msgstr ""
 
 #: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
 msgid "Event Title"
@@ -197,31 +197,31 @@ msgstr "%1s"
 
 #: ../contents/ui/Logic.qml
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mostly Clear"
-msgstr "Mostly Clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly Cloudy"
-msgstr "Partly Cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Overcast"
-msgstr "Overcast"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Fog"
-msgstr "Fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Drizzle"
-msgstr "Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Drizzle"
-msgstr "Freezing Drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/config/ConfigWeather.qml
 msgid "Rain"
@@ -229,131 +229,133 @@ msgstr "비"
 
 #: ../contents/ui/Logic.qml
 msgid "Freezing Rain"
-msgstr "Freezing Rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow"
-msgstr "Snow"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Showers"
-msgstr "Showers"
+msgstr "윤곽선 표시"
 
 #: ../contents/ui/Logic.qml
+#, fuzzy
 msgid "Snow Showers"
-msgstr "Snow Showers"
+msgstr "윤곽선 표시"
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm"
-msgstr "Thunderstorm"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Clear sky"
-msgstr "Clear sky"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Mainly clear"
-msgstr "Mainly clear"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Partly cloudy"
-msgstr "Partly cloudy"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light drizzle"
-msgstr "Light drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense drizzle"
-msgstr "Dense drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain"
-msgstr "Slight rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain"
-msgstr "Moderate rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy rain"
-msgstr "Heavy rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Light freezing rain"
-msgstr "Light freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow fall"
-msgstr "Slight snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Snow grains"
-msgstr "Snow grains"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight rain showers"
-msgstr "Slight rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Violent rain showers"
-msgstr "Violent rain showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Slight snow showers"
-msgstr "Slight snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Open-Meteo latitude/longitude not set"
-msgstr "Open-Meteo latitude/longitude not set"
+msgstr ""
 
 #: ../contents/ui/Logic.qml
 msgid "Weather configuration not setup"
-msgstr "Weather configuration not setup"
+msgstr ""
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid "Could not connect"
@@ -374,12 +376,151 @@ msgstr "날씨 API의 제한에 도달하였습니다"
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
 msgid ""
 "Widget has been updated. Please logout and login to Google Calendar again."
-msgstr ""
-"위젯이 업데이트되었습니다. Google 캘린더에 로그아웃 후 다시 로그인하십시오."
+msgstr "위젯이 업데이트되었습니다. Google 캘린더에 로그아웃 후 다시 로그인하십시오."
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
 msgstr "Google에 로그아웃되었습니다. 다시 로그인하십시오."
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr ""
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr ""
 
 #: ../contents/ui/MeteogramView.qml
 #, c-format
@@ -389,7 +530,7 @@ msgstr "%1mm"
 #: ../contents/ui/MeteogramView.qml
 #, c-format
 msgid "%1in"
-msgstr "%1in"
+msgstr ""
 
 #: ../contents/ui/MonthView.qml ../contents/ui/config/ConfigCalendar.qml
 msgctxt "calendar title format for current month"
@@ -411,14 +552,15 @@ msgid "Eg: 9am-5pm Work"
 msgstr "예: 오전 9시 - 오전 5시 직장"
 
 #: ../contents/ui/PopupView.qml
+#, fuzzy
 msgid ""
 "Weather not configured.\n"
 "Go to Weather in the config and set your location,\n"
 "and/or disable the meteogram to hide this area."
 msgstr ""
-"Weather not configured.\n"
-"Go to Weather in the config and set your location,\n"
-"and/or disable the meteogram to hide this area."
+"날씨가 설정되지 않았습니다.\n"
+"설정 창의 날씨 항목에서 도시를 설정하십시오.\n"
+"천문 현상을 비활성화하셔도 됩니다."
 
 #: ../contents/ui/PopupView.qml
 msgid "Error fetching weather."
@@ -454,11 +596,11 @@ msgstr "타이머 시작"
 
 #: ../contents/ui/TimerView.qml
 msgid "Scroll to add to duration"
-msgstr "Scroll to add to duration"
+msgstr ""
 
 #: ../contents/ui/TimerView.qml
 msgid "Test"
-msgstr "Test"
+msgstr ""
 
 #: ../contents/ui/TimerView.qml
 msgid "Sound"
@@ -497,7 +639,7 @@ msgstr "웹 요청이 너무 많습니다. 나중에 다시 시도하십시오."
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Visibility"
-msgstr "Visibility"
+msgstr "시계"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show agenda"
@@ -506,19 +648,21 @@ msgstr "일정 표시"
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Appearance"
-msgstr "Appearance"
+msgstr "모습"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Font size:"
-msgstr "Font size:"
+msgstr "글꼴 크기:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "px (0 = system font)"
-msgstr "px (0 = system font)"
+msgstr "px(0 = 시스템 글꼴)"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Day spacing:"
-msgstr "Day spacing:"
+msgstr "날짜 간격:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigGeneral.qml
@@ -527,28 +671,34 @@ msgid "px"
 msgstr "픽셀"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Event spacing:"
-msgstr "Event spacing:"
+msgstr "행사 간격:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather icon"
-msgstr "Show weather icon"
+msgstr "날씨 아이콘"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Icon size:"
-msgstr "Icon size:"
+msgstr "글꼴 크기:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Outline weather icons"
-msgstr "Outline weather icons"
+msgstr "날씨 아이콘"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show weather text"
-msgstr "Show weather text"
+msgstr "날씨 텍스트"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Weather column:"
-msgstr "Weather column:"
+msgstr "날씨 아이콘"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Left"
@@ -559,60 +709,74 @@ msgid "Right"
 msgstr "오른쪽"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click weather:"
-msgstr "Click weather:"
+msgstr "날씨 클릭:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open forecast in browser"
-msgstr "Open forecast in browser"
+msgstr "브라우저에서 도시 날씨 열기"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show event description"
-msgstr "Show event description"
+msgstr "이벤트 설명"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Hide “All Day” text"
-msgstr "Hide “All Day” text"
+msgstr "'하루 종일' 텍스트 숨기기"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show Google Hangouts link"
-msgstr "Show Google Hangouts link"
+msgstr "Google 행아웃 링크"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Multi-day events:"
-msgstr "Multi-day events:"
+msgstr "정기적인 이벤트 표시:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show on all days"
-msgstr "Show on all days"
+msgstr "하루 종일"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Show only on first and current day"
-msgstr "Show only on first and current day"
+msgstr "현재 날짜의 첫 일정에만"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click date:"
-msgstr "Click date:"
+msgstr "날짜 클릭:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open the new event form"
-msgstr "Open the new event form"
+msgstr "새 이벤트 창 열기"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Click event:"
-msgstr "Click event:"
+msgstr "이벤트 클릭:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Open event in browser"
-msgstr "Open event in browser"
+msgstr "브라우저에서 이벤트 열기"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "New Event Form"
-msgstr "New Event Form"
+msgstr "새 이벤트 창 열기"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Remember selected calendar"
-msgstr "Remember selected calendar"
+msgstr "새 이벤트 창에서 선택된 달력 기억"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -620,12 +784,14 @@ msgid "Colors"
 msgstr "색"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "In progress day"
-msgstr "In progress day"
+msgstr "진행 중"
 
 #: ../contents/ui/config/ConfigAgenda.qml
+#, fuzzy
 msgid "Current Month (Not Implemented Yet)"
-msgstr "Current Month (Not Implemented Yet)"
+msgstr "이번 달 제목:"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Always show next 14 days"
@@ -645,43 +811,51 @@ msgstr "달력 표시"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Interaction"
-msgstr "Interaction"
+msgstr "상호 작용"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Click a date:"
-msgstr "Click a date:"
+msgstr "날짜 클릭:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Scroll to that day in the agenda"
-msgstr "Scroll to that day in the agenda"
+msgstr "일정에서 이벤트 스크롤"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Double-click a date:"
-msgstr "Double-click a date:"
+msgstr "날짜 더블클릭:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "New Google Calendar event (web browser)"
-msgstr "New Google Calendar event (web browser)"
+msgstr "새 Google 캘린더 이벤트 (웹 브라우저)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Do nothing"
-msgstr "Do nothing"
+msgstr "아무것도 안 함"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Month title format:"
-msgstr "Month title format:"
+msgstr "월 제목 형식:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show borders"
-msgstr "Show borders"
+msgstr "윤곽선 표시"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Show week numbers"
-msgstr "Show week numbers"
+msgstr "주 번호 표시"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Highlight current day and week"
-msgstr "Highlight current day and week"
+msgstr "오늘 날짜 강조"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "First day of week:"
@@ -693,27 +867,31 @@ msgstr "기본"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlights & Badges"
-msgstr "Highlights & Badges"
+msgstr "하이라이트 및 배지"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Event indicators:"
-msgstr "Event indicators:"
+msgstr "이벤트 달력"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Theme"
 msgstr "테마"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Dots (max 3)"
-msgstr "Dots (max 3)"
+msgstr "점 (최대 3개)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (event color)"
-msgstr "Bottom bar (event color)"
+msgstr "아래 바 (이벤트 색)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Bottom bar (highlight)"
-msgstr "Bottom bar (highlight)"
+msgstr "아래 바 (강조)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Count"
@@ -721,31 +899,35 @@ msgstr "숫자"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Highlight corner radius:"
-msgstr "Highlight corner radius:"
+msgstr "모서리 반경 강조 표시:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Today style:"
-msgstr "Today style:"
+msgstr "오늘:"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Solid color (inverted)"
-msgstr "Solid color (inverted)"
+msgstr "단색 (반전됨)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
+#, fuzzy
 msgid "Big number"
-msgstr "Big number"
+msgstr "큰 숫자"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event Sources"
-msgstr "Event Sources"
+msgstr "진행 중인 이벤트"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Google Calendar (configured on the Google Calendar tab)"
-msgstr "Google Calendar (configured on the Google Calendar tab)"
+msgstr "Google 캘린더(Google 캘린더 탭에서 구성)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "ICalendar (.ics) (configured on the ICalendar tab)"
-msgstr "ICalendar (.ics) (configured on the ICalendar tab)"
+msgstr "ICalendar(.ics)(ICalendar 탭에서 구성)"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Plasma Calendar Plugins"
@@ -755,9 +937,7 @@ msgstr "Plasma 달력 플러그인"
 msgid ""
 "Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
 "“Holidays” plugin to avoid duplicates."
-msgstr ""
-"Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
-"“Holidays” plugin to avoid duplicates."
+msgstr "팁: Google에서 휴일 캘린더를 활성화한 경우 중복을 방지하려면 Plasma의 '휴일' 플러그인을 비활성화하세요."
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
@@ -765,8 +945,9 @@ msgid "Refresh"
 msgstr "새로고침"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Refresh events every:"
-msgstr "Refresh events every:"
+msgstr "이벤트 갱신 주기: "
 
 #: ../contents/ui/config/ConfigEvents.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -779,16 +960,18 @@ msgid "Notifications"
 msgstr "알림"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event reminder"
-msgstr "Event reminder"
+msgstr "이벤트 리마인더"
 
 #: ../contents/ui/config/ConfigEvents.qml
 msgid "Minutes before:"
-msgstr "Minutes before:"
+msgstr "몇 분 전:"
 
 #: ../contents/ui/config/ConfigEvents.qml
+#, fuzzy
 msgid "Event starting"
-msgstr "Event starting"
+msgstr "이벤트 시작"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Widgets"
@@ -796,7 +979,7 @@ msgstr "위젯"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Show or hide optional widgets in the popup."
-msgstr "Show or hide optional widgets in the popup."
+msgstr "팝업에서 선택적 위젯을 표시하거나 숨깁니다."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 #: ../contents/ui/config/ConfigWeather.qml
@@ -804,8 +987,9 @@ msgid "Meteogram"
 msgstr "천문 현상"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Timer sound:"
-msgstr "Timer sound:"
+msgstr "타이머 완료"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Clock"
@@ -817,23 +1001,25 @@ msgstr "글꼴:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Sans Serif"
-msgstr "Sans Serif"
+msgstr "산세리프체"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Fixed height:"
-msgstr "Fixed height:"
+msgstr "시계 높이 고정: "
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "(0 = scale to fit)"
-msgstr "(0 = scale to fit)"
+msgstr " (0픽셀 = 크기에 맞춤)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Formatting:"
-msgstr "Formatting:"
+msgstr "서식:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time formats use Qt’s date/time format strings."
-msgstr "Time formats use Qt’s date/time format strings."
+msgstr "시간 형식은 Qt의 날짜/시간 형식 문자열을 사용합니다."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Time Format Documentation"
@@ -844,16 +1030,18 @@ msgid "Line 1:"
 msgstr "1열:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Presets:"
-msgstr "Presets:"
+msgstr "프리셋:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 1"
-msgstr "Bold line 1"
+msgstr "굵은 선 1"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show line 2"
-msgstr "Show line 2"
+msgstr "옆에 표시 "
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Line 2:"
@@ -861,106 +1049,116 @@ msgstr "2열:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Bold line 2"
-msgstr "Bold line 2"
+msgstr "굵은 선 2"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Line 2 height:"
-msgstr "Line 2 height:"
+msgstr "2열:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Mouse Wheel"
 msgstr "마우스 휠"
 
 #: ../contents/ui/config/ConfigGeneral.qml
-msgid "Scrolling the mouse wheel over the panel clock runs the commands below."
-msgstr ""
+msgid ""
 "Scrolling the mouse wheel over the panel clock runs the commands below."
+msgstr "패널 시계 위로 마우스 휠을 스크롤하면 아래 명령이 실행됩니다."
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll up:"
-msgstr "Scroll up:"
+msgstr "위로 스크롤:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Scroll down:"
-msgstr "Scroll down:"
+msgstr "아래로 스크롤:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (amixer)"
-msgstr "Volume (amixer)"
+msgstr "음량 (UI 없음) (amixer)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Volume (qdbus)"
-msgstr "Volume (qdbus)"
+msgstr "음량 (UI) (qdbus)"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Desktop Widget"
-msgstr "Desktop Widget"
+msgstr "바탕화면 위젯: 배경 표시"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Show background"
-msgstr "Show background"
+msgstr "일정 표시"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Debugging"
 msgstr "디버깅"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid ""
 "Debugging logs sensitive information to the system journal (plasmashell)."
-msgstr ""
-"Debugging logs sensitive information to the system journal (plasmashell)."
+msgstr "디버그 시 상세 정보를 기록할 위치:"
 
 #: ../contents/ui/config/ConfigGeneral.qml
+#, fuzzy
 msgid "Enable debugging"
-msgstr "Enable debugging"
+msgstr "디버깅 사용"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (invalid response)."
-msgstr "Google login failed (invalid response)."
+msgstr "Google 로그인에 실패했습니다(잘못된 응답)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google API request failed."
-msgstr "Google API request failed."
+msgstr "Google API 요청이 실패했습니다."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Missing required argument: --client-id"
-msgstr "Missing required argument: --client-id"
+msgstr "필수 인수 누락: --client-id"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to open web browser via xdg-open."
-msgstr "Failed to open web browser via xdg-open."
+msgstr "xdg-open을 통해 웹 브라우저를 열지 못했습니다."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth failed (requestFailed=%1)."
-msgstr "OAuth failed (requestFailed=%1)."
+msgstr "OAuth가 실패했습니다(requestFailed=%1)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "OAuth timed out after %1 seconds."
-msgstr "OAuth timed out after %1 seconds."
+msgstr "%1초 후에 OAuth 시간이 초과되었습니다."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
-msgstr "Failed to listen on http://127.0.0.1:%1/ (port in use?)"
+msgstr "http://127.0.0.1:%1/에서 수신하지 못했습니다(포트가 사용 중인가요?)"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "HTTP Error %1"
-msgstr "HTTP Error %1"
+msgstr "HTTP 오류 %1: %2"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Opening the browser for Google login…"
-msgstr "Opening the browser for Google login…"
+msgstr "Google 로그인을 위해 브라우저를 여는 중…"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Google login failed."
-msgstr "Google login failed."
+msgstr "Google 캘린더"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login failed (missing access token)."
-msgstr "Google login failed (missing access token)."
+msgstr "Google 로그인에 실패했습니다(액세스 토큰 누락)."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Google login complete. Click Apply to save."
-msgstr "Google login complete. Click Apply to save."
+msgstr "구글 로그인이 완료되었습니다. 적용을 클릭하여 저장하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Login"
@@ -969,40 +1167,40 @@ msgstr "로그인"
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "Connect your Google account to show Google Calendar events in the agenda."
-msgstr ""
-"Connect your Google account to show Google Calendar events in the agenda."
+msgstr "Google 캘린더 이벤트를 의제에 표시하려면 Google 계정을 연결하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logout"
 msgstr "로그아웃"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Login in Browser"
-msgstr "Login in Browser"
+msgstr "브라우저에서 편집"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logged out. Click Apply to save."
-msgstr "Logged out. Click Apply to save."
+msgstr "로그아웃되었습니다. 적용을 클릭하여 저장하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Hide help"
-msgstr "Hide help"
+msgstr "도움말 숨기기"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Show help"
-msgstr "Show help"
+msgstr "옆에 표시 "
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Widget has been updated. Please logout and login again."
-msgstr "Widget has been updated. Please logout and login again."
+msgstr "위젯이 업데이트되었습니다. Google 캘린더에 로그아웃 후 다시 로그인하십시오."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "You are connected. Use Refresh below if calendars/tasks changed, then click "
 "Apply to save selection updates."
-msgstr ""
-"You are connected. Use Refresh below if calendars/tasks changed, then click "
-"Apply to save selection updates."
+msgstr "당신은 연결되었습니다. 캘린더/작업이 변경된 경우 아래 새로 고침을 사용한 다음 적용을 클릭하여 선택 업데이트를 저장하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
@@ -1010,9 +1208,8 @@ msgid ""
 "(missing binary, port in use), enable Advanced and use the manual code "
 "method."
 msgstr ""
-"A web browser will open for Google login. If the helper cannot start "
-"(missing binary, port in use), enable Advanced and use the manual code "
-"method."
+"Google 로그인을 위한 웹 브라우저가 열립니다. 도우미를 시작할 수 없는 경우(바이너리 누락, 포트 사용 중) 고급을 활성화하고 수동"
+" 코드 방법을 사용하십시오."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 #: ../contents/ui/config/ConfigICal.qml
@@ -1021,7 +1218,7 @@ msgstr "달력"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which calendars to show."
-msgstr "Choose which calendars to show."
+msgstr "표시할 캘린더를 선택하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Tasks"
@@ -1029,67 +1226,68 @@ msgstr "할 일"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Choose which task lists to show."
-msgstr "Choose which task lists to show."
+msgstr "표시할 작업 목록을 선택하세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Options"
 msgstr "옵션"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Event click:"
-msgstr "Event click:"
+msgstr "이벤트 클릭:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Open web event view"
-msgstr "Open web event view"
+msgstr "웹에서 이벤트 표시"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Open web month view"
-msgstr "Open web month view"
+msgstr "웹에서 월 표시"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Hide the “Goals in Google Calendar” description"
-msgstr "Hide the “Goals in Google Calendar” description"
+msgstr "\"Google 캘린더의 목표에서 추가됨\" 설명 숨기기"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "By default, the widget uses built-in OAuth credentials. Custom credentials "
 "are for developers only."
-msgstr ""
-"By default, the widget uses built-in OAuth credentials. Custom credentials "
-"are for developers only."
+msgstr "기본적으로 위젯은 내장된 OAuth 자격 증명을 사용합니다. 사용자 정의 자격 증명은 개발자 전용입니다."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client ID:"
-msgstr "Client ID:"
+msgstr "클라이언트 ID:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
+#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "프리셋:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client secret:"
-msgstr "Client secret:"
+msgstr "클라이언트 비밀번호:"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Use manual code flow"
-msgstr "Use manual code flow"
+msgstr "수동 코드 흐름 사용"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid ""
 "If the browser shows a connection error after you approve access, copy the "
 "full URL (or just the “code” parameter) and paste it below."
-msgstr ""
-"If the browser shows a connection error after you approve access, copy the "
-"full URL (or just the “code” parameter) and paste it below."
+msgstr "액세스를 승인한 후 브라우저에 연결 오류가 표시되면 전체 URL(또는 '코드' 매개변수만)을 복사하여 아래에 붙여넣으세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open <a href=\"%1\">Google login</a> in your browser."
-msgstr "Open <a href=\"%1\">Google login</a> in your browser."
+msgstr "브라우저에서 <a href=\"%1\">Google 로그인</a>을 엽니다."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Paste redirected URL or code here"
-msgstr "Paste redirected URL or code here"
+msgstr "여기에 리디렉션된 URL 또는 코드를 붙여넣으세요."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Submit"
@@ -1097,37 +1295,40 @@ msgstr "제출"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Please paste a URL or authorization code."
-msgstr "Please paste a URL or authorization code."
+msgstr "URL이나 인증코드를 붙여넣으세요."
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
-msgstr ""
-"Add local or remote .ics calendars. Changes are applied when you click Apply."
+"Add local or remote .ics calendars. Changes are applied when you click "
+"Apply."
+msgstr "로컬 또는 원격 .ics 달력을 추가합니다. 적용을 클릭하면 변경 사항이 적용됩니다."
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Add"
-msgstr "Add"
+msgstr "ddd"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "New"
-msgstr "New"
+msgstr "새로운"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Calendar name"
-msgstr "Calendar name"
+msgstr "달력 이름"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Remove"
-msgstr "Remove"
+msgstr "제거하다"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Path or URL to .ics file"
-msgstr "Path or URL to .ics file"
+msgstr ".ics 파일의 경로 또는 URL"
 
 #: ../contents/ui/config/ConfigICal.qml
+#, fuzzy
 msgid "Browse…"
-msgstr "Browse…"
+msgstr "찾기"
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "iCalendar (*.ics)"
@@ -1135,27 +1336,29 @@ msgstr "iCalendar (*.ics)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Choose how the agenda and calendar are arranged in the popup."
-msgstr "Choose how the agenda and calendar are arranged in the popup."
+msgstr "팝업에서 의제와 캘린더가 정렬되는 방식을 선택합니다."
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Show advanced sizing"
-msgstr "Show advanced sizing"
+msgstr "고급 사이즈 표시"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Two Columns"
-msgstr "Two Columns"
+msgstr "두 개의 열"
 
 #: ../contents/ui/config/ConfigLayout.qml
+#, fuzzy
 msgid "Agenda to the left of the calendar"
-msgstr "Agenda to the left of the calendar"
+msgstr "달력 옆에 일정 표시 (두 줄)"
 
 #: ../contents/ui/config/ConfigLayout.qml
 msgid "Single Column"
-msgstr "Single Column"
+msgstr "단일 열"
 
 #: ../contents/ui/config/ConfigLayout.qml
+#, fuzzy
 msgid "Agenda below the calendar"
-msgstr "Agenda below the calendar"
+msgstr "일정 밑에 달력 표시 (한 줄)"
 
 #: ../contents/ui/config/ConfigTimezones.qml
 msgid "Cannot deselect Local time from the tooltip"
@@ -1163,47 +1366,52 @@ msgstr "툴팁에서 지역 시간 선택을 해제할 수 없음"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Provider"
-msgstr "Provider"
+msgstr "공급자"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Service:"
-msgstr "Service:"
+msgstr "서비스:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Weather Canada"
-msgstr "Weather Canada"
+msgstr "날씨 아이콘"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Location"
-msgstr "Location"
+msgstr "위치 추가"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Place:"
-msgstr "Place:"
+msgstr "장소:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Search for a city"
-msgstr "Search for a city"
+msgstr "도시 검색"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Search…"
-msgstr "Search…"
+msgstr "검색"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show coordinates"
-msgstr "Show coordinates"
+msgstr "윤곽선 표시"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Latitude:"
-msgstr "Latitude:"
+msgstr "위도:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Longitude:"
-msgstr "Longitude:"
+msgstr "경도:"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "City ID:"
-msgstr "City ID:"
+msgstr "도시 ID:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Eg: on-14"
@@ -1211,15 +1419,16 @@ msgstr "예: on-14"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Find…"
-msgstr "Find…"
+msgstr "찾다…"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Units"
-msgstr "Units"
+msgstr "단위:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Temperature:"
-msgstr "Temperature:"
+msgstr "온도:"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Celsius"
@@ -1234,21 +1443,24 @@ msgid "Kelvin"
 msgstr "절대온도"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Show next:"
-msgstr "Show next:"
+msgstr "옆에 표시 "
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] "hour"
+msgstr[0] " 시간"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Update"
-msgstr "Update"
+msgstr "업데이트"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Update forecast every:"
-msgstr "Update forecast every:"
+msgstr "날씨 업데이트 주기: "
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Text"
@@ -1259,12 +1471,14 @@ msgid "Grid"
 msgstr "격자"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Positive temp"
-msgstr "Positive temp"
+msgstr "영상"
 
 #: ../contents/ui/config/ConfigWeather.qml
+#, fuzzy
 msgid "Negative temp"
-msgstr "Negative temp"
+msgstr "영하"
 
 #: ../contents/ui/config/ConfigWeather.qml
 msgid "Icons"
@@ -1272,28 +1486,30 @@ msgstr "아이콘"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Error parsing /token data as JSON"
-msgstr "Error parsing /token data as JSON"
+msgstr "/token 데이터를 JSON으로 구문 분석하는 중 오류가 발생했습니다."
 
 #: ../contents/ui/config/GoogleLoginManager.qml
+#, fuzzy
 msgid "Failed to fetch Google calendars"
-msgstr "Failed to fetch Google calendars"
+msgstr "Google 캘린더랑 동기화"
 
 #: ../contents/ui/config/GoogleLoginManager.qml
 msgid "Failed to fetch Google task lists"
-msgstr "Failed to fetch Google task lists"
+msgstr "Google 작업 목록을 가져오지 못했습니다."
 
 #: ../contents/ui/config/HeaderText.qml
 msgid "Heading"
-msgstr "Heading"
+msgstr "표제"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
+#, fuzzy
 msgid "Select location"
-msgstr "Select location"
+msgstr "도시 선택"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
 #: ../contents/ui/config/WeatherCanadaCityDialog.qml
 msgid "Fetched from <a href=\"%1\">%1</a>"
-msgstr "Fetched from <a href=\"%1\">%1</a>"
+msgstr "<a href=\"%1\">%1</a>에서 가져옴"
 
 #: ../contents/ui/config/OpenMeteoLocationDialog.qml
 #: ../contents/ui/config/WeatherCanadaCityDialog.qml
@@ -1314,47 +1530,46 @@ msgstr "<b>버전:</b> %1"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "true"
-msgstr "true"
+msgstr "진실"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "false"
-msgstr "false"
+msgstr "거짓"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid ""
 "Developer page: inspect raw configuration keys and values. Changes are "
 "applied when you click Apply."
-msgstr ""
-"Developer page: inspect raw configuration keys and values. Changes are "
-"applied when you click Apply."
+msgstr "개발자 페이지: 원시 구성 키와 값을 검사합니다. 적용을 클릭하면 변경 사항이 적용됩니다."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Disable Mock Precipitation"
-msgstr "Disable Mock Precipitation"
+msgstr "모의 강수 비활성화"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Mock Precipitation"
-msgstr "Enable Mock Precipitation"
+msgstr "모의 강수 활성화"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Enable Debug mode in General to use mock precipitation controls."
-msgstr "Enable Debug mode in General to use mock precipitation controls."
+msgstr "모의 강수량 제어를 사용하려면 일반에서 디버그 모드를 활성화하세요."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is ON (meteogram only)."
-msgstr "Mock precipitation is ON (meteogram only)."
+msgstr "모의 강수량이 켜져 있습니다(운성계만 해당)."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Mock precipitation is OFF."
-msgstr "Mock precipitation is OFF."
+msgstr "모의 강수는 OFF입니다."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
+#, fuzzy
 msgid "Refresh Keys"
-msgstr "Refresh Keys"
+msgstr "새로고침"
 
 #: ../contents/ui/lib/ConfigColor.qml
 msgid "Label"
-msgstr "Label"
+msgstr "상표"
 
 #: ../contents/ui/lib/ConfigFontFamily.qml
 msgctxt "Use default font"
@@ -1377,142 +1592,125 @@ msgstr "소리 파일 (%1)"
 msgid "All files (%1)"
 msgstr "모든 파일 (%1)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Clear sky"
-msgstr "Clear sky"
+#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
+#~ msgstr " (0픽셀 = <b>시스템 설정 > 글꼴 > 일반</b>)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Mainly clear"
-msgstr "Mainly clear"
+#~ msgid "Icon Outline"
+#~ msgstr "아이콘 윤곽선"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Partly cloudy"
-msgstr "Partly cloudy"
+#~ msgid "Position:"
+#~ msgstr "위치:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Overcast"
-msgstr "Overcast"
+#~ msgid "Open New Event In Browser"
+#~ msgstr "브라우저에서 새 이벤트 열기"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Fog"
-msgstr "Fog"
+#~ msgid "Current Month"
+#~ msgstr "이번 달"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Depositing rime fog"
-msgstr "Depositing rime fog"
+#~ msgid "Style"
+#~ msgstr "스타일"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light drizzle"
-msgstr "Light drizzle"
+#~ msgid "Event Badge:"
+#~ msgstr "이벤트 배지:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate drizzle"
-msgstr "Moderate drizzle"
+#~ msgid "Radius:"
+#~ msgstr "반지름:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense drizzle"
-msgstr "Dense drizzle"
+#~ msgid "Selected:"
+#~ msgstr "선택됨:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing drizzle"
-msgstr "Light freezing drizzle"
+#~ msgid "Solid Color (Highlight)"
+#~ msgstr "단색 (강조)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Dense freezing drizzle"
-msgstr "Dense freezing drizzle"
+#~ msgid "Event Calendar Plugins"
+#~ msgstr "이벤트 달력 플러그인"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain"
-msgstr "Slight rain"
+#~ msgid "Misc"
+#~ msgstr "그 외"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain"
-msgstr "Moderate rain"
+#~ msgid ""
+#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
+#~ "respective tabs."
+#~ msgstr "달력 밑에 위젯을 표시하거나 숨깁니다."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy rain"
-msgstr "Heavy rain"
+#~ msgid "Time Format"
+#~ msgstr "시간 형식"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Light freezing rain"
-msgstr "Light freezing rain"
+#~ msgid ""
+#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
+#~ "with small text. Try using the Sans Serif font if you find the text too "
+#~ "small when adding a second line."
+#~ msgstr ""
+#~ "Breeze의 기본 글꼴인 Noto Sans는 작은 글씨에서 읽기 힘듭니다. 줄 바꿈 시 텍스트가 너무 작다고 느껴지면 산 세리프를 "
+#~ "사용해보십시오."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy freezing rain"
-msgstr "Heavy freezing rain"
+#~ msgid "Bold"
+#~ msgstr "굵게"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow fall"
-msgstr "Slight snow fall"
+#~ msgid "Height:"
+#~ msgstr "높이:"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate snow fall"
-msgstr "Moderate snow fall"
+#~ msgid "Run Commands"
+#~ msgstr "명령 실행"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow fall"
-msgstr "Heavy snow fall"
+#~ msgid "Currently Synched."
+#~ msgstr "동기화되었습니다."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Snow grains"
-msgstr "Snow grains"
+#~ msgid ""
+#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login and"
+#~ " give permission to access your calendar, it will give you a code to paste "
+#~ "below."
+#~ msgstr ""
+#~ "<a href=\"%1\">%2</a>으로 가십시오 (웹 브라우저에서 열림). 로그인 후 달력 접근 권한을 부여하시면 이곳으로 복사할 "
+#~ "코드가 주어집니다."
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight rain showers"
-msgstr "Slight rain showers"
+#~ msgid "Copy Link"
+#~ msgstr "링크 복사"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Moderate rain showers"
-msgstr "Moderate rain showers"
+#~ msgid "Enter code here (Eg: %1)"
+#~ msgstr "코드 입력 (예: %1)"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Violent rain showers"
-msgstr "Violent rain showers"
+#~ msgid "Invalid Google Authorization Code"
+#~ msgstr "잘못된 Google 인증 코드"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Slight snow showers"
-msgstr "Slight snow showers"
+#~ msgid "Add Calendar"
+#~ msgstr "달력 추가"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Heavy snow showers"
-msgstr "Heavy snow showers"
+#~ msgid "New Calendar"
+#~ msgstr "새 달력"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm"
-msgstr "Thunderstorm"
+#~ msgid "Tooltip"
+#~ msgstr "툴팁"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with slight hail"
-msgstr "Thunderstorm with slight hail"
+#~ msgid "Data"
+#~ msgstr "데이터"
 
-#: ../contents/ui/MeteogramView.qml
-msgctxt "weather condition"
-msgid "Thunderstorm with heavy hail"
-msgstr "Thunderstorm with heavy hail"
+#~ msgid "API App Id:"
+#~ msgstr "API 앱 ID:"
+
+#~ msgid "Eg: 5983720"
+#~ msgstr "예: 5983720"
+
+#~ msgid "Find City"
+#~ msgstr "도시 찾기"
+
+#~ msgid "Settings"
+#~ msgstr "설정"
+
+#~ msgid " in the meteogram."
+#~ msgstr " 천문 현상에서 표시됨."
+
+#~ msgid "Name"
+#~ msgstr "이름"
+
+#~ msgid "Id"
+#~ msgstr "ID"
+
+#~ msgid "City Webpage"
+#~ msgstr "도시 웹페이지"
+
+#~ msgid "Set Language…"
+#~ msgstr "언어 설정…"
+
+#~ msgid "Set Locale…"
+#~ msgstr "지역 설정…"
