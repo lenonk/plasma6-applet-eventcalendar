@@ -33,33 +33,36 @@ int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("eventcalendar-google-oauth"));
+    auto tr = [](const char *sourceText) {
+        return QCoreApplication::translate("eventcalendar_google_oauth", sourceText);
+    };
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QStringLiteral("Event Calendar Google OAuth helper"));
+    parser.setApplicationDescription(tr("Event Calendar Google OAuth helper"));
     parser.addHelpOption();
 
     const QCommandLineOption clientIdOpt(
         {QStringLiteral("i"), QStringLiteral("client-id")},
-        QStringLiteral("OAuth client ID"),
+        tr("OAuth client ID"),
         QStringLiteral("client_id"));
     const QCommandLineOption clientSecretOpt(
         {QStringLiteral("s"), QStringLiteral("client-secret")},
-        QStringLiteral("OAuth client secret (optional for PKCE public clients)"),
+        tr("OAuth client secret (optional for PKCE public clients)"),
         QStringLiteral("client_secret"),
         QString());
     const QCommandLineOption portOpt(
         {QStringLiteral("p"), QStringLiteral("port")},
-        QStringLiteral("Loopback port (default: 8400)"),
+        tr("Loopback port (default: 8400)"),
         QStringLiteral("port"),
         QStringLiteral("8400"));
     const QCommandLineOption scopesOpt(
         {QStringLiteral("scope"), QStringLiteral("scopes")},
-        QStringLiteral("Space-separated OAuth scopes"),
+        tr("Space-separated OAuth scopes"),
         QStringLiteral("scopes"),
         QStringLiteral("https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/tasks"));
     const QCommandLineOption timeoutOpt(
         {QStringLiteral("t"), QStringLiteral("timeout")},
-        QStringLiteral("Timeout in seconds (default: 300)"),
+        tr("Timeout in seconds (default: 300)"),
         QStringLiteral("seconds"),
         QStringLiteral("300"));
 
@@ -88,7 +91,7 @@ int main(int argc, char **argv)
     const QString scopes = parser.value(scopesOpt).trimmed();
 
     if (clientId.isEmpty()) {
-        printErrLine(QStringLiteral("Missing required argument: --client-id"));
+        printErrLine(tr("Missing required argument: --client-id"));
         return 2;
     }
 
@@ -99,20 +102,23 @@ int main(int argc, char **argv)
     replyHandler->setCallbackText(QStringLiteral(
         "<!doctype html>"
         "<html><head><meta charset=\"utf-8\">"
-        "<title>Event Calendar</title>"
+        "<title>%1</title>"
         "<style>"
         "body{font-family:sans-serif;margin:2rem;max-width:48rem;}"
         "code{background:#f2f2f2;padding:.1rem .25rem;border-radius:.2rem;}"
         "</style></head>"
         "<body>"
-        "<h2>Login complete</h2>"
-        "<p>You can close this window and return to the Event Calendar widget configuration.</p>"
-        "</body></html>"));
+        "<h2>%2</h2>"
+        "<p>%3</p>"
+        "</body></html>")
+        .arg(tr("Event Calendar"))
+        .arg(tr("Login complete"))
+        .arg(tr("You can close this window and return to the Event Calendar widget configuration.")));
 
     if (!replyHandler->isListening()) {
         if (!replyHandler->listen(QHostAddress(QStringLiteral("127.0.0.1")),
                                   static_cast<quint16>(port))) {
-            printErrLine(QStringLiteral("Failed to listen on http://127.0.0.1:%1/ (port in use?)")
+            printErrLine(tr("Failed to listen on http://127.0.0.1:%1/ (port in use?)")
                              .arg(port));
             return 3;
         }
@@ -144,14 +150,14 @@ int main(int argc, char **argv)
                          const bool started = QProcess::startDetached(QStringLiteral("xdg-open"),
                                                                       {url.toString()});
                          if (!started) {
-                             printErrLine(QStringLiteral("Failed to open web browser via xdg-open."));
+                             printErrLine(tr("Failed to open web browser via xdg-open."));
                              app.exit(5);
                          }
                      });
 
     QObject::connect(&oauth, &QAbstractOAuth::requestFailed, &app,
                      [&](QAbstractOAuth::Error error) {
-                         printErrLine(QStringLiteral("OAuth failed (requestFailed=%1).")
+                         printErrLine(tr("OAuth failed (requestFailed=%1).")
                                           .arg(static_cast<int>(error)));
                          app.exit(1);
                      });
@@ -192,7 +198,7 @@ int main(int argc, char **argv)
     QTimer timeout;
     timeout.setSingleShot(true);
     QObject::connect(&timeout, &QTimer::timeout, &app, [&]() {
-        printErrLine(QStringLiteral("OAuth timed out after %1 seconds.").arg(timeoutSec));
+        printErrLine(tr("OAuth timed out after %1 seconds.").arg(timeoutSec));
         app.exit(4);
     });
     timeout.start(timeoutSec * 1000);

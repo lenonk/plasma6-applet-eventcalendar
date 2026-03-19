@@ -95,7 +95,7 @@ RowLayout {
 
 	Label {
 		id: label
-		text: "Label"
+		text: i18n("Label")
 		Layout.preferredWidth: configColor.labelWidth
 		Layout.minimumWidth: configColor.labelWidth
 		horizontalAlignment: Text.AlignRight

@@ -56,6 +56,45 @@ ConfigPage {
 		statusMessage.visible = !!text
 	}
 
+	function localizedErrorMessage(text) {
+		var msg = ("" + (text || "")).trim()
+		if (!msg) {
+			return ""
+		}
+
+		if (msg === "Error parsing /token data as JSON") {
+			return i18n("Google login failed (invalid response).")
+		}
+		if (msg === "fetchGCalCalendars error" || msg === "fetchGoogleTasklistList error") {
+			return i18n("Google API request failed.")
+		}
+		if (msg === "Missing required argument: --client-id") {
+			return i18n("Missing required argument: --client-id")
+		}
+		if (msg === "Failed to open web browser via xdg-open.") {
+			return i18n("Failed to open web browser via xdg-open.")
+		}
+
+		var m = /^OAuth failed \(requestFailed=(\d+)\)\.$/.exec(msg)
+		if (m) {
+			return i18n("OAuth failed (requestFailed=%1).", m[1])
+		}
+		m = /^OAuth timed out after (\d+) seconds\.$/.exec(msg)
+		if (m) {
+			return i18n("OAuth timed out after %1 seconds.", m[1])
+		}
+		m = /^Failed to listen on http:\/\/127\.0\.0\.1:(\d+)\/ \(port in use\?\)$/.exec(msg)
+		if (m) {
+			return i18n("Failed to listen on http://127.0.0.1:%1/ (port in use?)", m[1])
+		}
+		m = /^HTTP Error (\d+)$/.exec(msg)
+		if (m) {
+			return i18n("HTTP Error %1", m[1])
+		}
+
+		return msg
+	}
+
 	function updateCalendarIdListFromModel() {
 		var ids = []
 		for (var i = 0; i < calendarsModel.count; i++) {
@@ -157,7 +196,7 @@ ConfigPage {
 
 			if (exitCode !== 0) {
 				var msg = ("" + (stderr || stdout || "")).trim()
-				showStatus(msg || i18n("Google login failed."), Kirigami.MessageType.Error)
+				showStatus(page.localizedErrorMessage(msg) || i18n("Google login failed."), Kirigami.MessageType.Error)
 				return
 			}
 
@@ -185,7 +224,7 @@ ConfigPage {
 	GoogleLoginManager {
 		id: googleLoginManager
 
-		onError: showStatus(err, Kirigami.MessageType.Error)
+		onError: showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error)
 		onCalendarListChanged: rebuildCalendarsModel()
 		onTasklistListChanged: rebuildTasklistsModel()
 		onCalendarIdListChanged: rebuildCalendarsModel()

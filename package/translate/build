@@ -66,13 +66,13 @@ catalogs=`find . -name '*.po' | sort`
 for cat in $catalogs; do
 	catLocale=`basename ${cat%.*}`
 	moFilename="${catLocale}.mo"
-	installPath="${packageRoot}/contents/locale/${catLocale}/LC_MESSAGES/${projectName}.mo"
-	installPath=`realpath -- "$installPath"`
+	installDir="${packageRoot}/contents/locale/${catLocale}/LC_MESSAGES"
+	mkdir -p "$installDir"
+	installPath="${installDir}/${projectName}.mo"
 	relativeInstallPath=`relativePath "${packageRoot}" "${installPath}"`
 	relativeInstallPath="${relativeInstallPath#/*}"
 	echoGray "[translate/build] Converting '${cat}' => '${relativeInstallPath}'"
 	msgfmt -o "${moFilename}" "${cat}"
-	mkdir -p "$(dirname "$installPath")"
 	mv "${moFilename}" "${installPath}"
 done
 

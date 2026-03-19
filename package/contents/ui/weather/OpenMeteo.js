@@ -48,10 +48,11 @@ function openCityUrl(config) {
 
 function parseIsoLocal(s) {
 	if (!s) return null
-	var m = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(s)
+	// Parse ISO8601 with optional timezone suffix (Z or ±HH:MM) explicitly.
+	// QML JS engines can differ in Date(string) behavior, so avoid ambiguity.
+	var m = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2}))?)?(?:\.(\d+))?(Z|[+\-]\d{2}:?\d{2})?$/.exec(s)
 	if (!m) {
-		var d = new Date(s)
-		return isNaN(d) ? null : d
+		return null
 	}
 	var year = parseInt(m[1], 10)
 	var month = parseInt(m[2], 10) - 1
@@ -59,7 +60,24 @@ function parseIsoLocal(s) {
 	var hour = m[4] ? parseInt(m[4], 10) : 0
 	var minute = m[5] ? parseInt(m[5], 10) : 0
 	var second = m[6] ? parseInt(m[6], 10) : 0
-	return new Date(year, month, day, hour, minute, second)
+	var millisecond = m[7] ? parseInt((m[7] + "000").slice(0, 3), 10) : 0
+	var tz = m[8] || ""
+
+	if (!tz) {
+		// No offset means local wall-clock time.
+		return new Date(year, month, day, hour, minute, second, millisecond)
+	}
+
+	// Build UTC milliseconds then apply the explicit offset.
+	var utcMs = Date.UTC(year, month, day, hour, minute, second, millisecond)
+	if (tz !== "Z") {
+		var sign = tz[0] === "-" ? -1 : 1
+		var tzHour = parseInt(tz.substr(1, 2), 10)
+		var tzMin = parseInt(tz.substr(tz.length - 2, 2), 10)
+		var offsetMinutes = sign * (tzHour * 60 + tzMin)
+		utcMs -= offsetMinutes * 60 * 1000
+	}
+	return new Date(utcMs)
 }
 
 function toKelvin(celsius) {
@@ -76,34 +94,34 @@ function mapTemp(config, temp) {
 }
 
 var weatherCodeMap = {
-	0:  { iconName: "weather-clear",              text: "Clear",         description: "Clear sky" },
-	1:  { iconName: "weather-clear",              text: "Mostly Clear",  description: "Mainly clear" },
-	2:  { iconName: "weather-few-clouds",         text: "Partly Cloudy", description: "Partly cloudy" },
-	3:  { iconName: "weather-overcast",           text: "Overcast",      description: "Overcast" },
-	45: { iconName: "weather-fog",                text: "Fog",           description: "Fog" },
-	48: { iconName: "weather-fog",                text: "Fog",           description: "Depositing rime fog" },
-	51: { iconName: "weather-showers-scattered",  text: "Drizzle",       description: "Light drizzle" },
-	53: { iconName: "weather-showers-scattered",  text: "Drizzle",       description: "Moderate drizzle" },
-	55: { iconName: "weather-showers",            text: "Drizzle",       description: "Dense drizzle" },
+	0:  { iconName: "weather-clear",              text: "Clear",            description: "Clear sky" },
+	1:  { iconName: "weather-clear",              text: "Mostly Clear",     description: "Mainly clear" },
+	2:  { iconName: "weather-few-clouds",         text: "Partly Cloudy",    description: "Partly cloudy" },
+	3:  { iconName: "weather-overcast",           text: "Overcast",         description: "Overcast" },
+	45: { iconName: "weather-fog",                text: "Fog",              description: "Fog" },
+	48: { iconName: "weather-fog",                text: "Fog",              description: "Depositing rime fog" },
+	51: { iconName: "weather-showers-scattered",  text: "Drizzle",          description: "Light drizzle" },
+	53: { iconName: "weather-showers-scattered",  text: "Drizzle",          description: "Moderate drizzle" },
+	55: { iconName: "weather-showers",            text: "Drizzle",          description: "Dense drizzle" },
 	56: { iconName: "weather-freezing-rain",      text: "Freezing Drizzle", description: "Light freezing drizzle" },
 	57: { iconName: "weather-freezing-rain",      text: "Freezing Drizzle", description: "Dense freezing drizzle" },
-	61: { iconName: "weather-showers",            text: "Rain",          description: "Slight rain" },
-	63: { iconName: "weather-showers",            text: "Rain",          description: "Moderate rain" },
-	65: { iconName: "weather-showers",            text: "Rain",          description: "Heavy rain" },
-	66: { iconName: "weather-freezing-rain",      text: "Freezing Rain", description: "Light freezing rain" },
-	67: { iconName: "weather-freezing-rain",      text: "Freezing Rain", description: "Heavy freezing rain" },
-	71: { iconName: "weather-snow",               text: "Snow",          description: "Slight snow fall" },
-	73: { iconName: "weather-snow",               text: "Snow",          description: "Moderate snow fall" },
-	75: { iconName: "weather-snow",               text: "Snow",          description: "Heavy snow fall" },
-	77: { iconName: "weather-snow",               text: "Snow",          description: "Snow grains" },
-	80: { iconName: "weather-showers-scattered",  text: "Showers",       description: "Slight rain showers" },
-	81: { iconName: "weather-showers",            text: "Showers",       description: "Moderate rain showers" },
-	82: { iconName: "weather-showers",            text: "Showers",       description: "Violent rain showers" },
-	85: { iconName: "weather-snow-scattered-day", text: "Snow Showers",  description: "Slight snow showers" },
-	86: { iconName: "weather-snow",               text: "Snow Showers",  description: "Heavy snow showers" },
-	95: { iconName: "weather-storm",              text: "Thunderstorm",  description: "Thunderstorm" },
-	96: { iconName: "weather-storm",              text: "Thunderstorm",  description: "Thunderstorm with slight hail" },
-	99: { iconName: "weather-storm",              text: "Thunderstorm",  description: "Thunderstorm with heavy hail" },
+	61: { iconName: "weather-showers",            text: "Rain",             description: "Slight rain" },
+	63: { iconName: "weather-showers",            text: "Rain",             description: "Moderate rain" },
+	65: { iconName: "weather-showers",            text: "Rain",             description: "Heavy rain" },
+	66: { iconName: "weather-freezing-rain",      text: "Freezing Rain",    description: "Light freezing rain" },
+	67: { iconName: "weather-freezing-rain",      text: "Freezing Rain",    description: "Heavy freezing rain" },
+	71: { iconName: "weather-snow",               text: "Snow",             description: "Slight snow fall" },
+	73: { iconName: "weather-snow",               text: "Snow",             description: "Moderate snow fall" },
+	75: { iconName: "weather-snow",               text: "Snow",             description: "Heavy snow fall" },
+	77: { iconName: "weather-snow",               text: "Snow",             description: "Snow grains" },
+	80: { iconName: "weather-showers-scattered",  text: "Showers",          description: "Slight rain showers" },
+	81: { iconName: "weather-showers",            text: "Showers",          description: "Moderate rain showers" },
+	82: { iconName: "weather-showers",            text: "Showers",          description: "Violent rain showers" },
+	85: { iconName: "weather-snow-scattered-day", text: "Snow Showers",     description: "Slight snow showers" },
+	86: { iconName: "weather-snow",               text: "Snow Showers",     description: "Heavy snow showers" },
+	95: { iconName: "weather-storm",              text: "Thunderstorm",     description: "Thunderstorm" },
+	96: { iconName: "weather-storm",              text: "Thunderstorm",     description: "Thunderstorm with slight hail" },
+	99: { iconName: "weather-storm",              text: "Thunderstorm",     description: "Thunderstorm with heavy hail" },
 }
 
 function codeToInfo(code) {
@@ -199,6 +217,12 @@ function updateDailyWeather(config, callback) {
 			var codes = hourly.weather_code || []
 
 			var list = []
+			if (config && config.debugging) {
+				console.log("[eventcalendar] OpenMeteo.hourly timezone=", data && data.timezone,
+					"utc_offset_seconds=", data && data.utc_offset_seconds,
+					"first_time=", times.length ? times[0] : "",
+					"now_iso=", new Date(now).toISOString())
+			}
 			for (var i = 0; i < times.length; i++) {
 				var d = parseIsoLocal(times[i])
 				if (!d) continue

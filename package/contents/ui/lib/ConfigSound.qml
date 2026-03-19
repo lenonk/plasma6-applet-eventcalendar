@@ -17,7 +17,10 @@ RowLayout {
 	property alias sfxPathDefaultValue: sfxPath.defaultValue
 
 	function stripQuotes(str) {
-		return ("" + str).replace(/["']/g, "")
+		var s = "" + str
+		s = s.split("\"").join("")
+		s = s.split("'").join("")
+		return s
 	}
 
 	function urlToLocalPath(url) {
@@ -32,7 +35,7 @@ RowLayout {
 
 	function shellQuote(token) {
 		token = "" + token
-		token = token.replace(/'/g, "'\"'\"'")
+		token = token.replace(/\x27/g, "'\"'\"'")
 		return "'" + token + "'"
 	}
 

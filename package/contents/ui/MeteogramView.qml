@@ -147,7 +147,12 @@ Item {
 				var pointHours = Math.max(1, meteogramView.displayBucketHours || meteogramView.dataPointHours || 1)
 				var iconIntervalPoints = Math.max(1, Math.round(3 / pointHours))
 				var aggregationWindow = Math.max(0, Math.floor(iconIntervalPoints / 2))
-				// Skip the first gridItem since it's area starts at the edge of the grid.
+				if (gridData.length < 2) {
+					gridDataAreas.model = areas
+					return
+				}
+
+				// Keep original geometry/cadence and only remap intervals to the correct data point.
 				for (var i = 1; i < gridData.length; i++) {
 					var a = graph.gridPoint(i-2, graph.yAxisMin)
 					var b = graph.gridPoint(i-1, graph.yAxisMin)
@@ -157,11 +162,14 @@ Item {
 					area.areaY = a.y
 					area.areaWidth = b.x - a.x
 					area.areaHeight = graph.gridHeight
-					// console.log(JSON.stringify(area))
-					area.gridItem = gridData[i]
+					area.gridItem = gridData[areaIndex]
 					area.showIcon = (areaIndex % iconIntervalPoints) === 0
 					if (area.showIcon) {
-						area.aggregratedIcon = getAggregatedIcon(gridData, i - aggregationWindow, i + aggregationWindow)
+						area.aggregratedIcon = getAggregatedIcon(
+							gridData,
+							areaIndex - aggregationWindow,
+							areaIndex + aggregationWindow
+						)
 					} else {
 						area.aggregratedIcon = area.gridItem.weatherIcon
 					}

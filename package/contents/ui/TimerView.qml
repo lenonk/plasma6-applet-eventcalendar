@@ -109,7 +109,7 @@ Item {
 
 				PlasmaComponents3.ToolButton {
 					id: sizingButton
-					text: "Test"
+					text: i18n("Test")
 					visible: false
 				}
 				

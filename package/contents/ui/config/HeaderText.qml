@@ -5,7 +5,7 @@ import org.kde.kirigami as Kirigami
 
 PlasmaExtras.Heading {
 	id: heading
-	text: "Heading"
+	text: i18n("Heading")
 	level: 2
 	color: Kirigami.Theme.textColor
 	Layout.fillWidth: true

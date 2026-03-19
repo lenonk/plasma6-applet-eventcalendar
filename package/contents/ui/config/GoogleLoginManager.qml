@@ -169,7 +169,7 @@ Item {
 			try {
 				data = JSON.parse(data)
 			} catch (e) {
-				handleError('Error parsing /token data as JSON', null)
+				handleError(i18n("Error parsing /token data as JSON"), null)
 				return
 			}
 			if (data && data.error) {
@@ -228,7 +228,7 @@ Item {
 		}, function(err, data, xhr) {
 			// console.log('fetchGCalCalendars.response', err, data, xhr && xhr.status)
 			if (!err && data && data.error) {
-				return callback('fetchGCalCalendars error', data, xhr)
+				return callback(i18n("Failed to fetch Google calendars"), data, xhr)
 			}
 			logger.debugJSON('fetchGCalCalendars.response.data', data)
 			callback(err, data, xhr)
@@ -260,7 +260,7 @@ Item {
 		}, function(err, data, xhr) {
 			console.log('fetchGoogleTasklistList.response', err, data, xhr && xhr.status)
 			if (!err && data && data.error) {
-				return callback('fetchGoogleTasklistList error', data, xhr)
+				return callback(i18n("Failed to fetch Google task lists"), data, xhr)
 			}
 			logger.debugJSON('fetchGoogleTasklistList.response.data', data)
 			callback(err, data, xhr)

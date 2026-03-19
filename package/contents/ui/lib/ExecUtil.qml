@@ -34,7 +34,7 @@ import org.kde.plasma.plasma5support as Plasma5Support
 	function wrapToken(token) {
 		token = "" + token
 		// ' => '"'"' to escape the single quotes
-		token = token.replace(/\'/g, "\'\"\'\"\'")
+		token = token.replace(/\x27/g, "\x27\"\x27\"\x27")
 		token = "\'" + token + "\'"
 		return token
 	}
@@ -46,11 +46,11 @@ import org.kde.plasma.plasma5support as Plasma5Support
 		// Remove NULL (0x00), Ctrl+C (0x03), Ctrl+D (0x04) block of characters
 		// Remove quotes ("" and '')
 		// Remove DEL
-		return str.replace(/[\x00-\x1F\'\"\x7F]/g, '')
+		return str.replace(/[\x00-\x1F\x22\x27\x7F]/g, '')
 	}
 
 		function stripQuotes(str) {
-			return str.replace(/[\'\"]/g, '')
+			return str.replace(/[\x22\x27]/g, '')
 		}
 
 		function urlToLocalPath(url) {

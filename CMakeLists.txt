@@ -17,6 +17,7 @@ find_package(Plasma REQUIRED)
 
 set(EVENTCALENDAR_PLASMOID_ID org.kde.plasma.eventcalendar)
 set(EVENTCALENDAR_PACKAGE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/package)
+set(EVENTCALENDAR_I18N_DOMAIN plasma_applet_${EVENTCALENDAR_PLASMOID_ID})
 
 if(NOT EXISTS "${EVENTCALENDAR_PACKAGE_DIR}/metadata.json")
 	message(FATAL_ERROR "Missing package/metadata.json")
@@ -45,3 +46,42 @@ set_target_properties(eventcalendar-google-oauth PROPERTIES
 install(TARGETS eventcalendar-google-oauth
 	RUNTIME DESTINATION "${KDE_INSTALL_DATADIR}/plasma/plasmoids/${EVENTCALENDAR_PLASMOID_ID}/contents/bin"
 )
+
+option(EVENTCALENDAR_ENABLE_TRANSLATIONS "Build and install widget translation catalogs" ON)
+if(EVENTCALENDAR_ENABLE_TRANSLATIONS)
+	find_program(MSGFMT_EXECUTABLE msgfmt)
+	if(NOT MSGFMT_EXECUTABLE)
+		message(FATAL_ERROR
+			"msgfmt not found. Install gettext or configure with "
+			"-DEVENTCALENDAR_ENABLE_TRANSLATIONS=OFF")
+	endif()
+
+	file(GLOB EVENTCALENDAR_PO_FILES
+		"${EVENTCALENDAR_PACKAGE_DIR}/translate/*.po"
+	)
+
+	set(EVENTCALENDAR_MO_OUTPUTS)
+	foreach(PO_FILE IN LISTS EVENTCALENDAR_PO_FILES)
+		get_filename_component(LOCALE_CODE "${PO_FILE}" NAME_WE)
+		set(MO_FILE
+			"${CMAKE_CURRENT_BINARY_DIR}/locale/${LOCALE_CODE}/LC_MESSAGES/${EVENTCALENDAR_I18N_DOMAIN}.mo"
+		)
+		get_filename_component(MO_DIR "${MO_FILE}" DIRECTORY)
+
+		add_custom_command(
+			OUTPUT "${MO_FILE}"
+			COMMAND "${CMAKE_COMMAND}" -E make_directory "${MO_DIR}"
+			COMMAND "${MSGFMT_EXECUTABLE}" -o "${MO_FILE}" "${PO_FILE}"
+			DEPENDS "${PO_FILE}"
+			VERBATIM
+		)
+		list(APPEND EVENTCALENDAR_MO_OUTPUTS "${MO_FILE}")
+
+		install(
+			FILES "${MO_FILE}"
+			DESTINATION "${KDE_INSTALL_DATADIR}/plasma/plasmoids/${EVENTCALENDAR_PLASMOID_ID}/contents/locale/${LOCALE_CODE}/LC_MESSAGES"
+		)
+	endforeach()
+
+	add_custom_target(eventcalendar-translations ALL DEPENDS ${EVENTCALENDAR_MO_OUTPUTS})
+endif()

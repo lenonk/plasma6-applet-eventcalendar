@@ -63,7 +63,7 @@ function openCityUrl(config) {
 */
 function updateDailyWeather(config, callback) {
 	if (!weatherIsSetup(config)) {
-		return callback('Weather configuration not setup')
+		return callback("Weather configuration not setup")
 	}
 	var weatherService = config.weatherService
 	if (weatherService == 'OpenMeteo') {
@@ -89,7 +89,7 @@ function updateDailyWeather(config, callback) {
 */
 function updateHourlyWeather(config, callback) {
 	if (!weatherIsSetup(config)) {
-		return callback('Weather configuration not setup')
+		return callback("Weather configuration not setup")
 	}
 	var weatherService = config.weatherService
 	if (weatherService == 'OpenMeteo') {
