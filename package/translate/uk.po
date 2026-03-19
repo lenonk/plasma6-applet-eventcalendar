@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2017-10-31 20:08+0200\n"
 "Last-Translator: Serhii Golovko <cappelikan@gmail.com>\n"
 "Language-Team: \n"
@@ -1380,281 +1380,142 @@ msgstr "Sound files (%1)"
 msgid "All files (%1)"
 msgstr "All files (%1)"
 
-#~ msgid "Weather Icon"
-#~ msgstr "Піктограма погоди"
-
-#~ msgid "Icon Outline"
-#~ msgstr "Значок контуру"
-
-#~ msgid "Weather Text"
-#~ msgstr "Текст погоди"
-
-#~ msgid "Click Weather:"
-#~ msgstr "Натисніть \"Погода\":"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "Відкрийте прогноз міста в браузері"
-
-#~ msgid "Click Date:"
-#~ msgstr "Натисніть Дата:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "Відкрийте нову подію в браузері"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "Відкрийте форму нової події"
-
-#~ msgid "Click Event:"
-#~ msgstr "Натисніть \"Подія\":"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "Відкрита подія в браузері"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "Показати події в декілька днів:"
-
-#~ msgid "On all days"
-#~ msgstr "На всі дні"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "Тільки на перший і поточний день"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "Запам'ятайте вибраний календар у формі нової події"
-
-#~ msgid "Current Month"
-#~ msgstr "Поточний місяць"
-
-#~ msgid "In Progress"
-#~ msgstr "В процесі"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "Перейдіть до події в Порядок денний"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "Дата Double-click:"
-
-#~ msgid "Style"
-#~ msgstr "Стиль"
-
-#~ msgid "Show Borders"
-#~ msgstr "Показати кордони"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "Показати номери тижня"
-
-#~ msgid "Event Badge:"
-#~ msgstr "Значок події:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "Точки (3 Максимум)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "Нижній бар (колір події)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "Нижня панель (виділити)"
-
-#~ msgid "Radius:"
-#~ msgstr "Радіус:"
-
-#~ msgid "Selected:"
-#~ msgstr "Вибрано:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "Solid Color (виділити)"
-
-#~ msgid "Today:"
-#~ msgstr "Сьогодні:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "Твердий колір (інвертований)"
-
-#~ msgid "Big Number"
-#~ msgstr "Велике число"
-
-#~ msgid "Misc"
-#~ msgstr "Різне"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "Оновити події щотижня:"
-
-#~ msgid "Event Starting"
-#~ msgstr "Початок події"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr ""
-#~ "Показати / сховати віджети над календарем. Перемкнути порядок денний / "
-#~ "календар у відповідних вкладках."
-
-#~ msgid "Time Format"
-#~ msgstr "Формат часу"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Шрифт за замовчуванням для теми Breeze - це Noto Sans, який важко читати "
-#~ "з невеликим текстом. Спробуйте використати шрифт Sans Serif, якщо ви "
-#~ "знайдете текст занадто малий при додаванні другої лінії."
-
-#~ msgid ""
-#~ "You can also use %1 or %2 to style a section. Note the single quotes "
-#~ "around the tags are used to bypass the time format."
-#~ msgstr ""
-#~ "Ви також можете використовувати %1 або %2, щоб створити розділ. Зауважте, "
-#~ "що окремі лапки навколо тегів використовуються для обходу формату часу."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "Виправлена ​​висота годинника:"
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0px = шкала відповідності)"
-
-#~ msgid "Preset:"
-#~ msgstr "Попереднє встановлення:"
-
-#~ msgid "Bold"
-#~ msgstr "Сміливий"
-
-#~ msgid "Height:"
-#~ msgstr "Висота:"
-
-#~ msgid "Run Commands"
-#~ msgstr "Запустити команди"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "Прокрутити вгору:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "Прокрутити вниз:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "Об'єм (без інтерфейсу) (amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "Гучність (інтерфейс користувача) (qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "Настільний віджет: Показувати фон"
-
-#~ msgid "Debugging will log sensitive information to:"
-#~ msgstr "Це буде записувати конфіденційну інформацію до:"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "Увімкнути налагодження"
-
-#~ msgid "Currently Synched."
-#~ msgstr "В даний час синхронізовано."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Синхронізувати з Календарем Google"
-
-#~ msgid "Add Calendar"
-#~ msgstr "Додати календар"
-
-#~ msgid "New Calendar"
-#~ msgstr "Новий календар"
-
-#~ msgid "Calendar Label"
-#~ msgstr "Мітка календаря"
-
-#~ msgid "Browse"
-#~ msgstr "Перегляд"
-
-#~ msgid "Tooltip"
-#~ msgstr "Підказка"
-
-#~ msgid "Data"
-#~ msgstr "Дані"
-
-#~ msgid "API App Id:"
-#~ msgstr "Ідентифікатор додатка API:"
-
-#~ msgid "City Id:"
-#~ msgstr "Ідентифікатор міста:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "Наприклад: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "Знайдіть місто"
-
-#~ msgid "Settings"
-#~ msgstr "Налаштування"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "Щоденно оновлювати прогноз:"
-
-#~ msgid "Show next "
-#~ msgstr "Показати наступний"
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] "годин"
-#~ msgstr[1] ""
-#~ msgstr[2] ""
-
-#~ msgid " in the meteogram."
-#~ msgstr " в метеограмі."
-
-#~ msgid "Units:"
-#~ msgstr "Одиниці:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "Позитивний Темп"
-
-#~ msgid "Negative Temp"
-#~ msgstr "Негативний темп"
-
-#~ msgid "Name"
-#~ msgstr "Ім'я"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "City Webpage"
-#~ msgstr "Міська веб-сторінка"
-
-#~ msgid "Set Locale…"
-#~ msgstr "Встановити мову …"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "Погода не налаштована.\n"
-#~ "Перейдіть до погоди в налаштуваннях і встановіть своє місто,\n"
-#~ "і / або вимкнути метеограму, щоб приховати цю область."
-
-#~ msgid "Choose"
-#~ msgstr "Виберіть"
-
-#~ msgid "Agenda to the left (Two Columns)"
-#~ msgstr "Порядок денного ліворуч (дві стовпці)"
-
-#~ msgid "Agenda above the month (Single Column)"
-#~ msgstr "Порядок денний над місяцем (Одинарна колонка)"
-
-#~ msgid "Edit description"
-#~ msgstr "Редагувати опис"
-
-#~ msgid "Discard"
-#~ msgstr "Відхилити"
-
-#~ msgid "Event Summary"
-#~ msgstr "Підсумок події"
-
-#~ msgid ""
-#~ "Enter the following code at <a href=\"https://www.google.com/"
-#~ "device\">https://www.google.com/device</a>."
-#~ msgstr ""
-#~ "Введіть цей код на <a href=\"https://www.google.com/device\">https://"
-#~ "www.google.com/device</a>."
-
-#~ msgid "Generating Code…"
-#~ msgstr "Генерації коду …"
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

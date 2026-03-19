@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2020-11-12 19:45+0100\n"
 "Last-Translator: Guido Mazzone <guido.mazzone93@outlook.it>\n"
 "Language-Team: Italian <guido.mazzone93@outlook.it>\n"
@@ -15,15 +15,19 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../metadata.desktop ../contents/ui/AgendaView.qml ../contents/ui/UpcomingEvents.qml
+#: ../metadata.desktop ../contents/ui/AgendaView.qml
+#: ../contents/ui/UpcomingEvents.qml
 msgid "Event Calendar"
 msgstr "Calendario Eventi"
 
 #: ../metadata.desktop
-msgid "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
-msgstr "Plasmoide per un calendario+agenda con meteo che si sincronizza con Google Calendar."
+msgid ""
+"Plasmoid for a calendar+agenda with weather that syncs to Google Calendar."
+msgstr ""
+"Plasmoide per un calendario+agenda con meteo che si sincronizza con Google "
+"Calendar."
 
 #: ../contents/config/config.qml
 msgid "General"
@@ -37,7 +41,8 @@ msgstr "Disposizione"
 msgid "Timezones"
 msgstr "Fusi orari"
 
-#: ../contents/config/config.qml ../contents/ui/UpcomingEvents.qml ../contents/ui/config/ConfigICal.qml
+#: ../contents/config/config.qml ../contents/ui/UpcomingEvents.qml
+#: ../contents/ui/config/ConfigICal.qml
 msgid "Calendar"
 msgstr "Calendario"
 
@@ -65,7 +70,8 @@ msgstr "Meteo"
 msgid "Advanced"
 msgstr "Avanzato"
 
-#: ../contents/ui/AgendaEventItem.qml ../contents/ui/EditEventForm.qml ../contents/ui/LocaleFuncs.js
+#: ../contents/ui/AgendaEventItem.qml ../contents/ui/EditEventForm.qml
+#: ../contents/ui/LocaleFuncs.js
 msgid "All Day"
 msgstr "Tutto il giorno"
 
@@ -133,7 +139,8 @@ msgstr "Aggiungi descrizione"
 msgid "&Save"
 msgstr "&Salva"
 
-#: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml ../contents/ui/TimerInputView.qml
+#: ../contents/ui/EditEventForm.qml ../contents/ui/EditTaskForm.qml
+#: ../contents/ui/TimerInputView.qml
 msgid "&Cancel"
 msgstr "&Cancella"
 
@@ -365,8 +372,11 @@ msgid "Weather API limit reached"
 msgstr "Raggiunto il limite dell'API del meteo"
 
 #: ../contents/ui/Logic.qml ../contents/ui/calendars/GoogleCalendarManager.qml
-msgid "Widget has been updated. Please logout and login to Google Calendar again."
-msgstr "Il widget è stato agiornato. Sei invitato a disconnetterti e riconnennetterti a Google Calendar."
+msgid ""
+"Widget has been updated. Please logout and login to Google Calendar again."
+msgstr ""
+"Il widget è stato agiornato. Sei invitato a disconnetterti e "
+"riconnennetterti a Google Calendar."
 
 #: ../contents/ui/Logic.qml
 msgid "Logged out of Google. Please login again."
@@ -485,7 +495,8 @@ msgstr "(nessun titolo)"
 msgid "Too many web requests. Will try again soon."
 msgstr "Troppe richieste web. Riproverò a breve."
 
-#: ../contents/ui/config/ConfigAgenda.qml ../contents/ui/config/ConfigCalendar.qml
+#: ../contents/ui/config/ConfigAgenda.qml
+#: ../contents/ui/config/ConfigCalendar.qml
 msgid "Visibility"
 msgstr "Visibility"
 
@@ -493,7 +504,8 @@ msgstr "Visibility"
 msgid "Show agenda"
 msgstr "Mostra agenda"
 
-#: ../contents/ui/config/ConfigAgenda.qml ../contents/ui/config/ConfigCalendar.qml
+#: ../contents/ui/config/ConfigAgenda.qml
+#: ../contents/ui/config/ConfigCalendar.qml
 msgid "Appearance"
 msgstr "Appearance"
 
@@ -509,7 +521,9 @@ msgstr "px (0 = system font)"
 msgid "Day spacing:"
 msgstr "Day spacing:"
 
-#: ../contents/ui/config/ConfigAgenda.qml ../contents/ui/config/ConfigGeneral.qml ../contents/ui/config/ConfigLayout.qml
+#: ../contents/ui/config/ConfigAgenda.qml
+#: ../contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigLayout.qml
 msgid "px"
 msgstr "px"
 
@@ -601,7 +615,8 @@ msgstr "New Event Form"
 msgid "Remember selected calendar"
 msgstr "Remember selected calendar"
 
-#: ../contents/ui/config/ConfigAgenda.qml ../contents/ui/config/ConfigWeather.qml
+#: ../contents/ui/config/ConfigAgenda.qml
+#: ../contents/ui/config/ConfigWeather.qml
 msgid "Colors"
 msgstr "Colori"
 
@@ -623,7 +638,8 @@ msgstr "Nascondi eventi completati"
 
 #: ../contents/ui/config/ConfigAgenda.qml
 msgid "Show all events of the current day (including completed events)"
-msgstr "Mostra tutti gli eventi del giorno corrente (inclusi gli eventi completati)"
+msgstr ""
+"Mostra tutti gli eventi del giorno corrente (inclusi gli eventi completati)"
 
 #: ../contents/ui/config/ConfigCalendar.qml
 msgid "Show calendar"
@@ -738,10 +754,15 @@ msgid "Plasma Calendar Plugins"
 msgstr "Lista plugin calendario Plasma"
 
 #: ../contents/ui/config/ConfigEvents.qml
-msgid "Tip: If you enable a Holidays calendar in Google, disable Plasma’s “Holidays” plugin to avoid duplicates."
-msgstr "Tip: If you enable a Holidays calendar in Google, disable Plasma’s “Holidays” plugin to avoid duplicates."
+msgid ""
+"Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
+"“Holidays” plugin to avoid duplicates."
+msgstr ""
+"Tip: If you enable a Holidays calendar in Google, disable Plasma’s "
+"“Holidays” plugin to avoid duplicates."
 
-#: ../contents/ui/config/ConfigEvents.qml ../contents/ui/config/ConfigGoogleCalendar.qml
+#: ../contents/ui/config/ConfigEvents.qml
+#: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Refresh"
 msgstr "Aggiorna"
 
@@ -749,7 +770,8 @@ msgstr "Aggiorna"
 msgid "Refresh events every:"
 msgstr "Refresh events every:"
 
-#: ../contents/ui/config/ConfigEvents.qml ../contents/ui/config/ConfigWeather.qml
+#: ../contents/ui/config/ConfigEvents.qml
+#: ../contents/ui/config/ConfigWeather.qml
 msgctxt "Polling interval in minutes"
 msgid "min"
 msgstr "min"
@@ -778,7 +800,8 @@ msgstr "Widget"
 msgid "Show or hide optional widgets in the popup."
 msgstr "Show or hide optional widgets in the popup."
 
-#: ../contents/ui/config/ConfigGeneral.qml ../contents/ui/config/ConfigWeather.qml
+#: ../contents/ui/config/ConfigGeneral.qml
+#: ../contents/ui/config/ConfigWeather.qml
 msgid "Meteogram"
 msgstr "Meteogramma"
 
@@ -852,7 +875,8 @@ msgstr "Rotella del mouse"
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Scrolling the mouse wheel over the panel clock runs the commands below."
-msgstr "Scrolling the mouse wheel over the panel clock runs the commands below."
+msgstr ""
+"Scrolling the mouse wheel over the panel clock runs the commands below."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Scroll up:"
@@ -883,8 +907,10 @@ msgid "Debugging"
 msgstr "Debugging"
 
 #: ../contents/ui/config/ConfigGeneral.qml
-msgid "Debugging logs sensitive information to the system journal (plasmashell)."
-msgstr "Debugging logs sensitive information to the system journal (plasmashell)."
+msgid ""
+"Debugging logs sensitive information to the system journal (plasmashell)."
+msgstr ""
+"Debugging logs sensitive information to the system journal (plasmashell)."
 
 #: ../contents/ui/config/ConfigGeneral.qml
 msgid "Enable debugging"
@@ -943,8 +969,10 @@ msgid "Login"
 msgstr "Entra"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
-msgid "Connect your Google account to show Google Calendar events in the agenda."
-msgstr "Connect your Google account to show Google Calendar events in the agenda."
+msgid ""
+"Connect your Google account to show Google Calendar events in the agenda."
+msgstr ""
+"Connect your Google account to show Google Calendar events in the agenda."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Logout"
@@ -971,14 +999,25 @@ msgid "Widget has been updated. Please logout and login again."
 msgstr "Widget has been updated. Please logout and login again."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
-msgid "You are connected. Use Refresh below if calendars/tasks changed, then click Apply to save selection updates."
-msgstr "You are connected. Use Refresh below if calendars/tasks changed, then click Apply to save selection updates."
+msgid ""
+"You are connected. Use Refresh below if calendars/tasks changed, then click "
+"Apply to save selection updates."
+msgstr ""
+"You are connected. Use Refresh below if calendars/tasks changed, then click "
+"Apply to save selection updates."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
-msgid "A web browser will open for Google login. If the helper cannot start (missing binary, port in use), enable Advanced and use the manual code method."
-msgstr "A web browser will open for Google login. If the helper cannot start (missing binary, port in use), enable Advanced and use the manual code method."
+msgid ""
+"A web browser will open for Google login. If the helper cannot start "
+"(missing binary, port in use), enable Advanced and use the manual code "
+"method."
+msgstr ""
+"A web browser will open for Google login. If the helper cannot start "
+"(missing binary, port in use), enable Advanced and use the manual code "
+"method."
 
-#: ../contents/ui/config/ConfigGoogleCalendar.qml ../contents/ui/config/ConfigICal.qml
+#: ../contents/ui/config/ConfigGoogleCalendar.qml
+#: ../contents/ui/config/ConfigICal.qml
 msgid "Calendars"
 msgstr "Calendari"
 
@@ -1015,8 +1054,12 @@ msgid "Hide the “Goals in Google Calendar” description"
 msgstr "Hide the “Goals in Google Calendar” description"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
-msgid "By default, the widget uses built-in OAuth credentials. Custom credentials are for developers only."
-msgstr "By default, the widget uses built-in OAuth credentials. Custom credentials are for developers only."
+msgid ""
+"By default, the widget uses built-in OAuth credentials. Custom credentials "
+"are for developers only."
+msgstr ""
+"By default, the widget uses built-in OAuth credentials. Custom credentials "
+"are for developers only."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Client ID:"
@@ -1035,8 +1078,12 @@ msgid "Use manual code flow"
 msgstr "Use manual code flow"
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
-msgid "If the browser shows a connection error after you approve access, copy the full URL (or just the “code” parameter) and paste it below."
-msgstr "If the browser shows a connection error after you approve access, copy the full URL (or just the “code” parameter) and paste it below."
+msgid ""
+"If the browser shows a connection error after you approve access, copy the "
+"full URL (or just the “code” parameter) and paste it below."
+msgstr ""
+"If the browser shows a connection error after you approve access, copy the "
+"full URL (or just the “code” parameter) and paste it below."
 
 #: ../contents/ui/config/ConfigGoogleCalendar.qml
 msgid "Open <a href=\"%1\">Google login</a> in your browser."
@@ -1055,8 +1102,10 @@ msgid "Please paste a URL or authorization code."
 msgstr "Please paste a URL or authorization code."
 
 #: ../contents/ui/config/ConfigICal.qml
-msgid "Add local or remote .ics calendars. Changes are applied when you click Apply."
-msgstr "Add local or remote .ics calendars. Changes are applied when you click Apply."
+msgid ""
+"Add local or remote .ics calendars. Changes are applied when you click Apply."
+msgstr ""
+"Add local or remote .ics calendars. Changes are applied when you click Apply."
 
 #: ../contents/ui/config/ConfigICal.qml
 msgid "Add"
@@ -1244,11 +1293,13 @@ msgstr "Heading"
 msgid "Select location"
 msgstr "Select location"
 
-#: ../contents/ui/config/OpenMeteoLocationDialog.qml ../contents/ui/config/WeatherCanadaCityDialog.qml
+#: ../contents/ui/config/OpenMeteoLocationDialog.qml
+#: ../contents/ui/config/WeatherCanadaCityDialog.qml
 msgid "Fetched from <a href=\"%1\">%1</a>"
 msgstr "Recuperato da <a href=\"%1\">%1</a>"
 
-#: ../contents/ui/config/OpenMeteoLocationDialog.qml ../contents/ui/config/WeatherCanadaCityDialog.qml
+#: ../contents/ui/config/OpenMeteoLocationDialog.qml
+#: ../contents/ui/config/WeatherCanadaCityDialog.qml
 msgid "Search"
 msgstr "Cerca"
 
@@ -1273,8 +1324,12 @@ msgid "false"
 msgstr "false"
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
-msgid "Developer page: inspect raw configuration keys and values. Changes are applied when you click Apply."
-msgstr "Developer page: inspect raw configuration keys and values. Changes are applied when you click Apply."
+msgid ""
+"Developer page: inspect raw configuration keys and values. Changes are "
+"applied when you click Apply."
+msgstr ""
+"Developer page: inspect raw configuration keys and values. Changes are "
+"applied when you click Apply."
 
 #: ../contents/ui/lib/ConfigAdvanced.qml
 msgid "Disable Mock Precipitation"
@@ -1325,307 +1380,142 @@ msgstr "File sonori (%1)"
 msgid "All files (%1)"
 msgstr "Tutti i file (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "Dimensione del Font:"
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " (0px = <b>Impostazioni di Sistema > Caratteri > Caratteri</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "Icone del meteo"
-
-#~ msgid "Icon Outline"
-#~ msgstr "Bordo delle icone"
-
-#~ msgid "Weather Text"
-#~ msgstr "Testo del meteo"
-
-#~ msgid "Position:"
-#~ msgstr "Posizione:"
-
-#~ msgid "Click Weather:"
-#~ msgstr "Click sul meteo:"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "Apri le previsioni della città nel browser"
-
-#~ msgid "Click Date:"
-#~ msgstr "Click su una data:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "Apri nuovo evento nel browser"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "Apri modulo per il nuovo evento"
-
-#~ msgid "Event description"
-#~ msgstr "Descrizione eventi"
-
-#~ msgid "Hide 'All Day' text"
-#~ msgstr "Nascondi testo 'Tutto il giorno'"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Link Google Hangouts"
-
-#~ msgid "Click Event:"
-#~ msgstr "Click su un evento:"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "Apri evento nel browser"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "Mostra eventi di più giorni:"
-
-#~ msgid "On all days"
-#~ msgstr "In tutti i giorni"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "Solo nel primo giorno e nel giorno corrente"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "Ricorda il calendario selezionato nel modulo Nuovo Evento"
-
-#~ msgid "Current Month"
-#~ msgstr "Mese corrente"
-
-#~ msgid "In Progress"
-#~ msgstr "In corso"
-
-#~ msgid "Day Spacing:"
-#~ msgstr "Spaziatura fra i giorni:"
-
-#~ msgid "Event Spacing:"
-#~ msgstr "Spaziatura fra gli eventi:"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "Scorri agli eventi in agenda"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "Doppio click su una data:"
-
-#~ msgid "New Google Calendar Event (Web Browser)"
-#~ msgstr "Nuovo evento Google Calendar (browser web)"
-
-#~ msgid "Do Nothing"
-#~ msgstr "Non fare nulla"
-
-#~ msgid "Style"
-#~ msgstr "Stile"
-
-#~ msgid "Current Month Title:"
-#~ msgstr "Titolo del mese corrente:"
-
-#~ msgid "Show Borders"
-#~ msgstr "Mostra i bordi"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "Mostra i numeri delle settimane"
-
-#~ msgid "Highlight Current Day / Week"
-#~ msgstr "Evidenzia il giorno e la settimana attuale"
-
-#~ msgid "Event Badge:"
-#~ msgstr "Simbolo di un evento:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "Punti (massimo 3)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "Barra in basso (colore dell'evento)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "Barra in basso (evidenzia)"
-
-#~ msgid "Radius:"
-#~ msgstr "Arrotonda:"
-
-#~ msgid "Selected:"
-#~ msgstr "Selezionato:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "Tinta unita (evidenziato)"
-
-#~ msgid "Today:"
-#~ msgstr "Oggi:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "Tinta unita (invertito)"
-
-#~ msgid "Big Number"
-#~ msgstr "Numero grande"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "Lista plugin calendario eventi"
-
-#~ msgid "Misc"
-#~ msgstr "Altro"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "Aggiorna eventi ogni: "
-
-#~ msgid "Event Reminder"
-#~ msgstr "Promemoria evento"
-
-#~ msgid "Event Starting"
-#~ msgstr "Inizio di un evento"
-
-#~ msgid "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their respective tabs."
-#~ msgstr "Mostra/nascondi i widget sopra il calendario. Attiva Agenda/Calendario nelle loro rispettive schede."
-
-#~ msgid "Time Format"
-#~ msgstr "Formato ora"
-
-#~ msgid "The default font for the Breeze theme is Noto Sans which is hard to read with small text. Try using the Sans Serif font if you find the text too small when adding a second line."
-#~ msgstr "Il carattere predefinito per il tema Breeze è Noto Sans che è difficile da leggere con un testo piccolo. Prova ad usare il carattere Sans Serif se trovi il testo troppo piccolo quando aggiungi una seconda riga."
-
-#~ msgid "You can also use %1 or %2 to style a section. Note the single quotes around the tags are used to bypass the time format."
-#~ msgstr "Puoi anche usare %1 o %2 per accorciare una sezione. Nota che le virgolette singole attorno ai tag sono usate per aggirare il formato dell'ora."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "Altezza dell'orologio fissata a: "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0px = scala per adattarsi)"
-
-#~ msgid "Preset:"
-#~ msgstr "Preimpostati:"
-
-#~ msgid "Bold"
-#~ msgstr "Grassetto"
-
-#~ msgid "Height:"
-#~ msgstr "Altezza:"
-
-#~ msgid "Run Commands"
-#~ msgstr "Esegui comandi"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "Scorrimento in alto:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "Scorrimento in basso:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "Volume (senza UI) (amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "Volume (UI) (qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "Widget Desktop: Mostra sfondo"
-
-#~ msgid "Debugging will log sensitive information to:"
-#~ msgstr "Il debugging registrerà le informazioni importanti in:"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "Abilita debugging"
-
-#~ msgid "Currently Synched."
-#~ msgstr "Attualmente sincronizzato."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Per sincronizzare con Google Calendar"
-
-#~ msgid "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login and give permission to access your calendar, it will give you a code to paste below."
-#~ msgstr "Visita <a href=\"%1\">%2</a> (si apre nel tuo browser web). Dopo che sei entrato e hai dato il permesso per accedere al tuo calendario, ti darà un codice da incollare qui sotto."
-
-#~ msgid "Copy Link"
-#~ msgstr "Copia link"
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "Inserisci il codice qui (es: %1)"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "Codice di autorizzazione Google non valido"
-
-#~ msgid "Add Calendar"
-#~ msgstr "Aggiungi calendario"
-
-#~ msgid "New Calendar"
-#~ msgstr "Nuovo calendario"
-
-#~ msgid "Calendar Label"
-#~ msgstr "Etichetta del calendario"
-
-#~ msgid "Browse"
-#~ msgstr "Naviga"
-
-#~ msgid "Calendar to the left of the Agenda (Two Columns)"
-#~ msgstr "Calendario a sinistra dell'agenda (due colonne)"
-
-#~ msgid "Agenda below the Calendar (Single Column)"
-#~ msgstr "Agenda sotto il calendario (colonna singola)"
-
-#~ msgid "Tooltip"
-#~ msgstr "Consiglio"
-
-#~ msgid "Data"
-#~ msgstr "Dati"
-
-#~ msgid "API App Id:"
-#~ msgstr "Id API app:"
-
-#~ msgid "City Id:"
-#~ msgstr "Id città:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "Es.: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "Trova città"
-
-#~ msgid "Settings"
-#~ msgstr "Impostazioni"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "Aggiorna previsioni ogni: "
-
-#~ msgid "Show next "
-#~ msgstr "Mostra le prossime "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " ora"
-#~ msgstr[1] " ore"
-
-#~ msgid " in the meteogram."
-#~ msgstr " nel meteogramma."
-
-#~ msgid "Units:"
-#~ msgstr "Unità:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "Temperatura positiva"
-
-#~ msgid "Negative Temp"
-#~ msgstr "Temperatura negativa"
-
-#~ msgid "Name"
-#~ msgstr "Nome"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "City Webpage"
-#~ msgstr "Pagina web della città"
-
-#~ msgid "Set Language…"
-#~ msgstr "Imposta lingua…"
-
-#~ msgid "Set Locale…"
-#~ msgstr "Imposta località…"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "Meteo non configurato.\n"
-#~ "Vai al meteo nella configurazione e imposta la tua città,\n"
-#~ "e/o disabilita il meteogramma per nascondere quest'area."
-
-#~ msgid "Could not connect (HTTP Error 0), will try again soon."
-#~ msgstr "Impossibile connettersi (errore HTTP 0), riproverò a breve."
-
-#~ msgid "Weather API limit reached, will try again soon."
-#~ msgstr "Raggiunto il limite dell'API meteo, riproverò a breve."
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

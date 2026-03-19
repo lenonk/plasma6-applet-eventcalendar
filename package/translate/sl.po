@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2021-07-29 01:08+0200\n"
 "Last-Translator: Ugo Ugowsky <ugowsky@gmail.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1382,317 +1382,142 @@ msgstr "Zvokovne datoteke (%1)"
 msgid "All files (%1)"
 msgstr "Vse datoteke (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "Velikost pisave:"
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " (0 točk = <b>sistemske nastavitve > pisave > General</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "Vremenska ikona"
-
-#~ msgid "Icon Outline"
-#~ msgstr "Obroba ikone"
-
-#~ msgid "Weather Text"
-#~ msgstr "Pisava za vreme"
-
-#~ msgid "Position:"
-#~ msgstr "Položaj:"
-
-#~ msgid "Click Weather:"
-#~ msgstr "Klik na vreme:"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "Odpre vremensko napoved v brskalniku"
-
-#~ msgid "Click Date:"
-#~ msgstr "Klik na datum:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "Odpre nov dogodek v brskalniku"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "Odpre okno za vpis dogodka"
-
-#~ msgid "Event description"
-#~ msgstr "Opis dogodka"
-
-#~ msgid "Hide 'All Day' text"
-#~ msgstr "Skrij besedilo 'ves dan'"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Povezava do Google Hangout"
-
-#~ msgid "Click Event:"
-#~ msgstr "Klik na dogodek:"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "Odpre dogodek v brskalniku"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "Prikaži večdnevne dogodke:"
-
-#~ msgid "On all days"
-#~ msgstr "Na vseh dneh"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "Le na prvem in današnjem dnevu"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "Zapomni si izbran koledar pri ustvarjanju novega dogodka"
-
-#~ msgid "Current Month"
-#~ msgstr "Trenutni mesec"
-
-#~ msgid "In Progress"
-#~ msgstr "Se izvaja"
-
-#~ msgid "Day Spacing:"
-#~ msgstr "Razmak (datum):"
-
-#~ msgid "Event Spacing:"
-#~ msgstr "Razmak (dogodek):"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "Pojdi do dogodka v dnevnem redu"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "Dvojni klik na datum:"
-
-#~ msgid "New Google Calendar Event (Web Browser)"
-#~ msgstr "Nov dogodek v Googlovem koledarju (brskalnik)"
-
-#~ msgid "Do Nothing"
-#~ msgstr "Ne naredi ničesar"
-
-#~ msgid "Style"
-#~ msgstr "Slog"
-
-#~ msgid "Current Month Title:"
-#~ msgstr "Ime trenutnega meseca:"
-
-#~ msgid "Show Borders"
-#~ msgstr "Pokaži obrobe"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "Pokaži št. tednov"
-
-#~ msgid "Highlight Current Day / Week"
-#~ msgstr "Poudari današnji dan / teden"
-
-#~ msgid "Event Badge:"
-#~ msgstr "Oznaka dogodka:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "Pike (največ tri)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "Spodnja črta (barva dogodka)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "Spodnja črta (poudarek)"
-
-#~ msgid "Radius:"
-#~ msgstr "Premer:"
-
-#~ msgid "Selected:"
-#~ msgstr "Izbrano:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "Polna barva (poudarek)"
-
-#~ msgid "Today:"
-#~ msgstr "Danes:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "Polna barva (obrnjeno)"
-
-#~ msgid "Big Number"
-#~ msgstr "Velika številka"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "Vtičniki za Koledar z dnevnim redom"
-
-#~ msgid "Misc"
-#~ msgstr "Razno"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "Osveži dogodke na: "
-
-#~ msgid "Event Starting"
-#~ msgstr "Začetek dogodka"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr ""
-#~ "Prikaži/skrij pripomočke nad koledarjem. Preklapljaj med dnevnim redom in "
-#~ "koledarjem."
-
-#~ msgid "Time Format"
-#~ msgstr "Časovni format"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Privzeta pisava za namizno temo Sapica je Noto Sans, ki pa jo je težje "
-#~ "brati, če je besedilo malo. Poskusite s Sans Serif, če npr. dodajate še "
-#~ "drugo vrstico, saj se velikost besedila prepolovi."
-
-#~ msgid ""
-#~ "You can also use %1 or %2 to style a section. Note the single quotes "
-#~ "around the tags are used to bypass the time format."
-#~ msgstr ""
-#~ "Za oblikovanje posameznih odsekov lahko uporabite tudi %1 ali %2. Če kodo "
-#~ "opremite z opuščaji (apostrofi ' ) lahko zaobidete časovni format."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "Določena višina ure: "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0 točk = samodejna velikost)"
-
-#~ msgid "Preset:"
-#~ msgstr "Nastavitev:"
-
-#~ msgid "Bold"
-#~ msgstr "Krepko"
-
-#~ msgid "Height:"
-#~ msgstr "Višina:"
-
-#~ msgid "Run Commands"
-#~ msgstr "Zaženi ukaz"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "Gor:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "Dol:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "Glasnost (brez upor. vmesnika) (amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "Glasnost (upor. vmesnik) (qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "Pripomoček na namizju: Prikaži ozadje"
-
-#~ msgid "Debugging will log sensitive information to:"
-#~ msgstr "Razhroščevanje bo beležilo ključne informacije v:"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "Omogoči razhroščevanje"
-
-#~ msgid "Currently Synched."
-#~ msgstr "Trenutno usklajeno."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Za uskladitev z Googlovim koledarjem"
-
-#~ msgid ""
-#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login "
-#~ "and give permission to access your calendar, it will give you a code to "
-#~ "paste below."
-#~ msgstr ""
-#~ "obiščite <a href=\"%1\">%2</a> (odpre v brskalniku). Po uspešni prijavi "
-#~ "in odobritvi dovoljenj do dostopa, boste prejeli kodo, ki jo prilepite "
-#~ "spodaj."
-
-#~ msgid "Copy Link"
-#~ msgstr "Kopiraj povezavo"
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "Prilepi kodo sem (npr. %1)"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "Neveljavna Googlova koda za avtorizacijo"
-
-#~ msgid "Add Calendar"
-#~ msgstr "Dodaj koledar"
-
-#~ msgid "New Calendar"
-#~ msgstr "Nov koledar"
-
-#~ msgid "Calendar Label"
-#~ msgstr "Ime koledarja"
-
-#~ msgid "Browse"
-#~ msgstr "Brskaj"
-
-#~ msgid "Calendar to the left of the Agenda (Two Columns)"
-#~ msgstr "Koledar na levi od dnevnega reda (dva stolpca)"
-
-#~ msgid "Agenda below the Calendar (Single Column)"
-#~ msgstr "Dnevni red pod koledarjem (en stolpec)"
-
-#~ msgid "Tooltip"
-#~ msgstr "Izbira"
-
-#~ msgid "Data"
-#~ msgstr "Podatki"
-
-#~ msgid "City Id:"
-#~ msgstr "Krajevni ID:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "npr.: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "Najdi mesto"
-
-#~ msgid "Settings"
-#~ msgstr "Nastavitve"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "Posodobi vreme vsakih: "
-
-#~ msgid "Show next "
-#~ msgstr "Pokaži naslednjih "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " uro"
-#~ msgstr[1] " uri"
-#~ msgstr[2] " ure"
-#~ msgstr[3] " ur"
-
-#~ msgid " in the meteogram."
-#~ msgstr " v meteogramu."
-
-#~ msgid "Units:"
-#~ msgstr "Enote:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "Temperatura (+)"
-
-#~ msgid "Negative Temp"
-#~ msgstr "Temperatura (-)"
-
-#~ msgid "Name"
-#~ msgstr "Ime"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "City Webpage"
-#~ msgstr "Spletna stran mesta"
-
-#~ msgid "Set Language…"
-#~ msgstr "Določi jezik …"
-
-#~ msgid "Set Locale…"
-#~ msgstr "Določi državo …"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "Vreme ni nastavljeno.\n"
-#~ "V nastavitvah tega vtičnika kliknite na Vreme ter določite svoje mesto,\n"
-#~ "in/ali onemogočite meteogram, da se skrije to območje."
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

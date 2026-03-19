@@ -111,7 +111,7 @@ Item {
 					id: tooltipSubtext
 					Layout.minimumWidth: Math.min(implicitWidth, preferredTextWidth)
 					Layout.maximumWidth: preferredTextWidth
-					text: Qt.formatDate(timeModel.currentTime, Qt.locale().dateFormat(Locale.LongFormat))
+					text: timeModel.currentTime.toLocaleDateString(Qt.locale(), Qt.locale().dateFormat(Locale.LongFormat))
 					opacity: 0.6
 				}
 			}

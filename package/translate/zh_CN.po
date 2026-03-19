@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2019-04-17 16:43+0800\n"
 "Last-Translator: Core小睿 <i@coreja.com>\n"
 "Language-Team: \n"
@@ -1377,320 +1377,142 @@ msgstr "Sound files (%1)"
 msgid "All files (%1)"
 msgstr "All files (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "字体大小："
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " （0像素 = <b>系统设置 > 字体 > 常规</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "天气图标"
-
-#~ msgid "Icon Outline"
-#~ msgstr "图标轮廓"
-
-#~ msgid "Weather Text"
-#~ msgstr "天气文字显示"
-
-#~ msgid "Position:"
-#~ msgstr "位置："
-
-#~ msgid "Click Weather:"
-#~ msgstr "点击天气："
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "在浏览器中打开城市天气预报"
-
-#~ msgid "Click Date:"
-#~ msgstr "点击日期："
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "在浏览器中新建事件"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "在窗体中新建事件"
-
-#~ msgid "Event description"
-#~ msgstr "事件详情"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Google Hangouts 链接"
-
-#~ msgid "Click Event:"
-#~ msgstr "点击事件："
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "在浏览器中打开事件"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "显示跨天事件："
-
-#~ msgid "On all days"
-#~ msgstr "每一天都展示"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "仅在第一天和今天展示"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "在新建事件时记住选中的日历"
-
-#~ msgid "Current Month"
-#~ msgstr "当前月"
-
-#~ msgid "In Progress"
-#~ msgstr "进行中的事件"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "在日程里跳转到事件"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "双击日期："
-
-#~ msgid "New Google Calendar Event (Web Browser)"
-#~ msgstr "在浏览器中新建Google 日历事件"
-
-#~ msgid "Do Nothing"
-#~ msgstr "无动作"
-
-#~ msgid "Style"
-#~ msgstr "样式"
-
-#~ msgid "Show Borders"
-#~ msgstr "显示边框"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "显示周数"
-
-#~ msgid "Event Badge:"
-#~ msgstr "事件标记："
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "事件点（最大3个）"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "事件条（事件颜色）"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "事件条（高亮）"
-
-#~ msgid "Radius:"
-#~ msgstr "圆角："
-
-#~ msgid "Selected:"
-#~ msgstr "选中："
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "纯色（高亮）"
-
-#~ msgid "Today:"
-#~ msgstr "今天："
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "纯色（反转色）"
-
-#~ msgid "Big Number"
-#~ msgstr "放大数字"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "Event Calendar 插件"
-
-#~ msgid "Misc"
-#~ msgstr "杂项"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "刷新事件频率： "
-
-#~ msgid "Event Starting"
-#~ msgstr "事件开始"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr "请在分别在日程/日历的页面上显示/隐藏小部件。"
-
-#~ msgid "Time Format"
-#~ msgstr "时间格式"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Breeze的默认字体Noto Sans在小字体下很难辨别。如果当加入第二行的时候感觉字"
-#~ "体太小的话，可以试试用Sans Serif字体。"
-
-#~ msgid ""
-#~ "You can also use %1 or %2 to style a section. Note the single quotes "
-#~ "around the tags are used to bypass the time format."
-#~ msgstr ""
-#~ "你也可以使用 %1 或者 %2 自己定制时间格式。注意在标签旁的单引号是用来转义"
-#~ "的，防止和时间格式混淆。"
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "固定时钟高度： "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0像素 = 自适应缩放)"
-
-#~ msgid "Preset:"
-#~ msgstr "预设："
-
-#~ msgid "Bold"
-#~ msgstr "粗体"
-
-#~ msgid "Height:"
-#~ msgstr "高度："
-
-#~ msgid "Run Commands"
-#~ msgstr "运行命令"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "上滑："
-
-#~ msgid "Scroll Down:"
-#~ msgstr "下滑："
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "音量（无图像）（amixer）"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "音量（有图像）（qdbus）"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "桌面部件：显示背景"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "开启Debugging"
-
-#~ msgid "Currently Synched."
-#~ msgstr "当前已同步。"
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "用以与Google日历同步"
-
-#~ msgid ""
-#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login "
-#~ "and give permission to access your calendar, it will give you a code to "
-#~ "paste below."
-#~ msgstr ""
-#~ "访问 <a href=\"%1\">%2</a> （会在浏览器中打开）。在你登录并授权访问你的日"
-#~ "历后，请在下方粘贴网页提供的授权码。"
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "请在此输入授权码 （例如： %1）"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "无效的Google授权码"
-
-#~ msgid "Add Calendar"
-#~ msgstr "添加日历"
-
-#~ msgid "New Calendar"
-#~ msgstr "新建日历"
-
-#~ msgid "Calendar Label"
-#~ msgstr "日历标签"
-
-#~ msgid "Browse"
-#~ msgstr "浏览"
-
-#~ msgid "Tooltip"
-#~ msgstr "选择"
-
-#~ msgid "Data"
-#~ msgstr "数据"
-
-#~ msgid "City Id:"
-#~ msgstr "城市Id："
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "例如：1791247"
-
-#~ msgid "Find City"
-#~ msgstr "查找城市"
-
-#~ msgid "Settings"
-#~ msgstr "设置"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "更新天气预报频率： "
-
-#~ msgid "Show next "
-#~ msgstr "显示后 "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " 小时"
-
-#~ msgid " in the meteogram."
-#~ msgstr " 的天气预报。"
-
-#~ msgid "Units:"
-#~ msgstr "单位："
-
-#~ msgid "Positive Temp"
-#~ msgstr "零上温度"
-
-#~ msgid "Negative Temp"
-#~ msgstr "零下温度"
-
-#~ msgid "Name"
-#~ msgstr "名字"
-
-#~ msgid "Id"
-#~ msgstr "编号"
-
-#~ msgid "City Webpage"
-#~ msgstr "城市网页"
-
-#~ msgid "Set Language…"
-#~ msgstr "设置语言…"
-
-#~ msgid "Set Locale…"
-#~ msgstr "设置本地化…"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "天气没有配置。\n"
-#~ "请在天气配置中设置你的城市，\n"
-#~ "或者选择是否显示天气预报。"
-
-#~ msgid ""
-#~ "Enable Debugging\n"
-#~ "This will log sensitive information to ~/.xsession-errors"
-#~ msgstr ""
-#~ "开启Debugging\n"
-#~ "敏感信息会被记录在 ~/.xsession-errors下"
-
-#~ msgid "Choose"
-#~ msgstr "选择"
-
-#~ msgid "Agenda to the left (Two Columns)"
-#~ msgstr "日程显示在日历左侧（双列显示）"
-
-#~ msgid "Agenda above the month (Single Column)"
-#~ msgstr "日程显示在日历上方（单列显示）"
-
-#~ msgid "Event Description"
-#~ msgstr "事件描述"
-
-#~ msgid "Edit title"
-#~ msgstr "编辑标题"
-
-#~ msgid "Edit description"
-#~ msgstr "编辑详情"
-
-#~ msgid "Discard"
-#~ msgstr "忽略"
-
-#~ msgid "Edit date/time"
-#~ msgstr "编辑日期/时间"
-
-#~ msgid "Start"
-#~ msgstr "开始"
-
-#~ msgid "Event Summary"
-#~ msgstr "添加标题"
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

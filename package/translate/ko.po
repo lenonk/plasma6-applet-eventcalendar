@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2022-10-25 17:15+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1377,322 +1377,142 @@ msgstr "소리 파일 (%1)"
 msgid "All files (%1)"
 msgstr "모든 파일 (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "글꼴 크기:"
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " (0픽셀 = <b>시스템 설정 > 글꼴 > 일반</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "날씨 아이콘"
-
-#~ msgid "Icon Outline"
-#~ msgstr "아이콘 윤곽선"
-
-#~ msgid "Weather Text"
-#~ msgstr "날씨 텍스트"
-
-#~ msgid "Position:"
-#~ msgstr "위치:"
-
-#~ msgid "Click Weather:"
-#~ msgstr "날씨 클릭:"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "브라우저에서 도시 날씨 열기"
-
-#~ msgid "Click Date:"
-#~ msgstr "날짜 클릭:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "브라우저에서 새 이벤트 열기"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "새 이벤트 창 열기"
-
-#~ msgid "Event description"
-#~ msgstr "이벤트 설명"
-
-#~ msgid "Hide 'All Day' text"
-#~ msgstr "'하루 종일' 텍스트 숨기기"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Google 행아웃 링크"
-
-#~ msgid "Click Event:"
-#~ msgstr "이벤트 클릭:"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "브라우저에서 이벤트 열기"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "정기적인 이벤트 표시:"
-
-#~ msgid "On all days"
-#~ msgstr "하루 종일"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "현재 날짜의 첫 일정에만"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "새 이벤트 창에서 선택된 달력 기억"
-
-#~ msgid "Current Month"
-#~ msgstr "이번 달"
-
-#~ msgid "In Progress"
-#~ msgstr "진행 중"
-
-#~ msgid "Day Spacing:"
-#~ msgstr "날짜 간격:"
-
-#~ msgid "Event Spacing:"
-#~ msgstr "행사 간격:"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "일정에서 이벤트 스크롤"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "날짜 더블클릭:"
-
-#~ msgid "New Google Calendar Event (Web Browser)"
-#~ msgstr "새 Google 캘린더 이벤트 (웹 브라우저)"
-
-#~ msgid "Do Nothing"
-#~ msgstr "아무것도 안 함"
-
-#~ msgid "Style"
-#~ msgstr "스타일"
-
-#~ msgid "Current Month Title:"
-#~ msgstr "이번 달 제목:"
-
-#~ msgid "Show Borders"
-#~ msgstr "윤곽선 표시"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "주 번호 표시"
-
-#~ msgid "Highlight Current Day / Week"
-#~ msgstr "오늘 날짜 강조"
-
-#~ msgid "Event Badge:"
-#~ msgstr "이벤트 배지:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "점 (최대 3개)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "아래 바 (이벤트 색)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "아래 바 (강조)"
-
-#~ msgid "Radius:"
-#~ msgstr "반지름:"
-
-#~ msgid "Selected:"
-#~ msgstr "선택됨:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "단색 (강조)"
-
-#~ msgid "Today:"
-#~ msgstr "오늘:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "단색 (반전됨)"
-
-#~ msgid "Big Number"
-#~ msgstr "큰 숫자"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "이벤트 달력 플러그인"
-
-#~ msgid "Misc"
-#~ msgstr "그 외"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "이벤트 갱신 주기: "
-
-#~ msgid "Event Reminder"
-#~ msgstr "이벤트 리마인더"
-
-#~ msgid "Event Starting"
-#~ msgstr "이벤트 시작"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr "달력 밑에 위젯을 표시하거나 숨깁니다."
-
-#~ msgid "Time Format"
-#~ msgstr "시간 형식"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Breeze의 기본 글꼴인 Noto Sans는 작은 글씨에서 읽기 힘듭니다. 줄 바꿈 시 "
-#~ "텍스트가 너무 작다고 느껴지면 산 세리프를 사용해보십시오."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "시계 높이 고정: "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0픽셀 = 크기에 맞춤)"
-
-#~ msgid "Preset:"
-#~ msgstr "프리셋:"
-
-#~ msgid "Bold"
-#~ msgstr "굵게"
-
-#~ msgid "Height:"
-#~ msgstr "높이:"
-
-#~ msgid "Run Commands"
-#~ msgstr "명령 실행"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "위로 스크롤:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "아래로 스크롤:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "음량 (UI 없음) (amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "음량 (UI) (qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "바탕화면 위젯: 배경 표시"
-
-#~ msgid "Debugging will log sensitive information to:"
-#~ msgstr "디버그 시 상세 정보를 기록할 위치:"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "디버깅 사용"
-
-#~ msgid "Currently Synched."
-#~ msgstr "동기화되었습니다."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Google 캘린더랑 동기화"
-
-#~ msgid ""
-#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login "
-#~ "and give permission to access your calendar, it will give you a code to "
-#~ "paste below."
-#~ msgstr ""
-#~ "<a href=\"%1\">%2</a>으로 가십시오 (웹 브라우저에서 열림). 로그인 후 달력 "
-#~ "접근 권한을 부여하시면 이곳으로 복사할 코드가 주어집니다."
-
-#~ msgid "Copy Link"
-#~ msgstr "링크 복사"
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "코드 입력 (예: %1)"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "잘못된 Google 인증 코드"
-
-#~ msgid "Event Click:"
-#~ msgstr "이벤트 클릭:"
-
-#~ msgid "Open Web Event View"
-#~ msgstr "웹에서 이벤트 표시"
-
-#~ msgid "Open Web Month View"
-#~ msgstr "웹에서 월 표시"
-
-#~ msgid ""
-#~ "Hide \"This event was added from Goals in Google Calendar\" description"
-#~ msgstr "\"Google 캘린더의 목표에서 추가됨\" 설명 숨기기"
-
-#~ msgid "Add Calendar"
-#~ msgstr "달력 추가"
-
-#~ msgid "New Calendar"
-#~ msgstr "새 달력"
-
-#~ msgid "Calendar Label"
-#~ msgstr "달력 이름"
-
-#~ msgid "Browse"
-#~ msgstr "찾기"
-
-#~ msgid "Calendar to the left of the Agenda (Two Columns)"
-#~ msgstr "달력 옆에 일정 표시 (두 줄)"
-
-#~ msgid "Agenda below the Calendar (Single Column)"
-#~ msgstr "일정 밑에 달력 표시 (한 줄)"
-
-#~ msgid "Tooltip"
-#~ msgstr "툴팁"
-
-#~ msgid "Data"
-#~ msgstr "데이터"
-
-#~ msgid "API App Id:"
-#~ msgstr "API 앱 ID:"
-
-#~ msgid "City Id:"
-#~ msgstr "도시 ID:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "예: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "도시 찾기"
-
-#~ msgid "Settings"
-#~ msgstr "설정"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "날씨 업데이트 주기: "
-
-#~ msgid "Show next "
-#~ msgstr "옆에 표시 "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " 시간"
-
-#~ msgid " in the meteogram."
-#~ msgstr " 천문 현상에서 표시됨."
-
-#~ msgid "Units:"
-#~ msgstr "단위:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "영상"
-
-#~ msgid "Negative Temp"
-#~ msgstr "영하"
-
-#~ msgid "Name"
-#~ msgstr "이름"
-
-#~ msgid "Id"
-#~ msgstr "ID"
-
-#~ msgid "City Webpage"
-#~ msgstr "도시 웹페이지"
-
-#~ msgid "Set Language…"
-#~ msgstr "언어 설정…"
-
-#~ msgid "Set Locale…"
-#~ msgstr "지역 설정…"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "날씨가 설정되지 않았습니다.\n"
-#~ "설정 창의 날씨 항목에서 도시를 설정하십시오.\n"
-#~ "천문 현상을 비활성화하셔도 됩니다."
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

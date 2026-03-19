@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2019-06-02 22:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1378,320 +1378,142 @@ msgstr "Sound files (%1)"
 msgid "All files (%1)"
 msgstr "All files (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "Yazı Boyutu:"
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " (0px = <b>Sistem Ayarları > Yazı Tipi > Genel</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "Hava Durumu İkonu"
-
-#~ msgid "Icon Outline"
-#~ msgstr "İkon Dış Cephesi"
-
-#~ msgid "Weather Text"
-#~ msgstr "Hava Durumu Yazısı"
-
-#~ msgid "Position:"
-#~ msgstr "Pozisyon:"
-
-#~ msgid "Click Weather:"
-#~ msgstr "Hava Durumuna Tıklama:"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "Güncel Durumu Tarayıcıda Aç"
-
-#~ msgid "Click Date:"
-#~ msgstr "Tarihe Tıklama:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "Tarayıcıda Yeni Etkinlik Oluşturmayı Aç"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "Yeni Etkinlik Formunu Aç"
-
-#~ msgid "Event description"
-#~ msgstr "Etkinlik açıklaması"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Google Hangouts linki"
-
-#~ msgid "Click Event:"
-#~ msgstr "Etkinliğe Tıklama:"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "Etkinliği Tarayıcıda Aç"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "Çoklu-gün etkinliklerini göster:"
-
-#~ msgid "On all days"
-#~ msgstr "Tüm günlerde"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "Sadece ilk ve geçerli günde"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "Yeni Etkinlik Formunda seçili takvimi hatırla"
-
-#~ msgid "Current Month"
-#~ msgstr "Geçerli Ay"
-
-#~ msgid "In Progress"
-#~ msgstr "Devam Etmekte"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "Ajanda da etkinliğe kaydır"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "Tarihe Çift Tıklama:"
-
-#~ msgid "Style"
-#~ msgstr "Tarz"
-
-#~ msgid "Show Borders"
-#~ msgstr "Kenarıkları Göster"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "Hafta Numaralarını Göster"
-
-#~ msgid "Event Badge:"
-#~ msgstr "Etkinlik Rozeti:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "Nokta (max. 3 tane)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "Alt Çizgi (Etkinlik Rengi)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "Alt Çizgi (Vurgu)"
-
-#~ msgid "Radius:"
-#~ msgstr "Yarıçap:"
-
-#~ msgid "Selected:"
-#~ msgstr "Seçili:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "Sabit Renk (Vurgu)"
-
-#~ msgid "Today:"
-#~ msgstr "Bugün:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "Sabit Renk (Terslenmiş)"
-
-#~ msgid "Big Number"
-#~ msgstr "Büyük Sayı"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "Etkinlik Takvimi Eklentileri"
-
-#~ msgid "Misc"
-#~ msgstr "Ekstra"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "Etkinlikleri her ... sürede yenile: "
-
-#~ msgid "Event Starting"
-#~ msgstr "Etkinlik Başlarken"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr ""
-#~ "Takvimin üzerindeki eklentileri göster/gizle. Ajanda/takvim sekmelerini "
-#~ "aç/kapat."
-
-#~ msgid "Time Format"
-#~ msgstr "Zaman Formatı"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Breeze teması için varsayılan tazı tipi okuması zor olan Noto Sans'dır. "
-#~ "Eğer yazıyı çok küçük ve okuması zor buluyorsanız ikinci satırı eklerken "
-#~ "Sans Serif yazı tipini kullanmayı deneyin."
-
-#~ msgid ""
-#~ "You can also use %1 or %2 to style a section. Note the single quotes "
-#~ "around the tags are used to bypass the time format."
-#~ msgstr ""
-#~ "Bölümleri kişiselleştirmek için aynı zamanda %1 or %2 komutlarını da "
-#~ "kullanabilirsiniz. Tırnak işaretlerinin zaman formatından ayrıştırılmak "
-#~ "için koyulduğunu unutmayın."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "Saat Uzunluğu: "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0px = genişliğe göre ayarla)"
-
-#~ msgid "Preset:"
-#~ msgstr "Ön Tanımlı:"
-
-#~ msgid "Bold"
-#~ msgstr "Kalın"
-
-#~ msgid "Height:"
-#~ msgstr "Uzunluk:"
-
-#~ msgid "Run Commands"
-#~ msgstr "Komutları Çalıştır"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "Yukarı Kaydırma:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "Aşağı Kaydırma:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "Ses (UI yok) (amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "Ses (UI) (qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "Masaüstü Eklentisi: Arkaplanı göster"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "Debug'ı Etkinleştir"
-
-#~ msgid "Currently Synched."
-#~ msgstr "Senkronize Edili."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Google Calendar ile senkronizeleşmek için"
-
-#~ msgid ""
-#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login "
-#~ "and give permission to access your calendar, it will give you a code to "
-#~ "paste below."
-#~ msgstr ""
-#~ "Tarayıcınızdan <a href=\"%1\">%2</a> adresini ziyaret edin. Giriş "
-#~ "yaptıktan ve gerekli izinleri verdikten sonra size verilen kodu aşağıdaki "
-#~ "alana yapıştırın."
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "Kodu buraya girin (Örn: %1)"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "Geçersiz Google Doğrulama Kodu"
-
-#~ msgid "Add Calendar"
-#~ msgstr "Takvim Ekle"
-
-#~ msgid "New Calendar"
-#~ msgstr "Yeni Takvim"
-
-#~ msgid "Calendar Label"
-#~ msgstr "Takvim Etiketi"
-
-#~ msgid "Browse"
-#~ msgstr "Tara"
-
-#~ msgid "Tooltip"
-#~ msgstr "İpuçları"
-
-#~ msgid "Data"
-#~ msgstr "Veri"
-
-#~ msgid "API App Id:"
-#~ msgstr "API Uygulama ID'si:"
-
-#~ msgid "City Id:"
-#~ msgstr "Şehir ID'si:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "Örn: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "Şehir Bul"
-
-#~ msgid "Settings"
-#~ msgstr "Ayarlar"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "Hava durumunu her ... sürede bir güncelle: "
-
-#~ msgid "Show next "
-#~ msgstr "Sonrakini göster "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " saat"
-#~ msgstr[1] " saat"
-
-#~ msgid " in the meteogram."
-#~ msgstr " meteogram'da."
-
-#~ msgid "Units:"
-#~ msgstr "Birim:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "Pozitif Sıcaklık"
-
-#~ msgid "Negative Temp"
-#~ msgstr "Negatif Sıcaklık"
-
-#~ msgid "Name"
-#~ msgstr "İsim"
-
-#~ msgid "Id"
-#~ msgstr "ID"
-
-#~ msgid "City Webpage"
-#~ msgstr "Şehir Sayfası"
-
-#~ msgid "Set Language…"
-#~ msgstr "Dili Ayarla…"
-
-#~ msgid "Set Locale…"
-#~ msgstr "Bölgeyi Ayarla…"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "Hava durumu henüz ayarlanmadı.\n"
-#~ "Ayarlardan Hava Durumu'na girin ve şehrinizi seçin,\n"
-#~ "sonrasında ise burada gözükmesi için meteogramı açın/kapatın."
-
-#~ msgid ""
-#~ "Enable Debugging\n"
-#~ "This will log sensitive information to ~/.xsession-errors"
-#~ msgstr ""
-#~ "Debug'ı Etkinleştir\n"
-#~ "Bu ayarı açmak hassas bilgileri ~/.xsession-erros'a kaydedecektir"
-
-#~ msgid "Choose"
-#~ msgstr "Seç"
-
-#~ msgid "Agenda to the left (Two Columns)"
-#~ msgstr "Ajanda sola (İki Sütun)"
-
-#~ msgid "Agenda above the month (Single Column)"
-#~ msgstr "Ajanda ayın üzerinde (Tek Sütun)"
-
-#~ msgid "Event Description"
-#~ msgstr "Etkinlik Açıklaması"
-
-#~ msgid "Edit title"
-#~ msgstr "Başlığı düzenle"
-
-#~ msgid "Edit description"
-#~ msgstr "Açıklamayı düzenle"
-
-#~ msgid "Discard"
-#~ msgstr "İptal"
-
-#~ msgid "Edit date/time"
-#~ msgstr "Tarihi/zamanı düzenle"
-
-#~ msgid "Start"
-#~ msgstr "Başla"
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

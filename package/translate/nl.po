@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eventcalendar\n"
 "Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-eventcalendar\n"
-"POT-Creation-Date: 2026-03-18 21:45-0500\n"
+"POT-Creation-Date: 2026-03-18 22:33-0500\n"
 "PO-Revision-Date: 2022-04-05 13:49+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <>\n"
@@ -1378,390 +1378,142 @@ msgstr "Geluidsbestanden (%1)"
 msgid "All files (%1)"
 msgstr "Alle bestanden (%1)"
 
-#~ msgid "Font Size:"
-#~ msgstr "Tekstgrootte:"
-
-#~ msgid " (0px = <b>System Settings > Fonts > General</b>)"
-#~ msgstr " (0px = <b>Systeeminstellingen > Lettertypen > Algemeen</b>)"
-
-#~ msgid "Weather Icon"
-#~ msgstr "Weerpictogram"
-
-#~ msgid "Icon Outline"
-#~ msgstr "Pictogramcontour"
-
-#~ msgid "Weather Text"
-#~ msgstr "Weertekst"
-
-#~ msgid "Position:"
-#~ msgstr "Locatie:"
-
-#~ msgid "Click Weather:"
-#~ msgstr "Actie na aanklikken van weer:"
-
-#~ msgid "Open City Forecast In Browser"
-#~ msgstr "Weersvoorspelling openen in webbrowser"
-
-#~ msgid "Click Date:"
-#~ msgstr "Actie na aanklikken van datum:"
-
-#~ msgid "Open New Event In Browser"
-#~ msgstr "Nieuwe afspraak openen in webbrowser"
-
-#~ msgid "Open New Event Form"
-#~ msgstr "Nieuwe afspraak openen in pop-up"
-
-#~ msgid "Event description"
-#~ msgstr "Omschrijving"
-
-#~ msgid "Hide 'All Day' text"
-#~ msgstr "Label ‘Hele dag’ verbergen"
-
-#~ msgid "Google Hangouts link"
-#~ msgstr "Google Hangouts-link"
-
-#~ msgid "Click Event:"
-#~ msgstr "Actie na aanklikken van afspraak:"
-
-#~ msgid "Open Event In Browser"
-#~ msgstr "Afspraak openen in webbrowser"
-
-#~ msgid "Show multi-day events:"
-#~ msgstr "Meerdaagse afspraken tonen:"
-
-#~ msgid "On all days"
-#~ msgstr "Elke dag"
-
-#~ msgid "Only on the first and current day"
-#~ msgstr "Alleen op de eerste en huidige dag"
-
-#~ msgid "Remember selected calendar in New Event Form"
-#~ msgstr "Gekozen agenda onthouden in pop-up ‘Nieuwe afspraak’"
-
-#~ msgid "Current Month"
-#~ msgstr "Deze maand"
-
-#~ msgid "In Progress"
-#~ msgstr "Lopend"
-
-#~ msgid "Day Spacing:"
-#~ msgstr "Ruimte tussen dagen:"
-
-#~ msgid "Event Spacing:"
-#~ msgstr "Ruimte tussen afspraken:"
-
-#~ msgid "Scroll to event in Agenda"
-#~ msgstr "Afspraak tonen in agenda"
-
-#~ msgid "Double-click on Date:"
-#~ msgstr "Actie na dubbelklikken op datum:"
-
-#~ msgid "New Google Calendar Event (Web Browser)"
-#~ msgstr "Nieuwe Google Agenda-afspraak (webbrowser)"
-
-#~ msgid "Do Nothing"
-#~ msgstr "Niets doen"
-
-#~ msgid "Style"
-#~ msgstr "Stijl"
-
-#~ msgid "Current Month Title:"
-#~ msgstr "Naam van huidige maand:"
-
-#~ msgid "Show Borders"
-#~ msgstr "Kaders tonen"
-
-#~ msgid "Show Week Numbers"
-#~ msgstr "Weeknummers tonen"
-
-#~ msgid "Highlight Current Day / Week"
-#~ msgstr "Huidige dag/week markeren"
-
-#~ msgid "Event Badge:"
-#~ msgstr "Afspraakembleem:"
-
-#~ msgid "Dots (3 Maximum)"
-#~ msgstr "Puntjes (maximaal 3)"
-
-#~ msgid "Bottom Bar (Event Color)"
-#~ msgstr "Onderste balk (afspraakkleur)"
-
-#~ msgid "Bottom Bar (Highlight)"
-#~ msgstr "Onderste balk (markering)"
-
-#~ msgid "Radius:"
-#~ msgstr "Straal:"
-
-#~ msgid "Selected:"
-#~ msgstr "Geselecteerd:"
-
-#~ msgid "Solid Color (Highlight)"
-#~ msgstr "Vlakke kleur (markering)"
-
-#~ msgid "Today:"
-#~ msgstr "Vandaag:"
-
-#~ msgid "Solid Color (Inverted)"
-#~ msgstr "Vlakke kleur (omgekeerd)"
-
-#~ msgid "Big Number"
-#~ msgstr "Groot getal"
-
-#~ msgid "Event Calendar Plugins"
-#~ msgstr "Afsprakenboek-uitbreidingen"
-
-#~ msgid "Misc"
-#~ msgstr "Overig"
-
-#~ msgid "Refresh events every: "
-#~ msgstr "Ververs afspraken elke: "
-
-#~ msgid "Event Reminder"
-#~ msgstr "Afspraakherinnering"
-
-#~ msgid "Event Starting"
-#~ msgstr "Bij aanvang"
-
-#~ msgid ""
-#~ "Show/Hide widgets above the calendar. Toggle Agenda/Calendar on their "
-#~ "respective tabs."
-#~ msgstr ""
-#~ "Toon/Verberg de widgets boven de kalender. Schakel tussen agenda en "
-#~ "kalender middels de tabbladen."
-
-#~ msgid "Time Format"
-#~ msgstr "Tijdnotatie"
-
-#~ msgid ""
-#~ "The default font for the Breeze theme is Noto Sans which is hard to read "
-#~ "with small text. Try using the Sans Serif font if you find the text too "
-#~ "small when adding a second line."
-#~ msgstr ""
-#~ "Het standaardlettertype van het Breeze-thema is Noto Sans. Dit lettertype "
-#~ "maakt kleine tekst moeilijk leesbaar. Gebruik het schreefloze lettertype "
-#~ "als je de tekst op de tweede regel te klein vindt."
-
-#~ msgid ""
-#~ "You can also use %1 or %2 to style a section. Note the single quotes "
-#~ "around the tags are used to bypass the time format."
-#~ msgstr ""
-#~ "Je kunt ook %1 of %2 gebruiken om de stijl van een sectie aan te passen. "
-#~ "Let op: de enkele aanhalingstekens worden gebruikt om de tijdnotatie te "
-#~ "omzeilen."
-
-#~ msgid "Fixed Clock Height: "
-#~ msgstr "Vaste klokhoogte: "
-
-#~ msgid " (0px = scale to fit)"
-#~ msgstr " (0px = automatisch inpassen)"
-
-#~ msgid "Preset:"
-#~ msgstr "Voorinstelling:"
-
-#~ msgid "Bold"
-#~ msgstr "Vetgedrukt"
-
-#~ msgid "Height:"
-#~ msgstr "Hoogte:"
-
-#~ msgid "Run Commands"
-#~ msgstr "Opdrachten uitvoeren"
-
-#~ msgid "Scroll Up:"
-#~ msgstr "Omhoogscrollen:"
-
-#~ msgid "Scroll Down:"
-#~ msgstr "Omlaagscrollen:"
-
-#~ msgid "Volume (No UI) (amixer)"
-#~ msgstr "Volume (zonder pop-up - amixer)"
-
-#~ msgid "Volume (UI) (qdbus)"
-#~ msgstr "Volume (met pop-up - qdbus)"
-
-#~ msgid "Desktop Widget: Show background"
-#~ msgstr "Bureaubladwidget: achtergrond tonen"
-
-#~ msgid "Debugging will log sensitive information to:"
-#~ msgstr "Hiermee leg je gevoelige informatie vast in"
-
-#~ msgid "Enable Debugging"
-#~ msgstr "Foutopsporing inschakelen"
-
-#~ msgid "Currently Synched."
-#~ msgstr "Alles is gesynchroniseerd."
-
-#~ msgid "To sync with Google Calendar"
-#~ msgstr "Synchroniseren met Google Agenda"
-
-#~ msgid ""
-#~ "Visit <a href=\"%1\">%2</a> (opens in your web browser). After you login "
-#~ "and give permission to access your calendar, it will give you a code to "
-#~ "paste below."
-#~ msgstr ""
-#~ "Ga naar <a href=\"%1\">%2</a> (de link opent in je browser), log in en "
-#~ "verleen de vereiste machtiging. Kopieer daarna de door Google getoonde "
-#~ "code en plak deze hieronder."
-
-#~ msgid "Copy Link"
-#~ msgstr "Link kopiëren"
-
-#~ msgid "Enter code here (Eg: %1)"
-#~ msgstr "Voer hier de code in (bijv.: %1)"
-
-#~ msgid "Invalid Google Authorization Code"
-#~ msgstr "Ongeldige verificatiecode"
-
-#~ msgid "Event Click:"
-#~ msgstr "Actie na aanklikken van afspraak:"
-
-#~ msgid "Open Web Event View"
-#~ msgstr "Afspraakweergave openen"
-
-#~ msgid "Open Web Month View"
-#~ msgstr "Maandweergave openen"
-
-#~ msgid ""
-#~ "Hide \"This event was added from Goals in Google Calendar\" description"
-#~ msgstr ""
-#~ "‘Deze afspraak is toegevoegd door doelen in Google Agenda’ verbergen"
-
-#~ msgid "Add Calendar"
-#~ msgstr "Agenda toevoegen"
-
-#~ msgid "New Calendar"
-#~ msgstr "Nieuwe agenda"
-
-#~ msgid "Calendar Label"
-#~ msgstr "Agendalabel"
-
-#~ msgid "Browse"
-#~ msgstr "Bladeren"
-
-#~ msgid "Calendar to the left of the Agenda (Two Columns)"
-#~ msgstr "Kalender naast agenda tonen (twee kolommen)"
-
-#~ msgid "Agenda below the Calendar (Single Column)"
-#~ msgstr "Agenda onder kalender tonen (één kolom)"
-
-#~ msgid "Tooltip"
-#~ msgstr "Hulpballon"
-
-#~ msgid "Data"
-#~ msgstr "Gegevens"
-
-#~ msgid "API App Id:"
-#~ msgstr "API App-id:"
-
-#~ msgid "City Id:"
-#~ msgstr "Locatie-id:"
-
-#~ msgid "Eg: 5983720"
-#~ msgstr "Bijv.: 5983720"
-
-#~ msgid "Find City"
-#~ msgstr "Locatie zoeken"
-
-#~ msgid "Settings"
-#~ msgstr "Instellingen"
-
-#~ msgid "Update forecast every: "
-#~ msgstr "Werk de voorspelling bij, elke: "
-
-#~ msgid "Show next "
-#~ msgstr "Toon de komende "
-
-#~ msgid " hour"
-#~ msgid_plural " hours"
-#~ msgstr[0] " uur"
-#~ msgstr[1] " uur"
-
-#~ msgid " in the meteogram."
-#~ msgstr " in de weergrafiek."
-
-#~ msgid "Units:"
-#~ msgstr "Eenheden:"
-
-#~ msgid "Positive Temp"
-#~ msgstr "Temp. boven vriespunt"
-
-#~ msgid "Negative Temp"
-#~ msgstr "Temp. onder vriespunt"
-
-#~ msgid "Name"
-#~ msgstr "Naam"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "City Webpage"
-#~ msgstr "Webpagina"
-
-#~ msgid "Set Language…"
-#~ msgstr "Taal instellen…"
-
-#~ msgid "Set Locale…"
-#~ msgstr "Regionale instellingen…"
-
-#~ msgid ""
-#~ "Weather not configured.\n"
-#~ "Go to Weather in the config and set your city,\n"
-#~ "and/or disable the meteogram to hide this area."
-#~ msgstr ""
-#~ "Het weer is niet ingesteld.\n"
-#~ "Open de pagina ‘Weer’ in de instellingen en stel een locatie in\n"
-#~ "of schakel de weergrafiek uit om deze sectie te verbergen."
-
-#~ msgid "Could not connect (HTTP Error 0), will try again soon."
-#~ msgstr ""
-#~ "Kan niet verbinden (http-fout 0). Het wordt spoedig opnieuw geprobeerd."
-
-#~ msgid "Weather API limit reached, will try again soon."
-#~ msgstr "Het API-limiet is bereikt. Probeer het later opnieuw."
-
-#~ msgid ""
-#~ "Enable Debugging\n"
-#~ "This will log sensitive information to ~/.xsession-errors"
-#~ msgstr ""
-#~ "Foutopsporing inschakelen\n"
-#~ "Hiermee leg je gevoelige informatie vast in ~/.xsession-errors"
-
-#~ msgid "Choose"
-#~ msgstr "Kiezen"
-
-#~ msgid "Agenda to the left (Two Columns)"
-#~ msgstr "Agenda links tonen (twee kolommen)"
-
-#~ msgid "Agenda above the month (Single Column)"
-#~ msgstr "Agenda boven maand tonen (één kolom)"
-
-#~ msgid "Event Description"
-#~ msgstr "Omschrijving"
-
-#~ msgid "Edit title"
-#~ msgstr "Titel aanpassen"
-
-#~ msgid "Edit description"
-#~ msgstr "Omschrijving aanpassen"
-
-#~ msgid "Discard"
-#~ msgstr "Verwerpen"
-
-#~ msgid "Edit date/time"
-#~ msgstr "Datum/Tijd aanpassen"
-
-#~ msgid "Start"
-#~ msgstr "Starten"
-
-#~ msgid "Event Summary"
-#~ msgstr "Gebeurtenisoverzicht"
-
-#~ msgid ""
-#~ "Enter the following code at <a href=\"https://www.google.com/"
-#~ "device\">https://www.google.com/device</a>."
-#~ msgstr ""
-#~ "Voer de volgende code in op <a href=\"https://www.google.com/"
-#~ "device\">https://www.google.com/device</a>."
-
-#~ msgid "Generating Code…"
-#~ msgstr "Bezig met genereren van code…"
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Clear sky"
+msgstr "Clear sky"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Mainly clear"
+msgstr "Mainly clear"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Partly cloudy"
+msgstr "Partly cloudy"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Overcast"
+msgstr "Overcast"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Fog"
+msgstr "Fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Depositing rime fog"
+msgstr "Depositing rime fog"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light drizzle"
+msgstr "Light drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate drizzle"
+msgstr "Moderate drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense drizzle"
+msgstr "Dense drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing drizzle"
+msgstr "Light freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Dense freezing drizzle"
+msgstr "Dense freezing drizzle"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain"
+msgstr "Slight rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain"
+msgstr "Moderate rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy rain"
+msgstr "Heavy rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Light freezing rain"
+msgstr "Light freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy freezing rain"
+msgstr "Heavy freezing rain"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow fall"
+msgstr "Slight snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate snow fall"
+msgstr "Moderate snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow fall"
+msgstr "Heavy snow fall"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Snow grains"
+msgstr "Snow grains"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight rain showers"
+msgstr "Slight rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Moderate rain showers"
+msgstr "Moderate rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Violent rain showers"
+msgstr "Violent rain showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Slight snow showers"
+msgstr "Slight snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Heavy snow showers"
+msgstr "Heavy snow showers"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm"
+msgstr "Thunderstorm"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with slight hail"
+msgstr "Thunderstorm with slight hail"
+
+#: ../contents/ui/MeteogramView.qml
+msgctxt "weather condition"
+msgid "Thunderstorm with heavy hail"
+msgstr "Thunderstorm with heavy hail"

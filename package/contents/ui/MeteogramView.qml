@@ -488,6 +488,40 @@ Item {
 		var hourStepMs = hoursPerDataPoint * 60 * 60 * 1000
 		var nowMs = Date.now()
 
+		function localizedWeatherDescription(description) {
+			switch (description) {
+			case "Clear sky": return i18nc("weather condition", "Clear sky")
+			case "Mainly clear": return i18nc("weather condition", "Mainly clear")
+			case "Partly cloudy": return i18nc("weather condition", "Partly cloudy")
+			case "Overcast": return i18nc("weather condition", "Overcast")
+			case "Fog": return i18nc("weather condition", "Fog")
+			case "Depositing rime fog": return i18nc("weather condition", "Depositing rime fog")
+			case "Light drizzle": return i18nc("weather condition", "Light drizzle")
+			case "Moderate drizzle": return i18nc("weather condition", "Moderate drizzle")
+			case "Dense drizzle": return i18nc("weather condition", "Dense drizzle")
+			case "Light freezing drizzle": return i18nc("weather condition", "Light freezing drizzle")
+			case "Dense freezing drizzle": return i18nc("weather condition", "Dense freezing drizzle")
+			case "Slight rain": return i18nc("weather condition", "Slight rain")
+			case "Moderate rain": return i18nc("weather condition", "Moderate rain")
+			case "Heavy rain": return i18nc("weather condition", "Heavy rain")
+			case "Light freezing rain": return i18nc("weather condition", "Light freezing rain")
+			case "Heavy freezing rain": return i18nc("weather condition", "Heavy freezing rain")
+			case "Slight snow fall": return i18nc("weather condition", "Slight snow fall")
+			case "Moderate snow fall": return i18nc("weather condition", "Moderate snow fall")
+			case "Heavy snow fall": return i18nc("weather condition", "Heavy snow fall")
+			case "Snow grains": return i18nc("weather condition", "Snow grains")
+			case "Slight rain showers": return i18nc("weather condition", "Slight rain showers")
+			case "Moderate rain showers": return i18nc("weather condition", "Moderate rain showers")
+			case "Violent rain showers": return i18nc("weather condition", "Violent rain showers")
+			case "Slight snow showers": return i18nc("weather condition", "Slight snow showers")
+			case "Heavy snow showers": return i18nc("weather condition", "Heavy snow showers")
+			case "Thunderstorm": return i18nc("weather condition", "Thunderstorm")
+			case "Thunderstorm with slight hail": return i18nc("weather condition", "Thunderstorm with slight hail")
+			case "Thunderstorm with heavy hail": return i18nc("weather condition", "Thunderstorm with heavy hail")
+			default: return description || ""
+			}
+		}
+
 		function parseHourlyWeatherItem(item, fallbackTimestampMs) {
 			if (!item || typeof item !== "object") {
 				return null
@@ -510,7 +544,7 @@ Item {
 				dtMs = dt.getTime()
 			}
 
-			var tooltipSubText = item.description ? ("" + item.description) : ""
+			var tooltipSubText = localizedWeatherDescription(item.description)
 			var precipitation = Number(item.precipitation)
 			if (isFinite(precipitation) && precipitation > 0) {
 				tooltipSubText += " (" + formatPrecipitation(precipitation) + ")"
@@ -520,7 +554,7 @@ Item {
 			}
 			tooltipSubText += temp + "°"
 
-			var tooltipMainText = Qt.formatDate(dt, Qt.locale().dateFormat(Locale.LongFormat))
+			var tooltipMainText = dt.toLocaleDateString(Qt.locale(), Qt.locale().dateFormat(Locale.LongFormat))
 				+ " "
 				+ Qt.formatTime(dt, appletConfig.timeFormatShort)
 
