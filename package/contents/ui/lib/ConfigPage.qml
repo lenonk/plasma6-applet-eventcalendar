@@ -290,6 +290,8 @@ KCM.SimpleKCM {
 	property var cfg_eventStartingSfxPathDefault
 	property var cfg_enabledCalendarPlugins
 	property var cfg_enabledCalendarPluginsDefault
+	property var cfg_pimEnabledCalendars
+	property var cfg_pimEnabledCalendarsDefault
 	property var cfg_latestClientId
 	property var cfg_latestClientIdDefault
 	property var cfg_latestClientSecret

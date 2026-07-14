@@ -38,6 +38,11 @@ PlasmaConfig.ConfigModel {
 		source: "config/ConfigEvents.qml"
 	}
 	PlasmaConfig.ConfigCategory {
+		name: i18n("Local Calendars")
+		icon: "x-office-calendar"
+		source: "config/ConfigLocalCalendars.qml"
+	}
+	PlasmaConfig.ConfigCategory {
 		name: i18n("ICalendar (.ics)")
 		icon: "text-calendar"
 		source: "config/ConfigICal.qml"
