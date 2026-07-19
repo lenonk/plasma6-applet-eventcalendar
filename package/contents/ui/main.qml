@@ -225,7 +225,7 @@ PlasmoidItem {
 
 	Plasmoid.backgroundHints: plasmoid.configuration.showBackground ? PlasmaCore.Types.StandardBackground : PlasmaCore.Types.NoBackground
 
-	property bool isDesktopContainment: root.location == PlasmaCore.Types.Floating
+	property bool isDesktopContainment: Plasmoid.formFactor === PlasmaCore.Types.Planar
 	preferredRepresentation: isDesktopContainment ? fullRepresentation : compactRepresentation
 	compactRepresentation: clockComponent
 	fullRepresentation: popupComponent
