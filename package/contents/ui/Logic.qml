@@ -31,7 +31,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 		
 		repeat: true
 		triggeredOnStart: true
-		interval: plasmoid.configuration.eventsPollInterval * 60000
+		interval: Math.max(60000, Number(plasmoid.configuration.eventsPollInterval || 20) * 60000)
 		onTriggered: logic.update()
 	}
 
@@ -314,14 +314,14 @@ import "./weather/WeatherApi.js" as WeatherApi
 		}
 
 		//--- UI
-		function onAgendaBreakupMultiDayEventsChanged() { popup.updateUI() }
-		function onMeteogramHoursChanged() { popup.updateMeteogram() }
+		function onAgendaBreakupMultiDayEventsChanged() { if (popup) popup.updateUI() }
+		function onMeteogramHoursChanged() { if (popup) popup.updateMeteogram() }
 	}
 
 	//---
 	Connections {
 		target: appletConfig
-		function onClock24hChanged() { popup.updateUI() }
+		function onClock24hChanged() { if (popup) popup.updateUI() }
 	}
 
 	//---
@@ -341,7 +341,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 	}
 	Connections {
 		target: eventModel
-		function onError(errorType, msg) {
+		function onError(msg, errorType) {
 			logic.currentErrorMessage = msg
 			logic.currentErrorType = errorType
 			if (popup) popup.showError(logic.currentErrorMessage)

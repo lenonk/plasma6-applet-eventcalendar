@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import org.kde.kirigami as Kirigami
 
 import "../ErrorType.js" as ErrorType
 import "../Shared.js" as Shared
@@ -261,8 +262,9 @@ CalendarManager {
 	function parseEvent(calendar, event) {
 		event.description = event.description || ""
 		event.backgroundColor = parseColor(calendar, event)
-		event.canEdit = (calendar.accessRole == 'writer' || calendar.accessRole == 'owner') && !event.recurringEventId // We cannot currently edit repeating events.
+		event.canEdit = !!calendar && (calendar.accessRole == 'writer' || calendar.accessRole == 'owner') && !event.recurringEventId // We cannot currently edit repeating events.
 		if (plasmoid.configuration.googleHideGoalsDesc
+			&& event.organizer
 			&& event.organizer.email == "unknownorganizer@calendar.google.com"
 			&& event.organizer.displayName == "Google Calendar"
 		) {
@@ -307,7 +309,7 @@ CalendarManager {
 	function parseColor(calendar, event) {
 		var colorId = parseColorId('event', event.colorId)
 		// event.backgroundColor is a hardcoded color (like the debug calendar)
-		return event.backgroundColor || colorId || calendar.backgroundColor
+		return event.backgroundColor || colorId || (calendar && calendar.backgroundColor) || Kirigami.Theme.highlightColor.toString()
 	}
 
 

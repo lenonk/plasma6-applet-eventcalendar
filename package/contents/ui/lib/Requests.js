@@ -6,22 +6,28 @@ function request(opt, callback) {
 		opt = { url: opt }
 	}
 	var req = new XMLHttpRequest()
+	var completed = false
+	function finish(err, data) {
+		if (completed) return
+		completed = true
+		callback(err, data, req)
+	}
 	req.onerror = function() {
 		// Network Error / No Connection
 		console.log('XMLHttpRequest.onerror', req.status)
 		var msg = "HTTP Error " + req.status
-		callback(msg, null, req)
+		finish(msg, null)
 	}
 	req.onreadystatechange = function() {
 		if (req.readyState === XMLHttpRequest.DONE) { // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-done
 			if (200 <= req.status && req.status < 400) {
-				callback(null, req.responseText, req)
+				finish(null, req.responseText)
 			} else {
 				if (req.status === 0) {
 					console.log('HTTP 0 Headers: \n' + req.getAllResponseHeaders())
 				}
 				var msg = "HTTP Error " + req.status
-				callback(msg, req.responseText, req)
+				finish(msg, req.responseText)
 			}
 		}
 	}

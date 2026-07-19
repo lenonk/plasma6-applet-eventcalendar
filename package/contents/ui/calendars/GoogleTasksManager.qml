@@ -3,6 +3,7 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
 import "../Shared.js" as Shared
+import "../ErrorType.js" as ErrorType
 import "../lib/Async.js" as Async
 import "../lib/Requests.js" as Requests
 
@@ -115,7 +116,10 @@ CalendarManager {
 	function fetchGoogleAccountTasks_err(err, data, xhr) {
 		logger.debug('fetchGoogleAccountTasks_err', err, data, xhr)
 		googleTasksManager.asyncRequestsDone += 1
-		return handleError(err, data, xhr)
+		var httpCode = xhr ? xhr.status : 0
+		var msg = httpCode === 0 ? i18n("Could not connect") : (err || i18n("Google Tasks request failed"))
+		googleTasksManager.error(i18n("HTTP Error %1: %2", httpCode, msg),
+			httpCode === 0 ? ErrorType.NetworkError : ErrorType.UnknownError)
 	}
 	function fetchGoogleAccountTasks_done(results) {
 		for (var i = 0; i < results.length; i++) {
