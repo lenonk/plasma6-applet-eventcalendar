@@ -139,55 +139,60 @@ ListModel {
 	}
 
 	function sortSubTasks(eventList) {
-		// Place subtasks below their parent task
+		// Build the hierarchy once instead of repeatedly splicing the array while
+		// iterating it. The old algorithm could move the same child back and forth
+		// forever for cyclic or unusual Google Tasks parent relationships.
+		var taskById = {}
+		var childrenByParent = {}
+		function taskKey(item, id) {
+			return (item.calendarId || '') + '\n' + (id || '')
+		}
 		for (var i = 0; i < eventList.length; i++) {
-			var eventItem = eventList[i]
-			// console.log('i', i, eventItem.summary)
-			if (eventItem.kind === 'tasks#task' && typeof eventItem.parent !== 'undefined') {
-				for (var j = 0; j < eventList.length; j++) {
-					var parentItem = eventList[j]
-					// console.log('  j', j, parentItem.summary)
-					if (parentItem.kind === 'tasks#task' && parentItem.id === eventItem.parent) {
-						var foundDestination = false
-						for (var k = j+1; k < eventList.length; k++) {
-							var childItem = eventList[k]
-							// console.log('    k', k, childItem.summary)
-							if (childItem.kind != 'tasks#task'
-								|| childItem.parent != parentItem.id
-								|| childItem.position > eventItem.position
-							) {
-								// Move eventItem from index i => k
-								// console.log('      move', eventItem.summary, 'from', i, 'to', k)
-								foundDestination = true
-								if (i < k) {
-									// Since we removed an item before k, decrement the index
-									k--
-								}
-								if (i != k) {
-									eventList.splice(i, 1) // Remove at index=i
-									eventList.splice(k, 0, eventItem) // Add at index=k
-									i-- // Since eventItem was moved, we need to check index=i again.
-								}
-								break
-							}
-						} // end loop k
-
-						if (!foundDestination) {
-							// Move eventItem from index i => end of list
-							var k = eventList.length - 1
-							// console.log('      move', eventItem.summary, 'from', i, 'to', k, '(end of list)')
-							if (i != k) {
-								eventList.splice(i, 1) // Remove at index=i
-								eventList.push(eventItem)
-								i-- // Since eventItem was moved, we need to check index=i again.
-							}
-						}
-
-						break
-					}
-				} // end loop j
+			var item = eventList[i]
+			if (item.kind !== 'tasks#task') continue
+			taskById[taskKey(item, item.id)] = item
+			if (item.parent) {
+				var parentKey = taskKey(item, item.parent)
+				if (!childrenByParent[parentKey]) childrenByParent[parentKey] = []
+				childrenByParent[parentKey].push(item)
 			}
-		} // end loop i
+		}
+
+		for (var parentId in childrenByParent) {
+			childrenByParent[parentId].sort(function(a, b) {
+				var ap = a.position || ''
+				var bp = b.position || ''
+				return ap < bp ? -1 : (ap > bp ? 1 : 0)
+			})
+		}
+
+		var ordered = []
+		var visitedTasks = {}
+		function appendTask(item) {
+			var key = taskKey(item, item.id)
+			if (visitedTasks[key]) return
+			visitedTasks[key] = true
+			ordered.push(item)
+			var children = childrenByParent[key]
+			if (!children) return
+			for (var i = 0; i < children.length; i++) appendTask(children[i])
+		}
+
+		for (var i = 0; i < eventList.length; i++) {
+			var item = eventList[i]
+			if (item.kind !== 'tasks#task') {
+				ordered.push(item)
+			} else if (!item.parent || !taskById[taskKey(item, item.parent)]) {
+				appendTask(item)
+			}
+		}
+		// Cycles have no root; append every remaining task once.
+		for (var i = 0; i < eventList.length; i++) {
+			if (eventList[i].kind === 'tasks#task') appendTask(eventList[i])
+		}
+
+		eventList.splice(0, eventList.length)
+		for (var i = 0; i < ordered.length; i++) eventList.push(ordered[i])
 	}
 
 	function parseGCalEvents(data) {
