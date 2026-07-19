@@ -196,6 +196,12 @@ ConfigPage {
 
 			if (exitCode !== 0) {
 				var msg = ("" + (stderr || stdout || "")).trim()
+				if (exitCode === 126 || exitCode === 127) {
+					page.showAdvanced = true
+					page.showHelp = true
+					showStatus(i18n("Google login helper is unavailable. Use the Advanced manual login method below."), Kirigami.MessageType.Warning)
+					return
+				}
 				showStatus(page.localizedErrorMessage(msg) || i18n("Google login failed."), Kirigami.MessageType.Error)
 				return
 			}

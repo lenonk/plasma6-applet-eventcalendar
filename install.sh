@@ -25,6 +25,7 @@ function build_oauth_helper() {
 	cmake -S "$PWD" -B "$build_dir" -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1
 	if [ $? != 0 ]; then
 		echo "[install] Warning: Failed to configure CMake (oauth helper will not be built)."
+		echo "[install] Browser login will be unavailable; use the Advanced manual login method."
 		return 0
 	fi
 
@@ -36,6 +37,7 @@ function build_oauth_helper() {
 	cmake --build "$build_dir" --target eventcalendar-google-oauth -j "$jobs" >/dev/null 2>&1
 	if [ $? != 0 ]; then
 		echo "[install] Warning: Failed to build oauth helper (eventcalendar-google-oauth)."
+		echo "[install] Browser login will be unavailable; use the Advanced manual login method."
 		return 0
 	fi
 	return 0
