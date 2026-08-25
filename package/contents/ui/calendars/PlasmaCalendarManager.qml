@@ -16,6 +16,16 @@ CalendarManager {
 	property var executable: ExecUtil { id: executable }
 	property var eventPluginsManager: PlasmaCalendar.EventPluginsManager {}
 	property var calendarModel: Qt.createQmlObject("import org.kde.plasma.PimCalendars 1.0; PimCalendarsModel {}", plasmaCalendarManager)
+
+	// PimEventsConfig / pimcalendarsmodel role IDs (kdepim-addons pimeventsplugin):
+	//   CollectionIdRole = Qt.UserRole + 1  (257) -> qint64
+	//   NameRole         = Qt.UserRole + 2  (258) -> QString
+	//   EnabledRole      = Qt.UserRole + 3  (259) -> bool
+	//   CheckedRole      = Qt.UserRole + 4  (260) -> bool
+	//   IconNameRole     = Qt.UserRole + 5  (261) -> QString
+	// data(idx, Qt.UserRole + 1) returns a scalar qint64, NOT a map.
+	// "enabled" only means the collection has a calendar/todo mime type
+	// (a prerequisite); the user toggle signal is "checked".
 	function appendPimCalendars(calendarList) {
 		// https://github.com/KDE/kdepim-addons/blob/master/plugins/plasma/pimeventsplugin/PimEventsConfig.qml
 		// https://github.com/KDE/kdepim-addons/blob/master/plugins/plasma/pimeventsplugin/pimcalendarsmodel.cpp
@@ -24,45 +34,54 @@ CalendarManager {
 			logger.debug('KDEPIM Not installed as PimCalendarsModel import failed.', calendarModel)
 			return
 		}
+		if (typeof calendarModel.rowCount !== "function") {
+			logger.debug('PimCalendarsModel.rowCount missing, skipping.')
+			return
+		}
 
 		logger.debug('calendarModel', calendarModel)
-		logger.debug('calendarModel.count', calendarModel.rowCount())
-		var DataRole = Qt.UserRole + 1
+		logger.debug('PimCalendarsModel.count', calendarModel.rowCount())
+		var role = {
+			DisplayRole: 0,
+			CollectionIdRole: Qt.UserRole + 1,
+			NameRole: Qt.UserRole + 2,
+			EnabledRole: Qt.UserRole + 3,
+			CheckedRole: Qt.UserRole + 4,
+			IconNameRole: Qt.UserRole + 5,
+		}
+
+		function pushCalendar(index, indentPrefix) {
+			var akonadiId = calendarModel.data(index, role.CollectionIdRole)
+			if (typeof akonadiId === "undefined" || akonadiId === null) return
+			akonadiId = "" + akonadiId
+			var displayName = calendarModel.data(index, role.NameRole)
+				|| calendarModel.data(index, role.DisplayRole)
+			var isCalendar = !!calendarModel.data(index, role.EnabledRole)
+			var isChecked = !!calendarModel.data(index, role.CheckedRole)
+			var iconName = calendarModel.data(index, role.IconNameRole) || ""
+			logger.debugJSON('PimCalendarsModel', indentPrefix, displayName, {
+				id: akonadiId,
+				isEnabled: isCalendar,
+				isChecked: isChecked,
+				iconName: iconName,
+			})
+			if (!isCalendar || !isChecked) return
+			calendarList.push({
+				"id": "plasma_Events_" + akonadiId,
+				"summary": displayName || ("Calendar " + akonadiId),
+				"accessRole": "owner",
+				"isTasklist": false,
+			})
+		}
+
 		for (var i = 0; i < calendarModel.rowCount(); i++) {
-			var index = calendarModel.index(i, 0)
-			var calendarName = calendarModel.data(index, Qt.DisplayRole)
-			var calendarData = calendarModel.data(index, DataRole)
-			logger.debugJSON('PimCalendarsModel', i, calendarName, calendarData)
+			var topIndex = calendarModel.index(i, 0)
+			pushCalendar(topIndex, String(i))
 
-			if (calendarData['enabled']) {
-				var calendarId = "plasma_Events_" + calendarData['id']
-				calendarList.push({
-					"id": calendarId,
-					"summary": calendarName,
-					"backgroundColor": "#9a9cff",
-					"accessRole": "owner",
-					"isTasklist": false,
-				})
-			}
-
-			if (calendarModel.hasChildren(index)) {
-				var parentIndex = index
-				for (var j = 0; j < calendarModel.rowCount(parentIndex); j++) {
-					var childIndex = calendarModel.index(j, 0, parentIndex)
-					var calendarName = calendarModel.data(childIndex, Qt.DisplayRole)
-					var calendarData = calendarModel.data(childIndex, DataRole)
-					logger.debugJSON('PimCalendarsModel', i, j, calendarName, calendarData)
-
-					if (calendarData['enabled']) {
-						var calendarId = "plasma_Events_" + calendarData['id']
-						calendarList.push({
-							"id": calendarId,
-							"summary": calendarName,
-							"backgroundColor": "#9a9cff",
-							"accessRole": "owner",
-							"isTasklist": false,
-						})
-					}
+			if (calendarModel.hasChildren && calendarModel.hasChildren(topIndex)) {
+				for (var j = 0; j < calendarModel.rowCount(topIndex); j++) {
+					var childIndex = calendarModel.index(j, 0, topIndex)
+					pushCalendar(childIndex, i + "." + j)
 				}
 			}
 		}
@@ -75,7 +94,6 @@ CalendarManager {
 		// KHolidays
 		calendarList.push({
 			"calendarId": "plasma_Holidays",
-			"backgroundColor": "" + Kirigami.Theme.highlightColor,
 			"accessRole": "reader",
 			"isTasklist": false,
 		})
@@ -198,7 +216,11 @@ CalendarManager {
 				end.dateTime = endDateTime
 			}
 			var calendarId = parseCalendarId(dayItem)
-			var eventId = calendarId + "_" + startDateTime.getTime() + "_" + endDateTime.getTime()
+			// dayItem.uid for PimCalendar-sourced events is "Akonadi-<itemId>".
+			var stableSuffix = dayItem.uid
+				? dayItem.uid
+				: (startDateTime.getTime() + "_" + endDateTime.getTime() + "_" + i)
+			var eventId = calendarId + "_" + stableSuffix
 
 			var eventColor = dayItem.eventColor || Kirigami.Theme.highlightColor
 			eventColor = "" + eventColor // Cast to string, as dayItem.eventColor is a QColor which JSON treats as an object
@@ -262,25 +284,29 @@ CalendarManager {
 			// Check every event before this one.
 			for (var j = 0; j < i; j++) {
 				var itemB = items[j]
-				if (itemA.eventId == itemB.eventId) {
-					// There's a conflict, TODO: generate a better eventIds
+				if (itemA.id == itemB.id) {
+					// Same id means either the same event on the same day
+					// (Plasma fans out one entry per day of a multi-day event),
+					// or two distinct events that happen to collide. Keep them
+					// both: the agenda already shows them correctly.
 
-					if (itemA.start.date == itemB.start.date
-						&& itemA.start.dateTime == itemB.start.dateTime
-						&& itemA.end.date == itemB.end.date
-						&& itemA.end.dateTime == itemB.end.dateTime
-						&& itemA.summary == itemB.summary
-					) {
-						// Same event.
+					var startDateA = itemA.start && itemA.start.dateTime
+						? itemA.start.dateTime.getTime()
+						: (itemA.start && itemA.start.date
+							? new Date(itemA.start.date).getTime()
+							: 0)
+					var startDateB = itemB.start && itemB.start.dateTime
+						? itemB.start.dateTime.getTime()
+						: (itemB.start && itemB.start.date
+							? new Date(itemB.start.date).getTime()
+							: 0)
 
-						// logger.debug('itemA == itemB, removing')
-						// logger.debugJSON('\titemA', itemA)
-						// logger.debugJSON('\titemB', itemB)
-
-						items.splice(i, 1) // remove this event item
-						i -= 1 // start this index again
-						break // exit j/itemB loop
+					if (startDateA == startDateB) {
+						// Same id AND same start -> dup of multi-day fan-out.
+						items.splice(i, 1)
+						i -= 1
 					}
+					break
 				}
 			}
 		}

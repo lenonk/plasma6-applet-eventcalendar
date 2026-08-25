@@ -343,6 +343,14 @@
 			<!-- Plasma 6 uses plugin ids (eg: "holidaysevents", "astronomicalevents"). -->
 			<default>holidaysevents</default>
 		</entry>
+		<!-- Last-known set of enabled Akonadi collectionIds, captured when the
+		     user toggles them in the Local Calendars config. We use this to
+		     detect "the user changed something" since PimCalendarsModel has no
+		     QML-side signals for check-state changes. Refreshed events trigger
+		     only when the set actually changes. -->
+		<entry name="pimEnabledCalendars" type="StringList">
+			<default></default>
+		</entry>
 	</group>
 
 

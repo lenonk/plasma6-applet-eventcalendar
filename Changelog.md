@@ -1,3 +1,13 @@
+## v77
+
+* Fix `PlasmaCalendarManager.appendPimCalendars()` which never populated the
+  PIM calendar list — was treating a `qint64` collectionId as a map.
+* New "Local Calendars" config page (under Events) for per-Akonadi
+  collection enable and color. Selections persist via `PimCalendarsModel.
+  saveConfig()` so KOrganizer sees the same choice.
+* PIM events now carry stable IDs (`Akonadi-<itemId>`), avoiding spurious
+  duplicates when two events share start/end timestamps.
+
 ## v76 - May 3 2022
 
 * Do not show calendar border by default anymore.
