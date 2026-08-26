@@ -6,6 +6,8 @@ QtObject {
 	id: googleApiSession
 
 	readonly property string accessToken: plasmoid.configuration.accessToken
+	property bool refreshInProgress: false
+	property var refreshWaiters: []
 
 	//--- Refresh Credentials
 	function checkAccessToken(callback) {
@@ -18,25 +20,44 @@ QtObject {
 	}
 
 	function updateAccessToken(callback) {
+		refreshWaiters.push(callback)
+		if (refreshInProgress) return
+		refreshInProgress = true
+		function finishRefresh(err) {
+			var waiters = refreshWaiters.slice(0)
+			refreshWaiters = []
+			refreshInProgress = false
+			for (var i = 0; i < waiters.length; i++) waiters[i](err || null)
+		}
 		// logger.debug('accessTokenExpiresAt', plasmoid.configuration.accessTokenExpiresAt)
 		// logger.debug('                 now', Date.now())
 		// logger.debug('refreshToken', plasmoid.configuration.refreshToken)
 		if (plasmoid.configuration.refreshToken) {
 			logger.debug('updateAccessToken')
 			fetchNewAccessToken(function(err, data, xhr) {
-				if (err || (!err && data && data.error)) {
-					logger.log('Error when using refreshToken:', err, data)
-					return callback(err)
+				var tokenData = null
+				if (!err) {
+					try {
+						tokenData = typeof data === 'string' ? JSON.parse(data) : data
+					} catch (parseError) {
+						err = "Invalid response while refreshing Google access token."
+					}
 				}
-				logger.debug('onAccessToken', data)
-				data = JSON.parse(data)
+				if (err || (tokenData && tokenData.error)) {
+					logger.log('Error when using refreshToken:', err, data)
+					return finishRefresh(err || "Failed to refresh Google access token.")
+				}
+				if (!tokenData || !tokenData.access_token) {
+					return finishRefresh("Missing access token in Google refresh response.")
+				}
+				logger.debug('onAccessToken', tokenData)
 
-				googleApiSession.applyAccessToken(data)
+				googleApiSession.applyAccessToken(tokenData)
 
-				callback(null)
+				finishRefresh(null)
 			})
 		} else {
-			callback('No refresh token. Cannot update access token.')
+			finishRefresh('No refresh token. Cannot update access token.')
 		}
 	}
 

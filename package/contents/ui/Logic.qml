@@ -17,6 +17,11 @@ import "./weather/WeatherApi.js" as WeatherApi
 		property var lastForecastErr: null
 		property bool pendingDailyUpdate: false
 		property bool pendingHourlyUpdate: false
+		property int weatherRetryAttempt: 0
+		property string pendingWeatherNetworkError: ""
+		property int eventRetryAttempt: 0
+		property string pendingEventNetworkError: ""
+		property double lastPollTriggeredAt: 0
 
 
 	//--- Main
@@ -31,8 +36,35 @@ import "./weather/WeatherApi.js" as WeatherApi
 		
 		repeat: true
 		triggeredOnStart: true
-		interval: plasmoid.configuration.eventsPollInterval * 60000
-		onTriggered: logic.update()
+		interval: Math.max(60000, Number(plasmoid.configuration.eventsPollInterval || 20) * 60000)
+		onTriggered: {
+			var now = Date.now()
+			var resumedAfterTimerWasDue = lastPollTriggeredAt > 0
+				&& now - lastPollTriggeredAt > pollTimer.interval + 5000
+			lastPollTriggeredAt = now
+			if (resumedAfterTimerWasDue) {
+				// An overdue QML timer fires immediately after resume, before
+				// NetworkManager has rebuilt Wi-Fi, routing and DNS. Give it time.
+				resumeUpdateTimer.restart()
+			} else {
+				logic.update()
+			}
+		}
+	}
+	Timer {
+		id: resumeUpdateTimer
+		interval: 15000
+		repeat: false
+		onTriggered: logic.updateData()
+	}
+	Timer {
+		id: networkOnlineTimer
+		interval: 2000
+		repeat: false
+		onTriggered: {
+			resumeUpdateTimer.stop()
+			logic.updateData()
+		}
 	}
 
 	function update() {
@@ -42,20 +74,72 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 	function updateData() {
 		logger.debug('updateData')
+		// Plasma can instantiate the applet before NetworkManager has finished
+		// reconnecting (for example immediately after login or a shell restart).
+		// Avoid firing requests that are guaranteed to fail with HTTP status 0;
+		// the network-status connection below refreshes everything once online.
+		if (!networkMonitor.isConnected) {
+			logger.debug('updateData skipped: network is not connected')
+			return
+		}
 		logic.updateEvents()
 		logic.updateWeather()
 	}
 
-
-
 	//--- Events
 	function updateEvents() {
+		if (!networkMonitor.isConnected) {
+			logic.scheduleEventRetry()
+			return
+		}
 		updateEventsTimer.restart()
 	}
 	Timer {
 		id: updateEventsTimer
 		interval: 200
 		onTriggered: logic.deferredUpdateEvents()
+	}
+	Timer {
+		id: eventRetryTimer
+		repeat: false
+		onTriggered: {
+			if (networkMonitor.isConnected) {
+				logic.updateEvents()
+			} else {
+				logic.scheduleEventRetry()
+			}
+		}
+	}
+	Timer {
+		id: eventNetworkErrorDisplayTimer
+		interval: 60000
+		repeat: false
+		onTriggered: {
+			if (pendingEventNetworkError) {
+				logic.currentErrorMessage = pendingEventNetworkError
+				logic.currentErrorType = ErrorType.NetworkError
+				if (popup) popup.showError(logic.currentErrorMessage)
+			}
+		}
+	}
+	function scheduleEventRetry() {
+		if (eventRetryTimer.running) {
+			return
+		}
+		var delays = [10000, 30000, 60000, 120000, 300000]
+		var delayIndex = Math.min(eventRetryAttempt, delays.length - 1)
+		eventRetryTimer.interval = delays[delayIndex]
+		eventRetryAttempt = Math.min(eventRetryAttempt + 1, delays.length - 1)
+		eventRetryTimer.start()
+	}
+	function clearEventNetworkRecovery() {
+		pendingEventNetworkError = ""
+		eventRetryAttempt = 0
+		eventRetryTimer.stop()
+		eventNetworkErrorDisplayTimer.stop()
+		if (logic.currentErrorType == ErrorType.NetworkError) {
+			logic.clearError()
+		}
 	}
 	function deferredUpdateEvents() {
 		var range = agendaModel.getDateRange(agendaModel.currentMonth)
@@ -70,6 +154,10 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 		//--- Weather
 		function updateWeather(force) {
+			if (!networkMonitor.isConnected) {
+				logger.debug('updateWeather skipped: network is not connected')
+				return
+			}
 			if (WeatherApi.weatherIsSetup(plasmoid.configuration)) {
 				function shouldUpdateAt(lastAt) {
 					if (!lastAt) return true
@@ -100,6 +188,46 @@ import "./weather/WeatherApi.js" as WeatherApi
 			interval: 100
 			onTriggered: logic.deferredUpdateWeather()
 		}
+		Timer {
+			id: weatherRetryTimer
+			repeat: false
+			onTriggered: {
+				if (networkMonitor.isConnected) {
+					logic.updateWeather(true)
+				} else {
+					logic.scheduleWeatherRetry()
+				}
+			}
+		}
+		Timer {
+			id: weatherNetworkErrorDisplayTimer
+			interval: 60000
+			repeat: false
+			onTriggered: {
+				if (pendingWeatherNetworkError) {
+					logic.lastForecastErr = pendingWeatherNetworkError
+				}
+			}
+		}
+		function scheduleWeatherRetry() {
+			// Daily and hourly requests normally fail together. Let the first one
+			// schedule the shared retry instead of doubling the backoff.
+			if (weatherRetryTimer.running) {
+				return
+			}
+			var delays = [10000, 30000, 60000, 120000, 300000]
+			var delayIndex = Math.min(weatherRetryAttempt, delays.length - 1)
+			weatherRetryTimer.interval = delays[delayIndex]
+			weatherRetryAttempt = Math.min(weatherRetryAttempt + 1, delays.length - 1)
+			weatherRetryTimer.start()
+			logger.debug('Weather retry scheduled in ms', weatherRetryTimer.interval)
+		}
+		function clearWeatherRetry() {
+			pendingWeatherNetworkError = ""
+			weatherRetryAttempt = 0
+			weatherRetryTimer.stop()
+			weatherNetworkErrorDisplayTimer.stop()
+		}
 		function deferredUpdateWeather() {
 			var doDaily = pendingDailyUpdate
 			var doHourly = pendingHourlyUpdate
@@ -115,6 +243,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 		}
 
 		function resetWeatherData() {
+			logic.clearWeatherRetry()
 			logic.dailyWeatherData = { "list": [] }
 			logic.hourlyWeatherData = { "list": [] }
 			logic.currentWeatherData = null
@@ -228,7 +357,11 @@ import "./weather/WeatherApi.js" as WeatherApi
 				var msg = i18n("Could not connect")
 				var errorMessage = i18n("HTTP Error %1: %2", xhr.status, msg)
 				errorMessage += '\n' + i18n("Will try again soon.")
-				logic.lastForecastErr = errorMessage
+				logic.pendingWeatherNetworkError = errorMessage
+				if (!weatherNetworkErrorDisplayTimer.running) {
+					weatherNetworkErrorDisplayTimer.start()
+				}
+				logic.scheduleWeatherRetry()
 			} else if (xhr && xhr.status == 429) {
 				// If there's an error, don't bother the API for another hour.
 				if (isDaily) logic.lastDailyForecastAt = nowMs
@@ -253,6 +386,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 					data = localizeWeatherData(data)
 
 					logic.lastDailyForecastAt = Date.now()
+					logic.clearWeatherRetry()
 					logic.lastForecastErr = null
 					logic.dailyWeatherData = data
 				if (popup) {
@@ -269,6 +403,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 						data = localizeWeatherData(data)
 
 						logic.lastHourlyForecastAt = Date.now()
+						logic.clearWeatherRetry()
 						logic.lastForecastErr = null
 						logic.hourlyWeatherData = data
 						logic.currentWeatherData = (data && data.current) ? data.current : ((data && data.list && data.list.length) ? data.list[0] : null)
@@ -318,14 +453,14 @@ import "./weather/WeatherApi.js" as WeatherApi
 		}
 
 		//--- UI
-		function onAgendaBreakupMultiDayEventsChanged() { popup.updateUI() }
-		function onMeteogramHoursChanged() { popup.updateMeteogram() }
+		function onAgendaBreakupMultiDayEventsChanged() { if (popup) popup.updateUI() }
+		function onMeteogramHoursChanged() { if (popup) popup.updateMeteogram() }
 	}
 
 	//---
 	Connections {
 		target: appletConfig
-		function onClock24hChanged() { popup.updateUI() }
+		function onClock24hChanged() { if (popup) popup.updateUI() }
 	}
 
 	//---
@@ -340,12 +475,21 @@ import "./weather/WeatherApi.js" as WeatherApi
 		}
 	}
 	function clearError() {
+		currentErrorMessage = ""
 		currentErrorType = ErrorType.NoError
 		if (popup) popup.clearError()
 	}
 	Connections {
 		target: eventModel
-		function onError(errorType, msg) {
+		function onError(msg, errorType) {
+			if (errorType == ErrorType.NetworkError) {
+				logic.pendingEventNetworkError = msg
+				logic.scheduleEventRetry()
+				if (!eventNetworkErrorDisplayTimer.running) {
+					eventNetworkErrorDisplayTimer.start()
+				}
+				return
+			}
 			logic.currentErrorMessage = msg
 			logic.currentErrorType = errorType
 			if (popup) popup.showError(logic.currentErrorMessage)
@@ -357,6 +501,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 		target: eventModel
 		function onCalendarFetched(calendarId, data) {
 			logger.debug('onCalendarFetched', calendarId)
+			logic.clearEventNetworkRecovery()
 			// logger.debug('onCalendarFetched', calendarId, JSON.stringify(data, null, '\t'))
 			if (popup) popup.deferredUpdateUI()
 		}
@@ -382,11 +527,13 @@ import "./weather/WeatherApi.js" as WeatherApi
 	Connections {
 		target: networkMonitor
 		function onIsConnectedChanged() {
+			logger.debug('NetworkMonitor.isConnected changed', networkMonitor.isConnected)
 			if (networkMonitor.isConnected) {
-				if (logic.currentErrorType == ErrorType.NetworkError) {
-					logic.clearError()
-				}
-				logic.update()
+				// NetworkManager can announce Full just before DNS is usable. A
+				// short settle delay avoids one final status-0 request on resume.
+				networkOnlineTimer.restart()
+			} else {
+				networkOnlineTimer.stop()
 			}
 		}
 	}

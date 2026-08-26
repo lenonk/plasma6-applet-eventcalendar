@@ -373,7 +373,8 @@
 		<entry name="accessTokenType" type="string">
 			<default></default>
 		</entry>
-		<entry name="accessTokenExpiresAt" type="uint">
+		<!-- JavaScript epoch milliseconds exceed a 32-bit unsigned integer. -->
+		<entry name="accessTokenExpiresAt" type="double">
 			<default>0</default>
 		</entry>
 		<entry name="refreshToken" type="string">

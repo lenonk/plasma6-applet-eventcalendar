@@ -50,6 +50,11 @@ cd plasma6-applet-eventcalendar
 sh ./install.sh
 ```
 
+The browser-based Google login requires the OAuth helper to compile. Its build
+dependencies are CMake, KDE Extra CMake Modules (ECM), and the Qt 6 NetworkAuth
+development package. If they are unavailable, the installer still installs the
+widget and the **Advanced** manual login method remains available.
+
 ### Option C: Arch Linux (AUR)
 
 Also available in the AUR as:

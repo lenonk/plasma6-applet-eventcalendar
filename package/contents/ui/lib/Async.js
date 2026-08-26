@@ -2,16 +2,24 @@
 // Version 1
 
 function _taskCallback(asyncObj, key, err, taskResult) {
+	if (asyncObj.completedKeys[key]) return
+	asyncObj.completedKeys[key] = true
 	asyncObj.numCompleted += 1
 	if (err) {
 		asyncObj.err = err
-		asyncObj.finalCallback(err)
+		if (!asyncObj.finalCalled) {
+			asyncObj.finalCalled = true
+			asyncObj.finalCallback(err)
+		}
 	} else if (asyncObj.err) {
 		// Skip
 	} else {
 		asyncObj.results[key] = taskResult
 		if (asyncObj.numCompleted >= asyncObj.numTasks) {
-			asyncObj.finalCallback(null, asyncObj.results)
+			if (!asyncObj.finalCalled) {
+				asyncObj.finalCalled = true
+				asyncObj.finalCallback(null, asyncObj.results)
+			}
 		}
 	}
 }
@@ -26,6 +34,8 @@ function parallel(tasks, finalCallback) {
 		asyncObj.numCompleted = 0
 		asyncObj.err = null
 		asyncObj.results = []
+		asyncObj.completedKeys = ({})
+		asyncObj.finalCalled = false
 		asyncObj.finalCallback = finalCallback
 
 		for (var i = 0; i < tasks.length; i++) {

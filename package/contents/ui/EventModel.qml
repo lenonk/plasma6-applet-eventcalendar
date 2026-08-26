@@ -115,11 +115,64 @@ CalendarManager {
 
 	function mergeEvents() {
 		logger.debug('eventModel.mergeEvents')
-		delete eventModel.eventsData
-		eventModel.eventsData = { items: [] }
+		var merged = []
 		for (var calendarId in eventModel.eventsByCalendar) {
-			eventModel.eventsData.items = eventModel.eventsData.items.concat(eventModel.eventsByCalendar[calendarId].items)
+			merged = merged.concat(eventModel.eventsByCalendar[calendarId].items)
 		}
+
+		function signature(item) {
+			return JSON.stringify([
+				item.summary || '',
+				Number(item.startDateTime),
+				Number(item.endDateTime),
+				item.kind === 'tasks#task' ? 'task' : 'event',
+			])
+		}
+		function isPlasmaItem(item) {
+			return (item.calendarId || '').indexOf('plasma_') === 0
+		}
+
+		var items = []
+		var itemSignatures = []
+		for (var i = 0; i < merged.length; i++) {
+			var item = merged[i]
+			var itemSignature = signature(item)
+			var itemIsPlasma = isPlasmaItem(item)
+			var isDuplicate = false
+
+			for (var j = items.length - 1; j >= 0; j--) {
+				if (itemSignatures[j] !== itemSignature) continue
+
+				var existing = items[j]
+				var sameStoredItem = !!item.id
+					&& item.id === existing.id
+					&& item.calendarId === existing.calendarId
+				if (sameStoredItem) {
+					isDuplicate = true
+					break
+				}
+
+				var existingIsPlasma = isPlasmaItem(existing)
+				if (itemIsPlasma === existingIsPlasma) continue
+
+				// Akonadi/PIM can expose the same account already fetched directly
+				// from Google. Prefer the direct item because it retains edit/link data.
+				if (itemIsPlasma) {
+					isDuplicate = true
+					break
+				}
+				items.splice(j, 1)
+				itemSignatures.splice(j, 1)
+			}
+
+			if (!isDuplicate) {
+				items.push(item)
+				itemSignatures.push(itemSignature)
+			}
+		}
+
+		delete eventModel.eventsData
+		eventModel.eventsData = { items: items }
 	}
 
 	//--- CalendarManager: Event

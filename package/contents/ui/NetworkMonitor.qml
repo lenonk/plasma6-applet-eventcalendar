@@ -81,8 +81,10 @@ QtObject {
 			// Failed to load PlasmaNM, so treat it as connected.
 			return true
 		} else {
-			// NetworkManager::Connectivity: None(1) is offline; Portal/Limited/Full are usable.
-			return connectivity > 1
+			// Internet APIs need NetworkManager::Connectivity::Full (4). Portal and
+			// Limited are common transient states while Wi-Fi is reconnecting after
+			// resume, but XMLHttpRequest still fails there with HTTP status 0.
+			return connectivity >= 4
 		}
 	}
 

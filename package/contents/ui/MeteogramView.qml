@@ -125,9 +125,13 @@ Item {
 				yAxisRainMax = 100
 			}
 
-			yAxisScale = Math.ceil((yDataMax-yDataMin) / (yAxisScaleCount))
+			yAxisScale = Math.max(1, Math.ceil((yDataMax-yDataMin) / Math.max(1, yAxisScaleCount)))
 			yAxisMin = Math.floor(yDataMin)
 			yAxisMax = Math.ceil(yDataMax)
+			if (yAxisMin >= yAxisMax) {
+				yAxisMin -= 1
+				yAxisMax += 1
+			}
 		}
 
 		function iconsInRange(gData, s, e) {
@@ -181,9 +185,13 @@ Item {
 
 
 		function gridPoint(x, y) {
+			var xRange = xAxisMax - xAxisMin
+			var yRange = yAxisMax - yAxisMin
+			if (!isFinite(xRange) || xRange <= 0) xRange = 1
+			if (!isFinite(yRange) || yRange <= 0) yRange = 1
 			return {
-				x: (x - xAxisMin) / (xAxisMax - xAxisMin) * gridWidth + gridX,
-				y: gridHeight - (y - yAxisMin) / (yAxisMax - yAxisMin) * gridHeight + gridY,
+				x: (x - xAxisMin) / xRange * gridWidth + gridX,
+				y: gridHeight - (y - yAxisMin) / yRange * gridHeight + gridY,
 			}
 		}
 
@@ -252,6 +260,10 @@ Item {
 
 						if (graph.gridData.length < 2) return
 						if (graph.yAxisMin === graph.yAxisMax) return
+						var yStep = Number(graph.yAxisScale)
+						var xStep = Number(graph.xAxisScale)
+						if (!isFinite(yStep) || yStep <= 0) yStep = 1
+						if (!isFinite(xStep) || xStep <= 0) xStep = 1
 
 						// rain
 						graph.showYAxisRainMax = false
@@ -273,7 +285,7 @@ Item {
 						}
 
 						// yAxis scale
-						for (var y = graph.yAxisMin; y <= graph.yAxisMax; y += graph.yAxisScale) {
+						for (var y = graph.yAxisMin, yTicks = 0; y <= graph.yAxisMax && yTicks < 256; y += yStep, yTicks++) {
 							ctx.strokeStyle = "" + appletConfig.meteogramScaleColor
 							ctx.lineWidth = 1
 							drawLine(ctx, graph.xAxisMin, y, graph.xAxisMax, y)
@@ -288,7 +300,7 @@ Item {
 						}
 
 						// xAxis scale
-						for (var x = graph.xAxisMin; x <= graph.xAxisMax; x += graph.xAxisScale) {
+						for (var x = graph.xAxisMin, xTicks = 0; x <= graph.xAxisMax && xTicks < 256; x += xStep, xTicks++) {
 							ctx.strokeStyle = "" + appletConfig.meteogramScaleColor
 							ctx.lineWidth = 1
 							drawLine(ctx, x, graph.yAxisMin, x, graph.yAxisMax)
