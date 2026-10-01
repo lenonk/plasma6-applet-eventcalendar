@@ -588,6 +588,11 @@ CalendarManager {
 			for (var i = 0; i < calendarList.length; i++) {
 				var calendar = calendarList[i]
 				calendar.isTasklist = false
+				// The primary calendar is fetched as "primary", use the same id
+				// here so the new event form finds its calendarManager.
+				if (calendar.primary && calendarIdList.indexOf('primary') >= 0) {
+					calendar.id = 'primary'
+				}
 			}
 			return calendarList
 		} else {
