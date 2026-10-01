@@ -33,8 +33,9 @@ QQC2.Menu {
 	}
 
 	function clearVisualItems() {
-		if (typeof clear === "function") {
-			clear()
+		// QQC2.Menu has no clear(), without this items pile up on every open
+		while (contextMenu.count > 0) {
+			contextMenu.removeItem(contextMenu.itemAt(0))
 		}
 	}
 
@@ -44,15 +45,20 @@ QQC2.Menu {
 			return
 		}
 
+		if (item.subMenu) {
+			// MenuItem.menu is read-only in Qt 6, submenus go through addMenu()
+			item.subMenu.rebuildMenu()
+			item.subMenu.title = item.text || ""
+			item.subMenu.enabled = typeof item.enabled === "undefined" ? true : item.enabled
+			menu.addMenu(item.subMenu)
+			return
+		}
+
 		var visualItem = Qt.createQmlObject("import QtQuick.Controls; MenuItem {}", menu)
 		visualItem.text = item.text || ""
 		visualItem.enabled = typeof item.enabled === "undefined" ? true : item.enabled
 		if (item.icon) {
 			visualItem.icon.name = item.icon
-		}
-		if (item.subMenu) {
-			item.subMenu.rebuildMenu()
-			visualItem.menu = item.subMenu
 		}
 		visualItem.triggered.connect(function() {
 			item.clicked()
