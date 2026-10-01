@@ -32,8 +32,9 @@ function isDateAfter(a, b) {
 function dateTimeString(d) {
 	return d.toISOString()
 }
+// Local date, toISOString() is UTC and moves local midnight a day back east of UTC
 function dateString(d) {
-	return d.toISOString().substr(0, 10)
+	return Qt.formatDateTime(d, 'yyyy-MM-dd')
 }
 function localeDateString(d) {
 	return Qt.formatDateTime(d, 'yyyy-MM-dd')

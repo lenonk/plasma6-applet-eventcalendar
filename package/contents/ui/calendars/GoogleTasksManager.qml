@@ -201,9 +201,8 @@ CalendarManager {
 			// Note: In the Google Tasks API docs:
 			// The due date only records date information; the time portion of the timestamp is discarded when setting the due date.
 			// It isn't possible to read or write the time that a task is due via the API.
-			var dueDateTime = new Date(taskData.due)
-			// Use local time zone, like we do in CalendarManager.onEventParsing
-			eventData.dueDate = Shared.dateString(dueDateTime)
+			// due is UTC midnight of the due day, take the date as-is
+			eventData.dueDate = taskData.due.substr(0, 10)
 			eventData.dueDateTime = new Date(eventData.dueDate + ' 00:00:00')
 			// All day event, due at end of day.
 			eventData.dueEndOfDay = taskData.due.indexOf('T00:00:00.000Z') !== -1
