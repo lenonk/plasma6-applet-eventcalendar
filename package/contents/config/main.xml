@@ -400,6 +400,10 @@
 			<label>Remove "This event was added from Goals in Google Calendar" from description</label>
 			<default>true</default>
 		</entry>
+		<entry name="googleTasksHideCompleted" type="bool">
+			<label>Don't show completed Google Tasks, drop a task as soon as it gets completed</label>
+			<default>false</default>
+		</entry>
 
 		<!-- Deprecated in: v71 -->
 		<entry name="access_token" type="string">

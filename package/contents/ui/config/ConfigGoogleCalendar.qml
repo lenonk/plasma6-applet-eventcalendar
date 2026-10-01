@@ -481,6 +481,12 @@ ConfigPage {
 					configKey: "googleHideGoalsDesc"
 					text: i18n("Hide the “Goals in Google Calendar” description")
 				}
+
+				ConfigCheckBox {
+					Kirigami.FormData.label: ""
+					configKey: "googleTasksHideCompleted"
+					text: i18n("Hide completed tasks")
+				}
 			}
 		}
 

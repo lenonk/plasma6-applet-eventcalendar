@@ -300,8 +300,13 @@ CalendarManager {
 		url += '/lists/'
 		url += encodeURIComponent(args.tasklistId)
 		url += '/tasks'
-		url += '?showCompleted=true'
-		url += '&showHidden=true'
+		if (plasmoid.configuration.googleTasksHideCompleted) {
+			url += '?showCompleted=false'
+			url += '&showHidden=false'
+		} else {
+			url += '?showCompleted=true'
+			url += '&showHidden=true'
+		}
 		// url += '&dueMin=' + encodeURIComponent(args.start)
 		// url += '&dueMax=' + encodeURIComponent(args.end)
 		if (args.pageToken) {
@@ -328,7 +333,11 @@ CalendarManager {
 		if (session.accessToken) {
 			var eventText = text
 
-			var func = createEvent_run.bind(this, calendarId, eventText, function(err, data, xhr) {
+			// Without a due date Google Calendar doesn't show the task at all,
+			// so use the agenda day it was added on. The API keeps only the date.
+			var due = date ? Shared.dateString(date) + 'T00:00:00.000Z' : null
+
+			var func = createEvent_run.bind(this, calendarId, eventText, due, function(err, data, xhr) {
 				if (err) {
 					createEvent_err(err, data, xhr)
 				} else {
@@ -340,12 +349,13 @@ CalendarManager {
 			session.transactionError('attempting to "create an event" without an access token set')
 		}
 	}
-	function createEvent_run(calendarId, eventText, callback) {
-		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText)
+	function createEvent_run(calendarId, eventText, due, callback) {
+		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText, due)
 		createGoogleTask({
 			accessToken: session.accessToken,
 			tasklistId: calendarId,
 			title: eventText,
+			due: due,
 		}, callback)
 	}
 	function createEvent_done(calendarId, data) {
@@ -371,7 +381,9 @@ CalendarManager {
 		var taskData = {
 			title: args.title,
 			// notes: args.notes,
-			// due: args.due,
+		}
+		if (args.due) {
+			taskData.due = args.due
 		}
 		Requests.postJSON({
 			url: url,
@@ -507,6 +519,14 @@ CalendarManager {
 
 		// Merge serialized values
 		var eventData = parseTaskAsEventData(data)
+
+		// Completed tasks aren't fetched with this option, drop it now instead
+		// of moving it to the completion day until the next refresh.
+		if (eventData.isCompleted && plasmoid.configuration.googleTasksHideCompleted) {
+			removeEvent(calendarId, eventId)
+			return
+		}
+
 		Shared.merge(event, eventData)
 		Shared.removeMissingKeys(event, eventData)
 

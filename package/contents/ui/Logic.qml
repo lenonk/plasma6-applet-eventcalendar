@@ -521,6 +521,10 @@ import "./weather/WeatherApi.js" as WeatherApi
 			logger.logJSON('onEventDeleted', calendarId, eventId, data)
 			if (popup) popup.deferredUpdateUI()
 		}
+		// e.g. a task that got completed, removed from the model only
+		function onEventRemoved(calendarId, eventId, data) {
+			if (popup) popup.deferredUpdateUI()
+		}
 	}
 
 	//---
