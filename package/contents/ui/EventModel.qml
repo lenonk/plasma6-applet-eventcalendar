@@ -176,14 +176,14 @@ CalendarManager {
 	}
 
 	//--- CalendarManager: Event
-	function createEvent(calendarId, date, text) {
+	function createEvent(calendarId, date, text, timing) {
 		if (plasmoid.configuration.agendaNewEventRememberCalendar) {
 			plasmoid.configuration.agendaNewEventLastCalendarId = calendarId
 		}
 
 		var calendarManager = getCalendarManager(calendarId)
 		if (calendarManager) {
-			calendarManager.createEvent(calendarId, date, text)
+			calendarManager.createEvent(calendarId, date, text, timing)
 		} else {
 			logger.log('Could not createEvent. Could not find calendarManager for calendarId = ', calendarId)
 		}

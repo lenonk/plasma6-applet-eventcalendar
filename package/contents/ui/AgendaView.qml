@@ -19,7 +19,7 @@ Item {
 	property int isOverdueFontWeight: Font.Bold
 
 	signal newEventFormOpened(var agendaItem, var calendarSelector)
-	signal submitNewEventForm(string calendarId, var date, string text)
+	signal submitNewEventForm(string calendarId, var date, string text, var timing)
 
 	Connections {
 		target: eventModel

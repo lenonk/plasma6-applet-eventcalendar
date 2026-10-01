@@ -6,6 +6,7 @@ import "../Shared.js" as Shared
 import "../lib/Async.js" as Async
 import "../lib/Requests.js" as Requests
 import "../code/ColorIdMap.js" as ColorIdMap
+import "../NewEventTime.js" as NewEventTime
 
 // import "./GoogleCalendarTests.js" as GoogleCalendarTests
 
@@ -314,12 +315,27 @@ CalendarManager {
 
 
 	//--- Create / POST
-	function createEvent(calendarId, date, text) {
+	function createEvent(calendarId, date, text, timing) {
 		if (session.accessToken) {
 			var dateString = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
 			var eventText = dateString + ' ' + text
 
-			var func = createEvent_run.bind(this, calendarId, eventText, function(err, data, xhr) {
+			// With timing from the form insert the exact start/end,
+			// otherwise let quickAdd guess like before.
+			var eventData = null
+			if (timing) {
+				eventData = { summary: timing.title }
+				if (timing.allDay) {
+					var nextDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+					eventData.start = { date: NewEventTime.dateString(date) }
+					eventData.end = { date: NewEventTime.dateString(nextDay) }
+				} else {
+					eventData.start = { dateTime: NewEventTime.rfc3339(timing.start) }
+					eventData.end = { dateTime: NewEventTime.rfc3339(timing.end) }
+				}
+			}
+
+			var func = createEvent_run.bind(this, calendarId, eventText, eventData, function(err, data, xhr) {
 				if (err) {
 					createEvent_err(err, data, xhr)
 				} else {
@@ -331,8 +347,16 @@ CalendarManager {
 			session.transactionError('attempting to "create an event" without an access token set')
 		}
 	}
-	function createEvent_run(calendarId, eventText, callback) {
-		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText)
+	function createEvent_run(calendarId, eventText, eventData, callback) {
+		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText, eventData)
+		if (eventData) {
+			insertGCalEvent({
+				accessToken: session.accessToken,
+				calendarId: calendarId,
+				data: eventData,
+			}, callback)
+			return
+		}
 		createGCalEvent({
 			accessToken: session.accessToken,
 			calendarId: calendarId,
@@ -350,6 +374,27 @@ CalendarManager {
 	function createEvent_err(err, data, xhr) {
 		logger.log(calendarManagerId, 'createEvent_err', err, data, xhr)
 		return handleError(err, data, xhr)
+	}
+
+	function insertGCalEvent(args, callback) {
+		// https://developers.google.com/calendar/api/v3/reference/events/insert
+		var url = 'https://www.googleapis.com/calendar/v3'
+		url += '/calendars/'
+		url += encodeURIComponent(args.calendarId)
+		url += '/events'
+		Requests.postJSON({
+			url: url,
+			headers: {
+				"Authorization": "Bearer " + args.accessToken,
+			},
+			data: args.data,
+		}, function(err, data, xhr) {
+			console.log('insertGCalEvent.response', err, data, xhr.status)
+			if (!err && data && data.error) {
+				return callback(data, null, xhr)
+			}
+			callback(err, data, xhr)
+		})
 	}
 
 	function createGCalEvent(args, callback) {
