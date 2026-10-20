@@ -77,18 +77,20 @@ for arg in "$@"; do
 	esac
 done
 
-isAlreadyInstalled=false
-if "${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" >/dev/null 2>&1; then
-	isAlreadyInstalled=true
-fi
-
-if $isAlreadyInstalled; then
+# kpackagetool's -u/-i act on the user copy, but --show also finds system-wide
+# (distro) copies, so look for the user copy directly.
+userPackageDir="${XDG_DATA_HOME:-$HOME/.local/share}/plasma/plasmoids/$packageNamespace"
+if [ -d "$userPackageDir" ]; then
 	# Eg: kpackagetool6 -t "Plasma/Applet" -u package
 	"${kpackagetoolCmd}" -t "${packageServiceType}" -u package
 	restartPlasmashell=true
 else
 	# Eg: kpackagetool6 -t "Plasma/Applet" -i package
 	"${kpackagetoolCmd}" -t "${packageServiceType}" -i package
+	# A running system-wide copy only gets replaced after a restart.
+	if "${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" >/dev/null 2>&1; then
+		restartPlasmashell=true
+	fi
 fi
 
 if $restartPlasmashell; then

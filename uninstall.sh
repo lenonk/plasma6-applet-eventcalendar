@@ -48,14 +48,13 @@ for arg in "$@"; do
 	esac
 done
 
-isInstalled=false
-if "${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" >/dev/null 2>&1; then
-	isInstalled=true
-fi
-
-if $isInstalled; then
+# Only the user copy can be removed here; --show also finds system-wide copies.
+userPackageDir="${XDG_DATA_HOME:-$HOME/.local/share}/plasma/plasmoids/$packageNamespace"
+if [ -d "$userPackageDir" ]; then
 	# Eg: kpackagetool6 -t "Plasma/Applet" -r org.kde.plasma.eventcalendar
 	"${kpackagetoolCmd}" -t "${packageServiceType}" -r "$packageNamespace"
+elif "${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" >/dev/null 2>&1; then
+	echo "[uninstall] Only a system-wide copy is installed; remove it with your package manager."
 else
 	echo "[uninstall] Package not installed: $packageNamespace"
 fi
