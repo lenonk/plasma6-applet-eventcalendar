@@ -69,11 +69,20 @@ ConfigPage {
 	}
 
 	function accountEmail(manager) {
-		var list = manager.calendarList || []
-		for (var i = 0; i < list.length; i++) {
-			if (list[i] && list[i].primary === true) return list[i].id
+		return manager.primaryCalendarId()
+	}
+
+	// The same account in two slots would show every event twice.
+	function refuseIfAlreadyConnected(manager, primaryCalendarId) {
+		if (!primaryCalendarId) return
+		for (var i = 0; i <= extraLoginManagers.count; i++) {
+			var other = loginManagerAt(i)
+			if (other && other !== manager && other.isLoggedIn && accountEmail(other) === primaryCalendarId) {
+				manager.logout()
+				showStatus(i18n("This Google account is already connected."), Kirigami.MessageType.Error)
+				return
+			}
 		}
-		return ""
 	}
 
 	function sortByKey(key, a, b) {
@@ -304,6 +313,7 @@ ConfigPage {
 		id: googleLoginManager
 
 		onError: function(err) { showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error) }
+		onConnected: function(primaryCalendarId) { page.refuseIfAlreadyConnected(googleLoginManager, primaryCalendarId) }
 		// Deferred: a checkbox's onToggled changes the id list, and rebuilding would destroy that delegate mid-handler.
 		onCalendarListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildCalendarsModel)
 		onTasklistListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildTasklistsModel)
@@ -322,6 +332,7 @@ ConfigPage {
 				accountPrefix: modelData
 
 				onError: function(err) { showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error) }
+				onConnected: function(primaryCalendarId) { page.refuseIfAlreadyConnected(extraLoginManager, primaryCalendarId) }
 				onCalendarListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildCalendarsModel)
 				onTasklistListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildTasklistsModel)
 				onCalendarIdListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildCalendarsModel)

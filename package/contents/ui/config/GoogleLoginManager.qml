@@ -140,6 +140,13 @@ Item {
 	signal newAccessToken()
 	signal sessionReset()
 	signal error(string err)
+	// A login's first calendar list arrived; a handler may still logout() to refuse it.
+	signal connected(string primaryCalendarId)
+
+	// Set by a login until its first calendar list arrives.
+	property bool connecting: false
+	// Bumped by logout() so replies for the old login are dropped.
+	property int loginGeneration: 0
 
 
 	//---
@@ -195,19 +202,20 @@ Item {
 		})
 		}
 
-		function updateAccessToken(data) {
-			session.setCfg("sessionClientId", session.getCfg("latestClientId", ""))
-			session.setCfg("sessionClientSecret", session.getCfg("latestClientSecret", ""))
-			session.setCfg("accessToken", data.access_token || "")
-			session.setCfg("accessTokenType", data.token_type || "")
-			session.setCfg("accessTokenExpiresAt", Date.now() + (data.expires_in || 0) * 1000)
-			// Google may omit refresh_token on subsequent logins unless prompt=consent.
-			// Don't clobber an existing valid refresh token if it's missing.
-			if (data.refresh_token) {
-				session.setCfg("refreshToken", data.refresh_token)
-			}
-			newAccessToken()
+	function updateAccessToken(data) {
+		session.setCfg("sessionClientId", session.getCfg("latestClientId", ""))
+		session.setCfg("sessionClientSecret", session.getCfg("latestClientSecret", ""))
+		session.setCfg("accessToken", data.access_token || "")
+		session.setCfg("accessTokenType", data.token_type || "")
+		session.setCfg("accessTokenExpiresAt", Date.now() + (data.expires_in || 0) * 1000)
+		// Google may omit refresh_token on subsequent logins unless prompt=consent.
+		// Don't clobber an existing valid refresh token if it's missing.
+		if (data.refresh_token) {
+			session.setCfg("refreshToken", data.refresh_token)
 		}
+		session.connecting = true
+		newAccessToken()
+	}
 
 	onNewAccessToken: updateData()
 
@@ -266,31 +274,45 @@ Item {
 
 	function updateCalendarList() {
 		logger.debug('updateCalendarList')
+		var generation = session.loginGeneration
 		withFreshAccessToken(function(accessToken) {
 			fetchGCalCalendars({
 				accessToken: accessToken,
 			}, function(err, data, xhr) {
+				if (generation !== session.loginGeneration) return
 				// Check for errors
 				if (err || !data || data.error) {
 					handleError(err, data, xhr)
 					return
 				}
 				m_calendarList.value = data.items
-				selectPrimaryCalendarIfNone()
+				if (session.connecting) {
+					session.connecting = false
+					session.connected(primaryCalendarId())
+					if (generation === session.loginGeneration) {
+						selectPrimaryCalendarIfNone()
+					}
+				}
 			})
 		})
+	}
+
+	// The account's email.
+	function primaryCalendarId() {
+		var list = calendarList || []
+		for (var i = 0; i < list.length; i++) {
+			if (list[i] && list[i].primary === true) return list[i].id
+		}
+		return ""
 	}
 
 	// A freshly connected account shows its own calendar instead of nothing.
 	function selectPrimaryCalendarIfNone() {
 		if ((calendarIdList || []).length > 0) return
-		var list = calendarList || []
-		for (var i = 0; i < list.length; i++) {
-			if (list[i] && list[i].primary === true) {
-				// Extra accounts store the real id: "primary" would collide between accounts.
-				calendarIdList = [accountPrefix ? list[i].id : "primary"]
-				return
-			}
+		var id = primaryCalendarId()
+		if (id) {
+			// Extra accounts store the real id: "primary" would collide between accounts.
+			calendarIdList = [accountPrefix ? id : "primary"]
 		}
 	}
 
@@ -313,10 +335,12 @@ Item {
 
 	function updateTasklistList() {
 		logger.debug('updateTasklistList')
+		var generation = session.loginGeneration
 		withFreshAccessToken(function(accessToken) {
 			fetchGoogleTasklistList({
 				accessToken: accessToken,
 			}, function(err, data, xhr) {
+				if (generation !== session.loginGeneration) return
 				// Check for errors
 				if (err || !data || data.error) {
 					handleError(err, data, xhr)
@@ -344,22 +368,25 @@ Item {
 		})
 	}
 
-		function logout() {
-			session.setCfg("sessionClientId", "")
-			session.setCfg("sessionClientSecret", "")
-			session.setCfg("accessToken", "")
-			session.setCfg("accessTokenType", "")
-			session.setCfg("accessTokenExpiresAt", 0)
-			session.setCfg("refreshToken", "")
+	function logout() {
+		session.loginGeneration += 1
+		session.connecting = false
+		session.setCfg("sessionClientId", "")
+		session.setCfg("sessionClientSecret", "")
+		session.setCfg("accessToken", "")
+		session.setCfg("accessTokenType", "")
+		session.setCfg("accessTokenExpiresAt", 0)
+		session.setCfg("refreshToken", "")
 
-			// Delete relevant data
-			// TODO: only target google calendar data
-			// TODO: Make a signal?
-			session.setCfg("agendaNewEventLastCalendarId", "")
-			calendarList = []
-			calendarIdList = []
-			tasklistList = []
-		tasklistIdList = []
+		// Delete relevant data
+		// TODO: only target google calendar data
+		// TODO: Make a signal?
+		session.setCfg("agendaNewEventLastCalendarId", "")
+		// Back to the defaults (not "[]"), so a refused or removed account leaves nothing behind.
+		session.setCfg("calendarList", "")
+		session.setCfg("calendarIdList", "")
+		session.setCfg("tasklistList", "")
+		session.setCfg("tasklistIdList", "")
 		sessionReset()
 	}
 
