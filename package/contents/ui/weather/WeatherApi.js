@@ -35,7 +35,7 @@ function openCityUrl(config) {
 	if (weatherService == 'OpenMeteo') {
 		OpenMeteo.openCityUrl(config)
 	} else if (weatherService == 'WeatherCanada') {
-		Qt.openUrlExternally(WeatherCanada.getCityUrl(config.weatherCanadaCityId))
+		WeatherCanada.openCityUrl(config)
 	}
 }
 

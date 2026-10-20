@@ -2,7 +2,6 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.2
 import QtQuick.Controls
 
-import "../lib/Requests.js" as Requests
 import ".."
 import "../weather/WeatherCanada.js" as WeatherCanada
 
@@ -16,10 +15,11 @@ Dialog {
 
 	property bool loadingCityList: false
 	property bool cityListLoaded: false
+	property string loadError: ""
+	property var allCities: []
 	property string selectedCityId: ""
 	property int selectedRow: -1
 
-	ListModel { id: cityListModel }
 	ListModel { id: filteredCityListModel }
 
 	Timer {
@@ -32,14 +32,14 @@ Dialog {
 		anchors.fill: parent
 
 		LinkText {
-			text: i18n("Fetched from <a href=\"%1\">%1</a>", "https://weather.gc.ca/canada_e.html")
+			text: i18n("Fetched from <a href=\"%1\">%1</a>", "https://api.weather.gc.ca/")
 		}
 
 		ComboBox {
 			id: provinceCombo
 			Layout.fillWidth: true
 			model: ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
-			onCurrentIndexChanged: loadProvinceCityList()
+			onCurrentIndexChanged: applyCityFilter()
 		}
 
 		TextField {
@@ -48,6 +48,13 @@ Dialog {
 			text: ""
 			placeholderText: i18n("Search")
 			onTextChanged: debouceApplyFilter.restart()
+		}
+
+		Label {
+			Layout.fillWidth: true
+			visible: !!chooseCityDialog.loadError
+			text: chooseCityDialog.loadError
+			wrapMode: Text.Wrap
 		}
 
 		ListView {
@@ -62,6 +69,7 @@ Dialog {
 				required property int index
 				required property string cityId
 				required property string name
+				required property string url
 				width: cityListView.width
 				height: Math.max(nameText.implicitHeight, openLink.implicitHeight) + 8
 				color: index === chooseCityDialog.selectedRow ? Qt.rgba(0.24, 0.49, 0.75, 0.15) : "transparent"
@@ -84,7 +92,7 @@ Dialog {
 					}
 					LinkText {
 						id: openLink
-						text: '<a href="https://weather.gc.ca/city/pages/' + cityId + '_metric_e.html">' + i18n("Open Link") + '</a>'
+						text: '<a href="' + url + '">' + i18n("Open Link") + '</a>'
 					}
 				}
 
@@ -107,52 +115,47 @@ Dialog {
 
 	onVisibleChanged: {
 		if (visible && !cityListLoaded && !loadingCityList) {
-			loadProvinceCityList()
+			loadCityList()
 		}
 	}
 
 	function applyCityFilter() {
+		var prefix = (provinceCombo.currentText || "AB").toLowerCase() + "-"
 		var q = cityNameInput.text.toLowerCase().trim()
 		filteredCityListModel.clear()
 		selectedRow = -1
 		selectedCityId = ""
-		for (var i = 0; i < cityListModel.count; i++) {
-			var item = cityListModel.get(i)
-			if (!q || item.name.toLowerCase().indexOf(q) >= 0) {
-				filteredCityListModel.append(item)
+		for (var i = 0; i < allCities.length; i++) {
+			var city = allCities[i]
+			if (city.id.indexOf(prefix) !== 0) {
+				continue
+			}
+			if (!q || city.name.toLowerCase().indexOf(q) >= 0) {
+				filteredCityListModel.append({
+					cityId: city.id,
+					name: city.name,
+					url: city.url,
+				})
 			}
 		}
 	}
 
-	function loadCityList(provinceUrl) {
+	function loadCityList() {
 		loadingCityList = true
-		cityListModel.clear()
+		loadError = ""
 		filteredCityListModel.clear()
 		selectedRow = -1
 		selectedCityId = ""
 
-		Requests.request(provinceUrl, function(err, data) {
+		WeatherCanada.fetchCityList(function(err, cityList) {
 			loadingCityList = false
 			if (err) {
-				console.log("[eventcalendar]", "loadCityList.err", err, data)
+				loadError = i18n("Could not load the city list: %1", "" + err)
 				return
 			}
-
-			var cityList = WeatherCanada.parseProvincePage(data)
-			for (var i = 0; i < cityList.length; i++) {
-				cityListModel.append({
-					cityId: cityList[i].id,
-					name: cityList[i].name,
-				})
-			}
+			allCities = cityList
 			cityListLoaded = true
 			applyCityFilter()
 		})
-	}
-
-	function loadProvinceCityList() {
-		var provinceId = provinceCombo.currentText || "AB"
-		var provinceUrl = "https://weather.gc.ca/forecast/canada/index_e.html?id=" + provinceId
-		loadCityList(provinceUrl)
 	}
 }

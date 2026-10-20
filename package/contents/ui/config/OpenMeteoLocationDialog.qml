@@ -19,6 +19,9 @@ Dialog {
 	property real selectedLatitude: 0
 	property real selectedLongitude: 0
 	property int selectedRow: -1
+	property int searchSerial: 0
+	property alias searchText: locationNameInput.text
+	property bool selectFirstResult: false // Set with a pre-filled search so OK accepts the best match
 
 	Logger {
 		id: logger
@@ -132,18 +135,29 @@ Dialog {
 	function searchLocationList(q) {
 		logger.debug("searchLocationList", q)
 		clearLocationList()
+		var serial = ++searchSerial
 		if (!q) {
+			loadingList = false
 			return
 		}
 
 		loadingList = true
 		fetchLocationList({ q: q }, function(err, data, xhr) {
+			if (serial !== searchSerial) return // A newer search replaced this one.
 			loadingList = false
 			if (err) {
 				console.log("searchLocationList.err", err, xhr && xhr.status, data)
 				return
 			}
 			parseLocationList(data)
+			if (selectFirstResult && locationListModel.count > 0) {
+				var first = locationListModel.get(0)
+				selectedRow = 0
+				selectedName = first.displayName
+				selectedLatitude = first.latitude
+				selectedLongitude = first.longitude
+			}
+			selectFirstResult = false
 		})
 	}
 

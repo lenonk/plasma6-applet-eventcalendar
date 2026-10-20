@@ -2,12 +2,11 @@
 
 .import "../lib/Requests.js" as Requests
 
-/* Note, dd.weatheroffice.ec.gc.ca does exist, but it doesn't contain the hourly forecast,
-nor does the city id match the one used on the website, so it's easier to just parse the html.
+/* The weather.gc.ca city pages were retired in 2025. The MSC GeoMet API serves the same
+citypage forecast as JSON, keyed by the same city ids (eg: on-143).
 
-http://dd.weatheroffice.ec.gc.ca/citypage_weather/docs/README_citypage_weather.txt
-http://dd.weatheroffice.ec.gc.ca/citypage_weather/xml/siteList.xml
-http://dd.weatheroffice.ec.gc.ca/citypage_weather/xml/ON/s0000001_e.xml
+https://api.weather.gc.ca/collections/citypageweather-realtime
+https://eccc-msc.github.io/open-data/msc-data/citypage-weather/readme_citypageweather_en/
 */
 
 function weatherIsSetup(config) {
@@ -19,8 +18,8 @@ function weatherIsSetup(config) {
 	}
 }
 
-// http://dd.weather.gc.ca/citypage_weather/docs/current_conditions_icon_code_descriptions_e.csv
-// http://dd.weather.gc.ca/citypage_weather/docs/forecast_conditions_icon_code_descriptions_e.csv
+// https://dd.weather.gc.ca/today/citypage_weather/docs/current_conditions_icon_code_descriptions_e.csv
+// https://dd.weather.gc.ca/today/citypage_weather/docs/forecast_conditions_icon_code_descriptions_e.csv
 var weatherIconMap = {
 	'00': 'weather-clear', // Sunny
 	'01': 'weather-clear', // Mainly sunny
@@ -124,350 +123,228 @@ var weatherIconToTextMap = {
 }
 */
 
-function getInner(html, a, b) {
-	var start = html.indexOf(a)
-	if (start == -1) return ''
-	start += a.length
-	var end = html.indexOf(b, start)
-	if (end == -1) return ''
-	return html.substr(start, end-start)
-}
 
-function loopInner(html, a, b, callback) {
-	var cursor = 0
-	for (var i = 0; i < 1000; i++) { // Hard limit of 1000 iterations
-		var start = html.indexOf(a, cursor)
-		if (start == -1) {
-			break
-		}
-		start += a.length
-		// console.log('loop', i, 'with', start, cursor)
-		var end = html.indexOf(b, start)
-		if (end == -1) {
-			break
-		}
-		var innerHtml = html.substr(start, end-start)
-		// console.log(i, start, end, innerHtml)
-		callback(innerHtml, i)
-		cursor = end + b.length
-		// console.log('cursor', cursor)
+var apiUrl = 'https://api.weather.gc.ca/collections/citypageweather-realtime'
+var fallbackCityUrl = 'https://weather.gc.ca/canada_e.html'
+var cityUrls = {} // cityId -> weather.gc.ca page, filled by fetches
+
+// Bilingual fields look like { en: ..., fr: ... }.
+function en(obj) {
+	if (obj && typeof obj === 'object' && 'en' in obj) {
+		return obj.en
 	}
+	return obj
 }
 
-function parseFutureDate(day, month) {
-	// QML doesn't parse: new Date('25 Sep')
-	// So we need to specify the year
-	// Hardcode Jan == next year when in December
-	var date = new Date()
-	if (month == 'Jan' && date.getMonth() == 11) { // == December, getMonth() returns 0-11
-		return new Date(day + ' ' + month + ' ' + (date.getFullYear() + 1))
+function toNumber(value) {
+	var n = Number(en(value))
+	return (value === null || value === undefined || !isFinite(n)) ? NaN : n
+}
+
+function iconId(icon) {
+	var n = toNumber(icon && icon.value)
+	if (isNaN(n)) {
+		return ''
+	}
+	return (n < 10 ? '0' : '') + n
+}
+
+function iconName(icon) {
+	var id = iconId(icon)
+	var name = weatherIconMap[id]
+	if (!name && id) {
+		console.log('[eventcalendar] WeatherCanada icon not mapped (' + id + ')')
+	}
+	return name || 'question'
+}
+
+// The API is metric only.
+function mapTemp(config, celsius) {
+	if (isNaN(celsius)) {
+		return celsius
+	} else if (config.weatherUnits === 'imperial') {
+		return Math.round((celsius * 9 / 5 + 32) * 10) / 10
+	} else if (config.weatherUnits === 'kelvin') {
+		return Math.round((celsius + 273.15) * 100) / 100
 	} else {
-		return new Date(day + ' ' + month + ' ' + date.getFullYear())
+		return celsius
 	}
 }
 
-
-function parseDailyHtml(html) {
-	var weatherData = {
-		list: []
+function parsePrecipitation(lop) {
+	var value = toNumber(lop && lop.value)
+	if (!isNaN(value)) {
+		return value
 	}
-
-	// The current conditions section contains the current temp.
-	// We'll need this in the evening since we no longer have the daytime high.
-	var currentHtml = getInner(html, '<h2>Current Conditions<span', '</details>')
-	if (!currentHtml) {
-		throw new Error('Error parsing currentHtml')
-	}
-	// console.debug('currentHtml', currentHtml)
-
-	var currentTemp = getInner(currentHtml, '<span class="wxo-metric-hide">', '°<abbr title="Celsius">C</abbr>')
-	if (!currentTemp) {
-		throw new Error('Error parsing currentTemp')
-	}
-	currentTemp = parseInt(currentTemp, 10)
-
-
-	// The forecast "table" can be found using the unique 'details.wxo-fcst' selector.
-	// Note that there is two elements matching this selector. We want the desktop view.
-	//     Desktop view: <details class="panel panel-default wxo-fcst" open="open">
-	//     Mobile view: <details class="panel panel-default wxo-fcst mrgn-bttm-md mrgn-tp-md" open="open">
-	var forecastHtml = getInner(html, '<details class="panel panel-default wxo-fcst" open="open">', '</details>')
-	if (!forecastHtml) {
-		throw new Error('Error parsing forecastHtml')
-	}
-	// console.debug('forecastHtml', forecastHtml)
-
-
-	// Daily forcast is a 7x4 table using divs + css instead of a table.
-	// <details class="panel panel-default wxo-fcst" open="open">
-	//   <summary>...</summary>
-	//   <ul>...</ul>
-	//   <div class="div-table">
-	//     <div class="div-column">...</div>
-
-	// Inside each column is 4 rows. For the first column representing today/tonight, there is
-	// an anchor link with the hourly forecast wrapping the row div. We can easily ignore the <a> though.
-	// <div class="div-column">
-	// 	<div class="div-row div-row1 div-row-head" style="height: 58px;">
-	// 		<a href="/forecast/hourly/on-143_metric_e.html">
-	// 			<strong title="Friday">Fri</strong><br>
-	// 			12 <abbr title="March">Mar</abbr></br>
-	// 		</a>
-	// 	</div>
-	// 	<a class="linkdate" href="/forecast/hourly/on-143_metric_e.html">
-	// 		<div class="div-row div-row2 div-row-data" style="height: 166px;">
-	// 			<img alt="Mainly sunny" class="center-block" height="51" src="/weathericons/01.gif" width="60">
-	// 				<p class="mrgn-bttm-0">
-	// 					<span class="high wxo-metric-hide" title="max">10°<abbr title="Celsius">C</abbr></span>
-	// 					<span class="high wxo-imperial-hide wxo-city-hidden" title="max">50°<abbr title="Fahrenheit">F</abbr></span>
-	// 				</p>
-	// 				<p class="mrgn-bttm-0 pop text-center"></p>
-	// 				<p class="mrgn-bttm-0">Mainly sunny</p>
-	// 			</img>
-	// 		</div>
-	// 	</a>
-	// 	<div class="div-row div-row3 div-row-head" style="height: 35px;">Tonight</div>
-	// 	<div class="div-row div-row4 div-row-data" style="height: 166px;">
-	// 		<img alt="A few clouds" class="center-block" height="51" src="/weathericons/31.gif" width="60">
-	// 			<p class="mrgn-bttm-0">
-	// 				<span class="low wxo-metric-hide" title="min">-5°<abbr title="Celsius">C</abbr></span>
-	// 				<span class="low wxo-imperial-hide wxo-city-hidden" title="min">23°<abbr title="Fahrenheit">F</abbr></span>
-	// 			</p>
-	// 			<p class="mrgn-bttm-0 pop text-center"></p>
-	// 			<p class="mrgn-bttm-0">A few clouds</p>
-	// 		</img>
-	// 	</div>
-	// </div>
-
-
-	// During night, today's daytime cell is blank.
-	//   <div class="div-row div-row1 div-row-head greybkgrd"> </div>
-	//   <div class="div-row div-row2 div-row-data greybkgrd"> </div>
-	// During daytime, the nighttime data for the last day in the forecast is blank.
-	//   <div class="div-row div-row3 div-row-head greybkgrd"> </div>
-	//   <div class="div-row div-row4 div-row-data greybkgrd"> </div>
-	var evening = forecastHtml.indexOf('class="div-row div-row1 div-row-head greybkgrd"') >= 0
-	// console.debug('evening', evening)
-
-
-	// Today's date
-	var pageModifiedStr = getInner(html, '<meta name="dcterms.modified" title="W3CDTF" content="', '" />') // 2021-03-12
-	if (!pageModifiedStr) {
-		throw new Error('Error parsing pageModifiedStr')
-	}
-	// We need to append the time string (without a timezone) to get midnight of the current timezone.
-	var today = new Date(pageModifiedStr + 'T00:00:00')
-	if (isNaN(today)) {
-		throw new Error('Error parsing todays date')
-	}
-	// console.debug('today', today, 'pageModifiedStr', pageModifiedStr)
-
-	var weeklyData = [] // 7 day forecast
-	for (var i = 0; i < 7; i++) {
-		weeklyData.push({
-			dt: 0,
-			temp: {
-				max: 0,
-				min: 0,
-			},
-			iconName: '',
-			text: '',
-			description: '',
-			notes: '',
-		})
-	}
-
-	// Daily forecast loop
-	// While <div class="div-column"> is pretty unique, the columns just end with </div> which isn't.
-	// So we get the start and end of the table first, then split it by <div class="div-column">.
-	var tableHtml = getInner(forecastHtml, '<div class="div-table">', '<section><details open="open" class="wxo-detailedfore">')
-	tableHtml = tableHtml.trim() // Strip \n before first "div-column".
-	// console.debug('tableHtml', tableHtml)
-
-	// Since there's a <div class="div-column"> at the start, we need to remove the leading empty string.
-	var divColumns = tableHtml.split('<div class="div-column">')
-	if (divColumns.length >= 1 && divColumns[0] == '') {
-		divColumns.shift()
-	}
-	// console.debug(JSON.stringify(divColumns, null, '\t'))
-
-	divColumns.forEach(function(innerHtml, dateIndex) {
-		var date = new Date(today)
-		date.setDate(date.getDate() + dateIndex)
-		// console.debug(dateIndex, date)
-
-		var dateData = weeklyData[dateIndex]
-
-		dateData.dt = date.valueOf() / 1000
-
-		// Forecast Icon + Text
-		var imageId = getInner(innerHtml, 'src="/weathericons/', '.gif"')
-		if (!imageId) {
-			throw new Error('Error parsing weather icon')
-		}
-
-		dateData.iconName = weatherIconMap[imageId]
-		if (!dateData.iconName) {
-			console.log('[eventcalendar] WeatherCanada icon not mapped (/weathericons/' + imageId + '.gif)')
-		}
-		dateData.description = getInner(innerHtml, '.gif" alt="', '"')
-		if (!dateData.description) {
-			console.log('[eventcalendar] WeatherCanada icon has no description (/weathericons/' + imageId + '.gif)')
-		}
-		dateData.text = weatherIconToTextMap[dateData.iconName] || dateData.description
-
-
-		// Temps
-		var high = getInner(innerHtml, '<span class="high wxo-metric-hide" title="max">', '°<abbr title="Celsius">C</abbr>')
-		high = parseInt(high, 10)
-
-		var low = getInner(innerHtml, '<span class="low wxo-metric-hide" title="min">', '°<abbr title="Celsius">C</abbr>')
-		low = parseInt(low, 10)
-
-		if (isNaN(high) && isNaN(low)) {
-			throw new Error('Error parsing daily temp')
-		} else if (dateIndex == 0 && isNaN(high) && !isNaN(low)) {
-			// We're currently in the evening so there won't be a daytime high.
-			// So we use the current temp as the high.
-			dateData.temp.max = currentTemp
-			dateData.temp.min = low
-		} else if (dateIndex == 6 && isNaN(low) && !isNaN(high)) {
-			// During the daytime, our maximum weekly forecast runs out of data before the 7th evening.
-			// So there won't be a night low for the last day.
-			// Well send a NaN to display a ?
-			dateData.temp.max = high
-			dateData.temp.min = NaN
-		} else {
-			dateData.temp.max = high
-			dateData.temp.min = low
-		}
-
-		if (isNaN(high) && isNaN(low)) {
-			throw new Error('Error parsing daily temp')
-		}
-
-		// console.debug(dateIndex, JSON.stringify(dateData, null, "\t"))
-	})
-
-	weatherData.list = weeklyData
-
-	return weatherData
-}
-
-
-
-function parseHourlyHtml(html) {
-	var tableHtml = getInner(html, '<tbody>', '</tbody>')
-	if (!tableHtml) {
-		throw new Error('Error parsing hourly table')
-	}
-	return parseHourlyTbody(tableHtml)
-}
-function parseHourlyTbody(html) {
-	// Iterate all <tr>
-	var cursor = 0
-	var dateStr
-	var weatherData = {
-		list: []
-	}
-	for (var i = 0; i < 1000; i++) { // Hard limit of 1000 iterations
-		var start = html.indexOf('<tr>', cursor)
-		if (start == -1) {
-			break
-		}
-		start += '<tr>'.length
-		var end = html.indexOf('</tr>', cursor)
-		if (end == -1) {
-			throw new Error('Error parsing hourly row. Closing </tr> not found.')
-		}
-		var trHtml = html.substr(start, end-start)
-
-		if (trHtml.indexOf('<th ') >= 0) {
-			// Date heading
-			dateStr = parseHourlyDate(trHtml)
-			// console.log(dateStr)
-		} else {
-			// Hourly forecast
-			var timeStr = parseHourlyTime(trHtml)
-			var temp = parseHourlyTemp(trHtml)
-			var conditions = parseHourlyConditions(trHtml)
-			var dt = Math.floor(new Date(dateStr + ' ' + timeStr).getTime() / 1000)
-			var precipitation = parseHourlyPrecipitation(trHtml)
-			// console.log(dt, timeStr, conditions.icon, conditions.id, conditions.description, precipitation)
-
-			weatherData.list.push({
-				dt: dt,
-				temp: temp,
-				iconName: conditions.icon,
-				description: conditions.description,
-				precipitation: precipitation,
-			})
-		}
-
-		cursor = end + '</tr>'.length
-	}
-	return weatherData
-}
-function parseHourlyDate(trHtml) {
-	var str = getInner(trHtml, '>', '</')
-	if (!str) {
-		throw new Error('Error parsing hourly date.')
-	}
-	return str
-}
-function parseHourlyTime(trHtml) {
-	var str = getInner(trHtml, '<td headers="header1" class="text-center">', '</td>')
-	if (!str) {
-		throw new Error('Error parsing hourly time.')
-	}
-	return str
-}
-function parseHourlyTemp(trHtml) {
-	var str = getInner(trHtml, '<td headers="header2" class="text-center">', '</td>')
-	if (!str) {
-		throw new Error('Error parsing hourly temp.')
-	}
-	return parseInt(str, 10)
-}
-function parseHourlyConditions(trHtml) {
-	var td = getInner(trHtml, '<td headers="header3" class="media">', '</td>')
-	if (!td) {
-		throw new Error('Error parsing hourly conditions td.')
-	}
-	var imageId = getInner(td, 'src="/weathericons/small/', '.png"')
-	if (!imageId) {
-		throw new Error('Error parsing hourly imageId.')
-	}
-	var text = getInner(td, '<p>', '</p>')
-	if (!text) {
-		throw new Error('Error parsing hourly text.')
-	}
-
-	return {
-		id: imageId,
-		icon: weatherIconMap[imageId],
-		description: text,
-	}
-}
-function parseHourlyPrecipitation(trHtml) {
-	var text = getInner(trHtml, '<td headers="header4" class="text-center">', '</td>')
-	// This page doesn't list the exact values unfortunately,
-	// so we'll go with the minimum the threshold represents.
-	if (text == 'Low') { // 1 - 40%
-		return 20 // %
-	} else if (text == 'Medium') { // 60 - 70%
-		return 60 // %
-	} else if (text == 'High') { // 70% +
-		return 70 // %
-	} else { // == 'Nil'
+	// Fall back to the minimum of the category's range.
+	var category = en(lop && lop.category)
+	if (category == 'Low') {
+		return 20
+	} else if (category == 'Medium') {
+		return 60
+	} else if (category == 'High') {
+		return 70
+	} else {
 		return 0
 	}
 }
 
+var weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
+function isNightPeriod(period) {
+	var name = ('' + (en(period && period.textForecastName) || '')).toLowerCase()
+	return name == 'tonight' || /\bnight$/.test(name)
+}
+
+// Local midnight of the first forecast period.
+function firstPeriodDate(forecastGroup, firstPeriod) {
+	var issued = new Date(en(forecastGroup.timestamp))
+	if (isNaN(issued)) {
+		issued = new Date()
+	}
+	var date = new Date(issued.getFullYear(), issued.getMonth(), issued.getDate())
+	// period.value is "Tuesday" / "Tuesday night"; trust it when the issue date is off by a day.
+	var weekday = weekdays.indexOf(('' + (en(firstPeriod && firstPeriod.value) || '')).toLowerCase().split(' ')[0])
+	if (weekday >= 0 && weekday != date.getDay()) {
+		var diff = (weekday - date.getDay() + 7) % 7
+		date.setDate(date.getDate() + (diff == 6 ? -1 : diff == 1 ? 1 : 0))
+	}
+	return date
+}
+
+function periodTemps(forecast) {
+	var temps = forecast.temperatures && forecast.temperatures.temperature
+	if (!temps) {
+		return []
+	}
+	return Array.isArray(temps) ? temps : [temps]
+}
+
+function parseDaily(config, feature) {
+	var props = feature && feature.properties
+	var forecastGroup = props && props.forecastGroup
+	var forecasts = forecastGroup && forecastGroup.forecasts
+	if (!forecasts || !forecasts.length) {
+		throw new Error('No forecast in response')
+	}
+	var currentTemp = toNumber(props.currentConditions && props.currentConditions.temperature && props.currentConditions.temperature.value)
+	var today = firstPeriodDate(forecastGroup, forecasts[0].period)
+
+	var days = []
+	for (var i = 0; i < forecasts.length; i++) {
+		var forecast = forecasts[i]
+		var night = isNightPeriod(forecast.period)
+		if (!night || days.length == 0) {
+			var date = new Date(today)
+			date.setDate(date.getDate() + days.length)
+			days.push({ date: date, high: NaN, low: NaN, icon: null, text: '', notes: [] })
+		}
+		var day = days[days.length - 1]
+		var temps = periodTemps(forecast)
+		for (var j = 0; j < temps.length; j++) {
+			var value = toNumber(temps[j].value)
+			if (en(temps[j]['class']) == 'low') {
+				day.low = value
+			} else {
+				day.high = value
+			}
+		}
+		var abbr = forecast.abbreviatedForecast || {}
+		if (!day.icon) { // Prefer the daytime icon, like the old city page.
+			day.icon = abbr.icon
+			day.text = en(abbr.textSummary) || ''
+		}
+		var summary = en(forecast.textSummary)
+		if (summary) {
+			day.notes.push(en(forecast.period.textForecastName) + ': ' + summary)
+		}
+	}
+
+	var list = []
+	for (var k = 0; k < days.length; k++) {
+		var d = days[k]
+		var high = d.high
+		if (isNaN(high) && k == 0) {
+			high = isNaN(currentTemp) ? d.low : currentTemp // Evening: no daytime high left.
+		}
+		if (isNaN(high) && isNaN(d.low)) {
+			continue
+		}
+		list.push({
+			dt: Math.floor(d.date.valueOf() / 1000),
+			temp: {
+				max: mapTemp(config, high),
+				min: mapTemp(config, d.low), // NaN shows "?" on the last day.
+			},
+			iconName: iconName(d.icon),
+			text: d.text,
+			description: d.text,
+			notes: d.notes.join('\n'),
+		})
+	}
+	return { list: list }
+}
+
+function parseHourly(config, feature) {
+	var props = feature && feature.properties
+	var group = props && props.hourlyForecastGroup
+	var hourly = (group && group.hourlyForecasts) || []
+	var list = []
+	for (var i = 0; i < hourly.length; i++) {
+		var item = hourly[i]
+		var dtMs = Date.parse(en(item.timestamp))
+		var temp = toNumber(item.temperature && item.temperature.value)
+		if (isNaN(dtMs) || isNaN(temp)) {
+			continue
+		}
+		list.push({
+			dt: Math.floor(dtMs / 1000),
+			temp: mapTemp(config, temp),
+			iconName: iconName(item.iconCode),
+			description: en(item.condition) || '',
+			precipitation: parsePrecipitation(item.lop),
+		})
+	}
+	if (!list.length) {
+		throw new Error('No hourly forecast in response')
+	}
+
+	var current = null
+	var cc = props.currentConditions
+	var currentTemp = toNumber(cc && cc.temperature && cc.temperature.value)
+	if (!isNaN(currentTemp)) {
+		var currentMs = Date.parse(en(cc.timestamp))
+		current = {
+			dt: Math.floor((isNaN(currentMs) ? Date.now() : currentMs) / 1000),
+			temp: mapTemp(config, currentTemp),
+			iconName: iconName(cc.iconCode),
+			description: en(cc.condition) || '',
+			precipitation: 0,
+		}
+	}
+	return { list: list, current: current }
+}
+
+function getCityApiUrl(cityId) {
+	return apiUrl + '/items/' + encodeURIComponent(cityId) + '?f=json&lang=en'
+}
+
+function getCityListUrl() {
+	return apiUrl + '/items?f=json&lang=en&skipGeometry=true&limit=2000&properties=identifier,name.en,url.en'
+}
 
 function getCityUrl(cityId) {
-	return 'https://weather.gc.ca/city/pages/' + cityId + '_metric_e.html'
+	return cityUrls[cityId] || fallbackCityUrl
+}
+
+function openCityUrl(config) {
+	var cityId = config.weatherCanadaCityId
+	if (cityUrls[cityId]) {
+		return Qt.openUrlExternally(cityUrls[cityId])
+	}
+	fetchCity(cityId, function(err) {
+		Qt.openUrlExternally(getCityUrl(cityId))
+	})
 }
 
 function handleError(funcName, callback, err, data, xhr) {
@@ -475,69 +352,97 @@ function handleError(funcName, callback, err, data, xhr) {
 	return callback(err, data, xhr)
 }
 
-function updateDailyWeather(config, callback) {
-	// console.debug('WeatherCanada.fetchDailyWeatherForecast')
-	var url = getCityUrl(config.weatherCanadaCityId)
-	Requests.request(url, function(err, data, xhr) {
-		if (err) return handleError('WeatherCanada.fetchDailyWeatherForecast', callback, err, data, xhr)
-		// console.debug('WeatherCanada.fetchDailyWeatherForecast.response')
-		// console.debug('WeatherCanada.fetchDailyWeatherForecast.response', data)
+// Daily and hourly read the same document; share one response for a few minutes.
+var cacheMs = 5 * 60 * 1000
+var cache = {} // cityId -> { at, err, data, xhr, waiting: [callback] }
 
-		try {
-			var weatherData = parseDailyHtml(data)
-		} catch (e) {
-			// Don't log data as the HTML is longer than the default scrollback.
-			return handleError('WeatherCanada.parseDailyHtml', callback, e.message, '', xhr)
+function fetchCity(cityId, callback) {
+	var entry = cache[cityId]
+	if (entry && entry.waiting) {
+		entry.waiting.push(callback)
+		return
+	}
+	if (entry && !entry.err && Date.now() - entry.at < cacheMs) {
+		return callback(null, entry.data, entry.xhr)
+	}
+	entry = { at: 0, waiting: [callback] }
+	cache = {}
+	cache[cityId] = entry
+	Requests.getJSON(getCityApiUrl(cityId), function(err, data, xhr) {
+		if (!err && !(data && data.properties)) {
+			err = 'Invalid response'
 		}
+		if (!err) {
+			var pageUrl = en(data.properties.url)
+			if (pageUrl) {
+				cityUrls[cityId] = pageUrl
+			}
+		}
+		var waiting = entry.waiting
+		entry.at = Date.now()
+		entry.err = err
+		entry.data = data
+		entry.xhr = xhr
+		entry.waiting = null
+		for (var i = 0; i < waiting.length; i++) {
+			waiting[i](err, data, xhr)
+		}
+	})
+}
 
-		// console.debug(JSON.stringify(weatherData, null, '\t'))
+function updateDailyWeather(config, callback) {
+	fetchCity(config.weatherCanadaCityId, function(err, data, xhr) {
+		if (err) return handleError('WeatherCanada.fetchDailyWeatherForecast', callback, err, '', xhr)
+		try {
+			var weatherData = parseDaily(config, data)
+		} catch (e) {
+			return handleError('WeatherCanada.parseDaily', callback, e.message, '', xhr)
+		}
 		callback(null, weatherData, xhr)
 	})
 }
 
-function getCityHourlyUrl(cityId) {
-	return 'https://weather.gc.ca/forecast/hourly/' + cityId + '_metric_e.html'
-}
-
 function updateHourlyWeather(config, callback) {
-	// console.debug('WeatherCanada.fetchHourlyWeatherForecast')
-	var url = getCityHourlyUrl(config.weatherCanadaCityId)
-	Requests.request(url, function(err, data, xhr) {
-		if (err) return handleError('WeatherCanada.fetchHourlyWeatherForecast', callback, err, data, xhr)
-		// console.debug('WeatherCanada.fetchHourlyWeatherForecast.response')
-		// console.debug('WeatherCanada.fetchHourlyWeatherForecast.response', data)
-
+	fetchCity(config.weatherCanadaCityId, function(err, data, xhr) {
+		if (err) return handleError('WeatherCanada.fetchHourlyWeatherForecast', callback, err, '', xhr)
 		try {
-			var weatherData = parseHourlyHtml(data)
+			var weatherData = parseHourly(config, data)
 		} catch (e) {
-			// Don't log data as the HTML is longer than the default scrollback.
-			return handleError('WeatherCanada.parseHourlyHtml', callback, e.message, '', xhr)
+			return handleError('WeatherCanada.parseHourly', callback, e.message, '', xhr)
 		}
-		// console.debug(JSON.stringify(weatherData, null, '\t'))
-		callback(err, weatherData, xhr)
+		callback(null, weatherData, xhr)
 	})
 }
 
-
-function parseCityList(html) {
-	var lines = html.split('\n')
+// @returns [{ id: 'on-143', name: 'Toronto', url: 'https://weather.gc.ca/...' }, ...]
+function parseCityList(data) {
+	var features = (data && data.features) || []
 	var cityList = []
-
-	for (var i = 0; i < lines.length; i++) {
-		var line = lines[i]
-		if (line.indexOf('<li><a href="') !== 0) {
-			continue // <ul>/</ul>/...
+	for (var i = 0; i < features.length; i++) {
+		var props = features[i].properties || {}
+		var id = props.identifier || features[i].id
+		if (!id) {
+			continue
 		}
-		var cityId = getInner(line, '<li><a href="/city/pages/', '_metric_e.html')
-		var cityName = getInner(line, '_metric_e.html">', '</a></li>')
 		cityList.push({
-			id: cityId,
-			name: cityName,
+			id: '' + id,
+			name: '' + (en(props.name) || id),
+			url: '' + (en(props.url) || fallbackCityUrl),
 		})
 	}
+	cityList.sort(function(a, b) {
+		return a.name.localeCompare(b.name)
+	})
 	return cityList
 }
-function parseProvincePage(html) {
-	html = getInner(html, '\n<div class="well"><div class="row">', '</div></div>')
-	return parseCityList(html)
+
+function fetchCityList(callback) {
+	Requests.getJSON(getCityListUrl(), function(err, data, xhr) {
+		if (err) return handleError('WeatherCanada.fetchCityList', callback, err, '', xhr)
+		var cityList = parseCityList(data)
+		for (var i = 0; i < cityList.length; i++) {
+			cityUrls[cityList[i].id] = cityList[i].url
+		}
+		callback(null, cityList, xhr)
+	})
 }

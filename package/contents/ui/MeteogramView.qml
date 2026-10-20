@@ -659,7 +659,9 @@ Item {
 				for (var j = 0; j < bucket.length; j++) {
 					var p = bucket[j]
 					icons.push(p.weatherIcon || "question")
-					precipitation += Number(p.precipitation) || 0
+					var value = Number(p.precipitation) || 0
+					// Amounts add up; a probability (%) doesn't, so take the bucket's max.
+					precipitation = (graph.rainUnits === '%') ? Math.max(precipitation, value) : precipitation + value
 				}
 
 				out.push({

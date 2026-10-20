@@ -137,30 +137,62 @@ function handleError(funcName, callback, err, data, xhr) {
 	return callback(err, data, xhr)
 }
 
-	function buildForecastUrl(args) {
-		var base = "https://api.open-meteo.com/v1/forecast"
-		var url = base
-			+ "?latitude=" + encodeURIComponent(args.latitude)
-			+ "&longitude=" + encodeURIComponent(args.longitude)
-			+ "&timezone=auto"
-			+ "&current=temperature_2m,weather_code"
-			+ "&hourly=temperature_2m,precipitation,weather_code"
-			+ "&daily=temperature_2m_min,temperature_2m_max,weather_code"
+function buildForecastUrl(args) {
+	var base = "https://api.open-meteo.com/v1/forecast"
+	var url = base
+		+ "?latitude=" + encodeURIComponent(args.latitude)
+		+ "&longitude=" + encodeURIComponent(args.longitude)
+		+ "&timezone=auto"
+		+ "&current=temperature_2m,weather_code"
+		+ "&hourly=temperature_2m,precipitation,weather_code"
+		+ "&daily=temperature_2m_min,temperature_2m_max,weather_code"
 		// 10+ days is useful for the agenda's multi-day view. Open-Meteo supports up to 16.
 		+ "&forecast_days=16"
 		+ "&past_days=0"
 		+ "&temperature_unit=" + encodeURIComponent(args.temperatureUnit || "celsius")
 		+ "&precipitation_unit=mm"
-		+ "&timeformat=iso8601"
+		// Unix seconds are absolute; local ISO strings are in the location's timezone.
+		+ "&timeformat=unixtime"
 	return url
 }
+
+// Daily and hourly use the same URL; share one response for a few minutes.
+var forecastCacheMs = 5 * 60 * 1000
+var forecastCache = {} // url -> { at, err, data, xhr, waiting: [callback] }
 
 function fetchForecast(args, callback) {
 	if (typeof args.latitude !== "number" || typeof args.longitude !== "number") {
 		return callback("Open-Meteo latitude/longitude not set")
 	}
 	var url = buildForecastUrl(args)
-	Requests.getJSON(url, callback)
+	var entry = forecastCache[url]
+	if (entry && entry.waiting) {
+		entry.waiting.push(callback)
+		return
+	}
+	if (entry && !entry.err && Date.now() - entry.at < forecastCacheMs) {
+		return callback(null, entry.data, entry.xhr)
+	}
+	entry = { at: 0, waiting: [callback] }
+	forecastCache = {} // Only the latest location matters.
+	forecastCache[url] = entry
+	Requests.getJSON(url, function(err, data, xhr) {
+		var waiting = entry.waiting
+		entry.at = Date.now()
+		entry.err = err
+		entry.data = data
+		entry.xhr = xhr
+		entry.waiting = null
+		for (var i = 0; i < waiting.length; i++) {
+			waiting[i](err, data, xhr)
+		}
+	})
+}
+
+// Unix seconds of the location's midnight -> local midnight of the same calendar date.
+function locationDateToLocal(unixSeconds, utcOffsetSeconds) {
+	var noon = new Date((unixSeconds + (utcOffsetSeconds || 0) + 12 * 60 * 60) * 1000)
+	return new Date(noon.getUTCFullYear(), noon.getUTCMonth(), noon.getUTCDate())
 }
 
 function updateDailyWeather(config, callback) {
@@ -180,8 +212,8 @@ function updateDailyWeather(config, callback) {
 
 		var out = { list: [] }
 		for (var i = 0; i < times.length; i++) {
-			var d = parseIsoLocal(times[i])
-			if (!d) continue
+			if (typeof times[i] !== "number") continue
+			var d = locationDateToLocal(times[i], data.utc_offset_seconds)
 			var dt = Math.floor(d.getTime() / 1000)
 			var minT = mapTemp(config, mins[i])
 			var maxT = mapTemp(config, maxs[i])
@@ -220,13 +252,12 @@ function updateDailyWeather(config, callback) {
 			if (config && config.debugging) {
 				console.log("[eventcalendar] OpenMeteo.hourly timezone=", data && data.timezone,
 					"utc_offset_seconds=", data && data.utc_offset_seconds,
-					"first_time=", times.length ? times[0] : "",
+					"first_time=", times.length ? new Date(times[0] * 1000).toISOString() : "",
 					"now_iso=", new Date(now).toISOString())
 			}
 			for (var i = 0; i < times.length; i++) {
-				var d = parseIsoLocal(times[i])
-				if (!d) continue
-				var dtMs = d.getTime()
+				if (typeof times[i] !== "number") continue
+				var dtMs = times[i] * 1000
 
 				// Keep near-current + future samples; discard old hourly entries.
 				if (dtMs < now - (60 * 60 * 1000)) {
@@ -251,7 +282,7 @@ function updateDailyWeather(config, callback) {
 			var currentPoint = null
 			var current = data && data.current ? data.current : null
 			if (current && typeof current.temperature_2m === "number") {
-				var currentDate = parseIsoLocal(current.time) || new Date()
+				var currentDate = typeof current.time === "number" ? new Date(current.time * 1000) : new Date()
 				var currentInfo = codeToInfo(current.weather_code)
 				currentPoint = {
 					dt: Math.floor(currentDate.getTime() / 1000),
