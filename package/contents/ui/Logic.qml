@@ -543,5 +543,11 @@ import "./weather/WeatherApi.js" as WeatherApi
 				networkOnlineTimer.stop()
 			}
 		}
+		// Portal/Limited count as connected, so recover failed fetches once Full returns.
+		function onConnectivityChanged() {
+			if (networkMonitor.connectivity >= 4 && (logic.pendingEventNetworkError || logic.pendingWeatherNetworkError)) {
+				networkOnlineTimer.restart()
+			}
+		}
 	}
 }
