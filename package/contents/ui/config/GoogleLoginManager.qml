@@ -64,6 +64,7 @@ Item {
 	// Data
 	property var m_calendarList: ConfigSerializedString {
 		id: m_calendarList
+		configPage: session.configPage
 		configKey: 'calendarList'
 		defaultValue: []
 	}
@@ -71,6 +72,7 @@ Item {
 
 		property var m_calendarIdList: ConfigSerializedString {
 		id: m_calendarIdList
+		configPage: session.configPage
 		configKey: 'calendarIdList'
 		defaultValue: []
 
@@ -94,6 +96,7 @@ Item {
 
 	property var m_tasklistList: ConfigSerializedString {
 		id: m_tasklistList
+		configPage: session.configPage
 		configKey: 'tasklistList'
 		defaultValue: []
 	}
@@ -101,6 +104,7 @@ Item {
 
 		property var m_tasklistIdList: ConfigSerializedString {
 		id: m_tasklistIdList
+		configPage: session.configPage
 		configKey: 'tasklistIdList'
 		defaultValue: []
 
@@ -203,18 +207,67 @@ Item {
 		updateTasklistList()
 	}
 
-		function updateCalendarList() {
-			logger.debug('updateCalendarList')
-			logger.debug('accessToken', session.getCfg("accessToken", ""))
-			fetchGCalCalendars({
-				accessToken: session.getCfg("accessToken", ""),
-			}, function(err, data, xhr) {
-			// Check for errors
-			if (err || data.error) {
-				handleError(err, data)
+	// The page's token is a snapshot from when the dialog opened; refresh it once expired.
+	// callback(accessToken) runs only with a usable token.
+	function withFreshAccessToken(callback) {
+		var expiresAt = session.getCfg("accessTokenExpiresAt", 0)
+		if (expiresAt > Date.now() + 5000) {
+			return callback(session.getCfg("accessToken", ""))
+		}
+		var refreshToken = session.getCfg("refreshToken", "")
+		// The running widget may already have refreshed this session's token.
+		var live = (typeof plasmoid !== "undefined" && plasmoid) ? plasmoid.configuration : null
+		if (live && refreshToken && live.refreshToken === refreshToken
+			&& live.accessToken && live.accessTokenExpiresAt > Date.now() + 5000
+		) {
+			return callback(live.accessToken)
+		}
+		if (!refreshToken) {
+			session.error(i18n("Google login expired. Please log in again."))
+			return
+		}
+		Requests.post({
+			url: "https://oauth2.googleapis.com/token",
+			data: {
+				client_id: session.getCfg("sessionClientId", ""),
+				client_secret: session.getCfg("sessionClientSecret", ""),
+				refresh_token: refreshToken,
+				grant_type: 'refresh_token',
+			},
+		}, function(err, data, xhr) {
+			var tokenData = null
+			try {
+				tokenData = data ? JSON.parse(data) : null
+			} catch (e) {}
+			if (err || !tokenData || tokenData.error || !tokenData.access_token) {
+				logger.log('withFreshAccessToken: refresh failed', err, data)
+				if (xhr && xhr.status === 0) {
+					session.error(i18n("Could not connect"))
+				} else {
+					session.error(i18n("Google login expired. Please log in again."))
+				}
 				return
 			}
-			m_calendarList.value = data.items
+			session.setCfg("accessToken", tokenData.access_token)
+			session.setCfg("accessTokenType", tokenData.token_type || "")
+			session.setCfg("accessTokenExpiresAt", Date.now() + (tokenData.expires_in || 0) * 1000)
+			callback(tokenData.access_token)
+		})
+	}
+
+	function updateCalendarList() {
+		logger.debug('updateCalendarList')
+		withFreshAccessToken(function(accessToken) {
+			fetchGCalCalendars({
+				accessToken: accessToken,
+			}, function(err, data, xhr) {
+				// Check for errors
+				if (err || !data || data.error) {
+					handleError(err, data, xhr)
+					return
+				}
+				m_calendarList.value = data.items
+			})
 		})
 	}
 
@@ -235,18 +288,19 @@ Item {
 		})
 	}
 
-		function updateTasklistList() {
-			logger.debug('updateTasklistList')
-			logger.debug('accessToken', session.getCfg("accessToken", ""))
+	function updateTasklistList() {
+		logger.debug('updateTasklistList')
+		withFreshAccessToken(function(accessToken) {
 			fetchGoogleTasklistList({
-				accessToken: session.getCfg("accessToken", ""),
+				accessToken: accessToken,
 			}, function(err, data, xhr) {
-			// Check for errors
-			if (err || data.error) {
-				handleError(err, data)
-				return
-			}
-			m_tasklistList.value = data.items
+				// Check for errors
+				if (err || !data || data.error) {
+					handleError(err, data, xhr)
+					return
+				}
+				m_tasklistList.value = data.items
+			})
 		})
 	}
 
@@ -287,8 +341,10 @@ Item {
 	}
 
 	// https://developers.google.com/calendar/v3/errors
-	function handleError(err, data) {
-		if (data && data.error && data.error_description) {
+	function handleError(err, data, xhr) {
+		if (xhr && xhr.status === 401) {
+			session.error(i18n("Google login expired. Please log in again."))
+		} else if (data && data.error && data.error_description) {
 			var errorMessage = '' + data.error + ' (' + data.error_description + ')'
 			session.error(errorMessage)
 		} else if (data && data.error && data.error.message && typeof data.error.code !== "undefined") {

@@ -206,7 +206,16 @@ ConfigPage {
 				return
 			}
 
-			var line = ("" + (stdout || "")).trim()
+			// The browser launched by the helper may print to the same stdout; use the last JSON line.
+			var lines = ("" + (stdout || "")).split("\n")
+			var line = ""
+			for (var i = lines.length - 1; i >= 0; i--) {
+				var candidate = lines[i].trim()
+				if (candidate.indexOf("{") === 0) {
+					line = candidate
+					break
+				}
+			}
 			var data = null
 			try {
 				data = JSON.parse(line)
@@ -230,11 +239,12 @@ ConfigPage {
 	GoogleLoginManager {
 		id: googleLoginManager
 
-		onError: showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error)
-		onCalendarListChanged: rebuildCalendarsModel()
-		onTasklistListChanged: rebuildTasklistsModel()
-		onCalendarIdListChanged: rebuildCalendarsModel()
-		onTasklistIdListChanged: rebuildTasklistsModel()
+		onError: function(err) { showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error) }
+		// Deferred: a checkbox's onToggled changes the id list, and rebuilding would destroy that delegate mid-handler.
+		onCalendarListChanged: Qt.callLater(rebuildCalendarsModel)
+		onTasklistListChanged: Qt.callLater(rebuildTasklistsModel)
+		onCalendarIdListChanged: Qt.callLater(rebuildCalendarsModel)
+		onTasklistIdListChanged: Qt.callLater(rebuildTasklistsModel)
 	}
 
 	ListModel { id: calendarsModel }
@@ -480,6 +490,13 @@ ConfigPage {
 					Kirigami.FormData.label: ""
 					configKey: "googleHideGoalsDesc"
 					text: i18n("Hide the “Goals in Google Calendar” description")
+				}
+
+				ConfigColor {
+					Kirigami.FormData.label: ""
+					configKey: "googleBirthdayColor"
+					label: i18n("Birthdays")
+					Layout.fillWidth: true
 				}
 			}
 		}

@@ -88,7 +88,7 @@ ConfigPage {
 					QQC2.CheckBox {
 						checked: model.checked
 						onClicked: {
-							if (!checked && model.region === "Local") {
+							if (!checked && model.isLocalTimeZone) { // region is translated; this role is not
 								messageWidget.text = i18n("Cannot deselect Local time from the tooltip")
 								messageWidget.type = Kirigami.MessageType.Warning
 								messageWidget.visible = true

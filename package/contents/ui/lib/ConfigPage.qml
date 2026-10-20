@@ -82,6 +82,66 @@ KCM.SimpleKCM {
 		}
 	}
 
+	//--- Apply only what this page changed
+	// Plasma's saveConfig() writes every cfg_* key back. Keys the user didn't touch here are
+	// re-synced to the live config first, so runtime writes (token refresh, etc) survive Apply.
+	property var _liveConfigSnapshot: ({})
+
+	function _liveConfig() {
+		if (typeof plasmoid !== "undefined" && plasmoid && plasmoid.configuration
+			&& typeof plasmoid.configuration.keys === "function"
+		) {
+			return plasmoid.configuration
+		}
+		return null
+	}
+
+	// Comparable form of a config value (arrays, colors, dates included).
+	function _configSignature(value) {
+		if (typeof value === "undefined") return "\u0000undefined"
+		if (value === null) return "\u0000null"
+		var s = ""
+		try {
+			s = JSON.stringify(value)
+		} catch (e) {}
+		return typeof value + ":" + s + "|" + value.toString()
+	}
+
+	function _snapshotLiveConfig() {
+		var config = _liveConfig()
+		if (!config) return
+		var snapshot = {}
+		var keys = config.keys()
+		for (var i = 0; i < keys.length; i++) {
+			snapshot[keys[i]] = _configSignature(config[keys[i]])
+		}
+		_liveConfigSnapshot = snapshot
+	}
+
+	// Pages that override saveConfig() must call this first.
+	function preserveRuntimeConfig() {
+		var config = _liveConfig()
+		if (!config) return
+		var keys = config.keys()
+		for (var i = 0; i < keys.length; i++) {
+			var key = keys[i]
+			var prop = _cfgProp(key)
+			if (!(prop in page) || !(key in _liveConfigSnapshot)) continue
+			var snapshot = _liveConfigSnapshot[key]
+			if (_configSignature(page[prop]) !== snapshot) continue // Changed on this page
+			if (_configSignature(config[key]) === snapshot) continue // Unchanged at runtime
+			page[prop] = config[key]
+		}
+		// Re-snapshot once Plasma has written the config.
+		Qt.callLater(_snapshotLiveConfig)
+	}
+
+	function saveConfig() {
+		preserveRuntimeConfig()
+	}
+
+	Component.onCompleted: _snapshotLiveConfig()
+
 	// BEGIN AUTOGEN CFG (main.xml)
 	// Plasma injects cfg_* and cfg_*Default into each config page. Declare them here to
 	// avoid noisy "Setting initial properties failed" logs and to keep pages compatible
@@ -320,6 +380,8 @@ KCM.SimpleKCM {
 	property var cfg_googleEventClickActionDefault
 		property var cfg_googleHideGoalsDesc
 		property var cfg_googleHideGoalsDescDefault
+		property var cfg_googleBirthdayColor
+		property var cfg_googleBirthdayColorDefault
 		property var cfg_access_token
 		property var cfg_access_tokenDefault
 		property var cfg_access_token_type

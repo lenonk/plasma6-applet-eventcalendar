@@ -111,6 +111,15 @@ Item {
 			console.log("[eventcalendar:migrate] weatherService " + oldService + " => OpenMeteo")
 		}
 
+		// The old volume preset used qdbus (Qt 5), which Plasma 6 distros rarely install.
+		;['clockMouseWheelUp', 'clockMouseWheelDown'].forEach(function(key) {
+			var match = /^qdbus org\.kde\.kglobalaccel \/component\/kmix invokeShortcut "(\w+)"$/.exec(plasmoid.configuration[key] || "")
+			if (match) {
+				plasmoid.configuration[key] = "dbus-send --session --type=method_call --dest=org.kde.kglobalaccel /component/kmix org.kde.kglobalaccel.Component.invokeShortcut string:" + match[1]
+				console.log("[eventcalendar:migrate] " + key + " qdbus => dbus-send")
+			}
+		})
+
 		// Modified in: v72
 		if (!plasmoid.configuration.v72Migration) {
 			var oldValue = plasmoid.configuration.enabledCalendarPlugins

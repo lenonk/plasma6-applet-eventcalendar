@@ -23,14 +23,17 @@ RowLayout {
 		return s
 	}
 
-	function urlToLocalPath(url) {
+	function fileUrlToPath(url) {
 		var s = "" + (url || "")
 		if (s.indexOf("file://") === 0) {
-			// Keep behavior predictable for local file URLs picked by FileDialog.
 			s = s.substr("file://".length)
 			try { s = decodeURIComponent(s) } catch (e) {}
 		}
-		return stripQuotes(s)
+		return s
+	}
+
+	function urlToLocalPath(url) {
+		return stripQuotes(fileUrlToPath(url))
 	}
 
 	function shellQuote(token) {
@@ -103,7 +106,8 @@ RowLayout {
 				} else if (typeof fileUrl !== "undefined" && fileUrl) {
 					selected = fileUrl
 				}
-				sfxPathValue = selected
+				// Store a plain path; notification.py does not decode file URLs.
+				sfxPathValue = fileUrlToPath(selected)
 			}
 		}
 	}

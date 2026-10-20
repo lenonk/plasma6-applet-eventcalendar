@@ -3,6 +3,7 @@ import QtQuick 2.0
 ListModel {
 	id: listModel
 	property alias configKey: base64Json.configKey
+	property alias configPage: base64Json.configPage
 
 	property int oldCount: count
 	property QtObject base64Json: Base64Json {

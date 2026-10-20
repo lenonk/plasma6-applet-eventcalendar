@@ -39,7 +39,6 @@ ConfigPage {
 					text: i18n("ICalendar (.ics) (configured on the ICalendar tab)")
 					checked: true
 					enabled: false
-					visible: plasmoid.configuration.debugging
 				}
 			}
 		}
@@ -146,6 +145,7 @@ ConfigPage {
 	}
 
 	function saveConfig() {
+		page.preserveRuntimeConfig()
 		// Store normalized plugin ids (eg: "astronomicalevents", "holidaysevents").
 		page.cfg_enabledCalendarPlugins = PlasmaCalendarUtils.pluginPathToFilenameList(eventPluginsManager.enabledPlugins)
 	}

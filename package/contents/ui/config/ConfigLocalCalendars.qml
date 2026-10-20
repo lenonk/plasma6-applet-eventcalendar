@@ -3,7 +3,6 @@ import QtQuick.Controls as QQC2
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.workspace.calendar as PlasmaCalendar
-import org.kde.plasma.PimCalendars
 
 import "../lib"
 import "../calendars/PlasmaCalendarUtils.js" as PlasmaCalendarUtils
@@ -18,18 +17,28 @@ ConfigPage {
 	readonly property int roleChecked: Qt.UserRole + 4
 	readonly property int roleIconName: Qt.UserRole + 5
 
-	// PimCalendarsModel is not guaranteed to be available (eg: headless
-	// installs without kdepim). Detect that gracefully.
+	// PimCalendarsModel is not guaranteed to be available (eg: no kdepim-addons),
+	// so it is created from a separate file and a failed import is caught.
 	//
 	// PimCalendarsModel wraps an Akonadi::EntityTreeModel populated
 	// asynchronously (collectionTreeFetched), so an immediate refresh
 	// returns rowCount=0 even though collections exist. We trigger on
 	// rowsInserted / modelReset / dataChanged plus a few delayed retries.
-	readonly property var pimModel: PimCalendarsModel {
-		id: pimModel
-		onDataChanged: refreshAll()
-		onModelReset: refreshAll()
-		onRowsInserted: refreshAll()
+	property var pimModel: null
+
+	function createPimModel() {
+		var component = Qt.createComponent(Qt.resolvedUrl("LocalCalendarsPimModel.qml"))
+		if (component.status !== Component.Ready) {
+			console.log("[eventcalendar] PimCalendarsModel unavailable:", component.errorString())
+			return null
+		}
+		var model = component.createObject(page)
+		if (model) {
+			model.dataChanged.connect(page.refreshAll)
+			model.modelReset.connect(page.refreshAll)
+			model.rowsInserted.connect(page.refreshAll)
+		}
+		return model
 	}
 
 	Timer {
@@ -69,7 +78,7 @@ ConfigPage {
 				var icon = pimModel.data(idx, page.roleIconName) || ""
 				var isChecked = !!pimModel.data(idx, page.roleChecked)
 				list.push({
-					id: akonadiId,
+					calendarId: akonadiId,
 					name: name,
 					iconName: icon,
 					isChecked: isChecked,
@@ -97,13 +106,14 @@ ConfigPage {
 		var ids = []
 		for (var i = 0; i < entries.length; i++) {
 			var e = entries[i]
-			var checkedNow = (e.id === id) ? value : e.isChecked
-			if (checkedNow) ids.push(e.id)
+			var checkedNow = (e.calendarId === id) ? value : e.isChecked
+			if (checkedNow) ids.push(e.calendarId)
 		}
 		plasmoid.configuration.pimEnabledCalendars = ids
 	}
 
 	Component.onCompleted: {
+		pimModel = createPimModel()
 		refreshAll()
 		// PimCalendarsModel's initial population is async; probe a few times.
 		readyProbe.start()
@@ -137,7 +147,7 @@ ConfigPage {
 						spacing: Kirigami.Units.smallSpacing
 
 						required property int index
-						required property string id
+						required property string calendarId
 						required property string name
 						required property string iconName
 						required property bool isChecked
@@ -152,9 +162,10 @@ ConfigPage {
 
 						QQC2.CheckBox {
 							Layout.fillWidth: true
-							text: parent.name + "  (" + parent.id + ")"
+							text: parent.name + "  (" + parent.calendarId + ")"
 							checked: parent.isChecked
-							onCheckedChanged: page.setChecked(parent.parent.id, checked)
+							// onToggled: user clicks only, not the initial binding or a refresh.
+							onToggled: page.setChecked(parent.calendarId, checked)
 						}
 					}
 				}

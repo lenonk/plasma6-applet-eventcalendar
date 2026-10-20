@@ -46,7 +46,6 @@ PlasmaConfig.ConfigModel {
 		name: i18n("ICalendar (.ics)")
 		icon: "text-calendar"
 		source: "config/ConfigICal.qml"
-		visible: plasmoid.configuration.debugging
 	}
 	PlasmaConfig.ConfigCategory {
 		name: i18n("Google Calendar")

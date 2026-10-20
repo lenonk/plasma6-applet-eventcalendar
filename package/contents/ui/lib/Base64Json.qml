@@ -6,14 +6,9 @@ QtObject {
 	property string configKey: ""
 	property var defaultValue: []
 
-	readonly property var configPage: {
-		var p = obj.parent
-		while (p) {
-			if (p.__eventCalendarConfigPage) return p
-			p = p.parent
-		}
-		return null
-	}
+	// Set by the owner: a QtObject has no `parent` to walk. Without it, writes bypass
+	// cfg_* and the config dialog's Apply reverts them.
+	property var configPage: null
 
 	readonly property string configValue: configKey
 		? ("" + (configPage ? configPage.getConfigValue(configKey, "") : plasmoid.configuration[configKey]))
@@ -21,7 +16,13 @@ QtObject {
 
 	property var value: null
 
-	onConfigValueChanged: deserialize()
+	// Our own write echoing back: `value` is already current, and reloading it rebuilds views.
+	property string _lastSerialized: ""
+	onConfigValueChanged: {
+		if (configValue !== _lastSerialized) {
+			deserialize()
+		}
+	}
 
 	function deserialize() {
 		if (!configValue) {
@@ -38,6 +39,7 @@ QtObject {
 
 	function serialize() {
 		var v = Qt.btoa(JSON.stringify(value))
+		_lastSerialized = v
 		if (configPage) {
 			configPage.setConfigValue(configKey, v)
 		} else {

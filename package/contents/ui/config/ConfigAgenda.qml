@@ -146,9 +146,8 @@ ConfigPage {
 							{ value: false, text: i18n("Left") },
 							{ value: true, text: i18n("Right") },
 						]
-						Component.onCompleted: {
-							currentIndex = (!!page.cfg_agendaWeatherOnRight) ? 1 : 0
-						}
+						// A binding (not onCompleted) so the Defaults button updates it.
+						currentIndex: (!!page.cfg_agendaWeatherOnRight) ? 1 : 0
 						onActivated: page.cfg_agendaWeatherOnRight = model[currentIndex].value
 					}
 				}
@@ -198,7 +197,7 @@ ConfigPage {
 							{ value: true, text: i18n("Show on all days") },
 							{ value: false, text: i18n("Show only on first and current day") },
 						]
-						Component.onCompleted: currentIndex = (page.cfg_agendaBreakupMultiDayEvents === false) ? 1 : 0
+						currentIndex: (page.cfg_agendaBreakupMultiDayEvents === false) ? 1 : 0
 						onActivated: page.cfg_agendaBreakupMultiDayEvents = model[currentIndex].value
 					}
 				}

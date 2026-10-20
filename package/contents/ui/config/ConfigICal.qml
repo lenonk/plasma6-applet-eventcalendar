@@ -11,16 +11,21 @@ import "../lib"
 ConfigPage {
 	id: page
 
+	// Unique per click so two new calendars don't share a file.
 	function defaultLocalIcsPath() {
+		var filename = "calendar-" + Date.now() + ".ics"
 		var home = StandardPaths.writableLocation(StandardPaths.HomeLocation)
 		if (!home || home.length === 0) {
-			return "calendar.ics"
+			return filename
 		}
-		return home + "/.local/share/plasma_org.kde.plasma.eventcalendar/calendar.ics"
+		return executable.urlToLocalPath(home) + "/.local/share/plasma_org.kde.plasma.eventcalendar/" + filename
 	}
+
+	ExecUtil { id: executable }
 
 	Base64JsonListModel {
 		id: calendarsModel
+		configPage: page
 		configKey: "icalCalendarList"
 
 		function addCalendar() {
@@ -34,8 +39,15 @@ ConfigPage {
 		}
 
 		function addNewCalendar() {
+			var path = page.defaultLocalIcsPath()
+			var scriptPath = executable.urlToLocalPath(Qt.resolvedUrl("../../scripts/icsjson.py"))
+			executable.exec(['python3', scriptPath, '--url=' + path, 'create'], function(cmd, exitCode, exitStatus, stdout, stderr) {
+				if (exitCode) {
+					console.log("[eventcalendar] Could not create", path, stderr)
+				}
+			})
 			addItem({
-				url: page.defaultLocalIcsPath(),
+				url: path,
 				name: i18n("Calendar"),
 				backgroundColor: "" + Kirigami.Theme.highlightColor,
 				show: true,
@@ -47,7 +59,7 @@ ConfigPage {
 	Kirigami.InlineMessage {
 		Layout.fillWidth: true
 		type: Kirigami.MessageType.Information
-		text: i18n("Add local or remote .ics calendars. Changes are applied when you click Apply.")
+		text: i18n("Add local or remote .ics calendars. Changes are applied when you click Apply. Requires the python icalendar module (python-icalendar / python3-icalendar).")
 	}
 
 	RowLayout {
@@ -89,7 +101,7 @@ ConfigPage {
 
 					QQC2.CheckBox {
 						checked: show
-						onClicked: calendarsModel.setProperty(index, "show", checked)
+						onClicked: calendarsModel.setItemProperty(index, "show", checked)
 					}
 
 					Rectangle {
@@ -143,7 +155,13 @@ ConfigPage {
 							} else if (typeof fileUrl !== "undefined" && fileUrl) {
 								selected = fileUrl
 							}
-							calendarUrlField.text = selected
+							selected = "" + selected
+							if (selected.indexOf("file://") === 0) {
+								selected = selected.substr("file://".length)
+								try { selected = decodeURIComponent(selected) } catch (e) {}
+							}
+							// Setting text in code doesn't fire onTextEdited, so save directly.
+							calendarsModel.setItemProperty(index, "url", selected)
 						}
 					}
 				}

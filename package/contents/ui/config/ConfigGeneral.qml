@@ -213,7 +213,7 @@ ConfigPage {
 							readonly property string dateFormat: {
 								// Remove "dddd" from LongFormat, matching the digital clock behavior.
 								var format = Qt.locale().dateFormat(Locale.LongFormat)
-								return format.replace(/(^dddd.?\\s)|(,?\\sdddd$)/, "")
+								return format.replace(/(^dddd.?\s)|(,?\sdddd$)/, "")
 							}
 							text: Qt.formatDate(new Date(), dateFormat)
 							onClicked: page.setLine2FormatPreset(dateFormat)
@@ -309,10 +309,11 @@ ConfigPage {
 						onClicked: page.setMouseWheelCommands("amixer -q sset Master 10%+", "amixer -q sset Master 10%-")
 					}
 					QQC2.Button {
-						text: i18n("Volume (qdbus)")
+						text: i18n("Volume (D-Bus)")
+						// dbus-send ships with dbus; qdbus (Qt 5) is often missing on Plasma 6.
 						onClicked: page.setMouseWheelCommands(
-							"qdbus org.kde.kglobalaccel /component/kmix invokeShortcut \"increase_volume\"",
-							"qdbus org.kde.kglobalaccel /component/kmix invokeShortcut \"decrease_volume\""
+							"dbus-send --session --type=method_call --dest=org.kde.kglobalaccel /component/kmix org.kde.kglobalaccel.Component.invokeShortcut string:increase_volume",
+							"dbus-send --session --type=method_call --dest=org.kde.kglobalaccel /component/kmix org.kde.kglobalaccel.Component.invokeShortcut string:decrease_volume"
 						)
 					}
 				}
