@@ -258,6 +258,12 @@ CalendarManager {
 	}
 
 	//--- CalendarManager: Calendar
+	// Ask the owning manager, so "primary" never resolves to an extra account's calendar.
+	function getCalendar(calendarId) {
+		var calendarManager = getCalendarManager(calendarId)
+		return calendarManager ? calendarManager.getCalendar(calendarId) : null
+	}
+
 	function getCalendarList() {
 		var calendarList = []
 		for (var i = 0; i < calendarManagerList.length; i++) {

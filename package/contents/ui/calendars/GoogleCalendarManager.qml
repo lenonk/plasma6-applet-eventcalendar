@@ -7,6 +7,7 @@ import "../lib/Async.js" as Async
 import "../lib/Requests.js" as Requests
 import "../code/ColorIdMap.js" as ColorIdMap
 import "../NewEventTime.js" as NewEventTime
+import "./GoogleAccounts.js" as GoogleAccounts
 
 // import "./GoogleCalendarTests.js" as GoogleCalendarTests
 
@@ -17,6 +18,11 @@ CalendarManager {
 
 	property var session
 	readonly property var calendarIdList: session.cfg("calendarIdList") ? session.cfg("calendarIdList").split(',') : []
+
+	// Ids outside this manager carry the account prefix; Google URLs take the bare id.
+	readonly property string accountPrefix: (session && session.accountPrefix) || ""
+	function modelId(id) { return GoogleAccounts.modelId(accountPrefix, id) }
+	function apiId(id) { return GoogleAccounts.apiId(accountPrefix, id) }
 
 	onFetchAllCalendars: {
 		fetchGoogleAccountData()
@@ -143,7 +149,7 @@ CalendarManager {
 
 		var tasks = []
 		for (var i = 0; i < calendarIdList.length; i++) {
-			var calendarId = calendarIdList[i]
+			var calendarId = modelId(calendarIdList[i])
 			var task = fetchGoogleCalendarEvents.bind(this, calendarId)
 			tasks.push(task)
 		}
@@ -236,7 +242,7 @@ CalendarManager {
 		logger.debug('fetchGCalEventsPage', args.calendarId)
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events'
 		url += '?timeMin=' + encodeURIComponent(args.start)
 		url += '&timeMax=' + encodeURIComponent(args.end)
@@ -285,7 +291,7 @@ CalendarManager {
 
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events/'
 		url += encodeURIComponent(args.eventId)
 		url += '?timeZone=' + encodeURIComponent('Etc/UTC')
@@ -428,10 +434,10 @@ CalendarManager {
 		// The primary calendar is fetched and stored as "primary", not its real id.
 		var storedId = calendarId
 		var calendar = getCalendar(calendarId)
-		if (calendarIdList.indexOf(storedId) < 0 && calendar && calendar.primary) {
-			storedId = "primary"
+		if (calendarIdList.indexOf(apiId(storedId)) < 0 && calendar && calendar.primary) {
+			storedId = modelId("primary")
 		}
-		if (calendarIdList.indexOf(storedId) >= 0 && eventsByCalendar[storedId]) {
+		if (calendarIdList.indexOf(apiId(storedId)) >= 0 && eventsByCalendar[storedId]) {
 			parseSingleEvent(storedId, data)
 			addEvent(storedId, data)
 			eventCreated(storedId, data)
@@ -446,7 +452,7 @@ CalendarManager {
 		// https://developers.google.com/calendar/api/v3/reference/events/insert
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events'
 		Requests.postJSON({
 			url: url,
@@ -467,7 +473,7 @@ CalendarManager {
 		// https://www.googleapis.com/calendar/v3/calendars/calendarId/events/quickAdd
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events/quickAdd'
 		url += '?text=' + encodeURIComponent(args.text)
 		Requests.postJSON({
@@ -557,7 +563,7 @@ CalendarManager {
 		// PUT https://www.googleapis.com/calendar/v3/calendars/calendarId/events/eventId
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events/'
 		url += encodeURIComponent(args.eventId)
 		Requests.postJSON({
@@ -618,7 +624,7 @@ CalendarManager {
 
 		// var url = 'https://www.googleapis.com/calendar/v3'
 		// url += '/calendars/'
-		// url += encodeURIComponent(args.calendarId)
+		// url += encodeURIComponent(apiId(args.calendarId))
 		// url += '/events/'
 		// url += encodeURIComponent(args.eventId)
 		// Requests.postJSON({
@@ -690,7 +696,7 @@ CalendarManager {
 		// Note: Success means a response of xhr.status == 204 (No Content)
 		var url = 'https://www.googleapis.com/calendar/v3'
 		url += '/calendars/'
-		url += encodeURIComponent(args.calendarId)
+		url += encodeURIComponent(apiId(args.calendarId))
 		url += '/events/'
 		url += encodeURIComponent(args.eventId)
 		Requests.postJSON({
@@ -718,8 +724,10 @@ CalendarManager {
 				// The primary calendar is fetched as "primary", use the same id
 				// here so the new event form finds its calendarManager.
 				if (calendar.primary && calendarIdList.indexOf('primary') >= 0) {
-					calendar.originalId = calendar.id
-					calendar.id = 'primary'
+					calendar.originalId = modelId(calendar.id)
+					calendar.id = modelId('primary')
+				} else {
+					calendar.id = modelId(calendar.id)
 				}
 			}
 			return calendarList
@@ -732,7 +740,7 @@ CalendarManager {
 		var calendarList = getCalendarList()
 		for (var i = 0; i < calendarList.length; i++) {
 			var calendar = calendarList[i]
-			if (calendarId === calendar.id || (calendar.originalId && calendarId === calendar.originalId) || (calendarId === 'primary' && calendar.primary)) {
+			if (calendarId === calendar.id || (calendar.originalId && calendarId === calendar.originalId) || (calendarId === modelId('primary') && calendar.primary)) {
 				return calendar
 			}
 		}

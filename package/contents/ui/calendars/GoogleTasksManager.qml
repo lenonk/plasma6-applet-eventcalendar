@@ -6,6 +6,7 @@ import "../Shared.js" as Shared
 import "../ErrorType.js" as ErrorType
 import "../lib/Async.js" as Async
 import "../lib/Requests.js" as Requests
+import "./GoogleAccounts.js" as GoogleAccounts
 
 // import "./GoogleCalendarTests.js" as GoogleCalendarTests
 
@@ -24,6 +25,11 @@ CalendarManager {
 
 	property var session
 	readonly property var tasklistIdList: session.cfg("tasklistIdList") ? session.cfg("tasklistIdList").split(',') : []
+
+	// Ids outside this manager carry the account prefix; Google URLs take the bare id.
+	readonly property string accountPrefix: (session && session.accountPrefix) || ""
+	function modelId(id) { return GoogleAccounts.modelId(accountPrefix, id) }
+	function apiId(id) { return GoogleAccounts.apiId(accountPrefix, id) }
 
 	onFetchAllCalendars: {
 		fetchGoogleAccountData()
@@ -74,7 +80,7 @@ CalendarManager {
 			for (var i = 0; i < tasklistList.length; i++) {
 				var tasklist = tasklistList[i]
 				calendarList.push({
-					id: tasklist.id,
+					id: modelId(tasklist.id),
 					summary: tasklist.title,
 					backgroundColor: Kirigami.Theme.highlightColor.toString(),
 					accessRole: 'owner',
@@ -115,7 +121,7 @@ CalendarManager {
 
 		var tasks = []
 		for (var i = 0; i < tasklistIdList.length; i++) {
-			var tasklistId = tasklistIdList[i]
+			var tasklistId = modelId(tasklistIdList[i])
 			var task = fetchGoogleTasks.bind(this, tasklistId)
 			tasks.push(task)
 		}
@@ -330,7 +336,7 @@ CalendarManager {
 		logger.debug('fetchGCalTasksPage', args.tasklistId)
 		var url = 'https://www.googleapis.com/tasks/v1'
 		url += '/lists/'
-		url += encodeURIComponent(args.tasklistId)
+		url += encodeURIComponent(apiId(args.tasklistId))
 		url += '/tasks'
 		if (plasmoid.configuration.googleTasksHideCompleted) {
 			url += '?showCompleted=false'
@@ -394,7 +400,7 @@ CalendarManager {
 	}
 	function createEvent_done(calendarId, data) {
 		logger.debugJSON(calendarManagerId, 'createEvent_done', calendarId, data)
-		if (googleTasksManager.tasklistIdList.indexOf(calendarId) >= 0 && getCalendarItems(calendarId)) {
+		if (googleTasksManager.tasklistIdList.indexOf(apiId(calendarId)) >= 0 && getCalendarItems(calendarId)) {
 			var eventData = parseTaskAsEventData(data)
 			parseSingleEvent(calendarId, eventData)
 			addEvent(calendarId, eventData)
@@ -410,7 +416,7 @@ CalendarManager {
 		// https://www.googleapis.com/tasks/v1/lists/tasklistId/tasks
 		var url = 'https://www.googleapis.com/tasks/v1'
 		url += '/lists/'
-		url += encodeURIComponent(args.tasklistId)
+		url += encodeURIComponent(apiId(args.tasklistId))
 		url += '/tasks'
 		var taskData = {
 			title: args.title,
@@ -488,7 +494,7 @@ CalendarManager {
 		// Note: Success means a response of xhr.status == 204 (No Content)
 		var url = 'https://www.googleapis.com/tasks/v1'
 		url += '/lists/'
-		url += encodeURIComponent(args.tasklistId)
+		url += encodeURIComponent(apiId(args.tasklistId))
 		url += '/tasks/'
 		url += encodeURIComponent(args.taskId)
 		Requests.postJSON({
@@ -580,7 +586,7 @@ CalendarManager {
 		// PUT https://www.googleapis.com/tasks/v1/lists/tasklistId/tasks/taskId
 		var url = 'https://www.googleapis.com/tasks/v1'
 		url += '/lists/'
-		url += encodeURIComponent(args.tasklistId)
+		url += encodeURIComponent(apiId(args.tasklistId))
 		url += '/tasks/'
 		url += encodeURIComponent(args.taskId)
 		Requests.postJSON({
