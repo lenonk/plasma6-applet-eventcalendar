@@ -483,6 +483,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 	}
 	Connections {
 		target: eventModel
+		function onExtraAccountChanged() { logic.updateEvents() }
 		function onError(msg, errorType) {
 			if (errorType == ErrorType.NetworkError) {
 				logic.pendingEventNetworkError = msg

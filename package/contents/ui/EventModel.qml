@@ -114,15 +114,20 @@ CalendarManager {
 			id: account
 			property var session: GoogleApiSession {
 				accountPrefix: modelData
+				onAccessTokenChanged: eventModel.extraAccountChanged()
 			}
 			property var calendarManager: GoogleCalendarManager {
 				session: account.session
+				onCalendarIdListChanged: eventModel.extraAccountChanged()
 			}
 			property var tasksManager: GoogleTasksManager {
 				session: account.session
+				onTasklistIdListChanged: eventModel.extraAccountChanged()
 			}
 		}
 	}
+	// Login, logout or calendar selection of an extra account (Logic refetches).
+	signal extraAccountChanged()
 
 	PlasmaCalendarManager {
 		id: plasmaCalendarManager
