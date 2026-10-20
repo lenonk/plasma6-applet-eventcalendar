@@ -62,7 +62,7 @@ CalendarManager {
 			var err0 = body.error.errors[0]
 
 			if (httpCode === 401 && err0.reason == 'authError') {
-				var suggestion = i18n("Widget has been updated. Please logout and login to Google Calendar again.")
+				var suggestion = i18n("Your Google login has expired. Please log in to Google again.")
 				showHttpError(httpCode, err0.message, suggestion, ErrorType.ClientError)
 			} else if (httpCode === 403 && err0.domain == 'usageLimits') {
 				var suggestion = i18n("Too many web requests. Will try again soon.")

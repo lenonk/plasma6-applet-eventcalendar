@@ -7,6 +7,7 @@ import org.kde.kirigami as Kirigami
 
 import "lib"
 import "Shared.js" as Shared
+import "ErrorType.js" as ErrorType
 import "./weather/WeatherApi.js" as WeatherApi
 
 	MouseArea {
@@ -436,13 +437,19 @@ import "./weather/WeatherApi.js" as WeatherApi
 				eventModel.createEvent(calendarId, date, text, timing)
 			}
 
-			MessageWidget {
+			Kirigami.InlineMessage {
 				id: errorMessageWidget
 				anchors.left: parent.left
 				anchors.bottom: parent.bottom
 				anchors.right: refreshButton.left
 				anchors.margins: Kirigami.Units.smallSpacing
 				text: logic.currentErrorMessage
+				type: logic.currentErrorType === ErrorType.NetworkError ? Kirigami.MessageType.Warning : Kirigami.MessageType.Error
+				showCloseButton: true
+				// The close button sets visible itself, so visibility is managed imperatively.
+				visible: false
+				onTextChanged: visible = !!text
+				Component.onCompleted: visible = !!text
 			}
 
 				PlasmaComponents3.Button {
@@ -472,11 +479,11 @@ import "./weather/WeatherApi.js" as WeatherApi
 	}
 
 	function showError(msg) {
-		errorMessageWidget.warn(msg)
+		errorMessageWidget.visible = !!msg
 	}
 
 	function clearError() {
-		errorMessageWidget.close()
+		errorMessageWidget.visible = false
 	}
 
 	Timer {

@@ -467,10 +467,10 @@ import "./weather/WeatherApi.js" as WeatherApi
 
 	//---
 	property int currentErrorType: ErrorType.UnknownError
+	// No client-id mismatch check here: an empty latestClientId means the built-in
+	// default, and refresh uses sessionClientId, failing with its own message if needed.
 	property string currentErrorMessage: {
-		if (plasmoid.configuration.accessToken && plasmoid.configuration.latestClientId != plasmoid.configuration.sessionClientId) {
-			return i18n("Widget has been updated. Please logout and login to Google Calendar again.")
-		} else if (!plasmoid.configuration.accessToken && plasmoid.configuration.access_token) {
+		if (!plasmoid.configuration.accessToken && plasmoid.configuration.access_token) {
 			return i18n("Logged out of Google. Please login again.")
 		} else {
 			return ""
@@ -481,9 +481,19 @@ import "./weather/WeatherApi.js" as WeatherApi
 		currentErrorType = ErrorType.NoError
 		if (popup) popup.clearError()
 	}
+	// A fetch error stays shown until a full fetch round finishes without one.
+	property bool fetchErrorShown: false
+	property bool fetchErrorThisRound: false
 	Connections {
 		target: eventModel
 		function onExtraAccountChanged() { logic.updateEvents() }
+		function onFetchingData() { logic.fetchErrorThisRound = false }
+		function onAllDataFetched() {
+			if (logic.fetchErrorShown && !logic.fetchErrorThisRound) {
+				logic.fetchErrorShown = false
+				logic.clearError()
+			}
+		}
 		function onError(msg, errorType) {
 			if (errorType == ErrorType.NetworkError) {
 				logic.pendingEventNetworkError = msg
@@ -493,6 +503,8 @@ import "./weather/WeatherApi.js" as WeatherApi
 				}
 				return
 			}
+			logic.fetchErrorShown = true
+			logic.fetchErrorThisRound = true
 			logic.currentErrorMessage = msg
 			logic.currentErrorType = errorType
 			if (popup) popup.showError(logic.currentErrorMessage)
