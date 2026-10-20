@@ -363,7 +363,7 @@ CalendarManager {
 	}
 
 	//--- Create
-	function createEvent(calendarId, date, text) {
+	function createEvent(calendarId, date, text, timing) {
 		if (calendarId.indexOf('plasma_Events_') != 0) {
 			logger.log('Could not create event with calendarId=', calendarId)
 			return
@@ -373,19 +373,22 @@ CalendarManager {
 			logger.log('Could not parse a proper akonadiCalendarId=', akonadiCalendarId, ' from calendarId=', calendarId)
 			return
 		}
-		var dateString = Shared.localeDateString(date)
-
 		// konsolekalendar --add --calendar 12 --summary "Summary" --date 2020-07-27 --time 22:00
 		var cmd = [
 			'konsolekalendar',
 			'--add',
 			'--calendar',
 			akonadiCalendarId,
-			'--date',
-			dateString,
-			'--summary',
-			text,
 		]
+		if (timing) {
+			var start = new Date(timing.start)
+			var end = new Date(timing.end)
+			cmd.push('--date', Shared.localeDateString(start), '--time', Qt.formatTime(start, 'HH:mm'))
+			cmd.push('--end-date', Shared.localeDateString(end), '--end-time', Qt.formatTime(end, 'HH:mm'))
+			cmd.push('--summary', timing.title)
+		} else {
+			cmd.push('--date', Shared.localeDateString(date), '--summary', text)
+		}
 		executable.exec(cmd, function(cmd, exitCode, exitStatus, stdout, stderr){
 			logger.debug('konsolekalendar.cmd', cmd)
 			logger.debug('konsolekalendar.exitCode', exitCode)

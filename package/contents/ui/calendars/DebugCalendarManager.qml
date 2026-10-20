@@ -42,16 +42,23 @@ CalendarManager {
 		}
 	}
 
-	function createEvent(calendarId, date, text) {
+	function createEvent(calendarId, date, text, timing) {
 		var summary = text
-		var start = {
-			date: Shared.localeDateString(date),
-			dateTime: date,
-		}
-		var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, 0)
-		var end = {
-			date: Shared.localeDateString(endDate),
-			dateTime: endDate,
+		var start, end
+		if (timing) {
+			summary = timing.title
+			start = { dateTime: new Date(timing.start) }
+			end = { dateTime: new Date(timing.end) }
+		} else {
+			start = {
+				date: Shared.localeDateString(date),
+				dateTime: date,
+			}
+			var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, 0)
+			end = {
+				date: Shared.localeDateString(endDate),
+				dateTime: endDate,
+			}
 		}
 		var description = ''
 		var data = DebugFixtures.createEvent(summary, start, end, description)
