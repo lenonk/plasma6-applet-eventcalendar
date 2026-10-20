@@ -2,6 +2,7 @@
 import os, sys
 import argparse
 import subprocess
+import time
 import urllib.parse
 from enum import Enum, IntEnum
 from ctypes import *
@@ -68,18 +69,27 @@ class Canberra:
 
 	def __init__(self):
 		self.context = ca_context()
+		self.playId = 1
 		libcanberra.ca_context_create(byref(self.context))
 
 	def play(self, *props):
-		playId = 0
 		res = libcanberra.ca_context_play(
 			self.context,
-			playId,
+			self.playId,
 			*convertArgs(props),
 			None, # Must end with NULL to mark end of props
 		)
 		if res != Canberra.Code.SUCCESS:
 			raise Exception(Canberra.Code(res), "Error playing", props)
+
+	def waitUntilDone(self, timeout=30):
+		playing = c_int(1)
+		deadline = time.monotonic() + timeout
+		while time.monotonic() < deadline:
+			res = libcanberra.ca_context_playing(self.context, self.playId, byref(playing))
+			if res != Canberra.Code.SUCCESS or not playing.value:
+				return
+			time.sleep(0.05)
 
 	def playEvent(self, eventId, *props):
 		props += (Canberra.Prop.EVENT_ID, eventId)
@@ -97,10 +107,9 @@ class Canberra:
 # it requires the gnome-session-canberra package in Ubuntu,
 # which is not installed by default.
 FALLBACK_SOUND_ID = 'message-new-instant'
+SOUND_EXTENSIONS = ('.oga', '.ogg', '.wav')
 
-# The sound theme picked in System Settings (Plasma 6 default: ocean).
-def kdeSoundTheme():
-	path = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config')), 'kdeglobals')
+def readSoundTheme(path):
 	group = None
 	try:
 		with open(path, encoding='utf-8') as f:
@@ -108,44 +117,100 @@ def kdeSoundTheme():
 				line = line.strip()
 				if line.startswith('['):
 					group = line
-				elif group == '[Sounds]' and line.startswith('Theme='):
-					return line[len('Theme='):] or 'ocean'
+				elif group == '[Sounds]' and '=' in line:
+					key, value = line.split('=', 1)
+					if key.strip() == 'Theme':
+						return value.strip()
 	except OSError:
 		pass
+	return ''
+
+# The sound theme picked in System Settings: user kdeglobals, then the system one (Plasma 6 default: ocean).
+def kdeSoundTheme():
+	configHome = os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')
+	configDirs = (os.environ.get('XDG_CONFIG_DIRS') or '/etc/xdg').split(':')
+	for configDir in [configHome] + configDirs:
+		theme = readSoundTheme(os.path.join(configDir, 'kdeglobals'))
+		if theme:
+			return theme
 	return 'ocean'
 
-def playSound(args):
-	if not Canberra.installed():
-		sys.stderr.write('skipping playing sound\n')
-		return
+# Where a theme's sounds live, freedesktop last (libcanberra falls back to it too).
+def soundThemeDirs(theme):
+	dataHome = os.environ.get('XDG_DATA_HOME') or os.path.expanduser('~/.local/share')
+	dataDirs = (os.environ.get('XDG_DATA_DIRS') or '/usr/local/share:/usr/share').split(':')
+	themes = [theme] if theme == 'freedesktop' else [theme, 'freedesktop']
+	return [os.path.join(d, 'sounds', t, 'stereo') for t in themes for d in [dataHome] + dataDirs if d]
 
-	canberra = Canberra()
-	props = [
-		Canberra.Prop.EVENT_DESCRIPTION, args.appName,
-		Canberra.Prop.APPLICATION_NAME, args.appName,
-		Canberra.Prop.XDG_THEME_NAME, kdeSoundTheme(),
-	]
+def findSoundFile(name, theme):
+	for soundDir in soundThemeDirs(theme):
+		for ext in SOUND_EXTENSIONS:
+			path = os.path.join(soundDir, name + ext)
+			if os.path.isfile(path):
+				return path
+	return None
 
-	if args.sound.startswith('file://'):
-		args.sound = urllib.parse.unquote(args.sound[len('file://'):])
-
-	if args.sound.startswith('/') and not os.path.isfile(args.sound):
-		# Eg: the old Oxygen default, which Plasma 6 no longer ships.
-		sys.stderr.write('sound file not found, using {}: {}\n'.format(FALLBACK_SOUND_ID, args.sound))
-		args.sound = FALLBACK_SOUND_ID
-
-	# A path plays that file, anything else is a sound name from the XDG sound theme.
-	if args.sound.startswith('/'):
-		canberra.playFile(args.sound, *props)
-	else:
-		canberra.playEvent(args.sound, *props)
-
-
-	if args.loop:
-		for i in range(args.loop):
-			# TODO: wait for playEffect to end.
-			# TODO: wrap playEffect in a function, and call it here.
+def listSounds(theme):
+	names = set()
+	for soundDir in soundThemeDirs(theme):
+		try:
+			for filename in os.listdir(soundDir):
+				name, ext = os.path.splitext(filename)
+				if ext in SOUND_EXTENSIONS:
+					names.add(name)
+		except OSError:
 			pass
+	return sorted(names)
+
+# A file path or file:// URL, or a sound name from the XDG sound theme.
+def resolveSound(sound):
+	if sound.startswith('file://'):
+		sound = urllib.parse.unquote(sound[len('file://'):])
+	if sound.startswith('/') and not os.path.isfile(sound):
+		# Eg: the old Oxygen default, which Plasma 6 no longer ships.
+		sys.stderr.write('sound file not found, using {}: {}\n'.format(FALLBACK_SOUND_ID, sound))
+		sound = FALLBACK_SOUND_ID
+	return sound
+
+# Returns the player process when libcanberra could not play it.
+def playSound(args, wait=False):
+	sound = resolveSound(args.sound)
+	theme = kdeSoundTheme()
+
+	if Canberra.installed():
+		try:
+			canberra = Canberra()
+			props = [
+				Canberra.Prop.EVENT_DESCRIPTION, args.appName,
+				Canberra.Prop.APPLICATION_NAME, args.appName,
+				Canberra.Prop.XDG_THEME_NAME, theme,
+			]
+			if sound.startswith('/'):
+				canberra.playFile(sound, *props)
+			else:
+				canberra.playEvent(sound, *props)
+			if wait:
+				canberra.waitUntilDone()
+			return None
+		except Exception as e:
+			sys.stderr.write('libcanberra: {}\n'.format(e))
+
+	# No libcanberra: play the file with PipeWire or PulseAudio.
+	path = sound if sound.startswith('/') else findSoundFile(sound, theme)
+	if not path:
+		sys.stderr.write('sound not found: {}\n'.format(sound))
+		return None
+	for player in ('pw-play', 'paplay'):
+		try:
+			proc = subprocess.Popen([player, path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+		except OSError:
+			continue
+		if not wait:
+			return proc
+		if proc.wait() == 0:
+			return None
+	sys.stderr.write('could not play sound: {}\n'.format(path))
+	return None
 
 
 #---
@@ -186,14 +251,14 @@ def notify(args):
 
 	#--- Sound
 	if args.sound:
-		playSound(args)
+		sfxProc = playSound(args)
 
 	loop.run()
 
 def main():
 	parser = argparse.ArgumentParser(prog='notification.py', description='Notifications with sound effects and actions.')
-	parser.add_argument('summary')
-	parser.add_argument('message')
+	parser.add_argument('summary', nargs='?', default='')
+	parser.add_argument('message', nargs='?', default='')
 	parser.add_argument('--icon', default='')
 	parser.add_argument('--app-name', dest='appName', default='Event Calendar')
 	parser.add_argument('--sound')
@@ -201,11 +266,20 @@ def main():
 	parser.add_argument('--timeout', type=int, default=Notify.EXPIRES_DEFAULT)
 	parser.add_argument('--action', dest='actions', action='append')
 	parser.add_argument('--metadata')
+	# For the config page: play --sound and exit, or print the theme's sound names.
+	parser.add_argument('--preview', action='store_true')
+	parser.add_argument('--list-sounds', dest='listSounds', action='store_true')
 
 
 	try:
 		args = parser.parse_args()
-		notify(args)
+		if args.listSounds:
+			print('\n'.join(listSounds(kdeSoundTheme())))
+		elif args.preview:
+			if args.sound:
+				playSound(args, wait=True)
+		else:
+			notify(args)
 	except KeyboardInterrupt:
 		pass
 	except Exception as e:
