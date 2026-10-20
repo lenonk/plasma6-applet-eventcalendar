@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 git pull origin master
-source ./install
+. ./install.sh

@@ -1,18 +1,20 @@
-#!/bin/bash
-# Version 6
+#!/bin/sh
+# Version 7
 
 metadataJsonFile="$PWD/package/metadata.json"
 metadataDesktopFile="$PWD/package/metadata.desktop"
 packageServiceType="Plasma/Applet"
 
-function metadataJsonValue() {
-	local key="$1"
-	grep -oP "\"${key}\"\\s*:\\s*\"\\K[^\"]+" "$metadataJsonFile" | head -n 1
+# Hide KPackage warnings about unrelated plasmoids it scans along the way.
+QT_LOGGING_RULES="kf.package*=false${QT_LOGGING_RULES:+;$QT_LOGGING_RULES}"
+export QT_LOGGING_RULES
+
+metadataJsonValue() {
+	sed -n "s/.*\"$1\"[[:space:]]*:[[:space:]]*\"\([^\"]*\)\".*/\1/p" "$metadataJsonFile" | head -n 1
 }
 
-function metadataDesktopValue() {
-	local key="$1"
-	grep -oP "^${key}=\\K.*" "$metadataDesktopFile" | head -n 1
+metadataDesktopValue() {
+	sed -n "s/^$1=//p" "$metadataDesktopFile" | head -n 1
 }
 
 packageNamespace=""
@@ -47,8 +49,7 @@ for arg in "$@"; do
 done
 
 isInstalled=false
-"${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" &> /dev/null
-if [ $? == 0 ]; then
+if "${kpackagetoolCmd}" --type="${packageServiceType}" --show="$packageNamespace" >/dev/null 2>&1; then
 	isInstalled=true
 fi
 
@@ -60,10 +61,14 @@ else
 fi
 
 if $restartPlasmashell; then
-	killall plasmashell
-	if command -v plasmashell >/dev/null 2>&1; then
-		nohup plasmashell >/dev/null 2>&1 &
+	if systemctl --user is-active --quiet plasma-plasmashell.service 2>/dev/null; then
+		systemctl --user restart plasma-plasmashell.service
 	else
-		"${kstartCmd}" plasmashell
+		killall plasmashell
+		if command -v plasmashell >/dev/null 2>&1; then
+			nohup plasmashell >/dev/null 2>&1 &
+		else
+			"${kstartCmd}" plasmashell
+		fi
 	fi
 fi
