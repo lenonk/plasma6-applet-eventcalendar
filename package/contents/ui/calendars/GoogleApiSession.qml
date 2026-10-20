@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../ErrorType.js" as ErrorType
 import "../lib/Requests.js" as Requests
+import "./GoogleAccounts.js" as GoogleAccounts
 
 QtObject {
 	id: googleApiSession
@@ -9,7 +10,7 @@ QtObject {
 	// Empty for the first account, "account2" for the second one.
 	property string accountPrefix: ""
 	function cfgKey(key) {
-		return accountPrefix ? accountPrefix + key.charAt(0).toUpperCase() + key.slice(1) : key
+		return GoogleAccounts.cfgKey(accountPrefix, key)
 	}
 	function cfg(key) {
 		return plasmoid.configuration[cfgKey(key)]

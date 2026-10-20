@@ -5,6 +5,7 @@ import org.kde.kirigami as Kirigami
 
 import ".."
 import "../lib"
+import "../calendars/GoogleAccounts.js" as GoogleAccounts
 
 ConfigPage {
 	id: page
@@ -15,9 +16,7 @@ ConfigPage {
 	property bool oauthBusy: false
 	property bool syncingSelectionModels: false
 
-	// Google account slots: 0 uses the unprefixed config keys, the rest "account2".."account5".
-	readonly property var extraAccountPrefixes: ["account2", "account3", "account4", "account5"]
-	// Currently edited slot.
+	// Edited slot: 0 is account 1, n is GoogleAccounts.extraPrefixes[n - 1].
 	property int accountIndex: 0
 	function loginManagerAt(slot) {
 		if (slot <= 0) return googleLoginManager
@@ -317,7 +316,7 @@ ConfigPage {
 		visible: false
 		Repeater {
 			id: extraLoginManagers
-			model: page.extraAccountPrefixes
+			model: GoogleAccounts.extraPrefixes
 			delegate: GoogleLoginManager {
 				id: extraLoginManager
 				accountPrefix: modelData

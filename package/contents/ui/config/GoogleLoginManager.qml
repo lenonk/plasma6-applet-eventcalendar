@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../lib"
 import "../lib/Requests.js" as Requests
+import "../calendars/GoogleAccounts.js" as GoogleAccounts
 
 Item {
 	id: session
@@ -17,14 +18,8 @@ Item {
 
 	// Empty for the first account, "account2" for the second one.
 	property string accountPrefix: ""
-	readonly property var accountKeys: [
-		"sessionClientId", "sessionClientSecret",
-		"accessToken", "accessTokenType", "accessTokenExpiresAt", "refreshToken",
-		"calendarList", "calendarIdList", "tasklistList", "tasklistIdList",
-	]
 	function cfgKey(key) {
-		if (!accountPrefix || accountKeys.indexOf(key) < 0) return key
-		return accountPrefix + key.charAt(0).toUpperCase() + key.slice(1)
+		return GoogleAccounts.cfgKey(accountPrefix, key)
 	}
 
 	function getCfg(key, fallbackValue) {

@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQml 2.15
 
 import "./calendars"
+import "./calendars/GoogleAccounts.js" as GoogleAccounts
 
 CalendarManager {
 	id: eventModel
@@ -17,6 +18,11 @@ CalendarManager {
 		bindSignals(icalManager)
 		// bindSignals(debugCalendarManager)
 		// bindSignals(debugGoogleCalendarManager)
+		// After account 1, so it is asked first for ids like "primary".
+		for (var i = 0; i < extraAccounts.count; i++) {
+			bindSignals(extraAccounts.objectAt(i).calendarManager)
+			bindSignals(extraAccounts.objectAt(i).tasksManager)
+		}
 	}
 
 	//---
@@ -100,9 +106,10 @@ CalendarManager {
 		session: googleApiSession
 	}
 
-	// Extra Google accounts (config keys prefixed with "account2".."account5").
+	// Extra Google accounts. A slot without a login makes no requests.
 	Instantiator {
-		model: ["account2", "account3", "account4", "account5"]
+		id: extraAccounts
+		model: GoogleAccounts.extraPrefixes
 		delegate: QtObject {
 			id: account
 			property var session: GoogleApiSession {
@@ -114,11 +121,6 @@ CalendarManager {
 			property var tasksManager: GoogleTasksManager {
 				session: account.session
 			}
-		}
-		onObjectAdded: function(index, object) {
-			eventModel.bindSignals(object.calendarManager)
-			eventModel.bindSignals(object.tasksManager)
-			deferredUpdate.restart()
 		}
 	}
 
