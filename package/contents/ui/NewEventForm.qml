@@ -39,9 +39,11 @@ Loader {
 					newEventFormOpened(model, calendarSelector)
 				}
 
+				// "from" / "to" when that field blocks submitting
+				property string timeError: ""
+
 				function submit() {
-					var calendarEntry = calendarSelector.model[calendarSelector.currentIndex]
-					var calendarId = calendarEntry.calendarId
+					var calendarId = calendarSelector.selectedCalendarId
 					var text = newEventText.text
 					if (!calendarId || !date || !text.trim()) {
 						return
@@ -49,9 +51,22 @@ Loader {
 					var timing = null
 					if (!calendarSelector.selectedIsTasklist) {
 						timing = NewEventTime.resolve(date, text, allDayCheckBox.checked, fromField.text, toField.text)
+						if (timing && timing.error) {
+							timeError = timing.error
+							if (timing.error === "from") {
+								fromField.forceActiveFocus()
+							} else {
+								toField.forceActiveFocus()
+							}
+							return
+						}
 					}
 					submitNewEventForm(calendarId, date, text, timing)
-					newEventText.text = ''
+					newEventText.text = ""
+					allDayCheckBox.checked = true
+					fromField.text = ""
+					toField.text = ""
+					timeError = ""
 				}
 
 				CalendarSelector {
@@ -81,6 +96,7 @@ Loader {
 						id: allDayCheckBox
 						text: i18n("All day")
 						checked: true
+						onToggled: formColumn.timeError = ""
 					}
 
 					PlasmaComponents3.Label {
@@ -96,7 +112,10 @@ Loader {
 						opacity: allDayCheckBox.checked ? 0.5 : 1
 						validator: RegularExpressionValidator { regularExpression: /\d{0,2}(:\d{0,2})?/ }
 						// typing an hour switches off "all day"
-						onTextEdited: if (text) allDayCheckBox.checked = false
+						onTextEdited: {
+							formColumn.timeError = ""
+							if (text) allDayCheckBox.checked = false
+						}
 						onAccepted: formColumn.submit()
 						Keys.onEscapePressed: newEventForm.active = false
 					}
@@ -113,12 +132,24 @@ Loader {
 						placeholderText: "11:00"
 						opacity: allDayCheckBox.checked ? 0.5 : 1
 						validator: RegularExpressionValidator { regularExpression: /\d{0,2}(:\d{0,2})?/ }
-						onTextEdited: if (text) allDayCheckBox.checked = false
+						onTextEdited: {
+							formColumn.timeError = ""
+							if (text) allDayCheckBox.checked = false
+						}
 						onAccepted: formColumn.submit()
 						Keys.onEscapePressed: newEventForm.active = false
 					}
 
 					Item { Layout.fillWidth: true }
+				}
+
+				PlasmaComponents3.Label {
+					visible: !!formColumn.timeError && !calendarSelector.selectedIsTasklist
+					Layout.fillWidth: true
+					Layout.preferredWidth: 0
+					wrapMode: Text.WordWrap
+					color: Kirigami.Theme.negativeTextColor
+					text: formColumn.timeError === "from" ? i18n("Enter a start time, e.g. 9:30, or tick All day.") : i18n("Enter a valid end time, e.g. 11:00, or leave it empty for one hour.")
 				}
 
 				PlasmaComponents3.Label {

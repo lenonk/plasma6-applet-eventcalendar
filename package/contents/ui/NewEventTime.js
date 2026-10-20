@@ -2,11 +2,11 @@
 .import "Shared.js" as Shared
 
 // Time detection for the new event form.
-// Accepted in the text: "hh:mm-hh:mm", "hh:mm-hh", "hh-hh:mm", "hh-hh" and a
-// lone "hh:mm" (one hour long). The time has to be a separate word.
+// At the start of the text: "hh-hh", "hh:mm-hh:mm" (either side may drop :mm) or "hh:mm".
+// At the end only forms with a colon, so "Room 3-4" stays text. Hours over 24 are never a time.
 
-var rangeRe = /(^|\s)(\d{1,2})(?::(\d{2}))?\s*-\s*(\d{1,2})(?::(\d{2}))?(?=\s|$)/
-var singleRe = /(^|\s)(\d{1,2}):(\d{2})(?=\s|$)/
+var startRe = /^\s*(\d{1,2})(?::(\d{2}))?(?:\s*-\s*(\d{1,2})(?::(\d{2}))?)?(?=\s|$)/
+var endRe = /(?:^|\s)(\d{1,2})(?::(\d{2}))?(?:\s*-\s*(\d{1,2})(?::(\d{2}))?)?\s*$/
 var fieldRe = /^\s*(\d{1,2})(?::(\d{2}))?\s*$/
 
 function validTime(h, m) {
@@ -25,25 +25,25 @@ function parseField(text) {
 	return match ? toTime(match[1], match[2]) : null
 }
 
+function hasColon(match) {
+	return !!(match[2] || match[4])
+}
+
 // Returns { start, end, title } with start/end as {h, m}, or null
 function parseText(text) {
-	var match = rangeRe.exec(text)
-	var start, end
-	if (match) {
-		start = toTime(match[2], match[3])
-		end = toTime(match[4], match[5])
-	} else {
-		match = singleRe.exec(text)
-		if (!match) {
+	var match = startRe.exec(text)
+	if (!match || !(match[3] || hasColon(match))) {
+		match = endRe.exec(text)
+		if (!match || !hasColon(match)) {
 			return null
 		}
-		start = toTime(match[2], match[3])
-		end = null
 	}
-	if (!start || (match[4] && !end)) {
+	var start = toTime(match[1], match[2])
+	var end = match[3] ? toTime(match[3], match[4]) : null
+	if (!start || (match[3] && !end)) {
 		return null
 	}
-	var title = (text.slice(0, match.index) + match[1] + text.slice(match.index + match[0].length)).replace(/\s+/g, " ").trim()
+	var title = (text.slice(0, match.index) + " " + text.slice(match.index + match[0].length)).replace(/\s+/g, " ").trim()
 	return { start: start, end: end, title: title || text.trim() }
 }
 
@@ -63,22 +63,32 @@ function toDates(day, start, end) {
 	return [startDate, endDate]
 }
 
-// Decides what to create. Time in the text wins over the form fields.
-// Returns { allDay, start, end, title }, start/end are Dates for timed events.
+// Decides what to create. A time in the text wins over the form fields.
+// Returns null when "All day" is ticked and the text has no time (the backend
+// decides, e.g. Google quickAdd), { error: "from" | "to" } for a bad field,
+// else { start, end, title } with Dates.
 function resolve(day, text, allDay, fromText, toText) {
 	var parsed = parseText(text)
 	if (parsed) {
 		var dates = toDates(day, parsed.start, parsed.end)
-		return { allDay: false, start: dates[0], end: dates[1], title: parsed.title }
+		return { start: dates[0], end: dates[1], title: parsed.title }
 	}
-	if (!allDay) {
-		var from = parseField(fromText)
-		if (from) {
-			var dates2 = toDates(day, from, parseField(toText))
-			return { allDay: false, start: dates2[0], end: dates2[1], title: text.trim() }
+	if (allDay) {
+		return null
+	}
+	var from = parseField(fromText)
+	if (!from) {
+		return { error: "from" }
+	}
+	var to = null
+	if ((toText || "").trim()) {
+		to = parseField(toText)
+		if (!to) {
+			return { error: "to" }
 		}
 	}
-	return { allDay: true, start: null, end: null, title: text.trim() }
+	var fieldDates = toDates(day, from, to)
+	return { start: fieldDates[0], end: fieldDates[1], title: text.trim() }
 }
 
 function pad(n) {

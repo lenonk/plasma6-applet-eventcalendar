@@ -379,22 +379,18 @@ CalendarManager {
 	//--- Create / POST
 	function createEvent(calendarId, date, text, timing) {
 		if (session.accessToken) {
-			var dateString = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
-			var eventText = dateString + ' ' + text
-
-			// With timing from the form insert the exact start/end,
-			// otherwise let quickAdd guess like before.
+			// Times from the form are inserted as-is, otherwise quickAdd parses the text.
+			var eventText = null
 			var eventData = null
 			if (timing) {
-				eventData = { summary: timing.title }
-				if (timing.allDay) {
-					var nextDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
-					eventData.start = { date: Shared.localeDateString(date) }
-					eventData.end = { date: Shared.localeDateString(nextDay) }
-				} else {
-					eventData.start = { dateTime: NewEventTime.rfc3339(timing.start) }
-					eventData.end = { dateTime: NewEventTime.rfc3339(timing.end) }
+				eventData = {
+					summary: timing.title,
+					start: { dateTime: NewEventTime.rfc3339(new Date(timing.start)) },
+					end: { dateTime: NewEventTime.rfc3339(new Date(timing.end)) },
 				}
+			} else {
+				var dateString = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
+				eventText = dateString + ' ' + text
 			}
 
 			session.checkAccessToken(function(tokenErr, tokenXhr) {
@@ -459,7 +455,7 @@ CalendarManager {
 			},
 			data: args.data,
 		}, function(err, data, xhr) {
-			console.log('insertGCalEvent.response', err, data, xhr.status)
+			logger.debug('insertGCalEvent.response', err, data, xhr.status)
 			if (!err && data && data.error) {
 				return callback(data, null, xhr)
 			}
