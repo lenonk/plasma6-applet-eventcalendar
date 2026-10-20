@@ -229,9 +229,8 @@ CalendarManager {
 			// Note: In the Google Tasks API docs:
 			// The due date only records date information; the time portion of the timestamp is discarded when setting the due date.
 			// It isn't possible to read or write the time that a task is due via the API.
-			var dueDateTime = new Date(taskData.due)
-			// Use local time zone, like we do in CalendarManager.onEventParsing
-			eventData.dueDate = Shared.dateString(dueDateTime)
+			// due is UTC midnight of the due day, take the date as-is
+			eventData.dueDate = taskData.due.substr(0, 10)
 			eventData.dueDateTime = new Date(eventData.dueDate + ' 00:00:00')
 			// All day event, due at end of day.
 			eventData.dueEndOfDay = taskData.due.indexOf('T00:00:00.000Z') !== -1
@@ -333,8 +332,13 @@ CalendarManager {
 		url += '/lists/'
 		url += encodeURIComponent(args.tasklistId)
 		url += '/tasks'
-		url += '?showCompleted=true'
-		url += '&showHidden=true'
+		if (plasmoid.configuration.googleTasksHideCompleted) {
+			url += '?showCompleted=false'
+			url += '&showHidden=false'
+		} else {
+			url += '?showCompleted=true'
+			url += '&showHidden=true'
+		}
 		// url += '&dueMin=' + encodeURIComponent(args.start)
 		// url += '&dueMax=' + encodeURIComponent(args.end)
 		if (args.pageToken) {
@@ -361,9 +365,13 @@ CalendarManager {
 		if (session.accessToken) {
 			var eventText = text
 
+			// Without a due date Google Calendar doesn't show the task at all,
+			// so use the agenda day it was added on. The API keeps only the date.
+			var due = date ? Shared.localeDateString(date) + 'T00:00:00.000Z' : null
+
 			session.checkAccessToken(function(tokenErr, tokenXhr) {
 				if (tokenErr) return handleTokenError(tokenErr, tokenXhr)
-				createEvent_run(calendarId, eventText, function(err, data, xhr) {
+				createEvent_run(calendarId, eventText, due, function(err, data, xhr) {
 					if (err) {
 						createEvent_err(err, data, xhr)
 					} else {
@@ -375,12 +383,13 @@ CalendarManager {
 			session.transactionError('attempting to "create an event" without an access token set')
 		}
 	}
-	function createEvent_run(calendarId, eventText, callback) {
-		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText)
+	function createEvent_run(calendarId, eventText, due, callback) {
+		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText, due)
 		createGoogleTask({
 			accessToken: session.accessToken,
 			tasklistId: calendarId,
 			title: eventText,
+			due: due,
 		}, callback)
 	}
 	function createEvent_done(calendarId, data) {
@@ -406,7 +415,9 @@ CalendarManager {
 		var taskData = {
 			title: args.title,
 			// notes: args.notes,
-			// due: args.due,
+		}
+		if (args.due) {
+			taskData.due = args.due
 		}
 		Requests.postJSON({
 			url: url,
@@ -546,6 +557,14 @@ CalendarManager {
 
 		// Merge serialized values
 		var eventData = parseTaskAsEventData(data)
+
+		// Completed tasks aren't fetched with this option, drop it now instead
+		// of moving it to the completion day until the next refresh.
+		if (eventData.isCompleted && plasmoid.configuration.googleTasksHideCompleted) {
+			removeEvent(calendarId, eventId)
+			return
+		}
+
 		Shared.merge(event, eventData)
 		Shared.removeMissingKeys(event, eventData)
 

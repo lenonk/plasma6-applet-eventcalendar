@@ -498,6 +498,12 @@ ConfigPage {
 					label: i18n("Birthdays")
 					Layout.fillWidth: true
 				}
+
+				ConfigCheckBox {
+					Kirigami.FormData.label: ""
+					configKey: "googleTasksHideCompleted"
+					text: i18n("Hide completed tasks")
+				}
 			}
 		}
 

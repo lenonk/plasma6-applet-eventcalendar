@@ -382,6 +382,8 @@ KCM.SimpleKCM {
 		property var cfg_googleHideGoalsDescDefault
 		property var cfg_googleBirthdayColor
 		property var cfg_googleBirthdayColorDefault
+		property var cfg_googleTasksHideCompleted
+		property var cfg_googleTasksHideCompletedDefault
 		property var cfg_access_token
 		property var cfg_access_tokenDefault
 		property var cfg_access_token_type

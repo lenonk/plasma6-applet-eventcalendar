@@ -431,9 +431,9 @@ import "./weather/WeatherApi.js" as WeatherApi
 				var calendarList = eventModel.getCalendarList()
 				calendarSelector.populate(calendarList, selectedCalendarId)
 			}
-			onSubmitNewEventForm: function(calendarId, date, text) {
+			onSubmitNewEventForm: function(calendarId, date, text, timing) {
 				logger.debug('onSubmitNewEventForm', calendarId)
-				eventModel.createEvent(calendarId, date, text)
+				eventModel.createEvent(calendarId, date, text, timing)
 			}
 
 			MessageWidget {

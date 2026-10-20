@@ -11,7 +11,7 @@ PlasmaComponents3.ComboBox {
 
 	readonly property var selectedCalendar: currentIndex >= 0 ? model[currentIndex] : null
 	readonly property var selectedCalendarId: selectedCalendar ? selectedCalendar.calendarId : null
-	readonly property bool selectedIsTasklist: selectedCalendar ? selectedCalendar.isTasklist : false
+	readonly property bool selectedIsTasklist: selectedCalendar ? !!selectedCalendar.isTasklist : false
 
 	function populate(calendarList, initialCalendarId) {
 		// logger.debug('CalendarSelector.populate')
@@ -20,7 +20,8 @@ PlasmaComponents3.ComboBox {
 		var selectedIndex = 0
 		calendarList.forEach(function(calendar){
 			var canEditCalendar = calendar.accessRole === 'writer' || calendar.accessRole === 'owner'
-			var isSelected = calendar.id === initialCalendarId
+			// originalId: the real id of a calendar aliased as "primary"
+			var isSelected = calendar.id === initialCalendarId || (!!calendar.originalId && calendar.originalId === initialCalendarId)
 
 			if (isSelected) {
 				selectedIndex = list.length // set index after insertion

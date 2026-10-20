@@ -404,6 +404,10 @@
 			<label>Color for Google birthday events. Empty uses the calendar color.</label>
 			<default></default>
 		</entry>
+		<entry name="googleTasksHideCompleted" type="bool">
+			<label>Don't show completed Google Tasks, drop a task as soon as it gets completed</label>
+			<default>false</default>
+		</entry>
 
 		<!-- Deprecated in: v71 -->
 		<entry name="access_token" type="string">

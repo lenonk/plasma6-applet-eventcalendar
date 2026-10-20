@@ -6,6 +6,7 @@ import "../Shared.js" as Shared
 import "../lib/Async.js" as Async
 import "../lib/Requests.js" as Requests
 import "../code/ColorIdMap.js" as ColorIdMap
+import "../NewEventTime.js" as NewEventTime
 
 // import "./GoogleCalendarTests.js" as GoogleCalendarTests
 
@@ -376,14 +377,29 @@ CalendarManager {
 
 
 	//--- Create / POST
-	function createEvent(calendarId, date, text) {
+	function createEvent(calendarId, date, text, timing) {
 		if (session.accessToken) {
 			var dateString = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
 			var eventText = dateString + ' ' + text
 
+			// With timing from the form insert the exact start/end,
+			// otherwise let quickAdd guess like before.
+			var eventData = null
+			if (timing) {
+				eventData = { summary: timing.title }
+				if (timing.allDay) {
+					var nextDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+					eventData.start = { date: Shared.localeDateString(date) }
+					eventData.end = { date: Shared.localeDateString(nextDay) }
+				} else {
+					eventData.start = { dateTime: NewEventTime.rfc3339(timing.start) }
+					eventData.end = { dateTime: NewEventTime.rfc3339(timing.end) }
+				}
+			}
+
 			session.checkAccessToken(function(tokenErr, tokenXhr) {
 				if (tokenErr) return handleTokenError(tokenErr, tokenXhr)
-				createEvent_run(calendarId, eventText, function(err, data, xhr) {
+				createEvent_run(calendarId, eventText, eventData, function(err, data, xhr) {
 					if (err) {
 						createEvent_err(err, data, xhr)
 					} else {
@@ -395,8 +411,16 @@ CalendarManager {
 			session.transactionError('attempting to "create an event" without an access token set')
 		}
 	}
-	function createEvent_run(calendarId, eventText, callback) {
-		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText)
+	function createEvent_run(calendarId, eventText, eventData, callback) {
+		logger.debugJSON(calendarManagerId, 'createEvent_run', calendarId, eventText, eventData)
+		if (eventData) {
+			insertGCalEvent({
+				accessToken: session.accessToken,
+				calendarId: calendarId,
+				data: eventData,
+			}, callback)
+			return
+		}
 		createGCalEvent({
 			accessToken: session.accessToken,
 			calendarId: calendarId,
@@ -420,6 +444,27 @@ CalendarManager {
 	function createEvent_err(err, data, xhr) {
 		logger.log(calendarManagerId, 'createEvent_err', err, data, xhr)
 		return handleError(err, data, xhr)
+	}
+
+	function insertGCalEvent(args, callback) {
+		// https://developers.google.com/calendar/api/v3/reference/events/insert
+		var url = 'https://www.googleapis.com/calendar/v3'
+		url += '/calendars/'
+		url += encodeURIComponent(args.calendarId)
+		url += '/events'
+		Requests.postJSON({
+			url: url,
+			headers: {
+				"Authorization": "Bearer " + args.accessToken,
+			},
+			data: args.data,
+		}, function(err, data, xhr) {
+			console.log('insertGCalEvent.response', err, data, xhr.status)
+			if (!err && data && data.error) {
+				return callback(data, null, xhr)
+			}
+			callback(err, data, xhr)
+		})
 	}
 
 	function createGCalEvent(args, callback) {
@@ -674,6 +719,12 @@ CalendarManager {
 			for (var i = 0; i < calendarList.length; i++) {
 				var calendar = calendarList[i]
 				calendar.isTasklist = false
+				// The primary calendar is fetched as "primary", use the same id
+				// here so the new event form finds its calendarManager.
+				if (calendar.primary && calendarIdList.indexOf('primary') >= 0) {
+					calendar.originalId = calendar.id
+					calendar.id = 'primary'
+				}
 			}
 			return calendarList
 		} else {
@@ -685,7 +736,7 @@ CalendarManager {
 		var calendarList = getCalendarList()
 		for (var i = 0; i < calendarList.length; i++) {
 			var calendar = calendarList[i]
-			if (calendarId === calendar.id || (calendarId === 'primary' && calendar.primary)) {
+			if (calendarId === calendar.id || (calendar.originalId && calendarId === calendar.originalId) || (calendarId === 'primary' && calendar.primary)) {
 				return calendar
 			}
 		}
