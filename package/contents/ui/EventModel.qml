@@ -13,7 +13,7 @@ CalendarManager {
 		bindSignals(googleCalendarManager)
 		bindSignals(googleTasksManager)
 		bindSignals(plasmaCalendarManager)
-		// bindSignals(icalManager)
+		bindSignals(icalManager)
 		// bindSignals(debugCalendarManager)
 		// bindSignals(debugGoogleCalendarManager)
 	}
@@ -21,9 +21,6 @@ CalendarManager {
 	//---
 	function fetchingDataListener() { eventModel.asyncRequests += 1 }
 	function allDataFetchedListener() { eventModel.asyncRequestsDone += 1 }
-	function calendarFetchedListener(calendarId, data) {
-		eventModel.setCalendarData(calendarId, data)
-	}
 	function eventAddedListener(calendarId, data) {
 		eventModel.mergeEvents()
 		eventModel.eventAdded(calendarId, data)
@@ -47,10 +44,12 @@ CalendarManager {
 		logger.debug('bindSignals', calendarManager)
 		calendarManager.fetchingData.connect(fetchingDataListener)
 		calendarManager.allDataFetched.connect(allDataFetchedListener)
-		calendarManager.calendarFetched.connect(calendarFetchedListener)
-
-		calendarManager.calendarFetched.connect(function(calendarId, data){
+		calendarManager.calendarFetched.connect(function(calendarId, data) {
+			// Share the manager's already-parsed object; the signal arg is a copy on Qt 6.12+.
+			var calendarData = calendarManager.eventsByCalendar[calendarId]
 			eventModel.calendarPluginMap[calendarId] = calendarManager
+			eventModel.eventsByCalendar[calendarId] = calendarData
+			eventModel.calendarFetched(calendarId, calendarData)
 		})
 
 		calendarManager.eventAdded.connect(eventAddedListener)
@@ -66,7 +65,17 @@ CalendarManager {
 	}
 
 	function getCalendarManager(calendarId) {
-		return eventModel.calendarPluginMap[calendarId]
+		var manager = eventModel.calendarPluginMap[calendarId]
+		if (manager) {
+			return manager
+		}
+		// Fetched data may be keyed by an alias ("primary") or the calendar not shown at all.
+		for (var i = 0; i < calendarManagerList.length; i++) {
+			if (calendarManagerList[i].getCalendar(calendarId)) {
+				return calendarManagerList[i]
+			}
+		}
+		return undefined
 	}
 
 	//---

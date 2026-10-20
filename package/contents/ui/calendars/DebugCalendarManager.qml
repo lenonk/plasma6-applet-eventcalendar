@@ -45,12 +45,12 @@ CalendarManager {
 	function createEvent(calendarId, date, text) {
 		var summary = text
 		var start = {
-			date: Shared.dateString(date),
+			date: Shared.localeDateString(date),
 			dateTime: date,
 		}
 		var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, 0)
 		var end = {
-			date: Shared.dateString(endDate),
+			date: Shared.localeDateString(endDate),
 			dateTime: endDate,
 		}
 		var description = ''
@@ -71,9 +71,9 @@ CalendarManager {
 		fetchDebugEvents()
 	}
 
-		onCalendarParsing: function(calendarId, data) {
-			parseEventList(debugCalendar, data.items)
-		}
+	function parseCalendar(calendarId, data) {
+		parseEventList(debugCalendar, data.items)
+	}
 
 	function parseEvent(calendar, event) {
 		event.description = event.description || ""

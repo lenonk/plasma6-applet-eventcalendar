@@ -12,7 +12,7 @@ function getPluginFilename(pluginPath) {
 	filename = filename.trim()
 	// Plasma 5 often exposed the library filename (eg: holidaysevents.so) while Plasma 6
 	// can expose the plugin id/base-name. Normalize to avoid mismatches.
-	filename = filename.replace(/\\.so(\\.\\d+)*$/, '')
+	filename = filename.replace(/\.so(\.\d+)*$/, '')
 	// Backward-compat: older versions of this widget stored "holidays" (config UI dir name)
 	// instead of the actual plugin id "holidaysevents".
 	if (filename === 'holidays') {

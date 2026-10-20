@@ -84,7 +84,8 @@ QtObject {
 			// Internet APIs need NetworkManager::Connectivity::Full (4). Portal and
 			// Limited are common transient states while Wi-Fi is reconnecting after
 			// resume, but XMLHttpRequest still fails there with HTTP status 0.
-			return connectivity >= 4
+			// Unknown (0) means NM can't tell (checks disabled/not run), so don't block on it.
+			return connectivity === 0 || connectivity >= 4
 		}
 	}
 

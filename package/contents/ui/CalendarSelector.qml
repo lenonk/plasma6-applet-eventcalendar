@@ -10,7 +10,7 @@ PlasmaComponents3.ComboBox {
 	textRole: "text"
 
 	readonly property var selectedCalendar: currentIndex >= 0 ? model[currentIndex] : null
-	readonly property var selectedCalendarId: selectedCalendar ? selectedCalendar.id : null
+	readonly property var selectedCalendarId: selectedCalendar ? selectedCalendar.calendarId : null
 	readonly property bool selectedIsTasklist: selectedCalendar ? selectedCalendar.isTasklist : false
 
 	function populate(calendarList, initialCalendarId) {

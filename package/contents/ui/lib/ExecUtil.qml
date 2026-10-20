@@ -46,7 +46,10 @@ import org.kde.plasma.plasma5support as Plasma5Support
 		// Remove NULL (0x00), Ctrl+C (0x03), Ctrl+D (0x04) block of characters
 		// Remove quotes ("" and '')
 		// Remove DEL
-		return str.replace(/[\x00-\x1F\x22\x27\x7F]/g, '')
+		if (str === undefined || str === null) {
+			return ''
+		}
+		return ('' + str).replace(/[\x00-\x1F\x22\x27\x7F]/g, '')
 	}
 
 		function stripQuotes(str) {
@@ -57,7 +60,12 @@ import org.kde.plasma.plasma5support as Plasma5Support
 			var s = "" + url
 			// Qt.resolvedUrl() returns a file URL for local package resources.
 			if (s.indexOf("file://") === 0) {
-				return s.substr("file://".length)
+				s = s.substr("file://".length)
+				try {
+					return decodeURIComponent(s) // e.g. %20 -> space
+				} catch (e) {
+					return s // Malformed escape; use as-is
+				}
 			}
 			return s
 		}
@@ -67,11 +75,11 @@ import org.kde.plasma.plasma5support as Plasma5Support
 				cmd = cmd.map(wrapToken)
 				cmd = cmd.join(' ')
 		}
+		// The engine runs each source name once; pad a duplicate in-flight command so both run.
+		while (listeners[cmd] || connectedSources.includes(cmd)) {
+			cmd += ' '
+		}
 		if (typeof callback === 'function') {
-			if (listeners[cmd]) { // Our implementation only allows 1 callback per command.
-				exited.disconnect(listeners[cmd])
-				delete listeners[cmd]
-			}
 			var listener = execCallback.bind(executable, callback)
 			listeners[cmd] = listener
 		}

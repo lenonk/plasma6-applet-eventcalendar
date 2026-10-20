@@ -85,8 +85,13 @@ function getJSON(opt, callback) {
 	opt.headers = opt.headers || {}
 	opt.headers['Accept'] = 'application/json'
 	request(opt, function(err, data, req) {
-		if (!err && data) {
-			data = JSON.parse(data)
+		if (data) {
+			try {
+				data = JSON.parse(data)
+			} catch (e) {
+				// A non-JSON body (captive portal, proxy page) must still reach the callback.
+				if (!err) err = "Invalid JSON response"
+			}
 		}
 		callback(err, data, req)
 	})

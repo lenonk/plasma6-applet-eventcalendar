@@ -93,7 +93,7 @@ CalendarManager {
 
 		// KHolidays
 		calendarList.push({
-			"calendarId": "plasma_Holidays",
+			"id": "plasma_Holidays",
 			"accessRole": "reader",
 			"isTasklist": false,
 		})
@@ -261,13 +261,8 @@ CalendarManager {
 
 		var items = []
 		
-		// 2018-05-24T00:00:00.000Z
-		var dateMinUtcStr = Shared.localeDateString(dateMin) + 'T00:00:00.000Z'
-		var dateMinUtc = new Date(dateMinUtcStr)
-		// logger.debug('getEventsForDuration.dateMinUtcStr', dateMinUtcStr)
-		// logger.debug('getEventsForDuration.dateMinUtc', dateMinUtc)
-
-		for (var day = new Date(dateMinUtc); day < dateMax; day.setDate(day.getDate() + 1)) {
+		// Local midnight maps to the right QDate in every TZ; UTC midnight drifts a day after DST ends.
+		for (var day = new Date(dateMin.getFullYear(), dateMin.getMonth(), dateMin.getDate()); day < dateMax; day.setDate(day.getDate() + 1)) {
 			var dayEvents = calendarBackend.daysModel.eventsForDate(day)
 			if (dayEvents.length) {
 				logger.debugJSON('PlasmaCalendar', day, dayEvents)
@@ -351,7 +346,7 @@ CalendarManager {
 		}
 	}
 
-	onCalendarParsing: function(calendarId, data) {
+	function parseCalendar(calendarId, data) {
 		var calendar = getCalendar(calendarId)
 		parseEventList(calendar, data.items)
 	}
@@ -378,7 +373,7 @@ CalendarManager {
 			logger.log('Could not parse a proper akonadiCalendarId=', akonadiCalendarId, ' from calendarId=', calendarId)
 			return
 		}
-		var dateString = Shared.dateString(date)
+		var dateString = Shared.localeDateString(date)
 
 		// konsolekalendar --add --calendar 12 --summary "Summary" --date 2020-07-27 --time 22:00
 		var cmd = [

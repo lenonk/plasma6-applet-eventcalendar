@@ -13,6 +13,8 @@ Item {
 	property bool clearingData: false
 	property int asyncRequests: 0
 	property int asyncRequestsDone: 0
+	// Bumped by clear(); async callbacks compare against it to drop stale responses.
+	property int fetchGeneration: 0
 	signal refresh()
 	signal dataCleared()
 	signal fetchingData()
@@ -63,6 +65,7 @@ Item {
 	function clear() {
 		logger.debug(calendarManager, 'clear()')
 		calendarManager.clearingData = true
+		calendarManager.fetchGeneration += 1
 		calendarManager.asyncRequests = 0
 		calendarManager.asyncRequestsDone = 0
 		calendarManager.eventsByCalendar = {}
@@ -71,25 +74,37 @@ Item {
 	}
 
 	//--- Event
+	// The calendar can be missing while a refetch is in flight.
+	function getCalendarItems(calendarId) {
+		var calendarData = calendarManager.eventsByCalendar[calendarId]
+		return (calendarData && calendarData.items) ? calendarData.items : null
+	}
+
 	function getEvent(calendarId, eventId) {
-		var events = calendarManager.eventsByCalendar[calendarId].items
+		var events = getCalendarItems(calendarId) || []
 		for (var i = 0; i < events.length; i++) {
 			if (events[i].id == eventId) {
 				return events[i]
 			}
 		}
+		return null
 	}
 
 	// Add to model only
 	function addEvent(calendarId, data) {
-		calendarManager.eventsByCalendar[calendarId].items.push(data)
+		var events = getCalendarItems(calendarId)
+		if (!events) {
+			logger.log(calendarManager, 'addEvent', 'calendar not loaded', calendarId)
+			return
+		}
+		events.push(data)
 		eventAdded(calendarId, data)
 	}
 
 	// Remove from model only
 	function removeEvent(calendarId, eventId) {
 		logger.debug(calendarManager, 'removeEvent', calendarId, eventId)
-		var events = calendarManager.eventsByCalendar[calendarId].items
+		var events = getCalendarItems(calendarId) || []
 		for (var i = 0; i < events.length; i++) {
 			if (events[i].id == eventId) {
 				var data = events[i]
@@ -111,30 +126,26 @@ Item {
 			calendarManager.dateMax = dateMax
 		}
 		fetchAllCalendars()
-		checkIfDone()
+		// Requests that finished synchronously already fired allDataFetched via onAsyncRequestsDoneChanged.
+		if (asyncRequests === 0) {
+			checkIfDone()
+		}
 	}
 
 	// Implementation
 	signal fetchAllCalendars()
-	signal calendarParsing(string calendarId, var data)
-	signal eventParsing(string calendarId, var event)
 
-	// Parsing order:
-	// CalendarManager.onCalendarParsing
-	// CalendarManager.onEventParsing
-	// SubClass.onEventParsing
-	// CalendarManager.defaultEventParsing
-	// SubClass.onCalendarParsing
-	onCalendarParsing: function(calendarId, data) {
-		// logger.debug('CalendarManager.calendarParsing(', calendarManager, ')', calendarId)
+	// Parsing mutates `data` in place, so it must be a function call, not a signal:
+	// Qt 6.12+ copies JS objects passed as signal `var` args.
+	function calendarParsing(calendarId, data) {
 		data.items.forEach(function(event) {
-			eventParsing(calendarId, event)
 			defaultEventParsing(calendarId, event)
 		})
+		parseCalendar(calendarId, data)
 	}
-	onEventParsing: function(calendarId, event) {
-		// logger.debug('CalendarManager.eventParsing(', calendarManager, ')', calendarId)
-	}
+
+	// Overridden by subclasses to add source-specific event fields.
+	function parseCalendar(calendarId, data) {}
 
 	// To simplify repeated code amongst implementations,
 	// we'll put the reused code here.

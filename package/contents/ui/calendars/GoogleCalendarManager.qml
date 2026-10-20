@@ -39,7 +39,7 @@ CalendarManager {
 		googleCalendarManager.error(errorMessage, errorType)
 	}
 	function handleError(err, data, xhr) {
-		var httpCode = xhr.status
+		var httpCode = xhr ? xhr.status : 0
 		if (httpCode === 0) {
 			var msg = i18n("Could not connect")
 			var suggestion = i18n("Will try again soon.")
@@ -48,9 +48,11 @@ CalendarManager {
 		}
 
 		// https://developers.google.com/calendar/v3/errors
-		if (err.error && err.error.errors && err.error.errors.length >= 1) {
-			httpCode = err.error.code
-			var err0 = err.error.errors[0]
+		// A 2xx error body arrives as err; a non-2xx one as data.
+		var body = (err && err.error) ? err : data
+		if (body && body.error && body.error.errors && body.error.errors.length >= 1) {
+			httpCode = body.error.code
+			var err0 = body.error.errors[0]
 
 			if (httpCode === 401 && err0.reason == 'authError') {
 				var suggestion = i18n("Widget has been updated. Please logout and login to Google Calendar again.")
@@ -64,6 +66,9 @@ CalendarManager {
 			}
 			return
 		}
+
+		// Never fail silently on an unrecognised error.
+		showHttpError(httpCode, xhr.statusText || i18n("Request failed"), i18n("Will try again soon."), ErrorType.UnknownError)
 	}
 
 
@@ -71,28 +76,66 @@ CalendarManager {
 	function cloneRawEvent(event) {
 		// Clone the event data and clean up the extra stuff we added when parsing the event.
 		var data = JSON.parse(JSON.stringify(event)) // clone
+		if (data._description && !data.description) data.description = data._description // Hidden Goals text
 		if (data.description == "") delete data.description
 		if (data.calendarManagerId) delete data.calendarManagerId
 		if (data.calendarId) delete data.calendarId
 		delete data.startDateTime
 		delete data.endDateTime
 		delete data.canEdit
+		delete data._description
+		// Not a Google event field; only ever our computed color.
+		delete data.backgroundColor
+		delete data._rawBackgroundColor
+		// Undo the "(No title)" placeholder from defaultEventParsing.
+		if ('_summary' in event) {
+			if (event._summary) {
+				data.summary = event._summary
+			} else {
+				delete data.summary
+			}
+		}
 		delete data._summary
 		return data
 	}
 
+	// Merge an API response into a stored event; omitted summary/description mean empty.
+	function mergeEventResponse(event, data) {
+		if (typeof data.summary === 'undefined') {
+			delete event.summary
+		}
+		if (typeof data.description === 'undefined') {
+			delete event.description
+			delete event._description
+		}
+		Shared.merge(event, data)
+	}
+
+	function handleTokenError(err, xhr) {
+		var e = session.describeTokenError(err, xhr)
+		googleCalendarManager.error(e.message, e.errorType)
+	}
 
 	//--- List Events
 	function fetchGoogleAccountEvents(calendarIdList) {
 		googleCalendarManager.asyncRequests += 1
-		var func = fetchGoogleAccountEvents_run.bind(this, calendarIdList, function(errObj, data) {
-			if (errObj) {
-				fetchGoogleAccountEvents_err(errObj.err, errObj.data, errObj.xhr)
-			} else {
-				fetchGoogleAccountEvents_done(data)
+		var generation = googleCalendarManager.fetchGeneration
+		function isStale() {
+			if (generation === googleCalendarManager.fetchGeneration) return false
+			logger.debug('fetchGoogleAccountEvents: dropping stale response', generation)
+			return true
+		}
+		session.checkAccessToken(function(tokenErr, tokenXhr) {
+			if (isStale()) return
+			if (tokenErr) {
+				googleCalendarManager.asyncRequestsDone += 1
+				return handleTokenError(tokenErr, tokenXhr)
 			}
+			fetchGoogleAccountEvents_run(calendarIdList, function(err, results) {
+				if (isStale()) return
+				fetchGoogleAccountEvents_done(results)
+			})
 		})
-		session.checkAccessToken(func)
 	}
 	function fetchGoogleAccountEvents_run(calendarIdList, callback) {
 		logger.debug('fetchGoogleAccountEvents_run', calendarIdList)
@@ -106,20 +149,25 @@ CalendarManager {
 
 		Async.parallel(tasks, callback)
 	}
-	function fetchGoogleAccountEvents_err(err, data, xhr) {
-		logger.debug('fetchGoogleAccountEvents_err', err, data, xhr)
-		googleCalendarManager.asyncRequestsDone += 1
-		return handleError(err, data, xhr)
-	}
 	function fetchGoogleAccountEvents_done(results) {
+		// Store the calendars that loaded, then report the ones that failed.
+		var failed = []
 		for (var i = 0; i < results.length; i++) {
-			var calendarId = results[i].calendarId
-			var calendarData = results[i].data
-			setCalendarData(calendarId, calendarData)
+			if (results[i].error) {
+				failed.push(results[i])
+				continue
+			}
+			setCalendarData(results[i].calendarId, results[i].data)
 		}
 		googleCalendarManager.asyncRequestsDone += 1
+		for (var j = 0; j < failed.length; j++) {
+			var errObj = failed[j].error
+			logger.debug('fetchGoogleAccountEvents_err', failed[j].calendarId, errObj.err, errObj.data, errObj.xhr)
+			handleError(errObj.err, errObj.data, errObj.xhr)
+		}
 	}
 
+	// Never fails the Async.parallel batch; a failed calendar reports { calendarId, error }.
 	function fetchGoogleCalendarEvents(calendarId, callback) {
 		logger.debug('fetchGoogleCalendarEvents', calendarId)
 		fetchGCalEvents({
@@ -130,12 +178,14 @@ CalendarManager {
 		}, function(err, data, xhr) {
 			if (err) {
 				logger.logJSON('onErrorFetchingEvents: ', err)
-				var errObj = {
-					err: err,
-					data: data,
-					xhr: xhr,
-				}
-				return callback(errObj, null)
+				return callback(null, {
+					calendarId: calendarId,
+					error: {
+						err: err,
+						data: data,
+						xhr: xhr,
+					},
+				})
 			}
 
 			return callback(null, {
@@ -213,8 +263,10 @@ CalendarManager {
 	function fetchGoogleCalendarEvent(calendarId, eventId, callback) {
 		logger.debug('fetchGoogleCalendarEvent', calendarId, eventId)
 		if (session.accessToken) {
-			var func = fetchGoogleCalendarEvent_run.bind(this, calendarId, eventId, callback)
-			session.checkAccessToken(func)
+			session.checkAccessToken(function(tokenErr, tokenXhr) {
+				if (tokenErr) return callback(tokenErr, null, tokenXhr)
+				fetchGoogleCalendarEvent_run(calendarId, eventId, callback)
+			})
 		} else {
 			session.transactionError('attempting to "fetch an event" without an access token set')
 		}
@@ -252,12 +304,12 @@ CalendarManager {
 	}
 
 	//--- Parsing Events
-		onCalendarParsing: function(calendarId, data) {
-			var calendar = getCalendar(calendarId)
-			data.items.forEach(function(event){
-				parseEvent(calendar, event)
-			})
-		}
+	function parseCalendar(calendarId, data) {
+		var calendar = getCalendar(calendarId)
+		data.items.forEach(function(event){
+			parseEvent(calendar, event)
+		})
+	}
 
 	function parseEvent(calendar, event) {
 		event.description = event.description || ""
@@ -268,7 +320,13 @@ CalendarManager {
 			&& event.organizer.email == "unknownorganizer@calendar.google.com"
 			&& event.organizer.displayName == "Google Calendar"
 		) {
+			// Keep the real description so cloneRawEvent() doesn't erase it on Google.
+			if (event.description) {
+				event._description = event.description
+			}
 			event.description = ""
+		} else {
+			delete event._description
 		}
 		if (event.htmlLink) {
 			// The new material website doesn't open the editor right away.
@@ -308,8 +366,12 @@ CalendarManager {
 
 	function parseColor(calendar, event) {
 		var colorId = parseColorId('event', event.colorId)
-		// event.backgroundColor is a hardcoded color (like the debug calendar)
-		return event.backgroundColor || colorId || (calendar && calendar.backgroundColor) || Kirigami.Theme.highlightColor.toString()
+		var birthdayColor = event.eventType === 'birthday' ? plasmoid.configuration.googleBirthdayColor : ''
+		// Only a color the raw event arrived with is hardcoded; our computed one is redone on re-parse.
+		if (typeof event._rawBackgroundColor === 'undefined') {
+			event._rawBackgroundColor = event.backgroundColor || ''
+		}
+		return event._rawBackgroundColor || colorId || birthdayColor || (calendar && calendar.backgroundColor) || Kirigami.Theme.highlightColor.toString()
 	}
 
 
@@ -319,14 +381,16 @@ CalendarManager {
 			var dateString = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
 			var eventText = dateString + ' ' + text
 
-			var func = createEvent_run.bind(this, calendarId, eventText, function(err, data, xhr) {
-				if (err) {
-					createEvent_err(err, data, xhr)
-				} else {
-					createEvent_done(calendarId, data)
-				}
+			session.checkAccessToken(function(tokenErr, tokenXhr) {
+				if (tokenErr) return handleTokenError(tokenErr, tokenXhr)
+				createEvent_run(calendarId, eventText, function(err, data, xhr) {
+					if (err) {
+						createEvent_err(err, data, xhr)
+					} else {
+						createEvent_done(calendarId, data)
+					}
+				})
 			})
-			session.checkAccessToken(func)
 		} else {
 			session.transactionError('attempting to "create an event" without an access token set')
 		}
@@ -341,10 +405,16 @@ CalendarManager {
 	}
 	function createEvent_done(calendarId, data) {
 		logger.debugJSON(calendarManagerId, 'createEvent_done', calendarId, data)
-		if (googleCalendarManager.calendarIdList.indexOf(calendarId) >= 0) {
-			parseSingleEvent(calendarId, data)
-			addEvent(calendarId, data)
-			eventCreated(calendarId, data)
+		// The primary calendar is fetched and stored as "primary", not its real id.
+		var storedId = calendarId
+		var calendar = getCalendar(calendarId)
+		if (calendarIdList.indexOf(storedId) < 0 && calendar && calendar.primary) {
+			storedId = "primary"
+		}
+		if (calendarIdList.indexOf(storedId) >= 0 && eventsByCalendar[storedId]) {
+			parseSingleEvent(storedId, data)
+			addEvent(storedId, data)
+			eventCreated(storedId, data)
 		}
 	}
 	function createEvent_err(err, data, xhr) {
@@ -399,14 +469,16 @@ CalendarManager {
 				return
 			}
 
-			var func = updateGoogleCalendarEvent_run.bind(this, calendarId, eventId, event, args, function(err, data, xhr) {
-				if (err) {
-					updateGoogleCalendarEvent_err(err, data, xhr)
-				} else {
-					updateGoogleCalendarEvent_done(calendarId, eventId, event, data)
-				}
+			session.checkAccessToken(function(tokenErr, tokenXhr) {
+				if (tokenErr) return handleTokenError(tokenErr, tokenXhr)
+				updateGoogleCalendarEvent_run(calendarId, eventId, event, args, function(err, data, xhr) {
+					if (err) {
+						updateGoogleCalendarEvent_err(err, data, xhr)
+					} else {
+						updateGoogleCalendarEvent_done(calendarId, eventId, event, data)
+					}
+				})
 			})
-			session.checkAccessToken(func)
 		} else {
 			session.transactionError('attempting to "set an event property" without an access token set')
 		}
@@ -430,7 +502,7 @@ CalendarManager {
 		logger.debugJSON('updateGoogleCalendarEvent_done', calendarId, data)
 
 		// Merge serialized values
-		Shared.merge(event, data)
+		mergeEventResponse(event, data)
 
 		parseSingleEvent(calendarId, event)
 		eventUpdated(calendarId, eventId, event)
@@ -473,10 +545,22 @@ CalendarManager {
 			data: eventProps,
 		}, function(err, data, xhr) {
 			logger.debugJSON('patchGoogleCalendarEvent.response', err, data)
-			
-			parseSingleEvent(calendarId, data)
-			eventUpdated(calendarId, eventId, data)
-			callback(err, data, xhr)
+			if (err) {
+				updateGoogleCalendarEvent_err(err, data, xhr)
+				if (callback) callback(err, data, xhr)
+				return
+			}
+
+			// Update the stored event so mergeEvents() sees the change.
+			var event = getEvent(calendarId, eventId)
+			if (event) {
+				mergeEventResponse(event, data)
+			} else {
+				event = data
+			}
+			parseSingleEvent(calendarId, event)
+			eventUpdated(calendarId, eventId, event)
+			if (callback) callback(err, event, xhr)
 		})
 	}
 
@@ -522,14 +606,16 @@ CalendarManager {
 				return
 			}
 
-			var func = deleteEvent_run.bind(this, calendarId, eventId, function(err, data, xhr) {
-				if (err) {
-					deleteEvent_err(err, data, xhr)
-				} else {
-					deleteEvent_done(calendarId, eventId, data)
-				}
+			session.checkAccessToken(function(tokenErr, tokenXhr) {
+				if (tokenErr) return handleTokenError(tokenErr, tokenXhr)
+				deleteEvent_run(calendarId, eventId, function(err, data, xhr) {
+					if (err) {
+						deleteEvent_err(err, data, xhr)
+					} else {
+						deleteEvent_done(calendarId, eventId, data)
+					}
+				})
 			})
-			session.checkAccessToken(func)
 		} else {
 			session.transactionError('attempting to "delete an event" without an access token set')
 		}

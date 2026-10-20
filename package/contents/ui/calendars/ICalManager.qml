@@ -11,17 +11,12 @@ CalendarManager {
 
 	// property var eventsData: { "items": [] }
 
-	property var calendarList: [
-		{
-			url: "/home/chris/Code/icsjson/basic.ics",
-			backgroundColor: '#ff0',
-			isTasklist: false,
-		}
-	]
+	property var calendarList: []
 
 	function getCalendar(calendarId) {
-		for (var i = 0; i < calendarList.length; i++) {
-			var calendarData = calendarList[i]
+		var list = calendarList || []
+		for (var i = 0; i < list.length; i++) {
+			var calendarData = list[i]
 			if (calendarData.url == calendarId) {
 				return calendarData
 			}
@@ -29,46 +24,60 @@ CalendarManager {
 		return null
 	}
 
-		function fetchEvents(calendarData, startTime, endTime, callback) {
-			logger.debug('ical.fetchEvents', calendarData.url)
-			var scriptPath = executable.urlToLocalPath(Qt.resolvedUrl("../../scripts/icsjson.py"))
-			var cmd = 'python3 ' + executable.wrapToken(scriptPath)
-			cmd += ' --url "' + calendarData.url + '"' // TODO proper argument wrapping
-			cmd += ' query'
-			cmd += ' ' + startTime.getFullYear() + '-' + (startTime.getMonth()+1) + '-' + startTime.getDate()
-			cmd += ' ' + endTime.getFullYear() + '-' + (endTime.getMonth()+1) + '-' + endTime.getDate()
-			executable.exec(cmd, function(cmd, exitCode, exitStatus, stdout, stderr) {
+	function formatDate(date) {
+		return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
+	}
+
+	function fetchEvents(calendarData, startTime, endTime, callback) {
+		logger.debug('ical.fetchEvents', calendarData.url)
+		var scriptPath = executable.urlToLocalPath(Qt.resolvedUrl("../../scripts/icsjson.py"))
+		// The array form quotes every token. "--url=" stops a leading "-" parsing as a flag.
+		executable.exec([
+			'python3', scriptPath,
+			'--url=' + calendarData.url,
+			'query', formatDate(startTime), formatDate(endTime),
+		], function(cmd, exitCode, exitStatus, stdout, stderr) {
 			if (exitCode) {
 				logger.log('ical.stderr', stderr)
-				return callback(stderr)
+				return callback(stderr || ('icsjson.py exit code ' + exitCode))
 			}
-			var data = JSON.parse(stdout)
-			// console.log(cmd)
-			// console.log(str)
+			try {
+				var data = JSON.parse(stdout)
+			} catch (e) {
+				return callback('icsjson.py returned invalid JSON: ' + e)
+			}
 			callback(null, data)
 		})
 	}
 
 	function fetchCalendar(calendarData) {
-		icalManager.asyncRequests += 0
+		icalManager.asyncRequests += 1
+		var generation = icalManager.fetchGeneration
 		fetchEvents(calendarData, dateMin, dateMax, function(err, data) {
-			parseEventList(calendarData, data.items)
-			setCalendarData(calendarData.url, data)
+			if (generation !== icalManager.fetchGeneration) return // Cleared by a newer fetchAll.
+			if (err) {
+				logger.log('ical.fetchCalendar.err', calendarData.url, err)
+			} else {
+				setCalendarData(calendarData.url, data)
+			}
 			icalManager.asyncRequestsDone += 1
 		})
 	}
 
 	onFetchAllCalendars: {
-		for (var i = 0; i < calendarList.length; i++) {
-			var calendarData = calendarList[i]
-			fetchCalendar(calendarData)
+		var list = calendarList || []
+		for (var i = 0; i < list.length; i++) {
+			var calendarData = list[i]
+			if (calendarData && calendarData.url && calendarData.show !== false) {
+				fetchCalendar(calendarData)
+			}
 		}
 	}
 
-		onCalendarParsing: function(calendarId, data) {
-			var calendar = getCalendar(calendarId)
-			parseEventList(calendar, data.items)
-		}
+	function parseCalendar(calendarId, data) {
+		var calendar = getCalendar(calendarId)
+		parseEventList(calendar, data.items)
+	}
 
 	function parseEvent(calendar, event) {
 		event.backgroundColor = calendar.backgroundColor

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 
+import "../ErrorType.js" as ErrorType
 import "../lib/Requests.js" as Requests
 
 QtObject {
@@ -10,6 +11,7 @@ QtObject {
 	property var refreshWaiters: []
 
 	//--- Refresh Credentials
+	// callback(err, xhr): err is null when the token is usable.
 	function checkAccessToken(callback) {
 		logger.debug('checkAccessToken')
 		if (plasmoid.configuration.accessTokenExpiresAt < Date.now() + 5000) {
@@ -23,11 +25,14 @@ QtObject {
 		refreshWaiters.push(callback)
 		if (refreshInProgress) return
 		refreshInProgress = true
-		function finishRefresh(err) {
+		function finishRefresh(err, xhr) {
 			var waiters = refreshWaiters.slice(0)
 			refreshWaiters = []
 			refreshInProgress = false
-			for (var i = 0; i < waiters.length; i++) waiters[i](err || null)
+			if (err) {
+				googleApiSession.accessTokenError("" + err)
+			}
+			for (var i = 0; i < waiters.length; i++) waiters[i](err || null, xhr || null)
 		}
 		// logger.debug('accessTokenExpiresAt', plasmoid.configuration.accessTokenExpiresAt)
 		// logger.debug('                 now', Date.now())
@@ -45,10 +50,10 @@ QtObject {
 				}
 				if (err || (tokenData && tokenData.error)) {
 					logger.log('Error when using refreshToken:', err, data)
-					return finishRefresh(err || "Failed to refresh Google access token.")
+					return finishRefresh(err || "Failed to refresh Google access token.", xhr)
 				}
 				if (!tokenData || !tokenData.access_token) {
-					return finishRefresh("Missing access token in Google refresh response.")
+					return finishRefresh("Missing access token in Google refresh response.", xhr)
 				}
 				logger.debug('onAccessToken', tokenData)
 
@@ -65,12 +70,32 @@ QtObject {
 	signal newAccessToken()
 	signal transactionError(string msg)
 
-	onTransactionError: logger.log(msg)
+	onTransactionError: function(msg) { logger.log(msg) }
+
+	// Maps a checkAccessToken() failure to { message, errorType } for CalendarManager.error().
+	function describeTokenError(err, xhr) {
+		var httpCode = xhr ? xhr.status : -1
+		if (httpCode === 0) {
+			return {
+				message: i18n("HTTP Error %1: %2", 0, i18n("Could not connect")) + '\n' + i18n("Will try again soon."),
+				errorType: ErrorType.NetworkError,
+			}
+		} else if (httpCode >= 500) {
+			return {
+				message: i18n("HTTP Error %1: %2", httpCode, "" + err) + '\n' + i18n("Will try again soon."),
+				errorType: ErrorType.ServerError,
+			}
+		}
+		return {
+			message: i18n("Could not refresh the Google login. Please log in to Google again."),
+			errorType: ErrorType.ClientError,
+		}
+	}
 
 	function applyAccessToken(data) {
 		plasmoid.configuration.accessToken = data.access_token
 		plasmoid.configuration.accessTokenType = data.token_type
-		plasmoid.configuration.accessTokenExpiresAt = Date.now() + data.expires_in * 1000
+		plasmoid.configuration.accessTokenExpiresAt = Date.now() + (data.expires_in || 0) * 1000
 		newAccessToken()
 	}
 
@@ -86,38 +111,5 @@ QtObject {
 				grant_type: 'refresh_token',
 			},
 		}, callback)
-	}
-
-
-	//---
-	property int errorCount: 0
-	function getErrorTimeout(n) {
-		// Exponential Backoff
-		// 43200 seconds is 12 hours, which is a reasonable polling limit when the API is down.
-		// After 6 errors, we wait an entire minute.
-		// After 11 errors, we wait an entire hour.
-		// After 15 errors, we will have waited 9 hours.
-		// 16 errors and above uses the upper limit of 12 hour intervals.
-		return 1000 * Math.min(43200, Math.pow(2, n))
-	}
-	// https://stackoverflow.com/questions/28507619/how-to-create-delay-function-in-qml
-	function delay(delayTime, callback) {
-		var timer = Qt.createQmlObject("import QtQuick 2.0; Timer {}", googleCalendarManager)
-		timer.interval = delayTime
-		timer.repeat = false
-		timer.triggered.connect(callback)
-		timer.triggered.connect(function release(){
-			timer.triggered.disconnect(callback)
-			timer.triggered.disconnect(release)
-			timer.destroy()
-		})
-		timer.start()
-	}
-	function waitForErrorTimeout(callback) {
-		errorCount += 1
-		var timeout = getErrorTimeout(errorCount)
-		delay(timeout, function(){
-			callback()
-		})
 	}
 }
