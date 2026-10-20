@@ -24,7 +24,10 @@ function modelId(prefix, id) {
 	return prefix ? prefix + idSeparator + id : id
 }
 
+function hasPrefix(prefix, id) {
+	return !!prefix && ("" + id).indexOf(prefix + idSeparator) === 0
+}
+
 function apiId(prefix, id) {
-	var head = prefix + idSeparator
-	return (prefix && ("" + id).indexOf(head) === 0) ? ("" + id).slice(head.length) : id
+	return hasPrefix(prefix, id) ? ("" + id).slice((prefix + idSeparator).length) : id
 }

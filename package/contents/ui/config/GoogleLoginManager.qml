@@ -378,16 +378,30 @@ Item {
 		session.setCfg("accessTokenExpiresAt", 0)
 		session.setCfg("refreshToken", "")
 
-		// Delete relevant data
-		// TODO: only target google calendar data
-		// TODO: Make a signal?
-		session.setCfg("agendaNewEventLastCalendarId", "")
+		// Forget the new event form's calendar only if it was one of ours.
+		var lastCalendarId = session.getCfg("agendaNewEventLastCalendarId", "")
+		if (lastCalendarId && ownsCalendarId(lastCalendarId)) {
+			session.setCfg("agendaNewEventLastCalendarId", "")
+		}
 		// Back to the defaults (not "[]"), so a refused or removed account leaves nothing behind.
 		session.setCfg("calendarList", "")
 		session.setCfg("calendarIdList", "")
 		session.setCfg("tasklistList", "")
 		session.setCfg("tasklistIdList", "")
 		sessionReset()
+	}
+
+	// Takes a widget-side id: "account2|<id>" for extra accounts (see GoogleAccounts.js).
+	function ownsCalendarId(id) {
+		if (accountPrefix) {
+			return GoogleAccounts.hasPrefix(accountPrefix, id)
+		}
+		if (id === "primary") return true
+		var lists = (calendarList || []).concat(tasklistList || [])
+		for (var i = 0; i < lists.length; i++) {
+			if (lists[i] && lists[i].id === id) return true
+		}
+		return false
 	}
 
 	// https://developers.google.com/calendar/v3/errors
