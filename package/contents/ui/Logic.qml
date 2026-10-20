@@ -435,6 +435,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 		function onTasklistIdListChanged() { logic.updateEvents() }
 		function onGoogleEventClickActionChanged() { logic.updateEvents() }
 		function onGoogleBirthdayColorChanged() { logic.updateEvents() }
+		function onGoogleTasksHideCompletedChanged() { logic.updateEvents() }
 		// PimCalendarsModel has no QML-side signal for check-state changes,
 		// so the Local Calendars page writes its diff to pimEnabledCalendars
 		// whenever the user flips a checkbox.
