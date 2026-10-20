@@ -196,6 +196,14 @@ ListModel {
 	}
 
 	function parseGCalEvents(data) {
+		try {
+			_parseGCalEvents(data)
+		} finally {
+			agendaModel.populating = false // Never left stuck by a throw
+		}
+	}
+
+	function _parseGCalEvents(data) {
 		agendaModel.populating = true
 		// agendaModel.clear()
 
@@ -215,10 +223,10 @@ ListModel {
 					var taskIsOverdue = eventItem.dueEndTime < now
 					if (taskIsOverdue) {
 						eventItem.start = {
-							date: Shared.dateString(now),
+							date: Shared.localeDateString(now),
 						}
 						eventItem.end = {
-							date: Shared.dateString(now),
+							date: Shared.localeDateString(now),
 						}
 						eventItem.startDateTime = now
 						eventItem.endDateTime = now
@@ -256,6 +264,10 @@ ListModel {
 
 		for (var i = 0; i < data.items.length; i++) {
 			var eventItem = data.items[i]
+			if (!Shared.isValidDate(eventItem.startDateTime) || !Shared.isValidDate(eventItem.endDateTime)) {
+				logger.log('AgendaModel: skipping event without valid start/end', eventItem.calendarId, eventItem.id)
+				continue
+			}
 			if (plasmoid.configuration.agendaBreakupMultiDayEvents) {
 				// for Max(start, visibleMin) .. Min(end, visibleMax)
 				var lowerLimitDate = (agendaModel.clipEventsOutsideLimits && eventItem.startDateTime < agendaModel.visibleDateMin
@@ -263,7 +275,7 @@ ListModel {
 					: eventItem.startDateTime
 				)
 				var upperLimitDate = eventItem.endDateTime
-				if (eventItem.end.date) {
+				if (eventItem.end && eventItem.end.date) {
 					// All Day event "ends" day before.
 					upperLimitDate = new Date(eventItem.endDateTime)
 					upperLimitDate.setDate(upperLimitDate.getDate() - 1)

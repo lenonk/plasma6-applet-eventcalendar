@@ -27,7 +27,7 @@ PlasmaComponents3.TextField {
 	property var dateTime: new Date()
 	property var timeFormat: Locale.ShortFormat
 
-	signal dateTimeShifted(date oldDateTime, int deltaDateTime, date newDateTime)
+	signal dateTimeShifted(date oldDateTime, double deltaDateTime, date newDateTime) // ms; int overflows past ~24 days
 	signal entryActivated(int index)
 
 	function setDateTime(newDateTime) {
@@ -67,7 +67,7 @@ PlasmaComponents3.TextField {
 		highlightDateTime(dateTime)
 	}
 
-	onEntryActivated: {
+	onEntryActivated: function(index) {
 		if (0 <= index && index < model.length) {
 			var entry = model[index]
 			setDateTime(entry[control.valueRole])
@@ -75,9 +75,11 @@ PlasmaComponents3.TextField {
 	}
 
 	onTextEdited: {
-		var dt = Date.fromLocaleTimeString(Qt.locale(), text, timeSelector.timeFormat)
-		// console.log('onTextEdited', text, dt)
-		if (!isNaN(dt)) {
+		var t = Date.fromLocaleTimeString(Qt.locale(), text, timeSelector.timeFormat)
+		if (!isNaN(t)) {
+			// fromLocaleTimeString uses today's date; keep the selected date.
+			var dt = new Date(dateTime)
+			dt.setHours(t.getHours(), t.getMinutes(), 0, 0)
 			setDateTime(dt)
 			highlightDateTime(dt)
 		}

@@ -32,9 +32,11 @@ function isDateAfter(a, b) {
 function dateTimeString(d) {
 	return d.toISOString()
 }
+// UTC date. Use localeDateString() for local-midnight dates.
 function dateString(d) {
 	return d.toISOString().substr(0, 10)
 }
+// Local date as yyyy-MM-dd.
 function localeDateString(d) {
 	return Qt.formatDateTime(d, 'yyyy-MM-dd')
 }
@@ -50,10 +52,10 @@ function isValidDate(d) {
 
 function renderText(text) {
 	// console.log('renderText')
-	if (typeof text === 'undefined') {
+	if (typeof text === 'undefined' || text === null) {
 		return ''
 	}
-	var out = text
+	var out = '' + text
 	// text && console.log('renderText', text)
 	
 	// Render links

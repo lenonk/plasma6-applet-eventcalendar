@@ -160,7 +160,7 @@ Loader {
 						if (showTime) {
 							return { dateTime: Shared.dateTimeString(startDateTime), timeZone: event.start.timeZone }
 						} else { // All day
-							return { date: Shared.dateString(startDateTime) }
+							return { date: Shared.localeDateString(startDateTime) }
 						}
 					}
 					function getEndObj() {
@@ -171,7 +171,7 @@ Loader {
 							// See parseEventsForDate() functions for more info.
 							var dt = new Date(endDateTime)
 							dt.setDate(dt.getDate() + 1)
-							return { date: Shared.dateString(dt) }
+							return { date: Shared.localeDateString(dt) }
 						}
 					}
 				}
@@ -233,14 +233,13 @@ Loader {
 
 					Keys.onEscapePressed: editEventItem.cancel()
 
-					Keys.onEnterPressed: _onEnterPressed(event) // ?
-					Keys.onReturnPressed: _onEnterPressed(event) // What's triggered on a US Keyboard
-					function _onEnterPressed(event) {
-						// console.log('onEnterPressed', event.key, event.modifiers)
-						if ((event.modifiers & Qt.ShiftModifier) || (event.modifiers & Qt.ControlModifier)) {
+					Keys.onEnterPressed: function(keyEvent) { _onEnterPressed(keyEvent) } // Numpad
+					Keys.onReturnPressed: function(keyEvent) { _onEnterPressed(keyEvent) } // What's triggered on a US Keyboard
+					function _onEnterPressed(keyEvent) {
+						if ((keyEvent.modifiers & Qt.ShiftModifier) || (keyEvent.modifiers & Qt.ControlModifier)) {
 							editEventItem.submit()
 						} else {
-							event.accepted = false
+							keyEvent.accepted = false
 						}
 					}
 				}

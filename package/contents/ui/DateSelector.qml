@@ -27,7 +27,7 @@ PlasmaComponents3.TextField {
 	property var dateTime: new Date()
 	property var dateFormat: Locale.ShortFormat
 
-	signal dateTimeShifted(date oldDateTime, int deltaDateTime, date newDateTime)
+	signal dateTimeShifted(date oldDateTime, double deltaDateTime, date newDateTime) // ms; int overflows past ~24 days
 	signal dateSelected(date newDateTime)
 
 	function setDateTime(dt) {
@@ -48,15 +48,15 @@ PlasmaComponents3.TextField {
 
 	onPressed: popup.open()
 
-	onDateSelected: {
+	onDateSelected: function(newDateTime) {
 		setDateTime(newDateTime)
 	}
 
 	onTextEdited: {
 		var dt = Date.fromLocaleDateString(Qt.locale(), text, dateSelector.dateFormat)
-		// console.log('onTextEdited', text, dt)
 		if (!isNaN(dt)) {
-			setDateTime(dt)
+			// fromLocaleDateString returns UTC midnight; use local midnight of that date.
+			setDateTime(new Date(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate()))
 		}
 	}
 
@@ -89,8 +89,7 @@ PlasmaComponents3.TextField {
 			headingFontLevel: 3
 			headingFontScale: 1.0
 
-			onDateClicked: {
-				// console.log('onDateSelected', currentDate, '(popup.visible: ', popup.visible, ')')
+			onDateClicked: function(clickedDate) {
 				dateSelector.dateSelected(clickedDate)
 				popup.close()
 			}

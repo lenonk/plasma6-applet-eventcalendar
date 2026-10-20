@@ -9,7 +9,6 @@ import org.kde.kirigami as Kirigami
 GridLayout {
 	id: dateTimeSelector
 	property var dateTime: new Date()
-	property bool enabled: true
 	property bool showTime: true
 	property alias dateFormat: dateSelector.dateFormat
 	property alias timeFormat: timeSelector.timeFormat
@@ -18,8 +17,8 @@ GridLayout {
 	columnSpacing: Kirigami.Units.smallSpacing
 	readonly property int minimumWidth: dateSelector.implicitWidth + columnSpacing + timeSelector.implicitWidth
 
-	signal dateTimeShifted(date oldDateTime, int deltaDateTime, date newDateTime)
-	onDateTimeShifted: {
+	signal dateTimeShifted(date oldDateTime, double deltaDateTime, date newDateTime) // ms; int overflows past ~24 days
+	onDateTimeShifted: function(oldDateTime, deltaDateTime, newDateTime) {
 		dateTimeSelector.dateTime = newDateTime
 	}
 
@@ -32,7 +31,7 @@ GridLayout {
 		dateTime: dateTimeSelector.dateTime
 		dateFormat: i18nc("event editor date format", "d MMM, yyyy")
 
-		onDateTimeShifted: {
+		onDateTimeShifted: function(oldDateTime, deltaDateTime, newDateTime) {
 			dateTimeSelector.dateTimeShifted(oldDateTime, deltaDateTime, newDateTime)
 		}
 	}
@@ -46,7 +45,7 @@ GridLayout {
 
 		dateTime: dateTimeSelector.dateTime
 
-		onDateTimeShifted: {
+		onDateTimeShifted: function(oldDateTime, deltaDateTime, newDateTime) {
 			dateTimeSelector.dateTimeShifted(oldDateTime, deltaDateTime, newDateTime)
 		}
 	}
