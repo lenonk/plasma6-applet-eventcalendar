@@ -188,11 +188,20 @@ CalendarManager {
 		})
 	}
 
+	// All-day events and tasks (start.date set) have no start time to notify about.
+	function isTimedEvent(eventItem) {
+		return eventItem.kind !== 'tasks#task'
+			&& !(eventItem.start && eventItem.start.date)
+			&& !!eventItem.startDateTime
+	}
+
 	function checkForEventsStarting() {
 		for (var calendarId in eventsByCalendar) {
 			var calendar = eventsByCalendar[calendarId]
 			calendar.items.forEach(function(eventItem, index, calendarEventList) {
-				if (isEventStarting(eventItem)) {
+				if (!isTimedEvent(eventItem)) {
+					return
+				} else if (isEventStarting(eventItem)) {
 					if (plasmoid.configuration.eventStartingNotificationEnabled) {
 						sendEventStartingNotification(eventItem)
 					}

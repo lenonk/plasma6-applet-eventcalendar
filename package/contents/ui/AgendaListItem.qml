@@ -39,8 +39,22 @@ GridLayout {
 			}
 		}
 	}
+	// Keep a half-typed new event open across repopulates while this row shows the same date.
+	property date newEventFormDate
+	property bool newEventFormSubmitted: false
+	Connections {
+		target: agendaView
+		function onSubmitNewEventForm(calendarId, date, text) {
+			if (newEventForm.active && Shared.isSameDate(date, agendaListItem.newEventFormDate)) {
+				agendaListItem.newEventFormSubmitted = true
+			}
+		}
+	}
 	function reset() {
-		newEventForm.active = false
+		if (newEventForm.active && (newEventFormSubmitted || !Shared.isSameDate(newEventFormDate, model.date))) {
+			newEventForm.active = false
+		}
+		newEventFormSubmitted = false
 		agendaListItem.checkIfToday()
 	}
 
@@ -49,17 +63,22 @@ GridLayout {
 	// readonly property bool isCurrentItem: 0 <= scrollOffset && scrollOffset < height
 	// onItemOffsetChanged: console.log(index, 'itemOffset', itemOffset)
 
+	// AgendaView widens every row's date/weather column to the widest weather column.
+	readonly property int weatherColumnImplicitWidth: weatherLinkRect.visible ? weatherLinkRect.implicitWidth : 0
+	onWeatherColumnImplicitWidthChanged: agendaView.updateWeatherColumnWidth()
+	Component.onDestruction: {
+		if (agendaView) {
+			agendaView.updateWeatherColumnWidth()
+		}
+	}
+
 	LinkRect {
+		id: weatherLinkRect
 		visible: agendaModel.showDailyWeather
 		Layout.alignment: Qt.AlignTop
 		Layout.column: weatherOnRight ? 2 : 0
-		Layout.minimumWidth: appletConfig.agendaDateColumnWidth
+		Layout.minimumWidth: agendaView.dateColumnWidth
 		implicitWidth: itemWeatherColumn.implicitWidth
-		onWidthChanged: {
-			if (width > appletConfig.agendaDateColumnWidth) {
-				appletConfig.agendaDateColumnWidth = width
-			}
-		}
 		implicitHeight: itemWeatherColumn.implicitHeight
 
 		// readonly property int maxOffset: agendaListItem.height - height
@@ -125,7 +144,7 @@ GridLayout {
 	LinkRect {
 		Layout.alignment: Qt.AlignTop
 		Layout.column: weatherOnRight ? 0 : 1
-		implicitWidth: appletConfig.agendaDateColumnWidth
+		implicitWidth: agendaView.dateColumnWidth
 
 		// readonly property int maxOffset: agendaListItem.height - height
 		// Layout.topMargin: agendaListItem.isCurrentItem ? Math.min(maxOffset, agendaListItem.scrollOffset) : 0
@@ -192,6 +211,12 @@ GridLayout {
 		NewEventForm {
 			id: newEventForm
 			Layout.fillWidth: true
+			onActiveChanged: {
+				if (active) {
+					agendaListItem.newEventFormDate = model.date
+					agendaListItem.newEventFormSubmitted = false
+				}
+			}
 		}
 
 		ColumnLayout {
@@ -219,22 +244,6 @@ GridLayout {
 				}
 			}
 		}
-	}
-
-		function indexOfEvent(eventId) {
-			for (var i = 0; i < eventsRepeater.model.length; i++) {
-				var event = eventsRepeater.model[i]
-				if (event.id === eventId) {
-				return i
-			}
-		}
-		for (var i = 0; i < tasksRepeater.model.length; i++) {
-			var task = tasksRepeater.model[i]
-			if (task.id === eventId) {
-				return eventsRepeater.model.length + i
-			}
-		}
-		return -1
 	}
 
 	function getEventOffset(index) {

@@ -41,10 +41,11 @@ QtObject {
 		cmd.push('--metadata', '' + Date.now())
 		var sanitizedSummary = executable.sanitizeString(args.summary)
 		var sanitizedBody = executable.sanitizeString(args.body)
+		cmd.push('--') // Summary/body may start with '-'
 		cmd.push(sanitizedSummary)
 		cmd.push(sanitizedBody)
 		executable.exec(cmd, function(cmd, exitCode, exitStatus, stdout, stderr) {
-			var actionId = stdout.replace('\n', ' ').trim()
+			var actionId = (stdout || '').replace('\n', ' ').trim()
 			if (typeof callback === 'function') {
 				callback(actionId)
 			}

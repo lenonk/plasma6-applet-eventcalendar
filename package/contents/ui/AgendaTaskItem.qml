@@ -33,7 +33,11 @@ LinkRect {
 	}
 
 	property alias isEditing: editTaskForm.active
-	enabled: !isEditing
+	linkEnabled: !isEditing
+	onIsEditingChanged: agendaView.editFormToggled(isEditing)
+	Component.onDestruction: {
+		if (isEditing && agendaView) agendaView.editFormToggled(false)
+	}
 
 	readonly property string eventTimestamp: {
 		if (model.due) {
@@ -176,7 +180,7 @@ LinkRect {
 		// eventModel.toggleCompleted(event.tasklistId, task.id)
 	}
 
-	onLoadContextMenu: {
+	onLoadContextMenu: function(contextMenu) {
 		var menuItem
 		var task = tasks.get(taskItemIndex)
 

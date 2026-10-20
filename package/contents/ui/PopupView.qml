@@ -349,6 +349,10 @@ import "./weather/WeatherApi.js" as WeatherApi
 			// 	today = new Date()
 			// }
 
+			function isUsableDate(d) {
+				return !!d && typeof d.getFullYear === "function" && Shared.isValidDate(d)
+			}
+
 			function parseGCalEvents(data) {
 				if (!(data && data.items)) {
 					return
@@ -365,9 +369,12 @@ import "./weather/WeatherApi.js" as WeatherApi
 				// https://github.com/KDE/plasma-framework/blob/master/src/declarativeimports/calendar/daysmodel.h
 				for (var j = 0; j < data.items.length; j++) {
 					var eventItem = data.items[j]
+					if (!isUsableDate(eventItem.startDateTime) || !isUsableDate(eventItem.endDateTime)) {
+						continue // Malformed event; skip it rather than abort the month view
+					}
 					var eventItemStartDate = new Date(eventItem.startDateTime.getFullYear(), eventItem.startDateTime.getMonth(), eventItem.startDateTime.getDate())
 					var eventItemEndDate = new Date(eventItem.endDateTime.getFullYear(), eventItem.endDateTime.getMonth(), eventItem.endDateTime.getDate())
-					if (eventItem.end.date) {
+					if (eventItem.end && eventItem.end.date) {
 						// All day events end at midnight which is technically the next day.
 						eventItemEndDate.setDate(eventItemEndDate.getDate() - 1)
 					}
@@ -415,7 +422,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 			Layout.fillWidth: true
 			Layout.fillHeight: true
 
-			onNewEventFormOpened: {
+			onNewEventFormOpened: function(agendaItem, calendarSelector) {
 				// logger.debug('onNewEventFormOpened')
 				var selectedCalendarId = ""
 				if (plasmoid.configuration.agendaNewEventRememberCalendar) {
@@ -424,7 +431,7 @@ import "./weather/WeatherApi.js" as WeatherApi
 				var calendarList = eventModel.getCalendarList()
 				calendarSelector.populate(calendarList, selectedCalendarId)
 			}
-			onSubmitNewEventForm: {
+			onSubmitNewEventForm: function(calendarId, date, text) {
 				logger.debug('onSubmitNewEventForm', calendarId)
 				eventModel.createEvent(calendarId, date, text)
 			}
@@ -481,17 +488,48 @@ import "./weather/WeatherApi.js" as WeatherApi
 		updateUITimer.restart()
 	}
 
-		function updateUI() {
-			// logger.debug('updateUI')
-			var now = new Date()
+	property bool agendaRepopulatePending: false
+	Connections {
+		target: agendaView
+		function onOpenEditFormsChanged() {
+			if (agendaView.openEditForms === 0 && popup.agendaRepopulatePending) {
+				popup.deferredUpdateUI()
+			}
+		}
+	}
 
+	function updateUI() {
+		// logger.debug('updateUI')
 		if (updateUITimer.running) {
 			updateUITimer.running = false
 		}
 
-		agendaModel.parseGCalEvents(eventModel.eventsData)
-		agendaModel.parseWeatherForecast(logic.dailyWeatherData)
-			monthView.parseGCalEvents(eventModel.eventsData)
-			scrollToSelection()
+		// Each step is independent so one bad event can't break the rest.
+		// Repopulating rebuilds the event delegates, so hold it while an edit form is open.
+		if (agendaView.openEditForms > 0) {
+			agendaRepopulatePending = true
+		} else {
+			agendaRepopulatePending = false
+			try {
+				agendaModel.parseGCalEvents(eventModel.eventsData)
+			} catch (e) {
+				logger.log('updateUI: agendaModel.parseGCalEvents failed', e, e && e.stack)
+			}
 		}
+		try {
+			agendaModel.parseWeatherForecast(logic.dailyWeatherData)
+		} catch (e) {
+			logger.log('updateUI: agendaModel.parseWeatherForecast failed', e, e && e.stack)
+		}
+		try {
+			monthView.parseGCalEvents(eventModel.eventsData)
+		} catch (e) {
+			logger.log('updateUI: monthView.parseGCalEvents failed', e, e && e.stack)
+		}
+		try {
+			scrollToSelection()
+		} catch (e) {
+			logger.log('updateUI: scrollToSelection failed', e, e && e.stack)
+		}
+	}
 	}

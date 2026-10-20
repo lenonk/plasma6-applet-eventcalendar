@@ -18,7 +18,7 @@ Rectangle {
 	property alias text: label.text
 	property alias wrapMode: label.wrapMode
 	property alias closeButtonVisible: closeButton.visible
-	property alias animate: visibleAnimation.enabled
+	property alias animate: opacityAnimation.enabled
 	property int iconSize: Kirigami.Units.iconSizes.large
 
 	enum MessageType {
@@ -93,8 +93,10 @@ Rectangle {
 		if (typeof messageType !== "undefined") {
 			messageWidget.messageType = messageType
 		}
-		text = message
-		visible = true
+		if (text !== message) {
+			text = message // Avoid breaking an external text binding needlessly
+		}
+		dismissed = false
 	}
 
 	function success(message) {
@@ -114,7 +116,7 @@ Rectangle {
 	}
 
 	function close() {
-		visible = false
+		dismissed = true
 	}
 
 	gradient: Gradient {
@@ -125,38 +127,21 @@ Rectangle {
 
 	readonly property int expandedHeight: layout.implicitHeight + (2 * layout.anchors.margins)
 	
-	visible: text
-	opacity: visible ? 1.0 : 0
-	implicitHeight: visible ? messageWidget.expandedHeight : 0
+	// Declarative so a longer message, or animate: false, still sizes correctly.
+	property bool dismissed: false
+	onTextChanged: dismissed = false
+	readonly property bool shown: !!text && !dismissed
+	visible: opacity > 0
+	opacity: shown ? 1.0 : 0
+	implicitHeight: shown ? messageWidget.expandedHeight : 0
 
-	Component.onCompleted: {
-		// Remove bindings
-		visible = visible
-		opacity = opacity
-		if (visible) {
-			implicitHeight = Qt.binding(function(){ return messageWidget.expandedHeight })
-		} else {
-			implicitHeight = 0
-		}
+	Behavior on opacity {
+		id: opacityAnimation
+		PropertyAnimation { easing.type: Easing.Linear }
 	}
-
-	Behavior on visible {
-		id: visibleAnimation
-
-		ParallelAnimation {
-			PropertyAnimation {
-				target: messageWidget
-				property: "opacity"
-				to: messageWidget.visible ? 0 : 1.0
-				easing.type: Easing.Linear
-			}
-			PropertyAnimation {
-				target: messageWidget
-				property: "implicitHeight"
-				to: messageWidget.visible ? 0 : messageWidget.expandedHeight
-				easing.type: Easing.Linear
-			}
-		}
+	Behavior on implicitHeight {
+		enabled: opacityAnimation.enabled
+		PropertyAnimation { easing.type: Easing.Linear }
 	}
 
 	RowLayout {

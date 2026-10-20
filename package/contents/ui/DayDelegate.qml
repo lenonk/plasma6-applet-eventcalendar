@@ -65,13 +65,6 @@ MouseArea {
 		return result
 	}
 
-	onHeightChanged: {
-		// this is needed here as the text is first rendered, counting with the default root.cellHeight
-		// then root.cellHeight actually changes to whatever it should be, but the Label does not pick
-		// it up after that, so we need to change it explicitly after the cell size changes
-		label.font.pixelSize = Math.max(Kirigami.Theme.smallFont.pixelSize, Math.floor(daysCalendar.cellHeight / 3))
-	}
-
 	Rectangle {
 		id: todayRect
 		anchors.fill: parent
@@ -240,6 +233,7 @@ MouseArea {
 	}
 
 	Component.onCompleted: {
+		updateEventColors() // onEventCountChanged does not fire for the initial count
 		if (stack.depth === 1 && today) {
 			root.date = model
 		}

@@ -36,7 +36,8 @@ ColumnLayout {
 		Layout.fillHeight: true
 		spacing: 0
 
-		property int fontPixelSize: height/2
+		// From the externally-sized column, not this row: the row's height depends on the font.
+		property int fontPixelSize: Math.max(1, (timerInputView.height - buttonRow.implicitHeight - timerInputView.spacing) / 2)
 
 		TimerTextField {
 			id: hoursTextField
@@ -68,6 +69,7 @@ ColumnLayout {
 	}
 
 	RowLayout {
+		id: buttonRow
 		Item {
 			Layout.fillWidth: true
 		}

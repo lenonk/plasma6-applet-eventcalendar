@@ -34,7 +34,7 @@ Item {
 
 			PlasmaComponents3.ToolButton {
 				id: timerLabel
-				text: "0:00"
+				text: timerModel.formatTimer(timerModel.secondsLeft)
 				icon.name: {
 					if (timerModel.secondsLeft === 0) {
 						return 'chronometer'
@@ -185,23 +185,15 @@ Item {
 		timerView.forceActiveFocus()
 	}
 
-	Connections {
-		target: timerModel
-		function onSecondsLeftChanged() {
-			timerLabel.text = timerModel.formatTimer(timerModel.secondsLeft)
-		}
-	}
-
-
 	QQC2.Menu {
 		id: contextMenu
-		property var dynamicItems: []
-
 		function clearDynamicItems() {
-			for (var i = 0; i < dynamicItems.length; i++) {
-				dynamicItems[i].destroy()
+			while (contextMenu.count > 0) {
+				var item = contextMenu.takeItem(0)
+				if (item) {
+					item.destroy()
+				}
 			}
-			dynamicItems = []
 		}
 
 		function addMenuAction(icon, text, handler) {
@@ -209,12 +201,12 @@ Item {
 			menuItem.icon.name = icon
 			menuItem.text = text
 			menuItem.triggered.connect(handler)
-			dynamicItems.push(menuItem)
+			contextMenu.addItem(menuItem)
 		}
 
 		function addMenuSeparator() {
 			var separator = Qt.createQmlObject("import QtQuick.Controls; MenuSeparator {}", contextMenu)
-			dynamicItems.push(separator)
+			contextMenu.addItem(separator)
 		}
 
 		function loadDynamicActions() {

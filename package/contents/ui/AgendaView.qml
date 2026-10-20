@@ -18,6 +18,29 @@ Item {
 	property color isOverdueColor: Kirigami.Theme.negativeTextColor
 	property int isOverdueFontWeight: Font.Bold
 
+	// Edit forms currently open; PopupView holds agenda repopulates while > 0.
+	property int openEditForms: 0
+	function editFormToggled(open) {
+		openEditForms = Math.max(0, openEditForms + (open ? 1 : -1))
+	}
+
+	// Shared width of the date and weather columns so all rows line up.
+	property int maxWeatherColumnWidth: 0
+	readonly property int dateColumnWidth: Math.max(appletConfig.agendaDateColumnWidth, maxWeatherColumnWidth)
+	function updateWeatherColumnWidth() {
+		Qt.callLater(agendaView.recalcWeatherColumnWidth)
+	}
+	function recalcWeatherColumnWidth() {
+		var w = 0
+		for (var i = 0; i < agendaRepeater.count; i++) {
+			var item = agendaRepeater.itemAt(i)
+			if (item) {
+				w = Math.max(w, item.weatherColumnImplicitWidth)
+			}
+		}
+		maxWeatherColumnWidth = w
+	}
+
 	signal newEventFormOpened(var agendaItem, var calendarSelector)
 	signal submitNewEventForm(string calendarId, var date, string text)
 
@@ -71,11 +94,8 @@ Item {
 			Repeater {
 				id: agendaRepeater
 
-				property bool populated: false
-				// onPopulatedChanged: console.log(Date.now(), 'agendaRepeater.populated', populated)
 				model: root.agendaModel
 				delegate: AgendaListItem {
-					// visible: agendaRepeater.populated
 					width: parent.width
 					// onHeightChanged: {
 					// 	if (scrollToIndexTimer.running) {
@@ -85,17 +105,6 @@ Item {
 					
 					// Component.onCompleted: console.log(Date.now(), 'AgendaListItem.onCompleted', index)
 					// Component.onDestruction: console.log(Date.now(), 'AgendaListItem.onDestruction', index)
-				}
-
-				function onItemAdded(index, item) {
-					// console.log(Date.now(), 'agendaRepeater.itemAdded', index)
-					if (index === root.agendaModel.count-1) {
-						populated = true
-					}
-				}
-				function onItemRemoved(index, item) {
-					// console.log(Date.now(), 'agendaRepeater.onItemRemoved', index)
-					populated = false
 				}
 			}
 		}
@@ -146,7 +155,7 @@ Item {
 				if (!__flickable || typeof __flickable.contentY !== "number") {
 					return
 				}
-				__flickable.contentY = Math.min(offsetY, contentHeight - viewportHeight)
+				__flickable.contentY = Math.max(0, Math.min(offsetY, contentHeight - viewportHeight))
 			}
 
 		function positionViewAtBeginning() {
@@ -220,22 +229,4 @@ Item {
 		agendaScrollView.positionViewAtEnd()
 	}
 
-	// [Note] This function is untested!
-	function scrollToEvent(date, eventId) {
-		for (var i = 0; i < agendaRepeater.model.count; i++) {
-			var agendaItem = agendaRepeater.model.get(i)
-			if (Shared.isSameDate(date, agendaItem.date)) {
-				var agendaListItem = agendaRepeater.itemAt(i)
-				var eventIndex = agendaListItem.indexOfEvent(eventId)
-				if (eventIndex >= 0) {
-					scrollToIndexTimer.scrollTo(i)
-				}
-				return
-			} else if (Shared.isDateEarlier(date, agendaItem.date)) {
-				// If the date is smaller than the current agendaItem.date, then we've iterated past the target date.
-				return
-			}
-		}
-		// The date was greater than any item in the agenda.
-	}
 }

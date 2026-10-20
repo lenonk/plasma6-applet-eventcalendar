@@ -7,8 +7,17 @@ QQC2.Menu {
 	signal populate(var contextMenu)
 
 	property var menuItems: []
+	property var ownedObjects: [] // MenuItem models and submenus created by this menu
 
 	function clearMenuItems() {
+		for (var i = 0; i < ownedObjects.length; i++) {
+			var obj = ownedObjects[i]
+			if (typeof obj.clearVisualItems === "function") {
+				obj.clearVisualItems()
+			}
+			obj.destroy()
+		}
+		ownedObjects = []
 		menuItems = []
 	}
 
@@ -18,12 +27,14 @@ QQC2.Menu {
 
 	function newMenuItem(parentMenu, properties) {
 		var item = menuItemComponent.createObject(contextMenu, properties || {})
+		ownedObjects.push(item)
 		return item
 	}
 
 	function newSubMenu(parentMenu, properties) {
 		var subMenuItem = newMenuItem(parentMenu || contextMenu, properties)
 		var subMenu = Qt.createComponent("ContextMenu.qml").createObject(contextMenu)
+		ownedObjects.push(subMenu)
 		subMenuItem.subMenu = subMenu
 		return subMenuItem
 	}
@@ -33,8 +44,16 @@ QQC2.Menu {
 	}
 
 	function clearVisualItems() {
-		if (typeof clear === "function") {
-			clear()
+		while (count > 0) {
+			var first = itemAt(0)
+			if (first && first.subMenu) {
+				takeMenu(0) // Menu deletes the submenu's own item
+			} else {
+				var visualItem = takeItem(0)
+				if (visualItem) {
+					visualItem.destroy()
+				}
+			}
 		}
 	}
 
@@ -44,15 +63,25 @@ QQC2.Menu {
 			return
 		}
 
+		if (item.subMenu) {
+			item.subMenu.title = item.text || ""
+			item.subMenu.rebuildMenu()
+			menu.addMenu(item.subMenu)
+			var subMenuItem = menu.itemAt(menu.count - 1)
+			if (subMenuItem) {
+				subMenuItem.enabled = item.enabled
+				if (item.icon) {
+					subMenuItem.icon.name = item.icon
+				}
+			}
+			return
+		}
+
 		var visualItem = Qt.createQmlObject("import QtQuick.Controls; MenuItem {}", menu)
 		visualItem.text = item.text || ""
-		visualItem.enabled = typeof item.enabled === "undefined" ? true : item.enabled
+		visualItem.enabled = item.enabled
 		if (item.icon) {
 			visualItem.icon.name = item.icon
-		}
-		if (item.subMenu) {
-			item.subMenu.rebuildMenu()
-			visualItem.menu = item.subMenu
 		}
 		visualItem.triggered.connect(function() {
 			item.clicked()
@@ -68,6 +97,7 @@ QQC2.Menu {
 	}
 
 	function show(x, y) {
+		clearVisualItems()
 		clearMenuItems()
 		populate(contextMenu)
 		rebuildMenu()

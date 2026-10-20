@@ -45,13 +45,6 @@ PlasmoidItem {
 		source: "../fonts/weathericons-regular-webfont.ttf"
 	}
 
-	Connections {
-		target: plasmoid
-		function onContextualActionsAboutToShow() {
-			DigitalClock.ClipboardMenu.currentDate = timeModel.currentTime
-		}
-	}
-
 	toolTipItem: Loader {
 		id: tooltipLoader
 
@@ -69,7 +62,11 @@ PlasmoidItem {
 			id: executable
 			engine: "executable"
 			connectedSources: []
-			function onNewData(sourceName, data) {
+			// Must be a handler, not a plain function, or sources are never released.
+			onNewData: function(sourceName, data) {
+				if (data["exit code"]) {
+					logger.log('Mouse wheel command failed', sourceName, data["exit code"], data["stderr"])
+				}
 				disconnectSource(sourceName) // cmd finished
 			}
 		function getUniqueId(cmd) {
@@ -161,7 +158,7 @@ PlasmoidItem {
 		// * the timer widget is enabled since there's room in the top right
 		property bool isPinVisible: {
 			// plasmoid.location == PlasmaCore.Types.Floating when using plasmawindowed and when used as a desktop widget.
-			return root.location != PlasmaCore.Types.Floating // && plasmoid.configuration.widget_show_pin
+			return Plasmoid.location != PlasmaCore.Types.Floating // && plasmoid.configuration.widget_show_pin
 		}
 		padding: {
 			if (isPinVisible && !(plasmoid.configuration.widgetShowTimer || plasmoid.configuration.widgetShowMeteogram)) {
@@ -230,11 +227,17 @@ PlasmoidItem {
 	compactRepresentation: clockComponent
 	fullRepresentation: popupComponent
 
-	Component.onCompleted: {
-		if (typeof plasmoid !== "undefined" && typeof plasmoid.setAction === "function" && typeof plasmoid.action === "function") {
-			plasmoid.setAction("clipboard", i18nd("plasma_applet_org.kde.plasma.digitalclock", "Copy to Clipboard"), "edit-copy")
-			DigitalClock.ClipboardMenu.setupMenu(plasmoid.action("clipboard"))
+	// Same as the digitalclock applet; ClipboardMenu reads the current time itself.
+	Plasmoid.contextualActions: [
+		PlasmaCore.Action {
+			id: clipboardAction
+			text: i18nd("plasma_applet_org.kde.plasma.digitalclock", "Copy to Clipboard")
+			icon.name: "edit-copy"
 		}
+	]
+
+	Component.onCompleted: {
+		DigitalClock.ClipboardMenu.setupMenu(clipboardAction)
 
 		// plasmoid.action("configure").trigger()
 	}

@@ -41,7 +41,11 @@ LinkRect {
 	}
 
 	property alias isEditing: editEventForm.active
-	enabled: !isEditing
+	linkEnabled: !isEditing
+	onIsEditingChanged: agendaView.editFormToggled(isEditing)
+	Component.onDestruction: {
+		if (isEditing && agendaView) agendaView.editFormToggled(false)
+	}
 
 	readonly property string eventTimestamp: LocaleFuncs.formatEventDuration(model, {
 		relativeDate: agendaItemDate,
@@ -89,8 +93,8 @@ LinkRect {
 				Text {
 					text: {
 						var event = events.get(eventItemIndex)
-						var calendar = eventModel.getCalendar(event.calendarId)
-						return calendar.summary
+						var calendar = event ? eventModel.getCalendar(event.calendarId) : null
+						return calendar && calendar.summary || ''
 					}
 					color: eventToolTip.palette.text
 					font: eventToolTip.font
@@ -244,11 +248,13 @@ LinkRect {
 			upcomingEvents.sendEventStartingNotification(model)
 		} else {
 			// agenda_event_clicked == "browser_viewevent"
-			Qt.openUrlExternally(model.htmlLink)
+			if (model.htmlLink) { // Local/ICS events have no link
+				Qt.openUrlExternally(model.htmlLink)
+			}
 		}
 	}
 
-	onLoadContextMenu: {
+	onLoadContextMenu: function(contextMenu) {
 		var menuItem
 		var event = events.get(eventItemIndex)
 

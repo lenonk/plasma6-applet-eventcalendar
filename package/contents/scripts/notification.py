@@ -2,6 +2,7 @@
 import os, sys
 import argparse
 import subprocess
+import urllib.parse
 from enum import Enum, IntEnum
 from ctypes import *
 
@@ -106,7 +107,7 @@ def playSound(args):
 	]
 
 	if args.sound.startswith('file://'):
-		args.sound = args.sound[len('file://'):]
+		args.sound = urllib.parse.unquote(args.sound[len('file://'):])
 
 	if args.sound.startswith('/'):
 		canberra.playFile(args.sound, *props)
@@ -170,7 +171,7 @@ def main():
 	parser.add_argument('--icon', default='')
 	parser.add_argument('--app-name', dest='appName', default='Event Calendar')
 	parser.add_argument('--sound')
-	parser.add_argument('--loop')
+	parser.add_argument('--loop', type=int, default=0)
 	parser.add_argument('--timeout', type=int, default=Notify.EXPIRES_DEFAULT)
 	parser.add_argument('--action', dest='actions', action='append')
 	parser.add_argument('--metadata')
