@@ -15,6 +15,68 @@ ConfigPage {
 	property bool oauthBusy: false
 	property bool syncingSelectionModels: false
 
+	// Google account slots: 0 uses the unprefixed config keys, the rest "account2".."account5".
+	readonly property var extraAccountPrefixes: ["account2", "account3", "account4", "account5"]
+	// Currently edited slot.
+	property int accountIndex: 0
+	function loginManagerAt(slot) {
+		if (slot <= 0) return googleLoginManager
+		return extraLoginManagers.itemAt(slot - 1) || null
+	}
+	readonly property var lm: {
+		extraLoginManagers.count // re-evaluate once the extra managers exist
+		return loginManagerAt(accountIndex) || googleLoginManager
+	}
+	function syncAccountTabBar() {
+		accountTabBar.currentIndex = Math.max(0, visibleSlots.indexOf(accountIndex))
+	}
+	onAccountIndexChanged: syncAccountTabBar()
+	onLmChanged: {
+		clearStatus()
+		rebuildCalendarsModel()
+		rebuildTasklistsModel()
+	}
+
+	// Tabs: the first account, every connected extra account, then one free slot to add an account.
+	readonly property var visibleSlots: {
+		var slots = [0]
+		var freeSlot = -1
+		for (var i = 1; i <= extraLoginManagers.count; i++) {
+			var m = loginManagerAt(i)
+			if (m && m.isLoggedIn) {
+				slots.push(i)
+			} else if (freeSlot < 0) {
+				freeSlot = i
+			}
+		}
+		if (freeSlot >= 0 && googleLoginManager.isLoggedIn) {
+			slots.push(freeSlot)
+		}
+		return slots
+	}
+	onVisibleSlotsChanged: {
+		if (visibleSlots.indexOf(accountIndex) < 0) {
+			accountIndex = 0
+		}
+		syncAccountTabBar()
+	}
+
+	function accountTabLabel(slot) {
+		var m = loginManagerAt(slot)
+		if (m && m.isLoggedIn) {
+			return accountEmail(m) || i18n("Account %1", slot + 1)
+		}
+		return slot === 0 ? i18n("Account 1") : i18n("+ Add account")
+	}
+
+	function accountEmail(manager) {
+		var list = manager.calendarList || []
+		for (var i = 0; i < list.length; i++) {
+			if (list[i] && list[i].primary === true) return list[i].id
+		}
+		return ""
+	}
+
 	function sortByKey(key, a, b) {
 		if (typeof a[key] === "string") {
 			return a[key].toLowerCase().localeCompare(b[key].toLowerCase())
@@ -100,18 +162,19 @@ ConfigPage {
 		for (var i = 0; i < calendarsModel.count; i++) {
 			var item = calendarsModel.get(i)
 			if (item.show) {
-				ids.push(item.isPrimary ? "primary" : item.calendarId)
+				ids.push(item.isPrimary && !page.lm.accountPrefix ? "primary" : item.calendarId)
 			}
 		}
 		var selectedIds = unique(ids)
 		var selectedString = selectedIds.join(",")
-		var managerString = (googleLoginManager.calendarIdList || []).join(",")
+		var managerString = (page.lm.calendarIdList || []).join(",")
 		if (managerString !== selectedString) {
-			googleLoginManager.calendarIdList = selectedIds
+			page.lm.calendarIdList = selectedIds
 		}
 		// Persist to cfg_* explicitly so KCM reliably marks the page dirty (Apply enabled).
-		if ((page.getConfigValue("calendarIdList", "") || "") !== selectedString) {
-			page.setConfigValue("calendarIdList", selectedString)
+		var calendarIdListKey = page.lm.cfgKey("calendarIdList")
+		if ((page.getConfigValue(calendarIdListKey, "") || "") !== selectedString) {
+			page.setConfigValue(calendarIdListKey, selectedString)
 		}
 	}
 
@@ -125,21 +188,22 @@ ConfigPage {
 		}
 		var selectedIds = unique(ids)
 		var selectedString = selectedIds.join(",")
-		var managerString = (googleLoginManager.tasklistIdList || []).join(",")
+		var managerString = (page.lm.tasklistIdList || []).join(",")
 		if (managerString !== selectedString) {
-			googleLoginManager.tasklistIdList = selectedIds
+			page.lm.tasklistIdList = selectedIds
 		}
 		// Persist to cfg_* explicitly so KCM reliably marks the page dirty (Apply enabled).
-		if ((page.getConfigValue("tasklistIdList", "") || "") !== selectedString) {
-			page.setConfigValue("tasklistIdList", selectedString)
+		var tasklistIdListKey = page.lm.cfgKey("tasklistIdList")
+		if ((page.getConfigValue(tasklistIdListKey, "") || "") !== selectedString) {
+			page.setConfigValue(tasklistIdListKey, selectedString)
 		}
 	}
 
 	function rebuildCalendarsModel() {
 		page.syncingSelectionModels = true
 		calendarsModel.clear()
-		var sorted = sortArr(googleLoginManager.calendarList || [], "summary")
-		var selected = googleLoginManager.calendarIdList || []
+		var sorted = sortArr(page.lm.calendarList || [], "summary")
+		var selected = page.lm.calendarIdList || []
 		for (var i = 0; i < sorted.length; i++) {
 			var item = sorted[i]
 			var isPrimary = item && item.primary === true
@@ -160,8 +224,8 @@ ConfigPage {
 	function rebuildTasklistsModel() {
 		page.syncingSelectionModels = true
 		tasklistsModel.clear()
-		var sorted = sortArr(googleLoginManager.tasklistList || [], "title")
-		var selected = googleLoginManager.tasklistIdList || []
+		var sorted = sortArr(page.lm.tasklistList || [], "title")
+		var selected = page.lm.tasklistIdList || []
 		for (var i = 0; i < sorted.length; i++) {
 			var item = sorted[i]
 			var isShown = selected.indexOf(item.id) >= 0
@@ -181,10 +245,11 @@ ConfigPage {
 		clearStatus()
 		showStatus(i18n("Opening the browser for Google login…"), Kirigami.MessageType.Information)
 		oauthBusy = true
+		var loginManager = page.lm
 
 		var helperPath = execUtil.urlToLocalPath(Qt.resolvedUrl("../../bin/eventcalendar-google-oauth"))
-		var clientId = googleLoginManager.getCfg("latestClientId", "")
-		var clientSecret = googleLoginManager.getCfg("latestClientSecret", "")
+		var clientId = page.lm.getCfg("latestClientId", "")
+		var clientSecret = page.lm.getCfg("latestClientSecret", "")
 
 		// Use a local helper so we can run a proper loopback OAuth flow (no "copy the code" UX).
 		execUtil.exec([
@@ -229,7 +294,7 @@ ConfigPage {
 				return
 			}
 
-			googleLoginManager.updateAccessToken(data)
+			loginManager.updateAccessToken(data)
 			showStatus(i18n("Google login complete. Click Apply to save."), Kirigami.MessageType.Positive)
 		})
 	}
@@ -241,10 +306,29 @@ ConfigPage {
 
 		onError: function(err) { showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error) }
 		// Deferred: a checkbox's onToggled changes the id list, and rebuilding would destroy that delegate mid-handler.
-		onCalendarListChanged: Qt.callLater(rebuildCalendarsModel)
-		onTasklistListChanged: Qt.callLater(rebuildTasklistsModel)
-		onCalendarIdListChanged: Qt.callLater(rebuildCalendarsModel)
-		onTasklistIdListChanged: Qt.callLater(rebuildTasklistsModel)
+		onCalendarListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildCalendarsModel)
+		onTasklistListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildTasklistsModel)
+		onCalendarIdListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildCalendarsModel)
+		onTasklistIdListChanged: if (page.lm === googleLoginManager) Qt.callLater(rebuildTasklistsModel)
+	}
+
+	// Holds the extra accounts' managers; an Item parent lets them find this config page.
+	Item {
+		visible: false
+		Repeater {
+			id: extraLoginManagers
+			model: page.extraAccountPrefixes
+			delegate: GoogleLoginManager {
+				id: extraLoginManager
+				accountPrefix: modelData
+
+				onError: function(err) { showStatus(page.localizedErrorMessage(err), Kirigami.MessageType.Error) }
+				onCalendarListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildCalendarsModel)
+				onTasklistListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildTasklistsModel)
+				onCalendarIdListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildCalendarsModel)
+				onTasklistIdListChanged: if (page.lm === extraLoginManager) Qt.callLater(rebuildTasklistsModel)
+			}
+		}
 	}
 
 	ListModel { id: calendarsModel }
@@ -263,6 +347,20 @@ ConfigPage {
 			showCloseButton: true
 		}
 
+		QQC2.TabBar {
+			id: accountTabBar
+			Layout.fillWidth: true
+			enabled: !page.oauthBusy
+
+			Repeater {
+				model: page.visibleSlots
+				delegate: QQC2.TabButton {
+					text: page.accountTabLabel(modelData)
+					onClicked: page.accountIndex = modelData
+				}
+			}
+		}
+
 		ConfigSection {
 			title: i18n("Login")
 
@@ -274,7 +372,9 @@ ConfigPage {
 					Layout.fillWidth: true
 					wrapMode: Text.Wrap
 					opacity: 0.85
-					text: i18n("Connect your Google account to show Google Calendar events in the agenda.")
+					text: page.lm.isLoggedIn && page.accountEmail(page.lm)
+						? i18n("Connected as %1.", page.accountEmail(page.lm))
+						: i18n("Connect your Google account to show Google Calendar events in the agenda.")
 				}
 
 				RowLayout {
@@ -283,12 +383,12 @@ ConfigPage {
 					spacing: Kirigami.Units.smallSpacing
 
 					QQC2.Button {
-						text: googleLoginManager.isLoggedIn ? i18n("Logout") : i18n("Login in Browser")
-						icon.name: googleLoginManager.isLoggedIn ? "system-log-out" : "internet-services"
+						text: page.lm.isLoggedIn ? i18n("Logout") : i18n("Login in Browser")
+						icon.name: page.lm.isLoggedIn ? "system-log-out" : "internet-services"
 						enabled: !oauthBusy
 						onClicked: {
-							if (googleLoginManager.isLoggedIn) {
-								googleLoginManager.logout()
+							if (page.lm.isLoggedIn) {
+								page.lm.logout()
 								clearStatus()
 								showStatus(i18n("Logged out. Click Apply to save."), Kirigami.MessageType.Information)
 							} else {
@@ -322,7 +422,7 @@ ConfigPage {
 				Kirigami.InlineMessage {
 					Kirigami.FormData.label: ""
 					Layout.fillWidth: true
-					visible: googleLoginManager.needsRelog
+					visible: page.lm.needsRelog
 					type: Kirigami.MessageType.Warning
 					text: i18n("Widget has been updated. Please logout and login again.")
 				}
@@ -332,7 +432,7 @@ ConfigPage {
 						Layout.fillWidth: true
 						visible: page.showHelp
 						type: Kirigami.MessageType.Information
-						text: googleLoginManager.isLoggedIn
+						text: page.lm.isLoggedIn
 							? i18n("You are connected. Use Refresh below if calendars/tasks changed, then click Apply to save selection updates.")
 							: i18n("A web browser will open for Google login. If the helper cannot start (missing binary, port in use), enable Advanced and use the manual code method.")
 					}
@@ -341,7 +441,7 @@ ConfigPage {
 
 		ConfigSection {
 			title: i18n("Calendars")
-			visible: googleLoginManager.isLoggedIn
+			visible: page.lm.isLoggedIn
 
 			RowLayout {
 				Layout.fillWidth: true
@@ -357,7 +457,7 @@ ConfigPage {
 				QQC2.Button {
 					icon.name: "view-refresh"
 					text: i18n("Refresh")
-					onClicked: googleLoginManager.updateCalendarList()
+					onClicked: page.lm.updateCalendarList()
 				}
 			}
 
@@ -411,7 +511,7 @@ ConfigPage {
 
 		ConfigSection {
 			title: i18n("Tasks")
-			visible: googleLoginManager.isLoggedIn
+			visible: page.lm.isLoggedIn
 
 			RowLayout {
 				Layout.fillWidth: true
@@ -427,7 +527,7 @@ ConfigPage {
 				QQC2.Button {
 					icon.name: "view-refresh"
 					text: i18n("Refresh")
-					onClicked: googleLoginManager.updateTasklistList()
+					onClicked: page.lm.updateTasklistList()
 				}
 			}
 
@@ -472,7 +572,7 @@ ConfigPage {
 
 		ConfigSection {
 			title: i18n("Options")
-			visible: googleLoginManager.isLoggedIn
+			visible: page.lm.isLoggedIn
 
 			Kirigami.FormLayout {
 				Layout.fillWidth: true
@@ -563,7 +663,7 @@ ConfigPage {
 				ColumnLayout {
 					Kirigami.FormData.label: ""
 					Layout.fillWidth: true
-					visible: page.showHelp && !googleLoginManager.isLoggedIn
+					visible: page.showHelp && !page.lm.isLoggedIn
 					spacing: Kirigami.Units.smallSpacing
 
 					QQC2.Label {
@@ -575,7 +675,7 @@ ConfigPage {
 
 					LinkText {
 						Layout.fillWidth: true
-						text: i18n("Open <a href=\"%1\">Google login</a> in your browser.", googleLoginManager.authorizationCodeUrl)
+						text: i18n("Open <a href=\"%1\">Google login</a> in your browser.", page.lm.authorizationCodeUrl)
 						wrapMode: Text.Wrap
 					}
 
@@ -605,7 +705,7 @@ ConfigPage {
 									if (amp >= 0) code = code.substr(0, amp)
 									code = decodeURIComponent(code)
 								}
-								googleLoginManager.fetchAccessToken({ authorizationCode: code })
+								page.lm.fetchAccessToken({ authorizationCode: code })
 							}
 						}
 					}
@@ -615,7 +715,14 @@ ConfigPage {
 	}
 
 	Component.onCompleted: {
-		if (googleLoginManager.isLoggedIn) {
+		// Accounts connected before their calendar list was saved: fetch it (also gives the tab its email).
+		for (var i = 0; i <= extraLoginManagers.count; i++) {
+			var m = loginManagerAt(i)
+			if (m && m.isLoggedIn && (m.calendarList || []).length === 0) {
+				m.updateData()
+			}
+		}
+		if (page.lm.isLoggedIn) {
 			rebuildCalendarsModel()
 			rebuildTasklistsModel()
 		}

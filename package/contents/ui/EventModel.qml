@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.15
 
 import "./calendars"
 
@@ -97,6 +98,28 @@ CalendarManager {
 	GoogleTasksManager {
 		id: googleTasksManager
 		session: googleApiSession
+	}
+
+	// Extra Google accounts (config keys prefixed with "account2".."account5").
+	Instantiator {
+		model: ["account2", "account3", "account4", "account5"]
+		delegate: QtObject {
+			id: account
+			property var session: GoogleApiSession {
+				accountPrefix: modelData
+			}
+			property var calendarManager: GoogleCalendarManager {
+				session: account.session
+			}
+			property var tasksManager: GoogleTasksManager {
+				session: account.session
+			}
+		}
+		onObjectAdded: function(index, object) {
+			eventModel.bindSignals(object.calendarManager)
+			eventModel.bindSignals(object.tasksManager)
+			deferredUpdate.restart()
+		}
 	}
 
 	PlasmaCalendarManager {

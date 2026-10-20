@@ -64,6 +64,7 @@ class Canberra:
 		EVENT_DESCRIPTION = b'event.description'
 		MEDIA_FILENAME = b'media.filename'
 		APPLICATION_NAME = b'application.name'
+		XDG_THEME_NAME = b'canberra.xdg-theme.name'
 
 	def __init__(self):
 		self.context = ca_context()
@@ -95,6 +96,24 @@ class Canberra:
 # play them with libcanberra. We can't use canberra-gtk-play since
 # it requires the gnome-session-canberra package in Ubuntu,
 # which is not installed by default.
+FALLBACK_SOUND_ID = 'message-new-instant'
+
+# The sound theme picked in System Settings (Plasma 6 default: ocean).
+def kdeSoundTheme():
+	path = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config')), 'kdeglobals')
+	group = None
+	try:
+		with open(path, encoding='utf-8') as f:
+			for line in f:
+				line = line.strip()
+				if line.startswith('['):
+					group = line
+				elif group == '[Sounds]' and line.startswith('Theme='):
+					return line[len('Theme='):] or 'ocean'
+	except OSError:
+		pass
+	return 'ocean'
+
 def playSound(args):
 	if not Canberra.installed():
 		sys.stderr.write('skipping playing sound\n')
@@ -104,11 +123,18 @@ def playSound(args):
 	props = [
 		Canberra.Prop.EVENT_DESCRIPTION, args.appName,
 		Canberra.Prop.APPLICATION_NAME, args.appName,
+		Canberra.Prop.XDG_THEME_NAME, kdeSoundTheme(),
 	]
 
 	if args.sound.startswith('file://'):
 		args.sound = urllib.parse.unquote(args.sound[len('file://'):])
 
+	if args.sound.startswith('/') and not os.path.isfile(args.sound):
+		# Eg: the old Oxygen default, which Plasma 6 no longer ships.
+		sys.stderr.write('sound file not found, using {}: {}\n'.format(FALLBACK_SOUND_ID, args.sound))
+		args.sound = FALLBACK_SOUND_ID
+
+	# A path plays that file, anything else is a sound name from the XDG sound theme.
 	if args.sound.startswith('/'):
 		canberra.playFile(args.sound, *props)
 	else:

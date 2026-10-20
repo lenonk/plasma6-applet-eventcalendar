@@ -15,7 +15,20 @@ Item {
 		return null
 	}
 
+	// Empty for the first account, "account2" for the second one.
+	property string accountPrefix: ""
+	readonly property var accountKeys: [
+		"sessionClientId", "sessionClientSecret",
+		"accessToken", "accessTokenType", "accessTokenExpiresAt", "refreshToken",
+		"calendarList", "calendarIdList", "tasklistList", "tasklistIdList",
+	]
+	function cfgKey(key) {
+		if (!accountPrefix || accountKeys.indexOf(key) < 0) return key
+		return accountPrefix + key.charAt(0).toUpperCase() + key.slice(1)
+	}
+
 	function getCfg(key, fallbackValue) {
+		key = cfgKey(key)
 		if (configPage) {
 			var v = configPage.getConfigValue(key, fallbackValue)
 			// Treat empty custom OAuth credentials as "use built-in defaults".
@@ -37,6 +50,7 @@ Item {
 	}
 
 	function setCfg(key, value) {
+		key = cfgKey(key)
 		if (configPage) {
 			configPage.setConfigValue(key, value)
 		} else {
@@ -65,7 +79,7 @@ Item {
 	property var m_calendarList: ConfigSerializedString {
 		id: m_calendarList
 		configPage: session.configPage
-		configKey: 'calendarList'
+		configKey: session.cfgKey('calendarList')
 		defaultValue: []
 	}
 	property alias calendarList: m_calendarList.value
@@ -73,7 +87,7 @@ Item {
 		property var m_calendarIdList: ConfigSerializedString {
 		id: m_calendarIdList
 		configPage: session.configPage
-		configKey: 'calendarIdList'
+		configKey: session.cfgKey('calendarIdList')
 		defaultValue: []
 
 			function serialize() {
@@ -97,7 +111,7 @@ Item {
 	property var m_tasklistList: ConfigSerializedString {
 		id: m_tasklistList
 		configPage: session.configPage
-		configKey: 'tasklistList'
+		configKey: session.cfgKey('tasklistList')
 		defaultValue: []
 	}
 	property alias tasklistList: m_tasklistList.value
@@ -105,7 +119,7 @@ Item {
 		property var m_tasklistIdList: ConfigSerializedString {
 		id: m_tasklistIdList
 		configPage: session.configPage
-		configKey: 'tasklistIdList'
+		configKey: session.cfgKey('tasklistIdList')
 		defaultValue: []
 
 			function serialize() {
@@ -145,7 +159,7 @@ Item {
 		url += "&response_type=code"
 		url += "&redirect_uri=" + encodeURIComponent(session.redirectUri)
 		url += "&access_type=offline"
-		url += "&prompt=consent"
+		url += "&prompt=" + encodeURIComponent("select_account consent")
 		url += "&include_granted_scopes=true"
 		url += "&client_id=" + encodeURIComponent(session.getCfg("latestClientId", ""))
 		return url
@@ -217,10 +231,10 @@ Item {
 		var refreshToken = session.getCfg("refreshToken", "")
 		// The running widget may already have refreshed this session's token.
 		var live = (typeof plasmoid !== "undefined" && plasmoid) ? plasmoid.configuration : null
-		if (live && refreshToken && live.refreshToken === refreshToken
-			&& live.accessToken && live.accessTokenExpiresAt > Date.now() + 5000
+		if (live && refreshToken && live[cfgKey("refreshToken")] === refreshToken
+			&& live[cfgKey("accessToken")] && live[cfgKey("accessTokenExpiresAt")] > Date.now() + 5000
 		) {
-			return callback(live.accessToken)
+			return callback(live[cfgKey("accessToken")])
 		}
 		if (!refreshToken) {
 			session.error(i18n("Google login expired. Please log in again."))
@@ -267,8 +281,22 @@ Item {
 					return
 				}
 				m_calendarList.value = data.items
+				selectPrimaryCalendarIfNone()
 			})
 		})
+	}
+
+	// A freshly connected account shows its own calendar instead of nothing.
+	function selectPrimaryCalendarIfNone() {
+		if ((calendarIdList || []).length > 0) return
+		var list = calendarList || []
+		for (var i = 0; i < list.length; i++) {
+			if (list[i] && list[i].primary === true) {
+				// Extra accounts store the real id: "primary" would collide between accounts.
+				calendarIdList = [accountPrefix ? list[i].id : "primary"]
+				return
+			}
+		}
 	}
 
 	function fetchGCalCalendars(args, callback) {

@@ -140,7 +140,8 @@ int main(int argc, char **argv)
         // Request a refresh token.
         if (stage == QAbstractOAuth::Stage::RequestingAuthorization) {
             parameters->insert(QStringLiteral("access_type"), QStringLiteral("offline"));
-            parameters->insert(QStringLiteral("prompt"), QStringLiteral("consent"));
+            // select_account lets the user pick which Google account to connect.
+            parameters->insert(QStringLiteral("prompt"), QStringLiteral("select_account consent"));
             parameters->insert(QStringLiteral("include_granted_scopes"), QStringLiteral("true"));
         }
     });

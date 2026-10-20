@@ -1,9 +1,11 @@
 // Version 5
 
 import QtQuick 2.0
+import QtQml
 import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts 1.0
+import Qt.labs.folderlistmodel
 import org.kde.plasma.plasma5support as Plasma5Support
 
 RowLayout {
@@ -56,6 +58,13 @@ RowLayout {
 		var localPath = urlToLocalPath(sfxPath.value)
 		if (!localPath) return
 		var quoted = shellQuote(localPath)
+		if (localPath.indexOf("/") !== 0) {
+			// A sound name from the XDG sound theme, eg: message-new-instant
+			var fallback = "f=$(ls /usr/share/sounds/" + systemSounds.themeName + "/stereo/" + quoted + ".* /usr/share/sounds/freedesktop/stereo/" + quoted + ".* 2>/dev/null | grep -v '[.]license$' | head -n 1)"
+			executable.connectSource(uniqueCmd("canberra-gtk-play -i " + quoted + " >/dev/null 2>&1"
+				+ " || { " + fallback + "; [ -n \"$f\" ] && { pw-play \"$f\" || paplay \"$f\"; }; } >/dev/null 2>&1"))
+			return
+		}
 		var cmd = "paplay " + quoted + " >/dev/null 2>&1"
 			+ " || pw-play " + quoted + " >/dev/null 2>&1"
 			+ " || aplay " + quoted + " >/dev/null 2>&1"
@@ -72,6 +81,20 @@ RowLayout {
 		}
 	}
 
+	// Sounds of the Plasma sound theme, offered by name so they follow the theme.
+	FolderListModel {
+		id: systemSounds
+		property string themeName: "ocean"
+		folder: "file:///usr/share/sounds/" + themeName + "/stereo"
+		nameFilters: ["*.oga", "*.ogg", "*.wav"]
+		showDirs: false
+		onStatusChanged: {
+			if (status === FolderListModel.Ready && count === 0 && themeName !== "freedesktop") {
+				themeName = "freedesktop"
+			}
+		}
+	}
+
 	spacing: 0
 	ConfigCheckBox {
 		id: sfxEnabledCheckBox
@@ -85,6 +108,26 @@ RowLayout {
 		id: sfxPath
 		enabled: sfxEnabled
 		Layout.fillWidth: true
+	}
+	Button {
+		icon.name: "preferences-desktop-sound"
+		enabled: sfxEnabled
+		onClicked: systemSoundsMenu.popup()
+		ToolTip.visible: hovered
+		ToolTip.text: i18n("System sounds")
+
+		Menu {
+			id: systemSoundsMenu
+			Instantiator {
+				model: systemSounds
+				delegate: MenuItem {
+					text: fileBaseName
+					onTriggered: sfxPathValue = fileBaseName
+				}
+				onObjectAdded: function(index, object) { systemSoundsMenu.insertItem(index, object) }
+				onObjectRemoved: function(index, object) { systemSoundsMenu.removeItem(object) }
+			}
+		}
 	}
 	Button {
 		icon.name: "folder-symbolic"
