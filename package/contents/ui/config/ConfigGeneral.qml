@@ -126,6 +126,16 @@ ConfigPage {
 					text: i18n("Time formats use Qt’s date/time format strings.")
 				}
 
+				QQC2.Label {
+					Kirigami.FormData.label: ""
+					Layout.fillWidth: true
+					Layout.preferredWidth: 0
+					wrapMode: Text.Wrap
+					opacity: 0.8
+					textFormat: Text.StyledText
+					text: i18n("HTML tags can style part of a line. Wrap each tag in single quotes so it is not read as part of the time format, e.g. %1", "<b>'&lt;font color=\"#888\"&gt;'ddd'&lt;/font&gt;' h:mm</b>")
+				}
+
 				LinkText {
 					Kirigami.FormData.label: ""
 					text: "<a href=\"https://doc.qt.io/qt-6/qml-qtqml-qt.html#formatDateTime-method\">" + i18n("Time Format Documentation") + "</a>"
@@ -168,6 +178,21 @@ ConfigPage {
 						QQC2.Button {
 							readonly property string dateFormat: "MMM d, " + Qt.locale().timeFormat(Locale.ShortFormat)
 							text: Qt.formatDateTime(new Date(), dateFormat)
+							onClicked: page.setLine1FormatPreset(dateFormat)
+						}
+				}
+
+				RowLayout {
+					Kirigami.FormData.label: ""
+
+						ColorTextButton {
+							readonly property string dateFormat: "'<font color=\"#3daee9\">'MMM d'</font>' " + Qt.locale().timeFormat(Locale.ShortFormat)
+							label: Qt.formatDateTime(new Date(), dateFormat)
+							onClicked: page.setLine1FormatPreset(dateFormat)
+						}
+						ColorTextButton {
+							readonly property string dateFormat: "'<font color=\"#888\">'ddd d'</font>' h:mm'<font color=\"#888\">'AP'</font>'"
+							label: Qt.formatDateTime(new Date(), dateFormat)
 							onClicked: page.setLine1FormatPreset(dateFormat)
 						}
 				}

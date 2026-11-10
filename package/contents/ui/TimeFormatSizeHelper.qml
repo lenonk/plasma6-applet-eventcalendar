@@ -34,9 +34,11 @@ Item {
 
 	readonly property string widestTimeFormat: {
 		var maximumWidthNumber = getWidestNumber(fontMetrics)
-		// replace all placeholders with the widest number (two digits)
-		var format = timeLabel.timeFormat.replace(/(h+|m+|s+)/g, "" + maximumWidthNumber + maximumWidthNumber) // make sure maximumWidthNumber is formatted as string
-		return format
+		var widest = "" + maximumWidthNumber + maximumWidthNumber // two digits, as a string
+		// Replace h/m/s placeholders with the widest number; keep quoted literals (e.g. HTML tags) intact.
+		return timeLabel.timeFormat.replace(/'[^']*'|h+|m+|s+/g, function(match) {
+			return match.charAt(0) === "'" ? match : widest
+		})
 	}
 
 	readonly property real minWidth: formattedSizeHelper.paintedWidth
