@@ -97,7 +97,6 @@ int main(int argc, char **argv)
 
     auto *replyHandler = new QOAuthHttpServerReplyHandler(QHostAddress(QStringLiteral("127.0.0.1")),
                                                           static_cast<quint16>(port), &app);
-    replyHandler->setCallbackHost(QStringLiteral("127.0.0.1"));
     replyHandler->setCallbackPath(QStringLiteral("/"));
     replyHandler->setCallbackText(QStringLiteral(
         "<!doctype html>"

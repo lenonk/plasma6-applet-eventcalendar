@@ -10,7 +10,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(KDEInstallDirs)
 
-find_package(Qt6 REQUIRED COMPONENTS Core NetworkAuth)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core NetworkAuth)
 
 find_package(KF6Package REQUIRED)
 find_package(Plasma REQUIRED)
