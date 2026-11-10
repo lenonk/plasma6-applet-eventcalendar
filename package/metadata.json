@@ -5,7 +5,7 @@
 		"Name": "Event Calendar",
 		"Description": "Plasmoid for a calendar+agenda with weather that syncs to Google Calendar.",
 		"Icon": "view-calendar",
-		"Version": "1.0.5",
+		"Version": "1.0.6",
 		"License": "GPL",
 		"Website": "https://github.com/lenonk/plasma6-applet-eventcalendar",
 		"Category": "Date and Time",
